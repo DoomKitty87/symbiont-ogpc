@@ -9,6 +9,9 @@ public class GunController : MonoBehaviour
     private Transform gunMuzzle;
     [SerializeField]
     private float fireRate;
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color explodeColor;
 
     private LineRenderer laserEffect;
     private Camera cam;
@@ -16,6 +19,10 @@ public class GunController : MonoBehaviour
     private Transform gun;
     private Renderer laser;
     private GameObject impactFX;
+    private GameObject explodeFX;
+    private GameObject muzzleFlashFX;
+    private UnityEngine.ParticleSystem.MainModule main;
+    private UnityEngine.ParticleSystem.ShapeModule sh;
 
     void Start() {
       laserEffect = GetComponent<LineRenderer>();
@@ -24,6 +31,10 @@ public class GunController : MonoBehaviour
       Cursor.lockState = CursorLockMode.Locked;
       gun = gunMuzzle.parent;
       impactFX = gunMuzzle.GetChild(0).gameObject;
+      explodeFX = gunMuzzle.GetChild(1).gameObject;
+      muzzleFlashFX = gunMuzzle.GetChild(2).gameObject;
+      main = explodeFX.GetComponent<ParticleSystem>().main;
+      sh = explodeFX.GetComponent<ParticleSystem>().shape;
       //Cursor.visible = false;
     }
 
@@ -49,6 +60,7 @@ public class GunController : MonoBehaviour
       if (Physics.Raycast(origin, cam.transform.forward, out hit)) {
         laserEffect.SetPosition(1, hit.point);
         impactFX.transform.position = hit.point;
+        impactFX.GetComponent<ParticleSystem>().Play();
         if (hit.collider.gameObject.CompareTag("Target")) {
           HitTarget(hit);
         }
@@ -59,7 +71,28 @@ public class GunController : MonoBehaviour
     }
 
     public void HitTarget(RaycastHit hit) {
+      StartCoroutine(ExplodeTarget(hit.collider.gameObject));
       return;
+    }
+
+    private IEnumerator ExplodeTarget(GameObject target) {
+      float timer = 0f;
+      float explodeTime = 0.5f;
+      MeshRenderer targetMesh = target.GetComponent<MeshRenderer>();
+      Color initial = targetMesh.material.color;
+      Vector3 initScale = target.transform.localScale;
+      while (timer < explodeTime) {
+        targetMesh.material.color = Color.Lerp(initial, explodeColor, Mathf.SmoothStep(0f, 1f, timer / explodeTime));
+        target.transform.localScale = Vector3.Lerp(initScale, initScale * 2f, Mathf.SmoothStep(0f, 1f, timer / explodeTime));
+        timer += Time.deltaTime;
+        yield return null;
+      }
+      sh.mesh = target.GetComponent<MeshFilter>().mesh;
+      sh.scale = target.transform.localScale;
+      main.startSizeMultiplier = 0.4f;
+      explodeFX.transform.position = target.transform.position;
+      explodeFX.GetComponent<ParticleSystem>().Play();
+      Destroy(target);
     }
 
     private IEnumerator Recoil() {
@@ -126,7 +159,6 @@ public class GunController : MonoBehaviour
       StopCoroutine("Recoil");
       StartCoroutine(LaserFX());
       StartCoroutine(Recoil());
-      gunMuzzle.gameObject.GetComponent<ParticleSystem>().Play();
-      impactFX.GetComponent<ParticleSystem>().Play();
+      muzzleFlashFX.GetComponent<ParticleSystem>().Play();
     }
 }
