@@ -15,6 +15,7 @@ public class GunController : MonoBehaviour
     private float canFireTime;
     private Transform gun;
     private Renderer laser;
+    private GameObject impactFX;
 
     void Start() {
       laserEffect = GetComponent<LineRenderer>();
@@ -22,6 +23,7 @@ public class GunController : MonoBehaviour
       cam = GetComponent<Camera>();
       Cursor.lockState = CursorLockMode.Locked;
       gun = gunMuzzle.parent;
+      impactFX = gunMuzzle.GetChild(0).gameObject;
       //Cursor.visible = false;
     }
 
@@ -40,12 +42,13 @@ public class GunController : MonoBehaviour
     private void Shoot() {
       if (!CanShoot()) return;
       canFireTime = Time.time + fireRate;
-      ShootFX();   
       Vector3 origin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
       RaycastHit hit;
       laserEffect.SetPosition(0, gunMuzzle.position);
+      ShootFX();
       if (Physics.Raycast(origin, cam.transform.forward, out hit)) {
         laserEffect.SetPosition(1, hit.point);
+        impactFX.transform.position = hit.point;
         if (hit.collider.gameObject.CompareTag("Target")) {
           HitTarget(hit);
         }
@@ -92,25 +95,38 @@ public class GunController : MonoBehaviour
       Color colout = Color.clear;
       laserEffect.enabled = true;
       laser.material.color = colout;
+      laserEffect.startWidth = 0f;
+      laserEffect.endWidth = laserEffect.startWidth;
       while (timer < durIn) {
+        laserEffect.startWidth = Mathf.Lerp(0f, 0.25f, timer / durIn);
+        laserEffect.endWidth = laserEffect.startWidth;
         laser.material.color = Color.Lerp(colout, colin, timer / durIn);
         timer += Time.deltaTime;
         yield return null;
       }
       timer = 0f;
       laser.material.color = colin;
+      laserEffect.startWidth = 0.25f;
+      laserEffect.endWidth = laserEffect.startWidth;
       while (timer < durOut) {
+        laserEffect.startWidth = Mathf.Lerp(0.25f, 0f, timer / durOut);
+        laserEffect.endWidth = laserEffect.startWidth;
         laser.material.color = Color.Lerp(colin, colout, timer / durOut);
         timer += Time.deltaTime;
         yield return null;
       }
+      laserEffect.startWidth = 0f;
+      laserEffect.endWidth = laserEffect.startWidth;
       laser.material.color = colout;
       laserEffect.enabled = false;
     }
 
     private void ShootFX() {
+      StopCoroutine("LaserFX");
+      StopCoroutine("Recoil");
       StartCoroutine(LaserFX());
       StartCoroutine(Recoil());
       gunMuzzle.gameObject.GetComponent<ParticleSystem>().Play();
+      impactFX.GetComponent<ParticleSystem>().Play();
     }
 }
