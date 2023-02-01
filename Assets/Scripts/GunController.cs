@@ -64,21 +64,26 @@ public class GunController : MonoBehaviour
 
     private IEnumerator Recoil() {
         float timer = 0f;
-        float rcUp = 0.1f;
-        float rcDown = 0.075f;
-        Quaternion initial = gun.localRotation;
+        float rcUp = 0.09f;
+        float rcDown = 0.125f;
+        Vector3 initial = gun.localPosition;
         while (timer < rcUp) {
             gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 0f), Quaternion.Euler(0, -90f, 40f), timer / rcUp);
+            gun.localPosition = Vector3.Lerp(initial, new Vector3(initial.x, initial.y, initial.z - 0.3f), timer / rcUp);
             timer += Time.deltaTime;
             yield return null;
         }
         timer = 0f;
-        initial = gun.localRotation;
+        gun.localPosition = new Vector3(initial.x, initial.y, initial.z - 0.3f);
+        gun.localRotation = Quaternion.Euler(0f, -90f, 70f);
+        Vector3 initialnew = gun.localPosition;
         while (timer < rcDown) {
             gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 40f), Quaternion.Euler(0, -90f, 0f), timer / rcDown);
+            gun.localPosition = Vector3.Lerp(initialnew, new Vector3(initial.x, initial.y, initial.z), timer / rcDown);
             timer += Time.deltaTime;
             yield return null;
         }
+        gun.localPosition = new Vector3(initial.x, initial.y, initial.z);
         gun.localRotation = Quaternion.Euler(0f, -90f, 0f);
     }
 
