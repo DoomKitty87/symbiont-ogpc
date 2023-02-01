@@ -16,12 +16,14 @@ public class GunController : MonoBehaviour
     private Camera cam;
     private float canFireTime;
     private WaitForSeconds shotDelay;
+    private Transform gun;
 
     void Start() {
       laserEffect = GetComponent<LineRenderer>();
       cam = GetComponent<Camera>();
       Cursor.lockState = CursorLockMode.Locked;
       shotDelay = new WaitForSeconds(fxPeriod);
+      gun = gunMuzzle.parent;
       //Cursor.visible = false;
     }
 
@@ -41,6 +43,7 @@ public class GunController : MonoBehaviour
       if (!CanShoot()) return;
       canFireTime = Time.time + fireRate;
       StartCoroutine(ShootFX());
+      StartCoroutine(Recoil());
       Vector3 origin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
       RaycastHit hit;
       laserEffect.SetPosition(0, gunMuzzle.position);
@@ -57,6 +60,26 @@ public class GunController : MonoBehaviour
 
     public void HitTarget(RaycastHit hit) {
       return;
+    }
+
+    private IEnumerator Recoil() {
+        float timer = 0f;
+        float rcUp = 0.1f;
+        float rcDown = 0.075f;
+        Quaternion initial = gun.localRotation;
+        while (timer < rcUp) {
+            gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 0f), Quaternion.Euler(0, -90f, 40f), timer / rcUp);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        timer = 0f;
+        initial = gun.localRotation;
+        while (timer < rcDown) {
+            gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 40f), Quaternion.Euler(0, -90f, 0f), timer / rcDown);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        gun.localRotation = Quaternion.Euler(0f, -90f, 0f);
     }
 
     private IEnumerator ShootFX() {
