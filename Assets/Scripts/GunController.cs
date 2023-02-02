@@ -16,6 +16,8 @@ public class GunController : MonoBehaviour
     private GameObject magazine;
     [SerializeField]
     private GameObject maginfo;
+    [SerializeField]
+    private GameObject HUDCanvas;
 
     private LineRenderer laserEffect;
     private Camera cam;
@@ -32,8 +34,14 @@ public class GunController : MonoBehaviour
     private bool reloading;
     private TextMeshProUGUI magtext;
     private GameObject reloadtext;
+    private GameObject leftleg, rightleg;
+    private float vertRecoilTracking;
+    private Transform crosshair;
 
     void Start() {
+      crosshair = HUDCanvas.transform.GetChild(0);
+      leftleg = crosshair.GetChild(1).gameObject;
+      rightleg = crosshair.GetChild(2).gameObject;
       rounds = maxRounds;
       reloadtext = maginfo.transform.GetChild(1).gameObject;
       magtext = maginfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -53,9 +61,12 @@ public class GunController : MonoBehaviour
 
     void Update()
     {
+      vertRecoilTracking = Mathf.Clamp(vertRecoilTracking - 0.2f * Time.deltaTime, 0, 1);
+      crosshair.localPosition = new Vector3(crosshair.localPosition.x, vertRecoilTracking * 300f, crosshair.localPosition.z);
       if (Input.GetMouseButtonDown(0)) {
         Shoot();
       }
+
     }
 
     private bool CanShoot() {
@@ -79,6 +90,7 @@ public class GunController : MonoBehaviour
     private void Shoot() {
       if (!CanShoot()) return;
       rounds -= 1;
+      vertRecoilTracking = Mathf.Clamp(vertRecoilTracking + 0.1f, 0, 1);
       magtext.text = rounds.ToString();
       canFireTime = Time.time + fireRate;
       Vector3 origin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
@@ -143,6 +155,25 @@ public class GunController : MonoBehaviour
         magtext.text = rounds.ToString();
         reloadtext.SetActive(false);
         reloading = false;
+    }
+    
+    private IEnumerator CrosshairFX() {
+        float timer = 0f;
+        float outTime = 0.15f;
+        float inTime = 0.2f;
+        while (timer < outTime) {
+            leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-50f, 0, 0), new Vector3(-85f, 0, 0), Mathf.SmoothStep(0f, 1f, timer / outTime));
+            rightleg.transform.localPosition = leftleg.transform.localPosition * -1f;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        timer = 0;
+        while (timer < inTime) {
+            leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-85f, 0, 0), new Vector3(-50f, 0, 0), Mathf.SmoothStep(0f, 1f, timer / inTime));
+            rightleg.transform.localPosition = leftleg.transform.localPosition * -1f;
+            timer += Time.deltaTime;
+            yield return null;
+        }
     }
 
     private IEnumerator ExplodeTarget(GameObject target) {
@@ -227,8 +258,10 @@ public class GunController : MonoBehaviour
     private void ShootFX() {
       StopCoroutine("LaserFX");
       StopCoroutine("Recoil");
+      StopCoroutine("CrosshairFX");
       StartCoroutine(LaserFX());
       StartCoroutine(Recoil());
+      StartCoroutine(CrosshairFX());
       muzzleFlashFX.GetComponent<ParticleSystem>().Play();
     }
 }
