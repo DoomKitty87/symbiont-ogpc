@@ -9,6 +9,8 @@ public class GunController : MonoBehaviour
     private Transform gunMuzzle;
     [SerializeField]
     private float fireRate;
+    [SerializeField]
+    private int maxRounds;
 
     private LineRenderer laserEffect;
     private Camera cam;
@@ -21,8 +23,11 @@ public class GunController : MonoBehaviour
     private GameObject fragmentFX;
     private UnityEngine.ParticleSystem.MainModule main;
     private UnityEngine.ParticleSystem.ShapeModule sh;
+    private int rounds;
+    private bool reloading;
 
     void Start() {
+      rounds = maxRounds;
       laserEffect = GetComponent<LineRenderer>();
       laser = laserEffect.gameObject.GetComponent<Renderer>();
       cam = GetComponent<Camera>();
@@ -45,12 +50,27 @@ public class GunController : MonoBehaviour
     }
 
     private bool CanShoot() {
-      if (Time.time > canFireTime) return true;
+      if (rounds == 0) {
+        Reload();
+        return false;
+      }
+      else if (Time.time > canFireTime && reloading == false) return true;
       else return false;
+    }
+
+    public void Reload() {
+        if (rounds < maxRounds) {
+            rounds = maxRounds;
+            reloading = true;
+            print(rounds);
+            reloading = false;
+        }
     }
 
     private void Shoot() {
       if (!CanShoot()) return;
+      rounds -= 1;
+      print(rounds);
       canFireTime = Time.time + fireRate;
       Vector3 origin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
       RaycastHit hit;
