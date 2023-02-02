@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GunController : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class GunController : MonoBehaviour
     private float fireRate;
     [SerializeField]
     private int maxRounds;
+    [SerializeField]
+    private GameObject magazine;
+    [SerializeField]
+    private GameObject maginfo;
 
     private LineRenderer laserEffect;
     private Camera cam;
@@ -25,9 +30,13 @@ public class GunController : MonoBehaviour
     private UnityEngine.ParticleSystem.ShapeModule sh;
     private int rounds;
     private bool reloading;
+    private TextMeshProUGUI magtext;
+    private GameObject reloadtext;
 
     void Start() {
       rounds = maxRounds;
+      reloadtext = maginfo.transform.GetChild(1).gameObject;
+      magtext = maginfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
       laserEffect = GetComponent<LineRenderer>();
       laser = laserEffect.gameObject.GetComponent<Renderer>();
       cam = GetComponent<Camera>();
@@ -61,16 +70,16 @@ public class GunController : MonoBehaviour
     public void Reload() {
         if (rounds < maxRounds) {
             rounds = maxRounds;
+            reloadtext.SetActive(true);
             reloading = true;
-            print(rounds);
-            reloading = false;
+            StartCoroutine(ReloadAnim());
         }
     }
 
     private void Shoot() {
       if (!CanShoot()) return;
       rounds -= 1;
-      print(rounds);
+      magtext.text = rounds.ToString();
       canFireTime = Time.time + fireRate;
       Vector3 origin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
       RaycastHit hit;
@@ -94,6 +103,48 @@ public class GunController : MonoBehaviour
       return;
     }
 
+    private IEnumerator ReloadAnim() {
+        float timer = 0f;
+        float inTime = 0.35f;
+        float outTime = 0.3f;
+        float popUpTime = 0.1f;
+        float popDownTime = 0.125f;
+        Vector3 init = magazine.transform.localPosition;
+        while (timer < outTime) {
+            if (timer / outTime <= 0.15f) gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 0), Quaternion.Euler(-20f, -90f, 0), timer / outTime / 0.15f);
+            else gun.localRotation = Quaternion.Lerp(Quaternion.Euler(-20, -90f, 0), Quaternion.Euler(0, -90f, 0), (timer / outTime - 0.15f) / 0.85f);
+            magazine.transform.localPosition = Vector3.Lerp(init, new Vector3(init.x, init.y - 1.5f, init.z), Mathf.SmoothStep(0f, 1f, timer / outTime));
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        timer = 0f;
+        float popUpTimer = 0f;
+        float popDownTimer = 0f;
+        while (timer < inTime) {
+            magazine.transform.localPosition = Vector3.Lerp(new Vector3(init.x, init.y - 1.5f, init.z), init, Mathf.SmoothStep(0f, 1f, timer / inTime));
+            gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 0), Quaternion.Euler(0, -90f, 5f), popUpTimer / popUpTime);
+            if (timer / inTime >= 0.65f) popUpTimer += Time.deltaTime;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        while (popUpTimer < popUpTime) {
+            gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 0), Quaternion.Euler(0, -90f, 5f), popUpTimer / popUpTime);
+            popUpTimer += Time.deltaTime;
+            yield return null;
+        }
+        gun.localRotation = Quaternion.Euler(0, -90f, 5);
+        while (popDownTimer < popDownTime) {
+            gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 5f), Quaternion.Euler(0, -90f, 0), popDownTimer / popDownTime);
+            popDownTimer += Time.deltaTime;
+            yield return null;
+        }
+        gun.localRotation = Quaternion.Euler(0, -90f, 0);
+        magazine.transform.localPosition = init;
+        magtext.text = rounds.ToString();
+        reloadtext.SetActive(false);
+        reloading = false;
+    }
+
     private IEnumerator ExplodeTarget(GameObject target) {
       float timer = 0f;
       float explodeTime = 0.12f;
@@ -111,7 +162,6 @@ public class GunController : MonoBehaviour
       fragmentFX.transform.position = explodeFX.transform.position;
       explodeFX.GetComponent<ParticleSystem>().Play();
       fragmentFX.GetComponent<ParticleSystem>().Play();
-      //explodeFX.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
       Destroy(target);
     }
 
