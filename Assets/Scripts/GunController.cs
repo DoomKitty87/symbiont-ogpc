@@ -9,9 +9,6 @@ public class GunController : MonoBehaviour
     private Transform gunMuzzle;
     [SerializeField]
     private float fireRate;
-    [SerializeField]
-    [ColorUsage(true, true)]
-    private Color explodeColor;
 
     private LineRenderer laserEffect;
     private Camera cam;
@@ -21,6 +18,7 @@ public class GunController : MonoBehaviour
     private GameObject impactFX;
     private GameObject explodeFX;
     private GameObject muzzleFlashFX;
+    private GameObject fragmentFX;
     private UnityEngine.ParticleSystem.MainModule main;
     private UnityEngine.ParticleSystem.ShapeModule sh;
 
@@ -31,8 +29,9 @@ public class GunController : MonoBehaviour
       Cursor.lockState = CursorLockMode.Locked;
       gun = gunMuzzle.parent;
       impactFX = gunMuzzle.GetChild(0).gameObject;
-      explodeFX = gunMuzzle.GetChild(1).gameObject;
-      muzzleFlashFX = gunMuzzle.GetChild(2).gameObject;
+      fragmentFX = gunMuzzle.GetChild(1).gameObject;
+      explodeFX = gunMuzzle.GetChild(2).gameObject;
+      muzzleFlashFX = gunMuzzle.GetChild(3).gameObject;
       main = explodeFX.GetComponent<ParticleSystem>().main;
       sh = explodeFX.GetComponent<ParticleSystem>().shape;
       //Cursor.visible = false;
@@ -77,21 +76,22 @@ public class GunController : MonoBehaviour
 
     private IEnumerator ExplodeTarget(GameObject target) {
       float timer = 0f;
-      float explodeTime = 0.5f;
+      float explodeTime = 0.12f;
       MeshRenderer targetMesh = target.GetComponent<MeshRenderer>();
-      Color initial = targetMesh.material.color;
       Vector3 initScale = target.transform.localScale;
       while (timer < explodeTime) {
-        targetMesh.material.color = Color.Lerp(initial, explodeColor, Mathf.SmoothStep(0f, 1f, timer / explodeTime));
-        target.transform.localScale = Vector3.Lerp(initScale, initScale * 2f, Mathf.SmoothStep(0f, 1f, timer / explodeTime));
+        target.transform.localScale = Vector3.Lerp(initScale, new Vector3(0, 0, 0), Mathf.SmoothStep(0f, 1f, timer / explodeTime));
         timer += Time.deltaTime;
         yield return null;
       }
       sh.mesh = target.GetComponent<MeshFilter>().mesh;
       sh.scale = target.transform.localScale;
-      main.startSizeMultiplier = 0.4f;
+      main.startSizeMultiplier = 0.25f;
       explodeFX.transform.position = target.transform.position;
+      fragmentFX.transform.position = explodeFX.transform.position;
       explodeFX.GetComponent<ParticleSystem>().Play();
+      fragmentFX.GetComponent<ParticleSystem>().Play();
+      //explodeFX.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
       Destroy(target);
     }
 
