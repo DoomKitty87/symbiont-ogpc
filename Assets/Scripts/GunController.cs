@@ -61,7 +61,7 @@ public class GunController : MonoBehaviour
 
     void Update()
     {
-      vertRecoilTracking = Mathf.Clamp(vertRecoilTracking - 0.2f * Time.deltaTime, 0, 1);
+      vertRecoilTracking = Mathf.Clamp(vertRecoilTracking - 0.4f * Time.deltaTime, 0, 1);
       crosshair.localPosition = new Vector3(crosshair.localPosition.x, vertRecoilTracking * 300f, crosshair.localPosition.z);
       if (Input.GetMouseButtonDown(0)) {
         Shoot();
@@ -90,14 +90,16 @@ public class GunController : MonoBehaviour
     private void Shoot() {
       if (!CanShoot()) return;
       rounds -= 1;
-      vertRecoilTracking = Mathf.Clamp(vertRecoilTracking + 0.1f, 0, 1);
       magtext.text = rounds.ToString();
       canFireTime = Time.time + fireRate;
       Vector3 origin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
       RaycastHit hit;
       laserEffect.SetPosition(0, gunMuzzle.position);
       ShootFX();
-      if (Physics.Raycast(origin, cam.transform.forward, out hit)) {
+      Transform invisible = cam.transform;
+      invisible.Rotate(-20f * vertRecoilTracking, 0, 0);
+      vertRecoilTracking = Mathf.Clamp(vertRecoilTracking + 0.2f, 0, 1);
+      if (Physics.Raycast(origin, invisible.forward, out hit)) {
         laserEffect.SetPosition(1, hit.point);
         impactFX.transform.position = hit.point;
         impactFX.GetComponent<ParticleSystem>().Play();
