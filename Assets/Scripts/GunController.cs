@@ -12,8 +12,6 @@ public class GunController : MonoBehaviour
   [SerializeField]
   private int maxRounds;
   [SerializeField]
-  private GameObject maginfo;
-  [SerializeField]
   private GameObject HUDCanvas;
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Machine Gun"};
@@ -45,6 +43,7 @@ public class GunController : MonoBehaviour
   private float aimSpread;
   private Transform gunMuzzle;
   private GameObject magazine;
+  private GameObject maginfo;
   
 
   void Start() {
@@ -55,8 +54,6 @@ public class GunController : MonoBehaviour
     leftleg = crosshair.GetChild(1).gameObject;
     rightleg = crosshair.GetChild(2).gameObject;
     rounds = maxRounds;
-    reloadtext = maginfo.transform.GetChild(1).gameObject;
-    magtext = maginfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     laserEffect = GetComponent<LineRenderer>();
     laser = laserEffect.gameObject.GetComponent<Renderer>();
     cam = GetComponent<Camera>();
@@ -70,6 +67,9 @@ public class GunController : MonoBehaviour
     sh = explodeFX.GetComponent<ParticleSystem>().shape;
     gunInitPos = gun.transform.localPosition;
     magazine = gun.GetChild(3).gameObject;
+    maginfo = gun.GetChild(1).GetChild(0).gameObject;
+    magtext = maginfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+    reloadtext = maginfo.transform.GetChild(1).gameObject;
     shotRecoil = 0.2f;
     recoilRecovery = 0.4f;
     //Cursor.visible = false;
@@ -87,21 +87,9 @@ public class GunController : MonoBehaviour
     //Values are Name, Mag size, Fire rate, Shot recoil, Recoil Recovery, Shot spread
   }
 
-  public void ChangeGun(float[] gunStats) {
-    transform.GetChild(0).gameObject.SetActive(false);
-    transform.GetChild(1).gameObject.SetActive(false);
-    if (gunNames[(int)gunStats[0]] == "Pistol") {
-      gun = transform.GetChild(0);
-      magazine = gun.GetChild(3).gameObject;
-      gunMuzzle = transform.GetChild(0).GetChild(2);
-      transform.GetChild(0).gameObject.SetActive(true);
-    }
-    else if (gunNames[(int)gunStats[0]] == "Assault Rifle") {
-      gun = transform.GetChild(1);
-      magazine = gun.GetChild(1).gameObject;
-      gunMuzzle = transform.GetChild(1).GetChild(2);
-      transform.GetChild(1).gameObject.SetActive(true);
-    }
+  private void ReloadGunAssets(float[] gunStats) {
+    magtext = maginfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+    reloadtext = maginfo.transform.GetChild(1).gameObject;
     gunInitPos = gun.transform.localPosition;
     impactFX = gunMuzzle.GetChild(0).gameObject;
     fragmentFX = gunMuzzle.GetChild(1).gameObject;
@@ -113,6 +101,28 @@ public class GunController : MonoBehaviour
     recoilRecovery = gunStats[4];
     aimSpread = gunStats[5];
     activeGun = gunNames[(int)gunStats[0]];
+  }
+
+  public void ChangeGun(float[] gunStats) {
+    transform.GetChild(0).gameObject.SetActive(false);
+    transform.GetChild(1).gameObject.SetActive(false);
+    if (gunNames[(int)gunStats[0]] == "Pistol") {
+      gun = transform.GetChild(0);
+      magazine = gun.GetChild(3).gameObject;
+      maginfo = gun.GetChild(1).GetChild(0).gameObject;
+      gunMuzzle = transform.GetChild(0).GetChild(2);
+      transform.GetChild(0).gameObject.SetActive(true);
+      maginfo = gun.GetChild(1).GetChild(0).gameObject;
+    }
+    else if (gunNames[(int)gunStats[0]] == "Assault Rifle") {
+      gun = transform.GetChild(1);
+      magazine = gun.GetChild(1).gameObject;
+      maginfo = gun.GetChild(0).GetChild(0).gameObject;
+      gunMuzzle = transform.GetChild(1).GetChild(2);
+      transform.GetChild(1).gameObject.SetActive(true);
+      maginfo = gun.GetChild(0).GetChild(0).gameObject;
+    }
+    ReloadGunAssets(gunStats);
     rounds = maxRounds;
     magtext.text = rounds.ToString();
     vertRecoilTracking = 0f;
