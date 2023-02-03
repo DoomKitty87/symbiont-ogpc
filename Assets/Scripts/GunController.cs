@@ -15,6 +15,8 @@ public class GunController : MonoBehaviour
   private GameObject HUDCanvas;
   [SerializeField]
   private GameObject shell;
+  [SerializeField]
+  private GameObject ammoInfo;
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Machine Gun"};
 
@@ -47,9 +49,11 @@ public class GunController : MonoBehaviour
   private GameObject magazine;
   private GameObject maginfo;
   private bool shells = false;
+  private TextMeshProUGUI ammoText;
   
 
   void Start() {
+    ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     gunMuzzle = transform.GetChild(0).GetChild(2);
     vcam = GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
     pov = vcam.GetCinemachineComponent<CinemachinePOV>();
@@ -132,6 +136,7 @@ public class GunController : MonoBehaviour
     ReloadGunAssets(gunStats);
     rounds = maxRounds;
     magtext.text = rounds.ToString();
+    ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
     vertRecoilTracking = 0f;
   }
 
@@ -169,6 +174,7 @@ public class GunController : MonoBehaviour
     if (!CanShoot()) return;
     rounds -= 1;
     magtext.text = rounds.ToString();
+    ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
     canFireTime = Time.time + fireRate;
     Vector3 origin = Quaternion.Euler(Random.Range(-aimSpread, aimSpread), Random.Range(-aimSpread, aimSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
     RaycastHit hit;
@@ -233,6 +239,7 @@ public class GunController : MonoBehaviour
     gun.localRotation = Quaternion.Euler(0, -90f, 0);
     magazine.transform.localPosition = init;
     magtext.text = rounds.ToString();
+    ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
     reloadtext.SetActive(false);
     reloading = false;
   }
