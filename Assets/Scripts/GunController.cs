@@ -13,6 +13,8 @@ public class GunController : MonoBehaviour
   private int maxRounds;
   [SerializeField]
   private GameObject HUDCanvas;
+  [SerializeField]
+  private GameObject shell;
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Machine Gun"};
 
@@ -44,6 +46,7 @@ public class GunController : MonoBehaviour
   private Transform gunMuzzle;
   private GameObject magazine;
   private GameObject maginfo;
+  private bool shells = false;
   
 
   void Start() {
@@ -104,6 +107,8 @@ public class GunController : MonoBehaviour
   }
 
   public void ChangeGun(float[] gunStats) {
+    StopFX();
+    ResetGun();
     transform.GetChild(0).gameObject.SetActive(false);
     transform.GetChild(1).gameObject.SetActive(false);
     if (gunNames[(int)gunStats[0]] == "Pistol") {
@@ -113,6 +118,7 @@ public class GunController : MonoBehaviour
       gunMuzzle = transform.GetChild(0).GetChild(2);
       transform.GetChild(0).gameObject.SetActive(true);
       maginfo = gun.GetChild(1).GetChild(0).gameObject;
+      shells = false;
     }
     else if (gunNames[(int)gunStats[0]] == "Assault Rifle") {
       gun = transform.GetChild(1);
@@ -121,6 +127,7 @@ public class GunController : MonoBehaviour
       gunMuzzle = transform.GetChild(1).GetChild(2);
       transform.GetChild(1).gameObject.SetActive(true);
       maginfo = gun.GetChild(0).GetChild(0).gameObject;
+      shells = true;
     }
     ReloadGunAssets(gunStats);
     rounds = maxRounds;
@@ -149,6 +156,13 @@ public class GunController : MonoBehaviour
       reloading = true;
       StartCoroutine(ReloadAnim());
     }
+  }
+  
+  private void EjectShell() {
+    Rigidbody rb = Instantiate(shell, gun.transform.position, Quaternion.identity, cam.gameObject.transform).GetComponent<Rigidbody>();
+    rb.gameObject.transform.localPosition = new Vector3(0.55f, -0.1f, 0.66f);
+    rb.gameObject.transform.localRotation = gun.localRotation;
+    rb.AddForce(cam.gameObject.transform.localRotation * new Vector3(Random.Range(-1, -0.5f), Random.Range(1, 2), 0),ForceMode.Impulse);
   }
 
   private void Shoot() {
@@ -331,6 +345,7 @@ public class GunController : MonoBehaviour
     StartCoroutine(LaserFX());
     StartCoroutine(Recoil());
     StartCoroutine(CrosshairFX());
+    if (shells) EjectShell();
     muzzleFlashFX.GetComponent<ParticleSystem>().Play();
   }
 }
