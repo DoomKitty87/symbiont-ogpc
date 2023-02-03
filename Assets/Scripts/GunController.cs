@@ -50,7 +50,8 @@ public class GunController : MonoBehaviour
   private GameObject maginfo;
   private bool shells = false;
   private TextMeshProUGUI ammoText;
-  
+  private float holdTimer;
+
 
   void Start() {
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
@@ -86,8 +87,14 @@ public class GunController : MonoBehaviour
   {
     vertRecoilTracking = Mathf.Clamp(vertRecoilTracking - recoilRecovery * Time.deltaTime, 0, 1);
     if (vertRecoilTracking > 0) pov.m_VerticalAxis.Value += 20f * recoilRecovery * Time.deltaTime;
-    if (Input.GetMouseButtonDown(0) && activeGun == "Pistol") Shoot();
-    else if (Input.GetMouseButton(0) && activeGun == "Assault Rifle") Shoot();
+    if (Input.GetMouseButtonDown(0)) {
+      if (activeGun == "Pistol") Shoot();
+      holdTimer = 0;
+    }
+    else if (Input.GetMouseButton(0)) {
+      if (activeGun == "Assault Rifle") Shoot();
+      holdTimer += Time.deltaTime;
+    }
     if (Input.GetMouseButtonDown(1)) {
       ChangeGun((activeGun == "Pistol") ? new float[6] {1, 30, 0.1f, 0.05f, 0.3f, 1.1f} : new float[6] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f});
     }
@@ -162,7 +169,7 @@ public class GunController : MonoBehaviour
       StartCoroutine(ReloadAnim());
     }
   }
-  
+
   private void EjectShell() {
     Rigidbody rb = Instantiate(shell, gun.transform.position, Quaternion.identity, cam.gameObject.transform).GetComponent<Rigidbody>();
     rb.gameObject.transform.localPosition = new Vector3(0.55f, -0.1f, 0.66f);
@@ -176,7 +183,7 @@ public class GunController : MonoBehaviour
     magtext.text = rounds.ToString();
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
     canFireTime = Time.time + fireRate;
-    Vector3 origin = Quaternion.Euler(Random.Range(-aimSpread, aimSpread), Random.Range(-aimSpread, aimSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
+    Vector3 origin = Quaternion.Euler(holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
     RaycastHit hit;
     StopFX();
     laserEffect.SetPosition(0, gunMuzzle.position);
@@ -193,7 +200,7 @@ public class GunController : MonoBehaviour
     }
     ShootFX();
     vertRecoilTracking = Mathf.Clamp(vertRecoilTracking + shotRecoil, 0, 1);
-    pov.m_VerticalAxis.Value -= 20f * shotRecoil; 
+    pov.m_VerticalAxis.Value -= 20f * shotRecoil;
   }
 
   public void HitTarget(RaycastHit hit) {
@@ -243,7 +250,7 @@ public class GunController : MonoBehaviour
     reloadtext.SetActive(false);
     reloading = false;
   }
-  
+
   private IEnumerator CrosshairFX() {
     float timer = 0f;
     float outTime = 0.15f;
