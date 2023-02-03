@@ -51,6 +51,7 @@ public class GunController : MonoBehaviour
   private bool shells = false;
   private TextMeshProUGUI ammoText;
   private float holdTimer;
+  private GameObject chamberFlashFX;
 
 
   void Start() {
@@ -109,6 +110,7 @@ public class GunController : MonoBehaviour
     fragmentFX = gunMuzzle.GetChild(1).gameObject;
     explodeFX = gunMuzzle.GetChild(2).gameObject;
     muzzleFlashFX = gunMuzzle.GetChild(3).gameObject;
+    if (gunMuzzle.GetChild(4) != null) chamberFlashFX = gunMuzzle.GetChild(4).gameObject;
     maxRounds = (int)gunStats[1];
     fireRate = gunStats[2];
     shotRecoil = gunStats[3];
@@ -360,6 +362,7 @@ public class GunController : MonoBehaviour
     StartCoroutine(Recoil());
     StartCoroutine(CrosshairFX());
     if (shells) EjectShell();
+    chamberFlashFX.GetComponent<ParticleSystem>().Play();
     muzzleFlashFX.GetComponent<ParticleSystem>().Play();
   }
 }
