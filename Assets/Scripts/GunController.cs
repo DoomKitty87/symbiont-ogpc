@@ -18,7 +18,7 @@ public class GunController : MonoBehaviour
   [SerializeField]
   private GameObject ammoInfo;
 
-  private string[] gunNames = {"Pistol", "Assault Rifle", "Machine Gun"};
+  private string[] gunNames = {"Pistol", "Assault Rifle", "Burst Rifle"};
 
   private string activeGun = "Pistol";
   private LineRenderer laserEffect;
@@ -47,7 +47,6 @@ public class GunController : MonoBehaviour
   private float aimSpread;
   private Transform gunMuzzle;
   private GameObject magazine;
-  private GameObject maginfo;
   private bool shells = false;
   private TextMeshProUGUI ammoText;
   private float holdTimer;
@@ -76,9 +75,6 @@ public class GunController : MonoBehaviour
     sh = explodeFX.GetComponent<ParticleSystem>().shape;
     gunInitPos = gun.transform.localPosition;
     magazine = gun.GetChild(3).gameObject;
-    maginfo = gun.GetChild(1).GetChild(0).gameObject;
-    magtext = maginfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-    reloadtext = maginfo.transform.GetChild(1).gameObject;
     shotRecoil = 0.2f;
     recoilRecovery = 0.4f;
     //Cursor.visible = false;
@@ -93,24 +89,40 @@ public class GunController : MonoBehaviour
       holdTimer = 0;
     }
     else if (Input.GetMouseButton(0)) {
-      if (activeGun == "Assault Rifle") Shoot();
+      if (activeGun == "Assault Rifle" | activeGun == "Burst Rifle") Shoot();
       holdTimer += Time.deltaTime;
     }
     if (Input.GetMouseButtonDown(1)) {
-      ChangeGun((activeGun == "Pistol") ? new float[6] {1, 30, 0.1f, 0.05f, 0.3f, 1.1f} : new float[6] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f});
+      ChangeGun(FetchGunInfo(activeGun));
     }
     //Values are Name, Mag size, Fire rate, Shot recoil, Recoil Recovery, Shot spread
   }
 
+  private float[] FetchGunInfo(string currentGun) {
+    switch(currentGun) {
+      case "Pistol":
+        return(new float[6] {1, 30, 0.1f, 0.05f, 0.3f, 1.1f});
+      case "Assault Rifle":
+        return(new float[6] {2, 24, 0.5f, 0.1f, 0.4f, 0.7f});
+      case "Burst Rifle":
+        return(new float[6] {0, 10, 0.5f, 0.08f, 0.4f, 0.5f});
+      default:
+        return(new float[6]);
+    }
+  }
+
   private void ReloadGunAssets(float[] gunStats) {
-    magtext = maginfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-    reloadtext = maginfo.transform.GetChild(1).gameObject;
     gunInitPos = gun.transform.localPosition;
     impactFX = gunMuzzle.GetChild(0).gameObject;
     fragmentFX = gunMuzzle.GetChild(1).gameObject;
     explodeFX = gunMuzzle.GetChild(2).gameObject;
     muzzleFlashFX = gunMuzzle.GetChild(3).gameObject;
-    if (gunMuzzle.GetChild(4) != null) chamberFlashFX = gunMuzzle.GetChild(4).gameObject;
+    try {
+      chamberFlashFX = gunMuzzle.GetChild(4).gameObject;
+    }
+    catch {
+      chamberFlashFX = null;
+    }
     maxRounds = (int)gunStats[1];
     fireRate = gunStats[2];
     shotRecoil = gunStats[3];
@@ -124,35 +136,38 @@ public class GunController : MonoBehaviour
     ResetGun();
     transform.GetChild(0).gameObject.SetActive(false);
     transform.GetChild(1).gameObject.SetActive(false);
+    transform.GetChild(2).gameObject.SetActive(false);
     if (gunNames[(int)gunStats[0]] == "Pistol") {
       gun = transform.GetChild(0);
       magazine = gun.GetChild(3).gameObject;
-      maginfo = gun.GetChild(1).GetChild(0).gameObject;
       gunMuzzle = transform.GetChild(0).GetChild(2);
       transform.GetChild(0).gameObject.SetActive(true);
-      maginfo = gun.GetChild(1).GetChild(0).gameObject;
       shells = false;
     }
     else if (gunNames[(int)gunStats[0]] == "Assault Rifle") {
       gun = transform.GetChild(1);
       magazine = gun.GetChild(1).gameObject;
-      maginfo = gun.GetChild(0).GetChild(0).gameObject;
-      gunMuzzle = transform.GetChild(1).GetChild(2);
-      transform.GetChild(1).gameObject.SetActive(true);
-      maginfo = gun.GetChild(0).GetChild(0).gameObject;
+      gunMuzzle = gun.GetChild(2);
+      gun.gameObject.SetActive(true);
       shells = true;
+    }
+    else if (gunNames[(int)gunStats[0]] == "Burst Rifle") {
+      gun = transform.GetChild(2);
+      magazine = gun.GetChild(1).gameObject;
+      gunMuzzle = gun.GetChild(2);
+      gun.gameObject.SetActive(true);
+      shells = false;
     }
     ReloadGunAssets(gunStats);
     rounds = maxRounds;
-    magtext.text = rounds.ToString();
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
     vertRecoilTracking = 0f;
   }
 
   private bool CanShoot() {
     if (rounds == 0) {
-    Reload();
-    return false;
+      Reload();
+      return false;
     }
     else if (Time.time > canFireTime && reloading == false) return true;
     else return false;
@@ -166,7 +181,6 @@ public class GunController : MonoBehaviour
   public void Reload() {
     if (rounds < maxRounds) {
       rounds = maxRounds;
-      reloadtext.SetActive(true);
       reloading = true;
       StartCoroutine(ReloadAnim());
     }
@@ -182,7 +196,6 @@ public class GunController : MonoBehaviour
   private void Shoot() {
     if (!CanShoot()) return;
     rounds -= 1;
-    magtext.text = rounds.ToString();
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
     canFireTime = Time.time + fireRate;
     Vector3 origin = Quaternion.Euler(holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
@@ -247,9 +260,7 @@ public class GunController : MonoBehaviour
     }
     gun.localRotation = Quaternion.Euler(0, -90f, 0);
     magazine.transform.localPosition = init;
-    magtext.text = rounds.ToString();
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
-    reloadtext.SetActive(false);
     reloading = false;
   }
 
@@ -362,7 +373,7 @@ public class GunController : MonoBehaviour
     StartCoroutine(Recoil());
     StartCoroutine(CrosshairFX());
     if (shells) EjectShell();
-    chamberFlashFX.GetComponent<ParticleSystem>().Play();
+    if (chamberFlashFX != null) chamberFlashFX.GetComponent<ParticleSystem>().Play();
     muzzleFlashFX.GetComponent<ParticleSystem>().Play();
   }
 }
