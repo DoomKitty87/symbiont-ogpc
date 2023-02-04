@@ -23,8 +23,8 @@ public class GunController : MonoBehaviour
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Heavy Rifle"};
 
-  //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back), Reload time, Shot color
-  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f, 0}, new float[] {1, 30, 0.1f, 0.05f, 0.3f, 1.1f, 0.05f, 1.5f, 0}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.7f, 0.25f, 2f, 1}};
+  //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back), Reload time
+  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f}, new float[] {1, 30, 0.1f, 0.05f, 0.3f, 1.1f, 0.05f, 1.5f}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.7f, 0.25f, 2f}};
 
   private string activeGun = "Pistol";
   private LineRenderer laserEffect;
