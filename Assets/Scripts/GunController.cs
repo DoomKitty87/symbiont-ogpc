@@ -19,6 +19,7 @@ public class GunController : MonoBehaviour
   private GameObject ammoInfo;
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Heavy Rifle"};
+  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f}, new float[] {1, 30, 0.1f, 0.05f, 0.3f, 1.1f, 0.05f, 1.5f}, new float[] {2, 24, 0.5f, 0f, 0.4f, 0.7f, 0.5f, 2f}};
 
   private string activeGun = "Pistol";
   private LineRenderer laserEffect;
@@ -53,6 +54,7 @@ public class GunController : MonoBehaviour
   private TextMeshProUGUI ammoText;
   private float holdTimer;
   private GameObject chamberFlashFX;
+  private float reloadTime;
 
 
   void Start() {
@@ -81,6 +83,7 @@ public class GunController : MonoBehaviour
     shotRecoilUp = 0.2f;
     shotRecoilBack = 0.2f;
     recoilRecovery = 0.4f;
+    reloadTime = 1f;
     //Cursor.visible = false;
   }
 
@@ -99,19 +102,19 @@ public class GunController : MonoBehaviour
     if (Input.GetMouseButtonDown(1)) {
       ChangeGun(FetchGunInfo(activeGun));
     }
-    //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back)
+    //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back), Reload time
   }
 
   private float[] FetchGunInfo(string currentGun) {
     switch(currentGun) {
       case "Pistol":
-        return(new float[7] {1, 30, 0.1f, 0.05f, 0.3f, 1.1f, 0.05f});
+        return(gunSpecs[1]);
       case "Assault Rifle":
-        return(new float[7] {2, 24, 0.5f, 0f, 0.4f, 0.7f, 0.5f});
+        return(gunSpecs[2]);
       case "Heavy Rifle":
-        return(new float[7] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f});
+        return(gunSpecs[0]);
       default:
-        return(new float[7]);
+        return(new float[8]);
     }
   }
 
@@ -134,6 +137,7 @@ public class GunController : MonoBehaviour
     recoilRecovery = gunStats[4];
     aimSpread = gunStats[5];
     shotRecoilBack = gunStats[6];
+    reloadTime = gunStats[7];
     activeGun = gunNames[(int)gunStats[0]];
   }
 
@@ -231,10 +235,10 @@ public class GunController : MonoBehaviour
 
   private IEnumerator ReloadAnim() {
     float timer = 0f;
-    float inTime = 0.35f;
-    float outTime = 0.3f;
-    float popUpTime = 0.1f;
-    float popDownTime = 0.125f;
+    float inTime = 0.35f * reloadTime;
+    float outTime = 0.3f * reloadTime;
+    float popUpTime = 0.1f * reloadTime;
+    float popDownTime = 0.125f * reloadTime;
     Vector3 init = magazine.transform.localPosition;
     while (timer < outTime) {
       if (timer / outTime <= 0.15f) gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 0), Quaternion.Euler(-20f, -90f, 0), timer / outTime / 0.15f);
