@@ -344,8 +344,8 @@ public class GunController : MonoBehaviour
 
   private IEnumerator ChamberCharge() {
     float timer = 0f;
-    float durIn = 0.07f;
-    float durOut = 0.1f;
+    float durIn = 0.05f;
+    float durOut = 0.15f;
     GameObject beam = gun.GetChild(3).gameObject;
     Color colin = Color.white;
     Color colout = Color.clear;
