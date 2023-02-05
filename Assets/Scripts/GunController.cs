@@ -24,7 +24,7 @@ public class GunController : MonoBehaviour
   private string[] gunNames = {"Pistol", "Assault Rifle", "Heavy Rifle"};
 
   //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back), Reload time
-  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f}, new float[] {1, 30, 0.1f, 0.05f, 0.3f, 1.1f, 0.05f, 1.5f}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.7f, 0.25f, 2f}};
+  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f}, new float[] {1, 30, 0.125f, 0.05f, 0.3f, 1.1f, 0.05f, 1.5f}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.7f, 0.25f, 2f}};
 
   private string activeGun = "Pistol";
   private LineRenderer laserEffect;
@@ -58,8 +58,8 @@ public class GunController : MonoBehaviour
   private bool shells = false;
   private TextMeshProUGUI ammoText;
   private float holdTimer;
-  private GameObject chamberFlashFX;
   private float reloadTime;
+  private Vector3 beamInit;
 
 
   void Start() {
@@ -75,6 +75,7 @@ public class GunController : MonoBehaviour
     cam = GetComponent<Camera>();
     Cursor.lockState = CursorLockMode.Locked;
     gun = transform.GetChild(0);
+    beamInit = transform.GetChild(1).GetChild(3).localScale;
     ReloadGunAssets(gunSpecs[0]);
     //Cursor.visible = false;
   }
@@ -121,12 +122,6 @@ public class GunController : MonoBehaviour
     main = explodeFX.GetComponent<ParticleSystem>().main;
     sh = explodeFX.GetComponent<ParticleSystem>().shape;
     muzzleFlashFX = gunMuzzle.GetChild(3).gameObject;
-    try {
-      chamberFlashFX = gunMuzzle.GetChild(4).gameObject;
-    }
-    catch {
-      chamberFlashFX = null;
-    }
     maxRounds = (int)gunStats[1];
     fireRate = gunStats[2];
     shotRecoilUp = gunStats[3];
@@ -151,7 +146,7 @@ public class GunController : MonoBehaviour
     else if (gunNames[(int)gunStats[0]] == "Assault Rifle") {
       gun = transform.GetChild(1);
       laserEffect.material.SetColor("_EmissionColor", purple);
-      shells = true;
+      shells = false;
     }
     else if (gunNames[(int)gunStats[0]] == "Heavy Rifle") {
       gun = transform.GetChild(2);
@@ -347,6 +342,36 @@ public class GunController : MonoBehaviour
     gun.localRotation = Quaternion.Euler(0f, -90f, 0f);
   }
 
+  private IEnumerator ChamberCharge() {
+    float timer = 0f;
+    float durIn = 0.07f;
+    float durOut = 0.1f;
+    GameObject beam = gun.GetChild(3).gameObject;
+    Color colin = Color.white;
+    Color colout = Color.clear;
+    Material mat = beam.GetComponent<MeshRenderer>().material;
+    beam.SetActive(true);
+    mat.color = colout;
+    while (timer < durIn) {
+      mat.color = Color.Lerp(colout, colin, timer / durIn);
+      beam.transform.localScale = Vector3.Lerp(new Vector3(beamInit.x, 0, 0), beamInit, timer / durIn);
+      timer += Time.deltaTime;
+      yield return null;
+    }
+    beam.transform.localScale = beamInit;
+    timer = 0f;
+    mat.color = colin;
+    while (timer < durOut) {
+      mat.color = Color.Lerp(colin, colout, timer / durOut);
+      beam.transform.localScale = Vector3.Lerp(beamInit, new Vector3(beamInit.x, 0, 0), timer / durOut);
+      timer += Time.deltaTime;
+      yield return null;
+    }
+    beam.transform.localScale = beamInit;
+    mat.color = colout;
+    beam.SetActive(false);
+  }
+
   private IEnumerator ReactorGlow() {
     float timer = 0f;
     float durIn = 0.1f;
@@ -379,22 +404,22 @@ public class GunController : MonoBehaviour
     laserEffect.startWidth = 0f;
     laserEffect.endWidth = laserEffect.startWidth;
     while (timer < durIn) {
-    laserEffect.startWidth = Mathf.Lerp(0f, 0.25f, timer / durIn);
-    laserEffect.endWidth = laserEffect.startWidth;
-    laser.material.color = Color.Lerp(colout, colin, timer / durIn);
-    timer += Time.deltaTime;
-    yield return null;
+      laserEffect.startWidth = Mathf.Lerp(0f, 0.25f, timer / durIn);
+      laserEffect.endWidth = laserEffect.startWidth;
+      laser.material.color = Color.Lerp(colout, colin, timer / durIn);
+      timer += Time.deltaTime;
+      yield return null;
     }
     timer = 0f;
     laser.material.color = colin;
     laserEffect.startWidth = 0.25f;
     laserEffect.endWidth = laserEffect.startWidth;
     while (timer < durOut) {
-    laserEffect.startWidth = Mathf.Lerp(0.25f, 0f, timer / durOut);
-    laserEffect.endWidth = laserEffect.startWidth;
-    laser.material.color = Color.Lerp(colin, colout, timer / durOut);
-    timer += Time.deltaTime;
-    yield return null;
+      laserEffect.startWidth = Mathf.Lerp(0.25f, 0f, timer / durOut);
+      laserEffect.endWidth = laserEffect.startWidth;
+      laser.material.color = Color.Lerp(colin, colout, timer / durOut);
+      timer += Time.deltaTime;
+      yield return null;
     }
     laserEffect.startWidth = 0f;
     laserEffect.endWidth = laserEffect.startWidth;
@@ -409,6 +434,7 @@ public class GunController : MonoBehaviour
     StopCoroutine("RecoilBackOnly");
     StopCoroutine("CrosshairFX");
     StopCoroutine("ReactorGlow");
+    StopCoroutine("ChamberCharge");
   }
 
   private void ShootFX() {
@@ -418,7 +444,7 @@ public class GunController : MonoBehaviour
     StartCoroutine(CrosshairFX());
     if (shells) EjectShell();
     if (activeGun == "Heavy Rifle") StartCoroutine(ReactorGlow());
-    if (chamberFlashFX != null) chamberFlashFX.GetComponent<ParticleSystem>().Play();
+    if (activeGun == "Assault Rifle") StartCoroutine(ChamberCharge());
     muzzleFlashFX.GetComponent<ParticleSystem>().Play();
   }
 }
