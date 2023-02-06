@@ -18,20 +18,20 @@ public class GunController : MonoBehaviour
   [SerializeField]
   private GameObject ammoInfo;
   [SerializeField]
+  private GameObject laserBeamPrefab;
+  [SerializeField]
   [ColorUsageAttribute(true, true)]
-  private Color purple, green;
+  private Color[] colors;
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Heavy Rifle"};
 
-  //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back), Reload time, Uses upwards recoil animation
-  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f, 1}, new float[] {1, 30, 0.125f, 0.05f, 0.5f, 1.1f, 0.09f, 1.5f, 0}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.7f, 0.25f, 2f, 0}};
+  //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back), Reload time, Uses upwards recoil animation, Shot color
+  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f, 1, 0}, new float[] {1, 30, 0.125f, 0.05f, 0.5f, 1.1f, 0.09f, 1.5f, 0, 0}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.7f, 0.25f, 2f, 0, 1}};
 
   private string activeGun = "Pistol";
-  private LineRenderer laserEffect;
   private Camera cam;
   private float canFireTime;
   private Transform gun;
-  private Renderer laser;
   private GameObject impactFX;
   private GameObject explodeFX;
   private GameObject muzzleFlashFX;
@@ -61,6 +61,7 @@ public class GunController : MonoBehaviour
   private float reloadTime;
   private Vector3 beamInit;
   private float upRecoilAnim;
+  private int beamColor;
 
 
   void Start() {
@@ -71,8 +72,6 @@ public class GunController : MonoBehaviour
     leftleg = crosshair.GetChild(1).gameObject;
     rightleg = crosshair.GetChild(2).gameObject;
     rounds = maxRounds;
-    laserEffect = GetComponent<LineRenderer>();
-    laser = laserEffect.gameObject.GetComponent<Renderer>();
     cam = GetComponent<Camera>();
     Cursor.lockState = CursorLockMode.Locked;
     gun = transform.GetChild(0);
@@ -132,6 +131,7 @@ public class GunController : MonoBehaviour
     shotRecoilBack = gunStats[6];
     reloadTime = gunStats[7];
     upRecoilAnim = gunStats[8];
+    beamColor = (int)gunStats[9];
     activeGun = gunNames[(int)gunStats[0]];
   }
 
@@ -141,21 +141,7 @@ public class GunController : MonoBehaviour
     transform.GetChild(0).gameObject.SetActive(false);
     transform.GetChild(1).gameObject.SetActive(false);
     transform.GetChild(2).gameObject.SetActive(false);
-    if (gunNames[(int)gunStats[0]] == "Pistol") {
-      gun = transform.GetChild(0);
-      laserEffect.material.SetColor("_EmissionColor", purple);
-      shells = false;
-    }
-    else if (gunNames[(int)gunStats[0]] == "Assault Rifle") {
-      gun = transform.GetChild(1);
-      laserEffect.material.SetColor("_EmissionColor", purple);
-      shells = false;
-    }
-    else if (gunNames[(int)gunStats[0]] == "Heavy Rifle") {
-      gun = transform.GetChild(2);
-      laserEffect.material.SetColor("_EmissionColor", green);
-      shells = false;
-    }
+    gun = transform.GetChild((int)gunStats[0]);
     ReloadGunAssets(gunStats);
     rounds = maxRounds;
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
@@ -199,9 +185,12 @@ public class GunController : MonoBehaviour
     canFireTime = Time.time + fireRate;
     Vector3 origin = Quaternion.Euler(holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
     RaycastHit hit;
-    laserEffect.SetPosition(0, gunMuzzle.position);
+    Vector3[] points = new Vector3[2];
+    points[0] = gunMuzzle.position;
+    //laserEffect.SetPosition(0, gunMuzzle.position);
     if (Physics.Raycast(origin, cam.transform.forward, out hit)) {
-      laserEffect.SetPosition(1, hit.point);
+      points[1] = hit.point;
+      //laserEffect.SetPosition(1, hit.point);
       impactFX.transform.position = hit.point;
       impactFX.GetComponent<ParticleSystem>().Play();
       if (hit.collider.gameObject.CompareTag("Target")) {
@@ -209,9 +198,10 @@ public class GunController : MonoBehaviour
       }
     }
     else {
-      laserEffect.SetPosition(1, origin + (cam.transform.forward * 50));
+      points[1] = origin + (cam.transform.forward * 50);
+      //laserEffect.SetPosition(1, origin + (cam.transform.forward * 50));
     }
-    ShootFX();
+    ShootFX(points);
     vertRecoilTracking = Mathf.Clamp(vertRecoilTracking + shotRecoilUp, 0, 1);
     pov.m_VerticalAxis.Value -= 20f * shotRecoilUp;
   }
@@ -382,6 +372,7 @@ public class GunController : MonoBehaviour
     GameObject reactor = gun.GetChild(0).GetChild(0).gameObject;
     Material mat = reactor.GetComponent<Renderer>().material;
     Color baseCol = mat.GetColor("_EmissionColor");
+    Color green = colors[1];
     while (timer < durIn) {
       mat.SetColor("_EmissionColor", Color.Lerp(baseCol, green * 2, timer / durIn));
       timer += Time.deltaTime;
@@ -396,12 +387,17 @@ public class GunController : MonoBehaviour
     mat.SetColor("_EmissionColor", baseCol);
   }
 
-  private IEnumerator LaserFX() {
+  private IEnumerator LaserFX(Vector3[] points) {
     float timer = 0f;
     float durIn = 0.08f;
     float durOut = 0.1f;
     Color colin = Color.white;
     Color colout = Color.clear;
+    LineRenderer laserEffect = Instantiate(laserBeamPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform).GetComponent<LineRenderer>();
+    Renderer laser = laserEffect.gameObject.GetComponent<Renderer>();
+    laserEffect.SetPosition(0, points[0]);
+    laserEffect.SetPosition(1, points[1]);
+    laserEffect.material.SetColor("_EmissionColor", colors[beamColor]);
     laserEffect.enabled = true;
     laser.material.color = colout;
     laserEffect.startWidth = 0f;
@@ -428,6 +424,7 @@ public class GunController : MonoBehaviour
     laserEffect.endWidth = laserEffect.startWidth;
     laser.material.color = colout;
     laserEffect.enabled = false;
+    Destroy(laserEffect.gameObject);
   }
 
   private void StopFX() {
@@ -440,9 +437,9 @@ public class GunController : MonoBehaviour
     StopCoroutine("ChamberCharge");
   }
 
-  private void ShootFX() {
-    StartCoroutine(LaserFX());
-    if (upRecoilAnim == 0) StartCoroutine(Recoil());
+  private void ShootFX(Vector3[] points) {
+    StartCoroutine(LaserFX(points));
+    if (upRecoilAnim == 1) StartCoroutine(Recoil());
     else StartCoroutine(RecoilBackOnly());
     StartCoroutine(CrosshairFX());
     if (shells) EjectShell();

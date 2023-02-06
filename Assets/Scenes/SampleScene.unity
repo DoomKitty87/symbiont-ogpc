@@ -15701,8 +15701,11 @@ MonoBehaviour:
   HUDCanvas: {fileID: 1756339316}
   shell: {fileID: 4951129425761058106, guid: 920dea722f6120f4d9d4f16065234f75, type: 3}
   ammoInfo: {fileID: 483575208}
-  purple: {r: 85.780106, g: 0, b: 76.79789, a: 1}
-  green: {r: 0, g: 3.482202, b: 0.2867696, a: 1}
+  laserBeamPrefab: {fileID: 1362095038030980878, guid: edfe8dd26ae289c448cee08622b726b8,
+    type: 3}
+  colors:
+  - {r: 85.780106, g: 0, b: 76.79789, a: 1}
+  - {r: 0, g: 3.482202, b: 0.2867696, a: 1}
 --- !u!120 &330585550
 LineRenderer:
   m_ObjectHideFlags: 0
