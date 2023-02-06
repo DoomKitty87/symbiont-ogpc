@@ -23,8 +23,8 @@ public class GunController : MonoBehaviour
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Heavy Rifle"};
 
-  //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back), Reload time
-  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f}, new float[] {1, 30, 0.125f, 0.05f, 0.3f, 1.1f, 0.05f, 1.5f}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.7f, 0.25f, 2f}};
+  //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back), Reload time, Uses upwards recoil animation
+  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f, 1}, new float[] {1, 30, 0.125f, 0.05f, 0.5f, 1.1f, 0.09f, 1.5f, 0}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.7f, 0.25f, 2f, 0}};
 
   private string activeGun = "Pistol";
   private LineRenderer laserEffect;
@@ -60,6 +60,7 @@ public class GunController : MonoBehaviour
   private float holdTimer;
   private float reloadTime;
   private Vector3 beamInit;
+  private float upRecoilAnim;
 
 
   void Start() {
@@ -82,8 +83,9 @@ public class GunController : MonoBehaviour
 
   void Update()
   {
+    if (vertRecoilTracking > 0 && vertRecoilTracking - recoilRecovery * Time.deltaTime >= 0) pov.m_VerticalAxis.Value += 20f * recoilRecovery * Time.deltaTime;
+    else if (vertRecoilTracking > 0) pov.m_VerticalAxis.Value += 20f * ((recoilRecovery * Time.deltaTime) - Mathf.Abs((vertRecoilTracking - recoilRecovery * Time.deltaTime)));
     vertRecoilTracking = Mathf.Clamp(vertRecoilTracking - recoilRecovery * Time.deltaTime, 0, 1);
-    if (vertRecoilTracking > 0) pov.m_VerticalAxis.Value += 20f * recoilRecovery * Time.deltaTime;
     if (Input.GetMouseButtonDown(0)) {
       if (activeGun == "Pistol") Shoot();
       holdTimer = 0;
@@ -129,6 +131,7 @@ public class GunController : MonoBehaviour
     aimSpread = gunStats[5];
     shotRecoilBack = gunStats[6];
     reloadTime = gunStats[7];
+    upRecoilAnim = gunStats[8];
     activeGun = gunNames[(int)gunStats[0]];
   }
 
@@ -190,12 +193,12 @@ public class GunController : MonoBehaviour
 
   private void Shoot() {
     if (!CanShoot()) return;
+    StopFX();
     rounds -= 1;
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
     canFireTime = Time.time + fireRate;
     Vector3 origin = Quaternion.Euler(holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
     RaycastHit hit;
-    StopFX();
     laserEffect.SetPosition(0, gunMuzzle.position);
     if (Physics.Raycast(origin, cam.transform.forward, out hit)) {
       laserEffect.SetPosition(1, hit.point);
@@ -439,7 +442,7 @@ public class GunController : MonoBehaviour
 
   private void ShootFX() {
     StartCoroutine(LaserFX());
-    if (shotRecoilUp != 0f) StartCoroutine(Recoil());
+    if (upRecoilAnim == 0) StartCoroutine(Recoil());
     else StartCoroutine(RecoilBackOnly());
     StartCoroutine(CrosshairFX());
     if (shells) EjectShell();
