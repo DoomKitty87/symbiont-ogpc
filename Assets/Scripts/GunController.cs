@@ -187,19 +187,14 @@ public class GunController : MonoBehaviour
     RaycastHit hit;
     Vector3[] points = new Vector3[2];
     points[0] = gunMuzzle.position;
-    //laserEffect.SetPosition(0, gunMuzzle.position);
     if (Physics.Raycast(origin, cam.transform.forward, out hit)) {
       points[1] = hit.point;
-      //laserEffect.SetPosition(1, hit.point);
       impactFX.transform.position = hit.point;
       impactFX.GetComponent<ParticleSystem>().Play();
-      if (hit.collider.gameObject.CompareTag("Target")) {
-        HitTarget(hit);
-      }
+      if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
     }
     else {
       points[1] = origin + (cam.transform.forward * 50);
-      //laserEffect.SetPosition(1, origin + (cam.transform.forward * 50));
     }
     ShootFX(points);
     vertRecoilTracking = Mathf.Clamp(vertRecoilTracking + shotRecoilUp, 0, 1);
