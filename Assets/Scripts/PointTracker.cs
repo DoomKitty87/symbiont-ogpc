@@ -20,6 +20,7 @@ public class PointTracker : MonoBehaviour
   private Vector3 initScale;
   private float init;
   private CinemachineBasicMultiChannelPerlin noise;
+  private GameObject comboParticles;
 
   [SerializeField]
   private float comboTime;
@@ -90,11 +91,18 @@ public class PointTracker : MonoBehaviour
       fxtimer += Time.deltaTime;
       yield return null;
     }
-    combo.gameObject.SetActive(false);
     bloom.intensity.value = init;
-    combo.color = Color.clear;
-    combo.gameObject.transform.localScale = initScale;
     noise.m_AmplitudeGain = 0f;
+    fxtimer = 0f;
+    while (fxtimer < 0.1f) {
+      combo.gameObject.transform.localScale = Vector3.Lerp(initScale * 3, Vector3.zero, fxtimer / 0.1f);
+      fxtimer += Time.deltaTime;
+      yield return null;
+    }
+    if (comboLength >= 10) comboParticles.GetComponent<ParticleSystem>().Play();
+    combo.gameObject.SetActive(false);
+    combo.gameObject.transform.localScale = initScale;
+    combo.color = Color.clear;
   }
 
   public void DestroyedTarget(GameObject target) {
@@ -126,6 +134,7 @@ public class PointTracker : MonoBehaviour
     postProcessing.profile.TryGet(out bloom);
     cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
     noise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+    comboParticles = combo.transform.GetChild(0).gameObject;
   }
 
   void Update()
