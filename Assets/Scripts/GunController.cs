@@ -202,6 +202,7 @@ public class GunController : MonoBehaviour
   }
 
   public void HitTarget(RaycastHit hit) {
+    GetComponent<PointTracker>().DestroyedTarget(hit.collider.gameObject);
     StartCoroutine(ExplodeTarget(hit.collider.gameObject));
     return;
   }
