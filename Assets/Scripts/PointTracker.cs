@@ -25,6 +25,8 @@ public class PointTracker : MonoBehaviour
   private float comboTime;
   [SerializeField]
   private GameObject HUD;
+  [SerializeField]
+  private GameObject WorldSpaceHUD;
 
   public float GetPoints() {
     return points;
@@ -56,6 +58,7 @@ public class PointTracker : MonoBehaviour
     initScale = combo.gameObject.transform.localScale;
     combo.gameObject.SetActive(true);
     combo.color = Color.clear;
+    combo.gameObject.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(-15, 15));
     Color targetColor = Color.clear;
     switch (Random.Range(0, 3)) {
       case 0:
@@ -74,7 +77,7 @@ public class PointTracker : MonoBehaviour
     while (fxtimer < flashIn) {
       bloom.intensity.value = Mathf.Lerp(init, init * 25 * Mathf.Max(comboLength, 5), fxtimer / flashIn);
       combo.color = Color.Lerp(Color.clear, targetColor * 25, fxtimer / flashIn);
-      combo.gameObject.transform.localScale = Vector3.Lerp(initScale, initScale * 3.5f, fxtimer / flashIn);
+      combo.gameObject.transform.localScale = Vector3.Lerp(initScale, initScale * 3f, fxtimer / flashIn);
       noise.m_AmplitudeGain = Mathf.Lerp(0, 5, fxtimer / flashIn);
       fxtimer += Time.deltaTime;
       yield return null;
@@ -103,7 +106,6 @@ public class PointTracker : MonoBehaviour
       bloom.intensity.value = 1;
       combo.gameObject.transform.localScale = initScale;
       noise.m_AmplitudeGain = 0f;
-      combo.color = Color.clear;
       StartCoroutine(ScoreFX());
       StartCoroutine(FlashFX());
     }
@@ -118,7 +120,8 @@ public class PointTracker : MonoBehaviour
   void Start()
   {
     score = HUD.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
-    combo = HUD.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>();
+    combo = WorldSpaceHUD.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+    initScale = combo.gameObject.transform.localScale;
     postProcessing = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>();
     postProcessing.profile.TryGet(out bloom);
     cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
