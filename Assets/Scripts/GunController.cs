@@ -257,14 +257,14 @@ public class GunController : MonoBehaviour
     float outTime = 0.15f;
     float inTime = 0.2f;
     while (timer < outTime) {
-      leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-50f, 0, 0), new Vector3(-85f, 0, 0), Mathf.SmoothStep(0f, 1f, timer / outTime));
+      leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-30f * (leftleg.transform.localScale.x / 0.5f), 0, 0), new Vector3(-30f - (30 * (shotRecoilUp / 0.2f) * (leftleg.transform.localScale.x / 0.5f)), 0, 0), Mathf.SmoothStep(0f, 1f, timer / outTime));
       rightleg.transform.localPosition = leftleg.transform.localPosition * -1f;
       timer += Time.deltaTime;
       yield return null;
     }
     timer = 0;
     while (timer < inTime) {
-      leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-85f, 0, 0), new Vector3(-50f, 0, 0), Mathf.SmoothStep(0f, 1f, timer / inTime));
+      leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-30f - (30 * (shotRecoilUp / 0.2f) * (leftleg.transform.localScale.x / 0.5f)), 0, 0), new Vector3(-30f * (leftleg.transform.localScale.x / 0.5f), 0, 0), Mathf.SmoothStep(0f, 1f, timer / inTime));
       rightleg.transform.localPosition = leftleg.transform.localPosition * -1f;
       timer += Time.deltaTime;
       yield return null;
