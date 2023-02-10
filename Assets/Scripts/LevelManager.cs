@@ -11,15 +11,17 @@ public class LevelManager : MonoBehaviour
     
     private CinemachineVirtualCamera vcam;
     private CinemachineTrackedDolly dolly;
+    private PointTracker pointtracker;
 
     void Start()
     {
         vcam = GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
         dolly = vcam.GetCinemachineComponent<CinemachineTrackedDolly>();
+        pointtracker = GetComponent<PointTracker>();
     }
 
     void Update()
     {
-        dolly.m_PathPosition += 5f * Time.deltaTime;
+        dolly.m_PathPosition += 5f * Time.deltaTime * (pointtracker.GetCombo() / 4 + 1);
     }
 }
