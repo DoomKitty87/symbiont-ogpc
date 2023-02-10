@@ -33,6 +33,10 @@ public class PointTracker : MonoBehaviour
     return points;
   }
 
+  public float GetCombo() {
+    return comboLength;
+  }
+
   private IEnumerator ScoreFX() {
     float fxtimer = 0f;
     float flashIn = 0.05f;
