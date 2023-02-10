@@ -22,6 +22,6 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        dolly.m_PathPosition += 5f * Time.deltaTime * (pointtracker.GetCombo() + 1);
+        dolly.m_PathPosition += 5f * Time.deltaTime * (pointtracker.GetCombo() / 4 + 1);
     }
 }
