@@ -62,7 +62,7 @@ public class GunController : MonoBehaviour
   private Vector3 beamInit;
   private float upRecoilAnim;
   private int beamColor;
-
+  private AmmoScript ammoScript;
 
   void Start() {
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
@@ -77,6 +77,7 @@ public class GunController : MonoBehaviour
     gun = transform.GetChild(0);
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ReloadGunAssets(gunSpecs[0]);
+    ammoScript = ammoInfo.GetComponent<AmmoScript>();
     //Cursor.visible = false;
   }
 
@@ -145,6 +146,7 @@ public class GunController : MonoBehaviour
     ReloadGunAssets(gunStats);
     rounds = maxRounds;
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
+    ammoScript.maxAmmo = maxRounds;
     vertRecoilTracking = 0f;
   }
 
@@ -182,6 +184,7 @@ public class GunController : MonoBehaviour
     StopFX();
     rounds -= 1;
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
+    ammoScript.currAmmo = rounds;
     canFireTime = Time.time + fireRate;
     Vector3 origin = Quaternion.Euler(holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
     RaycastHit hit;
@@ -245,6 +248,7 @@ public class GunController : MonoBehaviour
     gun.localRotation = Quaternion.Euler(0, -90f, 0);
     magazine.transform.localPosition = init;
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
+    ammoScript.currAmmo = rounds;
     reloading = false;
   }
 
