@@ -41,6 +41,10 @@ public class ButtonScript : MonoBehaviour
         Application.Quit();
     }
 
+    public void update_SENSITIVIY() {
+
+	}
+
     private void SwitchScene(string targetScene) {
         SceneManager.LoadScene(targetScene);
     }
