@@ -7,21 +7,13 @@ using Cinemachine;
 public class GunController : MonoBehaviour
 {
 
-  [SerializeField]
-  private float fireRate;
-  [SerializeField]
-  private int maxRounds;
-  [SerializeField]
-  private GameObject HUDCanvas;
-  [SerializeField]
-  private GameObject shell;
-  [SerializeField]
-  private GameObject ammoInfo;
-  [SerializeField]
-  private GameObject laserBeamPrefab;
-  [SerializeField]
-  [ColorUsageAttribute(true, true)]
-  private Color[] colors;
+  [SerializeField] private float fireRate;
+  [SerializeField] private int maxRounds;
+  [SerializeField] private GameObject HUDCanvas;
+  [SerializeField] private GameObject shell;
+  [SerializeField] private GameObject ammoInfo;
+  [SerializeField] private GameObject laserBeamPrefab;
+  [SerializeField][ColorUsageAttribute(true, true)] private Color[] colors;
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Heavy Rifle"};
 
@@ -31,37 +23,37 @@ public class GunController : MonoBehaviour
   private string activeGun = "Pistol";
   private Camera cam;
   private float canFireTime;
+  private float holdTimer;
+  private float reloadTime;
+  private float shotRecoilUp;
+  private float shotRecoilBack;
+  private float recoilRecovery;
+  private float aimSpread;
+  private float upRecoilAnim;
+  private float vertRecoilTracking;
   private Transform gun;
+  private GameObject reloadtext;
+  private GameObject leftleg, rightleg;
   private GameObject impactFX;
   private GameObject explodeFX;
   private GameObject muzzleFlashFX;
   private GameObject fragmentFX;
+  private GameObject magazine;
   private UnityEngine.ParticleSystem.MainModule main;
   private UnityEngine.ParticleSystem.ShapeModule sh;
+  private CinemachineVirtualCamera vcam;
+  private CinemachinePOV pov;
   private int rounds;
+  private int beamColor;
   private bool reloading;
+  private bool shells = false;
   private TextMeshProUGUI magtext;
-  private GameObject reloadtext;
-  private GameObject leftleg, rightleg;
-  private float vertRecoilTracking;
+  private TextMeshProUGUI ammoText;
   private Transform crosshair;
   private Vector3 gunInitPos;
   private Quaternion gunInitRot;
-  private float shotRecoilUp;
-  private float shotRecoilBack;
-  private float recoilRecovery;
-  private CinemachineVirtualCamera vcam;
-  private CinemachinePOV pov;
-  private float aimSpread;
   private Transform gunMuzzle;
-  private GameObject magazine;
-  private bool shells = false;
-  private TextMeshProUGUI ammoText;
-  private float holdTimer;
-  private float reloadTime;
   private Vector3 beamInit;
-  private float upRecoilAnim;
-  private int beamColor;
   private AmmoScript ammoScript;
 
   void Start() {
@@ -74,11 +66,11 @@ public class GunController : MonoBehaviour
     rounds = maxRounds;
     cam = GetComponent<Camera>();
     Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
     gun = transform.GetChild(0);
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ReloadGunAssets(gunSpecs[0]);
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
-    //Cursor.visible = false;
   }
 
   void Update()

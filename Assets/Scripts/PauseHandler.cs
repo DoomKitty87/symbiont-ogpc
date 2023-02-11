@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseHandler : MonoBehaviour {
-
-	private bool isPaused;
+public class PauseHandler : MonoBehaviour 
+{
 
 	[SerializeField] private GameObject[] objectsToBeShown;
 	[SerializeField] private GameObject[] objectsToBeHidden;
 
 	private ButtonScript buttonScript;
+  private bool isPaused;
 
 	private void Start() {
 		buttonScript = GetComponent<ButtonScript>();

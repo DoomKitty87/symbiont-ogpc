@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour
 {
   [SerializeField] private PauseHandler pauseHandler;
-
   [SerializeField] private GameObject pauseScreen;
   [SerializeField] private GameObject settingsScreen;
 	[SerializeField] private GameObject mouseScreen;

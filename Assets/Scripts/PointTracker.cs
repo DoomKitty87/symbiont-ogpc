@@ -9,25 +9,22 @@ using Cinemachine;
 public class PointTracker : MonoBehaviour
 {
 
+  [SerializeField] private float comboTime;
+  [SerializeField] private GameObject HUD;
+  [SerializeField] private GameObject WorldSpaceHUD;
+
   private float points;
   private float timer;
   private float comboLength;
+  private float init;
   private TextMeshProUGUI score;
   private TextMeshProUGUI combo;
   private Volume postProcessing;
   private Bloom bloom;
   private CinemachineVirtualCamera cam;
-  private Vector3 initScale;
-  private float init;
   private CinemachineBasicMultiChannelPerlin noise;
+  private Vector3 initScale;
   private GameObject comboParticles;
-
-  [SerializeField]
-  private float comboTime;
-  [SerializeField]
-  private GameObject HUD;
-  [SerializeField]
-  private GameObject WorldSpaceHUD;
 
   public float GetPoints() {
     return points;
