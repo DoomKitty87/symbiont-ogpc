@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
   private PointTracker pointTracker;
 
   private void Start() {
-    vcam = GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
+    vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
     dolly = vcam.GetCinemachineComponent<CinemachineTrackedDolly>();
     pointTracker = GetComponent<PointTracker>();
   }

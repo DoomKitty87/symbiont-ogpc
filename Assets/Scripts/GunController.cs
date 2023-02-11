@@ -48,7 +48,7 @@ public class GunController : MonoBehaviour
   private void Start() {
     activeGun = pistol;
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
-    vcam = GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
+    vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
     pov = vcam.GetCinemachineComponent<CinemachinePOV>();
     crosshair = HUDCanvas.transform.GetChild(0);
     leftleg = crosshair.GetChild(1).gameObject;

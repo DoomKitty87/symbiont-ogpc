@@ -21,7 +21,7 @@ public class PointTracker : MonoBehaviour
   private TextMeshProUGUI combo;
   private Volume postProcessing;
   private Bloom bloom;
-  private CinemachineVirtualCamera cam;
+  private CinemachineVirtualCamera vcam;
   private CinemachineBasicMultiChannelPerlin noise;
   private Vector3 initScale;
   private GameObject comboParticles;
@@ -136,8 +136,8 @@ public class PointTracker : MonoBehaviour
     initScale = combo.gameObject.transform.localScale;
     postProcessing = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>();
     postProcessing.profile.TryGet(out bloom);
-    cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
-    noise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+    vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
+    noise = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     comboParticles = combo.transform.GetChild(0).gameObject;
   }
 
