@@ -64,6 +64,7 @@ public class GunController : MonoBehaviour
     gun = transform.GetChild(0);
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
+	ammoScript.maxAmmo = maxRounds;
   }
 
   private void Update() {
@@ -117,7 +118,8 @@ public class GunController : MonoBehaviour
     ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
     ammoScript.maxAmmo = activeGun.magSize;
     vertRecoilTracking = 0f;
-  }
+	ammoScript.currAmmo = rounds;
+    }
 
   private bool CanShoot() {
     if (rounds == 0) {

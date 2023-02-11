@@ -18,7 +18,7 @@ public class PauseHandler : MonoBehaviour
 
 	private void Update() {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			if (!isPaused) Pause(); else UnPause();
+			if (!isPaused) Pause(); else HandleNestedMenus();
 		}
 	}
 
@@ -40,4 +40,13 @@ public class PauseHandler : MonoBehaviour
 		Time.timeScale = 1.0f;
 	}
 
+	private void HandleNestedMenus() {
+		if (buttonScript.currentActiveElement == buttonScript.pauseScreen) {
+			buttonScript.game_RESUME();
+		} else if (buttonScript.currentActiveElement == buttonScript.settingsScreen) {
+			buttonScript.settings_BACK();
+		} else {
+			buttonScript.default_BACK();
+		}
+	}
 }

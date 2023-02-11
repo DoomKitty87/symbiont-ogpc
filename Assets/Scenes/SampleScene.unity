@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731715, g: 0.13414735, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -26776,13 +26776,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88b10a61ddac4723a0da38ec0bd7463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseHandler: {fileID: 523088998}
   pauseScreen: {fileID: 181181949}
   settingsScreen: {fileID: 2138104847}
   mouseScreen: {fileID: 377994923}
   keyboardScreen: {fileID: 931344884}
   audioScreen: {fileID: 50037833}
   videoScreen: {fileID: 2137172235}
+  currentActiveElement: {fileID: 0}
 --- !u!114 &523088998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52950,11 +52950,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4314a95c33a4013b21bcc43e10fc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmmo: 0
-  currAmmo: 0
   targetColor:
     serializedVersion: 2
-    rgba: 4278190335
+    rgba: 4278190217
+  maxAmmo: 0
+  currAmmo: 0
 --- !u!114 &1256045572
 MonoBehaviour:
   m_ObjectHideFlags: 0
