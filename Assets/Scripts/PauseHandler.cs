@@ -22,6 +22,7 @@ public class PauseHandler : MonoBehaviour
 		}
 	}
 
+	// Handles hiding and unhiding objects when paused
 	public void Pause() {
 		Cursor.lockState = CursorLockMode.None;
 		isPaused = true;
@@ -30,8 +31,10 @@ public class PauseHandler : MonoBehaviour
 		Time.timeScale = 0.0f;
 	}
 
+	// Function called from ButtonScript to handle unpausing
 	public void UnPause() {
 		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 		isPaused = false;
 		
 		buttonScript.ResetScreen();
@@ -40,13 +43,10 @@ public class PauseHandler : MonoBehaviour
 		Time.timeScale = 1.0f;
 	}
 
+	// Glorified switch statement
 	private void HandleNestedMenus() {
-		if (buttonScript.currentActiveElement == buttonScript.pauseScreen) {
-			buttonScript.game_RESUME();
-		} else if (buttonScript.currentActiveElement == buttonScript.settingsScreen) {
-			buttonScript.settings_BACK();
-		} else {
-			buttonScript.default_BACK();
-		}
+		if (buttonScript.currentActiveElement == buttonScript.pauseScreen) buttonScript.game_RESUME();
+		else if (buttonScript.currentActiveElement == buttonScript.settingsScreen) buttonScript.settings_BACK();
+		else buttonScript.default_BACK();
 	}
 }

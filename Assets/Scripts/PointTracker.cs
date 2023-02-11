@@ -126,8 +126,7 @@ public class PointTracker : MonoBehaviour
     score.text = points.ToString();
   }
   
-  void Start()
-  {
+  private void Start() {
     score = HUD.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
     combo = WorldSpaceHUD.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     initScale = combo.gameObject.transform.localScale;
@@ -138,8 +137,7 @@ public class PointTracker : MonoBehaviour
     comboParticles = combo.transform.GetChild(0).gameObject;
   }
 
-  void Update()
-  {
+  private void Update() {
     timer += Time.deltaTime;
     if (timer > comboTime) comboLength = 0;
   }

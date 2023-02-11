@@ -21,9 +21,9 @@ public class ButtonScript : MonoBehaviour
 		currentActiveElement = pauseScreen;
 	}
 
-    // --------------------------------
-    // Game Button Scripts
-    // --------------------------------
+  // --------------------------------
+  // Game Button Scripts
+  // --------------------------------
 	public void game_RESUME() {
     pauseHandler.UnPause();
   }
@@ -89,10 +89,10 @@ public class ButtonScript : MonoBehaviour
 	// --------------------------------
 
   public void mouse_SENSITIVITY() {
-    // TODO: Change Sensitivity
+  // TODO: Change Sensitivity
   }
 
-	// --------------------------------
+  // --------------------------------
 	// Keybinds Button Scripts
 	// --------------------------------
 
@@ -126,14 +126,14 @@ public class ButtonScript : MonoBehaviour
     SceneManager.LoadScene(targetScene);
   }
 
+  public void ResetScreen() {
+    currentActiveElement.SetActive(false);
+    currentActiveElement = pauseScreen;
+  }
+
   private void ChangeActiveSettingsElement(GameObject targetElement) {
     currentActiveElement.SetActive(false);
     currentActiveElement = targetElement;
     currentActiveElement.SetActive(true);
-  }
-
-  public void ResetScreen() {
-    currentActiveElement.SetActive(false);
-    currentActiveElement = pauseScreen;
   }
 }

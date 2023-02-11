@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AmmoScript : MonoBehaviour {
+public class AmmoScript : MonoBehaviour 
+{
 
   [SerializeField] Color32 targetColor;
 
@@ -19,7 +20,8 @@ public class AmmoScript : MonoBehaviour {
 
   private void Update() {
     if (currAmmo != 0 && maxAmmo != 0) {
-      colorCoefficient = ((maxAmmo/currAmmo) * (255 / maxAmmo));
+			// If you aren't dividing by zero, exponentially raise colorCoefficient based on how small currAmmo is in respect to maxAmmo
+			colorCoefficient = ((maxAmmo/currAmmo) * (255 / maxAmmo));
     }
     image.color = Color.Lerp(defaultColor, targetColor, colorCoefficient / 255);
   }
