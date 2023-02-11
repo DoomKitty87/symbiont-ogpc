@@ -39,6 +39,7 @@ public class GunController : MonoBehaviour
   private Quaternion gunInitRot;
   private Transform gunMuzzle;
   private Vector3 beamInit;
+  private AudioSource shootSound;
   private AmmoScript ammoScript;
   private GunData pistol = new GunData("Pistol");
   private GunData assaultRifle = new GunData("Assault Rifle");
@@ -103,6 +104,7 @@ public class GunController : MonoBehaviour
     main = explodeFX.GetComponent<ParticleSystem>().main;
     sh = explodeFX.GetComponent<ParticleSystem>().shape;
     muzzleFlashFX = gunMuzzle.GetChild(3).gameObject;
+    shootSound = gunMuzzle.GetChild(4).gameObject.GetComponent<AudioSource>();
   }
 
   //Handles changing the active gun
@@ -422,6 +424,7 @@ public class GunController : MonoBehaviour
 
   //Triggers all effects for shooting
   private void ShootFX(Vector3[] points) {
+    shootSound.Play();
     StartCoroutine(LaserFX(points));
     if (activeGun.upRecoilAnim == true) StartCoroutine(Recoil());
     else StartCoroutine(RecoilBackOnly());
