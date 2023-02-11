@@ -7,11 +7,14 @@ using static GunData;
 
 public class GunController : MonoBehaviour
 {
+  [SerializeField] private GameObject gameHandler;
+
   [SerializeField] private GameObject HUDCanvas;
   [SerializeField] private GameObject shell;
   [SerializeField] private GameObject ammoInfo;
   [SerializeField] private GameObject laserBeamPrefab;
   [SerializeField][ColorUsageAttribute(true, true)] private Color[] colors;
+
   
   private Camera cam;
   private float canFireTime;
@@ -25,8 +28,8 @@ public class GunController : MonoBehaviour
   private GameObject muzzleFlashFX;
   private GameObject fragmentFX;
   private GameObject magazine;
-  private UnityEngine.ParticleSystem.MainModule main;
-  private UnityEngine.ParticleSystem.ShapeModule sh;
+  private ParticleSystem.MainModule main;
+  private ParticleSystem.ShapeModule sh;
   private CinemachineVirtualCamera vcam;
   private CinemachinePOV pov;
   private int rounds;
@@ -130,7 +133,7 @@ public class GunController : MonoBehaviour
       Reload();
       return false;
     }
-    else if (Time.time > canFireTime && reloading == false) return true;
+    else if (Time.time > canFireTime && reloading == false && gameHandler.GetComponent<PauseHandler>().isPaused == false) return true;
     else return false;
   }
 

@@ -9,7 +9,8 @@ public class PauseHandler : MonoBehaviour
 	[SerializeField] private GameObject[] objectsToBeHidden;
 
 	private ButtonScript buttonScript;
-  private bool isPaused;
+  [HideInInspector] public bool isPaused;
+
 
 	private void Start() {
 		buttonScript = GetComponent<ButtonScript>();

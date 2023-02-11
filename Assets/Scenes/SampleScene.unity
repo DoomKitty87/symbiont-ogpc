@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731715, g: 0.13414735, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -19363,6 +19363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce1c74ba50f341789dc24594b875b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameHandler: {fileID: 523088996}
   HUDCanvas: {fileID: 463293369}
   shell: {fileID: 4951129425761058106, guid: 920dea722f6120f4d9d4f16065234f75, type: 3}
   ammoInfo: {fileID: 1256045570}
@@ -27123,6 +27124,7 @@ MonoBehaviour:
   - {fileID: 1834705401}
   - {fileID: 1256045570}
   - {fileID: 1845125700}
+  isPaused: 0
 --- !u!4 &523088999
 Transform:
   m_ObjectHideFlags: 0
