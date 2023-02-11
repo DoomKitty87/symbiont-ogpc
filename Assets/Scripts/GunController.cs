@@ -60,7 +60,7 @@ public class GunController : MonoBehaviour
     gun = transform.GetChild(0);
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
-	  ammoScript.maxAmmo = maxRounds;
+	  ammoScript.maxAmmo = activeGun.magSize;
     ReloadGunAssets();
   }
 
@@ -162,7 +162,7 @@ public class GunController : MonoBehaviour
     ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
     ammoScript.currAmmo = rounds;
     canFireTime = Time.time + activeGun.fireRate;
-    Vector3 origin = Quaternion.Euler(holdTimer < activeGun.fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), holdTimer < fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
+    Vector3 origin = Quaternion.Euler(holdTimer < activeGun.fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), holdTimer < activeGun.fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
     RaycastHit hit;
     Vector3[] points = new Vector3[2];
     points[0] = gunMuzzle.position;
@@ -224,7 +224,7 @@ public class GunController : MonoBehaviour
     }
     gun.localRotation = Quaternion.Euler(0, -90f, 0);
     magazine.transform.localPosition = init;
-    ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
+    ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
     ammoScript.currAmmo = rounds;
     reloading = false;
   }
