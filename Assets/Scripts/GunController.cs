@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
-
+using static GunData;
 
 public class GunController : MonoBehaviour
 {
-
-  [SerializeField] private float fireRate;
-  [SerializeField] private int maxRounds;
   [SerializeField] private GameObject HUDCanvas;
   [SerializeField] private GameObject shell;
   [SerializeField] private GameObject ammoInfo;
   [SerializeField] private GameObject laserBeamPrefab;
   [SerializeField][ColorUsageAttribute(true, true)] private Color[] colors;
-
-  private string[] gunNames = {"Pistol", "Assault Rifle", "Heavy Rifle"};
-
+  
   private Camera cam;
   private float canFireTime;
   private float holdTimer;
@@ -48,9 +43,10 @@ public class GunController : MonoBehaviour
   private GunData pistol = new GunData("Pistol");
   private GunData assaultRifle = new GunData("Assault Rifle");
   private GunData heavyRifle = new GunData("Heavy Rifle");
-  private GunData activeGun = pistol;
+  private GunData activeGun;
 
   private void Start() {
+    activeGun = pistol;
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     vcam = GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
     pov = vcam.GetCinemachineComponent<CinemachinePOV>();
@@ -64,7 +60,8 @@ public class GunController : MonoBehaviour
     gun = transform.GetChild(0);
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
-	ammoScript.maxAmmo = maxRounds;
+	  ammoScript.maxAmmo = maxRounds;
+    ReloadGunAssets();
   }
 
   private void Update() {
@@ -80,13 +77,16 @@ public class GunController : MonoBehaviour
       holdTimer += Time.deltaTime;
     }
     if (Input.GetMouseButtonDown(1)) {
-      switch(activeGun) {
-        case pistol:
+      switch(activeGun.id) {
+        case 0:
           ChangeGun(assaultRifle);
-        case assaultRifle:
+          break;
+        case 1:
           ChangeGun(heavyRifle);
-        case heavyRifle:
+          break;
+        case 2:
           ChangeGun(pistol);
+          break;
       }
     }
   }
@@ -118,7 +118,7 @@ public class GunController : MonoBehaviour
     ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
     ammoScript.maxAmmo = activeGun.magSize;
     vertRecoilTracking = 0f;
-	ammoScript.currAmmo = rounds;
+	  ammoScript.currAmmo = rounds;
     }
 
   private bool CanShoot() {
@@ -154,7 +154,7 @@ public class GunController : MonoBehaviour
     if (!CanShoot()) return;
     StopFX();
     rounds -= 1;
-    ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
+    ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
     ammoScript.currAmmo = rounds;
     canFireTime = Time.time + activeGun.fireRate;
     Vector3 origin = Quaternion.Euler(holdTimer < activeGun.fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), holdTimer < fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
@@ -228,7 +228,7 @@ public class GunController : MonoBehaviour
     float outTime = 0.15f;
     float inTime = 0.2f;
     while (timer < outTime) {
-      leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-30f * (leftleg.transform.localScale.x / 0.5f), 0, 0), new Vector3(-30f - (30 * (shotRecoilUp / 0.2f) * (leftleg.transform.localScale.x / 0.5f)), 0, 0), Mathf.SmoothStep(0f, 1f, timer / outTime));
+      leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-30f * (leftleg.transform.localScale.x / 0.5f), 0, 0), new Vector3(-30f - (30 * (activeGun.upRecoil / 0.2f) * (leftleg.transform.localScale.x / 0.5f)), 0, 0), Mathf.SmoothStep(0f, 1f, timer / outTime));
       rightleg.transform.localPosition = leftleg.transform.localPosition * -1f;
       timer += Time.deltaTime;
       yield return null;
@@ -368,7 +368,7 @@ public class GunController : MonoBehaviour
     Renderer laser = laserEffect.gameObject.GetComponent<Renderer>();
     laserEffect.SetPosition(0, points[0]);
     laserEffect.SetPosition(1, points[1]);
-    laserEffect.material.SetColor("_EmissionColor", colors[beamColor]);
+    laserEffect.material.SetColor("_EmissionColor", colors[activeGun.shotColor]);
     laserEffect.enabled = true;
     laser.material.color = colout;
     laserEffect.startWidth = 0f;
@@ -414,8 +414,8 @@ public class GunController : MonoBehaviour
     else StartCoroutine(RecoilBackOnly());
     StartCoroutine(CrosshairFX());
     if (shells) EjectShell();
-    if (activeGun == "Heavy Rifle") StartCoroutine(ReactorGlow());
-    if (activeGun == "Assault Rifle") StartCoroutine(ChamberCharge());
+    if (activeGun == heavyRifle) StartCoroutine(ReactorGlow());
+    if (activeGun == assaultRifle) StartCoroutine(ChamberCharge());
     muzzleFlashFX.GetComponent<ParticleSystem>().Play();
   }
 }

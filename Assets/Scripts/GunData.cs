@@ -27,6 +27,7 @@ public class GunData
         upRecoilAnim = false;
         shotColor = 2;
         magSize = 10;
+        break;
       case "Assault Rifle":
         id = 1;
         fireRate = 0.125f;
@@ -38,6 +39,7 @@ public class GunData
         upRecoilAnim = false;
         shotColor = 0;
         magSize = 30;
+        break;
       case "Heavy Rifle":
         id = 2;
         fireRate = 0.5f;
@@ -49,6 +51,7 @@ public class GunData
         upRecoilAnim = false;
         shotColor = 1;
         magSize = 24;
+        break;
     }
   }
 }
