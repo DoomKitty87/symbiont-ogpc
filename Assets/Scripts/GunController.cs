@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Cinemachine;
 
+
 public class GunController : MonoBehaviour
 {
 
@@ -17,19 +18,9 @@ public class GunController : MonoBehaviour
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Heavy Rifle"};
 
-  //Values are (1) Name, (2) Mag size, (3) Fire rate, (4) Shot recoil (up), (5) Recoil Recovery, (6) Shot spread, (7) Shot recoil (back), (8) Reload time, (9) Uses upwards recoil animation, (10) Shot color
-  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f, 0, 2}, new float[] {1, 30, 0.125f, 0.05f, 0.5f, 0.8f, 0.09f, 1.5f, 0, 0}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.4f, 0.25f, 2f, 0, 1}};
-
-  private string activeGun = "Pistol";
   private Camera cam;
   private float canFireTime;
   private float holdTimer;
-  private float reloadTime;
-  private float shotRecoilUp;
-  private float shotRecoilBack;
-  private float recoilRecovery;
-  private float aimSpread;
-  private float upRecoilAnim;
   private float vertRecoilTracking;
   private Transform gun;
   private GameObject reloadtext;
@@ -44,7 +35,6 @@ public class GunController : MonoBehaviour
   private CinemachineVirtualCamera vcam;
   private CinemachinePOV pov;
   private int rounds;
-  private int beamColor;
   private bool reloading;
   private bool shells = false;
   private TextMeshProUGUI magtext;
@@ -55,56 +45,52 @@ public class GunController : MonoBehaviour
   private Transform gunMuzzle;
   private Vector3 beamInit;
   private AmmoScript ammoScript;
+  private GunData pistol = new GunData("Pistol");
+  private GunData assaultRifle = new GunData("Assault Rifle");
+  private GunData heavyRifle = new GunData("Heavy Rifle");
+  private GunData activeGun = pistol;
 
-  void Start() {
+  private void Start() {
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     vcam = GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
     pov = vcam.GetCinemachineComponent<CinemachinePOV>();
     crosshair = HUDCanvas.transform.GetChild(0);
     leftleg = crosshair.GetChild(1).gameObject;
     rightleg = crosshair.GetChild(2).gameObject;
-    rounds = maxRounds;
+    rounds = activeGun.magSize;
     cam = GetComponent<Camera>();
     Cursor.lockState = CursorLockMode.Locked;
     Cursor.visible = false;
     gun = transform.GetChild(0);
     beamInit = transform.GetChild(1).GetChild(3).localScale;
-    ReloadGunAssets(gunSpecs[0]);
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
   }
 
-  void Update()
-  {
-    if (vertRecoilTracking > 0 && vertRecoilTracking - recoilRecovery * Time.deltaTime >= 0) pov.m_VerticalAxis.Value += 20f * recoilRecovery * Time.deltaTime;
-    else if (vertRecoilTracking > 0) pov.m_VerticalAxis.Value += 20f * ((recoilRecovery * Time.deltaTime) - Mathf.Abs((vertRecoilTracking - recoilRecovery * Time.deltaTime)));
-    vertRecoilTracking = Mathf.Clamp(vertRecoilTracking - recoilRecovery * Time.deltaTime, 0, 1);
+  private void Update() {
+    if (vertRecoilTracking > 0 && vertRecoilTracking - activeGun.recoilRecovery * Time.deltaTime >= 0) pov.m_VerticalAxis.Value += 20f * activeGun.recoilRecovery * Time.deltaTime;
+    else if (vertRecoilTracking > 0) pov.m_VerticalAxis.Value += 20f * ((activeGun.recoilRecovery * Time.deltaTime) - Mathf.Abs((vertRecoilTracking - activeGun.recoilRecovery * Time.deltaTime)));
+    vertRecoilTracking = Mathf.Clamp(vertRecoilTracking - activeGun.recoilRecovery * Time.deltaTime, 0, 1);
     if (Input.GetMouseButtonDown(0)) {
-      if (activeGun == "Pistol") Shoot();
+      if (activeGun == pistol) Shoot();
       holdTimer = 0;
     }
     else if (Input.GetMouseButton(0)) {
-      if (activeGun == "Assault Rifle" | activeGun == "Heavy Rifle") Shoot();
+      if (activeGun == assaultRifle | activeGun == heavyRifle) Shoot();
       holdTimer += Time.deltaTime;
     }
     if (Input.GetMouseButtonDown(1)) {
-      ChangeGun(FetchGunInfo(activeGun));
+      switch(activeGun) {
+        case pistol:
+          ChangeGun(assaultRifle);
+        case assaultRifle:
+          ChangeGun(heavyRifle);
+        case heavyRifle:
+          ChangeGun(pistol);
+      }
     }
   }
 
-  private float[] FetchGunInfo(string currentGun) {
-    switch(currentGun) {
-      case "Pistol":
-        return(gunSpecs[1]);
-      case "Assault Rifle":
-        return(gunSpecs[2]);
-      case "Heavy Rifle":
-        return(gunSpecs[0]);
-      default:
-        return(new float[8]);
-    }
-  }
-
-  private void ReloadGunAssets(float[] gunStats) {
+  private void ReloadGunAssets() {
     magazine = gun.GetChild(1).gameObject;
     gunMuzzle = gun.GetChild(2);
     gun.gameObject.SetActive(true);
@@ -116,29 +102,20 @@ public class GunController : MonoBehaviour
     main = explodeFX.GetComponent<ParticleSystem>().main;
     sh = explodeFX.GetComponent<ParticleSystem>().shape;
     muzzleFlashFX = gunMuzzle.GetChild(3).gameObject;
-    maxRounds = (int)gunStats[1];
-    fireRate = gunStats[2];
-    shotRecoilUp = gunStats[3];
-    recoilRecovery = gunStats[4];
-    aimSpread = gunStats[5];
-    shotRecoilBack = gunStats[6];
-    reloadTime = gunStats[7];
-    upRecoilAnim = gunStats[8];
-    beamColor = (int)gunStats[9];
-    activeGun = gunNames[(int)gunStats[0]];
   }
 
-  public void ChangeGun(float[] gunStats) {
+  public void ChangeGun(GunData newGun) {
+    activeGun = newGun;
     StopFX();
     ResetGun();
     transform.GetChild(0).gameObject.SetActive(false);
     transform.GetChild(1).gameObject.SetActive(false);
     transform.GetChild(2).gameObject.SetActive(false);
-    gun = transform.GetChild((int)gunStats[0]);
-    ReloadGunAssets(gunStats);
-    rounds = maxRounds;
-    ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
-    ammoScript.maxAmmo = maxRounds;
+    gun = transform.GetChild(activeGun.id);
+    ReloadGunAssets();
+    rounds = activeGun.magSize;
+    ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
+    ammoScript.maxAmmo = activeGun.magSize;
     vertRecoilTracking = 0f;
   }
 
@@ -157,8 +134,8 @@ public class GunController : MonoBehaviour
   }
 
   public void Reload() {
-    if (rounds < maxRounds) {
-      rounds = maxRounds;
+    if (rounds < activeGun.magSize) {
+      rounds = activeGun.magSize;
       reloading = true;
       StartCoroutine(ReloadAnim());
     }
@@ -177,8 +154,8 @@ public class GunController : MonoBehaviour
     rounds -= 1;
     ammoText.text = rounds.ToString() + " | " + maxRounds.ToString();
     ammoScript.currAmmo = rounds;
-    canFireTime = Time.time + fireRate;
-    Vector3 origin = Quaternion.Euler(holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), holdTimer < fireRate ? Random.Range(-aimSpread / 4, aimSpread / 4) : Random.Range(-aimSpread, aimSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
+    canFireTime = Time.time + activeGun.fireRate;
+    Vector3 origin = Quaternion.Euler(holdTimer < activeGun.fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), holdTimer < fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
     RaycastHit hit;
     Vector3[] points = new Vector3[2];
     points[0] = gunMuzzle.position;
@@ -192,8 +169,8 @@ public class GunController : MonoBehaviour
       points[1] = origin + (cam.transform.forward * 50);
     }
     ShootFX(points);
-    vertRecoilTracking = Mathf.Clamp(vertRecoilTracking + shotRecoilUp, 0, 1);
-    pov.m_VerticalAxis.Value -= 20f * shotRecoilUp;
+    vertRecoilTracking = Mathf.Clamp(vertRecoilTracking + activeGun.upRecoil, 0, 1);
+    pov.m_VerticalAxis.Value -= 20f * activeGun.upRecoil;
   }
 
   public void HitTarget(RaycastHit hit) {
@@ -204,10 +181,10 @@ public class GunController : MonoBehaviour
 
   private IEnumerator ReloadAnim() {
     float timer = 0f;
-    float inTime = 0.35f * reloadTime;
-    float outTime = 0.3f * reloadTime;
-    float popUpTime = 0.1f * reloadTime;
-    float popDownTime = 0.125f * reloadTime;
+    float inTime = 0.35f * activeGun.reloadTime;
+    float outTime = 0.3f * activeGun.reloadTime;
+    float popUpTime = 0.1f * activeGun.reloadTime;
+    float popDownTime = 0.125f * activeGun.reloadTime;
     Vector3 init = magazine.transform.localPosition;
     while (timer < outTime) {
       if (timer / outTime <= 0.15f) gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, 0), Quaternion.Euler(-20f, -90f, 0), timer / outTime / 0.15f);
@@ -256,7 +233,7 @@ public class GunController : MonoBehaviour
     }
     timer = 0;
     while (timer < inTime) {
-      leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-30f - (30 * (shotRecoilUp / 0.2f) * (leftleg.transform.localScale.x / 0.5f)), 0, 0), new Vector3(-30f * (leftleg.transform.localScale.x / 0.5f), 0, 0), Mathf.SmoothStep(0f, 1f, timer / inTime));
+      leftleg.transform.localPosition = Vector3.Lerp(new Vector3(-30f - (30 * (activeGun.upRecoil / 0.2f) * (leftleg.transform.localScale.x / 0.5f)), 0, 0), new Vector3(-30f * (leftleg.transform.localScale.x / 0.5f), 0, 0), Mathf.SmoothStep(0f, 1f, timer / inTime));
       rightleg.transform.localPosition = leftleg.transform.localPosition * -1f;
       timer += Time.deltaTime;
       yield return null;
@@ -289,14 +266,14 @@ public class GunController : MonoBehaviour
     float rcDown = 0.125f;
     Vector3 initial = gun.localPosition;
     while (timer < rcUp) {
-      gun.localPosition = Vector3.Lerp(initial, new Vector3(initial.x, initial.y, initial.z - (0.8f * shotRecoilBack)), timer / rcUp);
+      gun.localPosition = Vector3.Lerp(initial, new Vector3(initial.x, initial.y, initial.z - (0.8f * activeGun.backRecoil)), timer / rcUp);
       timer += Time.deltaTime;
       yield return null;
     }
     timer = 0f;
-    gun.localPosition = new Vector3(initial.x, initial.y, initial.z - 0.8f * shotRecoilUp);
+    gun.localPosition = new Vector3(initial.x, initial.y, initial.z - 0.8f * activeGun.upRecoil);
     while (timer < rcDown) {
-      gun.localPosition = Vector3.Lerp(new Vector3(initial.x, initial.y, initial.z - (0.8f * shotRecoilBack)), initial, timer / rcDown);
+      gun.localPosition = Vector3.Lerp(new Vector3(initial.x, initial.y, initial.z - (0.8f * activeGun.backRecoil)), initial, timer / rcDown);
       timer += Time.deltaTime;
       yield return null;
     }
@@ -309,17 +286,17 @@ public class GunController : MonoBehaviour
     float rcDown = 0.125f;
     Vector3 initial = gun.localPosition;
     while (timer < rcUp) {
-      gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f , 0f), Quaternion.Euler(0, -90f, (100f * shotRecoilUp)), timer / rcUp);
-      gun.localPosition = Vector3.Lerp(initial, new Vector3(initial.x, initial.y, initial.z - (0.8f * shotRecoilBack)), timer / rcUp);
+      gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f , 0f), Quaternion.Euler(0, -90f, (100f * activeGun.upRecoil)), timer / rcUp);
+      gun.localPosition = Vector3.Lerp(initial, new Vector3(initial.x, initial.y, initial.z - (0.8f * activeGun.backRecoil)), timer / rcUp);
       timer += Time.deltaTime;
       yield return null;
     }
     timer = 0f;
-    gun.localPosition = new Vector3(initial.x, initial.y, initial.z - 0.8f * shotRecoilUp);
-    gun.localRotation = Quaternion.Euler(0f, -90f, (100f * shotRecoilBack));
+    gun.localPosition = new Vector3(initial.x, initial.y, initial.z - 0.8f * activeGun.upRecoil);
+    gun.localRotation = Quaternion.Euler(0f, -90f, (100f * activeGun.backRecoil));
     while (timer < rcDown) {
-      gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, (100f * shotRecoilUp)), Quaternion.Euler(0, -90f, 0f), timer / rcDown);
-      gun.localPosition = Vector3.Lerp(new Vector3(initial.x, initial.y, initial.z - (0.8f * shotRecoilBack)), initial, timer / rcDown);
+      gun.localRotation = Quaternion.Lerp(Quaternion.Euler(0, -90f, (100f * activeGun.upRecoil)), Quaternion.Euler(0, -90f, 0f), timer / rcDown);
+      gun.localPosition = Vector3.Lerp(new Vector3(initial.x, initial.y, initial.z - (0.8f * activeGun.backRecoil)), initial, timer / rcDown);
       timer += Time.deltaTime;
       yield return null;
     }
@@ -431,7 +408,7 @@ public class GunController : MonoBehaviour
 
   private void ShootFX(Vector3[] points) {
     StartCoroutine(LaserFX(points));
-    if (upRecoilAnim == 1) StartCoroutine(Recoil());
+    if (activeGun.upRecoilAnim == true) StartCoroutine(Recoil());
     else StartCoroutine(RecoilBackOnly());
     StartCoroutine(CrosshairFX());
     if (shells) EjectShell();
