@@ -268,6 +268,7 @@ public class GunController : MonoBehaviour
     fragmentFX.transform.position = explodeFX.transform.position;
     explodeFX.GetComponent<ParticleSystem>().Play();
     fragmentFX.GetComponent<ParticleSystem>().Play();
+    explodeFX.GetComponent<AudioSource>().Play();
     Destroy(target);
   }
 
