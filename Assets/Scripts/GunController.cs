@@ -413,12 +413,12 @@ public class GunController : MonoBehaviour
 
   private void StopFX() {
     ResetGun();
-    StopCoroutine("LaserFX");
-    StopCoroutine("Recoil");
-    StopCoroutine("RecoilBackOnly");
-    StopCoroutine("CrosshairFX");
-    StopCoroutine("ReactorGlow");
-    StopCoroutine("ChamberCharge");
+    StopCoroutine(nameof(LaserFX));
+    StopCoroutine(nameof(Recoil));
+    StopCoroutine(nameof(RecoilBackOnly));
+    StopCoroutine(nameof(CrosshairFX));
+    StopCoroutine(nameof(ReactorGlow));
+    StopCoroutine(nameof(ChamberCharge));
   }
 
   //Triggers all effects for shooting
