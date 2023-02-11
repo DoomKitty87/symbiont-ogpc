@@ -22,7 +22,7 @@ public class GunData
         upRecoil = 0.2f;
         backRecoil = 0.3f;
         recoilRecovery = 0.4f;
-        shotSpread = 0.4f;
+        shotSpread = 3f;
         reloadTime = 1f;
         upRecoilAnim = false;
         shotColor = 2;
@@ -34,7 +34,7 @@ public class GunData
         upRecoil = 0.05f;
         backRecoil = 0.09f;
         recoilRecovery = 0.5f;
-        shotSpread = 0.6f;
+        shotSpread = 5f;
         reloadTime = 1.5f;
         upRecoilAnim = false;
         shotColor = 0;
@@ -46,7 +46,7 @@ public class GunData
         upRecoil = 0.05f;
         backRecoil = 0.25f;
         recoilRecovery = 0.4f;
-        shotSpread = 0.3f;
+        shotSpread = 2.5f;
         reloadTime = 2f;
         upRecoilAnim = false;
         shotColor = 1;

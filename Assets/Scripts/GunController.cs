@@ -163,18 +163,19 @@ public class GunController : MonoBehaviour
     ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
     ammoScript.currAmmo = rounds;
     canFireTime = Time.time + activeGun.fireRate;
-    Vector3 origin = Quaternion.Euler(holdTimer < activeGun.fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), holdTimer < activeGun.fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), 0) * cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
+    Vector3 origin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
     RaycastHit hit;
     Vector3[] points = new Vector3[2];
     points[0] = gunMuzzle.position;
-    if (Physics.Raycast(origin, cam.transform.forward, out hit)) {
+    Vector3 direction = Quaternion.Euler(holdTimer < activeGun.fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), holdTimer < activeGun.fireRate ? Random.Range(-activeGun.shotSpread / 4, activeGun.shotSpread / 4) : Random.Range(-activeGun.shotSpread, activeGun.shotSpread), 0) * cam.transform.forward;
+    if (Physics.Raycast(origin, direction, out hit)) {
       points[1] = hit.point;
       impactFX.transform.position = hit.point;
       impactFX.GetComponent<ParticleSystem>().Play();
       if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
     }
     else {
-      points[1] = origin + (cam.transform.forward * 50);
+      points[1] = origin + (direction * 50);
     }
     ShootFX(points);
     vertRecoilTracking = Mathf.Clamp(vertRecoilTracking + activeGun.upRecoil, 0, 1);
