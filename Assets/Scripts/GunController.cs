@@ -91,6 +91,7 @@ public class GunController : MonoBehaviour
     }
   }
 
+  //Fetches all necessary child GameObjects from active gun
   private void ReloadGunAssets() {
     magazine = gun.GetChild(1).gameObject;
     gunMuzzle = gun.GetChild(2);
@@ -105,6 +106,7 @@ public class GunController : MonoBehaviour
     muzzleFlashFX = gunMuzzle.GetChild(3).gameObject;
   }
 
+  //Handles changing the active gun
   public void ChangeGun(GunData newGun) {
     activeGun = newGun;
     StopFX();
@@ -121,6 +123,7 @@ public class GunController : MonoBehaviour
 	  ammoScript.currAmmo = rounds;
     }
 
+  //Checks if player is able to shoot, returns bool
   private bool CanShoot() {
     if (rounds == 0) {
       Reload();
@@ -143,6 +146,7 @@ public class GunController : MonoBehaviour
     }
   }
 
+  //Currently unused, shell ejection animation
   private void EjectShell() {
     Rigidbody rb = Instantiate(shell, gun.transform.position, Quaternion.identity, cam.gameObject.transform).GetComponent<Rigidbody>();
     rb.gameObject.transform.localPosition = new Vector3(0.55f, -0.1f, 0.66f);
@@ -150,6 +154,7 @@ public class GunController : MonoBehaviour
     rb.AddForce(cam.gameObject.transform.localRotation * new Vector3(Random.Range(-1, -0.5f), Random.Range(1, 2), 0),ForceMode.Impulse);
   }
 
+  //Handles firing of gun, starts effects coroutines and positions laser
   private void Shoot() {
     if (!CanShoot()) return;
     StopFX();
@@ -181,6 +186,7 @@ public class GunController : MonoBehaviour
     return;
   }
 
+  //Animation for reloading the gun
   private IEnumerator ReloadAnim() {
     float timer = 0f;
     float inTime = 0.35f * activeGun.reloadTime;
@@ -223,6 +229,7 @@ public class GunController : MonoBehaviour
     reloading = false;
   }
 
+  //Animates crosshair during recoil
   private IEnumerator CrosshairFX() {
     float timer = 0f;
     float outTime = 0.15f;
@@ -242,6 +249,7 @@ public class GunController : MonoBehaviour
     }
   }
 
+  //Destroys target when hit, triggering particle effects
   private IEnumerator ExplodeTarget(GameObject target) {
     float timer = 0f;
     float explodeTime = 0.12f;
@@ -262,6 +270,7 @@ public class GunController : MonoBehaviour
     Destroy(target);
   }
 
+  //Recoil animation with only backwards recoil animated
   private IEnumerator RecoilBackOnly() {
     float timer = 0f;
     float rcUp = 0.09f;
@@ -282,6 +291,7 @@ public class GunController : MonoBehaviour
     gun.localPosition = initial;
   }
 
+  //Full recoil animation
   private IEnumerator Recoil() {
     float timer = 0f;
     float rcUp = 0.09f;
@@ -306,6 +316,7 @@ public class GunController : MonoBehaviour
     gun.localRotation = Quaternion.Euler(0f, -90f, 0f);
   }
 
+  //Charging animation for assault rifle's "laser chamber"
   private IEnumerator ChamberCharge() {
     float timer = 0f;
     float durIn = 0.05f;
@@ -336,6 +347,7 @@ public class GunController : MonoBehaviour
     beam.SetActive(false);
   }
 
+  //Glowing effect on firing for heavy rifle's "reactor"
   private IEnumerator ReactorGlow() {
     float timer = 0f;
     float durIn = 0.1f;
@@ -358,6 +370,7 @@ public class GunController : MonoBehaviour
     mat.SetColor("_EmissionColor", baseCol);
   }
 
+  //Effects for laser beam, handles color change
   private IEnumerator LaserFX(Vector3[] points) {
     float timer = 0f;
     float durIn = 0.08f;
@@ -408,6 +421,7 @@ public class GunController : MonoBehaviour
     StopCoroutine("ChamberCharge");
   }
 
+  //Triggers all effects for shooting
   private void ShootFX(Vector3[] points) {
     StartCoroutine(LaserFX(points));
     if (activeGun.upRecoilAnim == true) StartCoroutine(Recoil());

@@ -26,6 +26,7 @@ public class PointTracker : MonoBehaviour
   private Vector3 initScale;
   private GameObject comboParticles;
 
+  //Functions to return variables (to prevent intentional or unintentional access of points variables)
   public float GetPoints() {
     return points;
   }
@@ -34,6 +35,7 @@ public class PointTracker : MonoBehaviour
     return comboLength;
   }
 
+  //Changes color of score counter when it goes up in a combo
   private IEnumerator ScoreFX() {
     float fxtimer = 0f;
     float flashIn = 0.05f;
@@ -52,6 +54,7 @@ public class PointTracker : MonoBehaviour
     score.color = Color.white;
   }
 
+  //Flashes combo counter on screen, along with increasing bloom and shaking camera
   private IEnumerator FlashFX() {
     float fxtimer = 0f;
     float flashIn = 0.1f;
@@ -106,6 +109,7 @@ public class PointTracker : MonoBehaviour
     combo.color = Color.clear;
   }
 
+  //Used to communicate that a target was destroyed
   public void DestroyedTarget(GameObject target) {
     float basePoints = float.Parse(target.name.Substring(6, 1)) * 100;
     if (comboLength > 0) {
