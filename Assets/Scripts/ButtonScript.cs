@@ -5,17 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour
 {
-  [SerializeField] private PauseHandler pauseHandler;
-  [SerializeField] private GameObject pauseScreen;
-  [SerializeField] private GameObject settingsScreen;
-	[SerializeField] private GameObject mouseScreen;
-	[SerializeField] private GameObject keyboardScreen;
-	[SerializeField] private GameObject audioScreen;
-  [SerializeField] private GameObject videoScreen;
+  public GameObject pauseScreen;
+	public GameObject settingsScreen;
+	public GameObject mouseScreen;
+	public GameObject keyboardScreen;
+	public GameObject audioScreen;
+  public GameObject videoScreen;
 
-  private GameObject currentActiveElement;
+	private PauseHandler pauseHandler;
+
+  [HideInInspector] public GameObject currentActiveElement;
 
 	private void Start() {
+		pauseHandler = GetComponent<PauseHandler>();
 		currentActiveElement = pauseScreen;
 	}
 
