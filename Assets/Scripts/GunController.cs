@@ -25,8 +25,8 @@ public class GunController : MonoBehaviour
 
   private string[] gunNames = {"Pistol", "Assault Rifle", "Heavy Rifle"};
 
-  //Values are Name, Mag size, Fire rate, Shot recoil (up), Recoil Recovery, Shot spread, Shot recoil (back), Reload time, Uses upwards recoil animation, Shot color
-  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f, 1, 0}, new float[] {1, 30, 0.125f, 0.05f, 0.5f, 1.1f, 0.09f, 1.5f, 0, 0}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.7f, 0.25f, 2f, 0, 1}};
+  //Values are (1) Name, (2) Mag size, (3) Fire rate, (4) Shot recoil (up), (5) Recoil Recovery, (6) Shot spread, (7) Shot recoil (back), (8) Reload time, (9) Uses upwards recoil animation, (10) Shot color
+  private float[][] gunSpecs = {new float[] {0, 10, 0.5f, 0.2f, 0.4f, 0.5f, 0.3f, 1f, 0, 2}, new float[] {1, 30, 0.125f, 0.05f, 0.5f, 0.8f, 0.09f, 1.5f, 0, 0}, new float[]{2, 24, 0.5f, 0.05f, 0.4f, 0.4f, 0.25f, 2f, 0, 1}};
 
   private string activeGun = "Pistol";
   private Camera cam;

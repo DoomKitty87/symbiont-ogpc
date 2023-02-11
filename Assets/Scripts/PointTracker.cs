@@ -80,7 +80,7 @@ public class PointTracker : MonoBehaviour
         break;
     }
     while (fxtimer < flashIn) {
-      bloom.intensity.value = Mathf.Lerp(init, init * 2 * Mathf.Max(comboLength, 5), fxtimer / flashIn);
+      bloom.intensity.value = Mathf.Lerp(init, init * Mathf.Min(comboLength, 5), fxtimer / flashIn);
       combo.color = Color.Lerp(Color.clear, targetColor * 25, fxtimer / flashIn);
       combo.gameObject.transform.localScale = Vector3.Lerp(initScale, initScale * 3f, fxtimer / flashIn);
       noise.m_AmplitudeGain = Mathf.Lerp(0, 5, fxtimer / flashIn);
@@ -89,7 +89,7 @@ public class PointTracker : MonoBehaviour
     }
     fxtimer = 0f;
     while (fxtimer < flashOut) {
-      bloom.intensity.value = Mathf.Lerp(init * 2 * Mathf.Max(comboLength, 5), init, fxtimer / flashOut);
+      bloom.intensity.value = Mathf.Lerp(init * Mathf.Min(comboLength, 5), init, fxtimer / flashOut);
       combo.color = Color.Lerp(targetColor * 25, Color.clear, fxtimer / flashOut);
       noise.m_AmplitudeGain = Mathf.Lerp(5, 0, fxtimer / flashOut);
       fxtimer += Time.deltaTime;
