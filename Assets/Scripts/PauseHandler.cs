@@ -9,7 +9,10 @@ public class PauseHandler : MonoBehaviour {
 	[SerializeField] private GameObject[] objectsToBeShown;
 	[SerializeField] private GameObject[] objectsToBeHidden;
 
+	private ButtonScript buttonScript;
+
 	private void Start() {
+		buttonScript = GetComponent<ButtonScript>();
 		UnPause();
 	}
 
@@ -30,7 +33,9 @@ public class PauseHandler : MonoBehaviour {
 	public void UnPause() {
 		Cursor.lockState = CursorLockMode.Locked;
 		isPaused = false;
-		foreach (GameObject thing in objectsToBeShown) thing.SetActive(false);
+		
+		buttonScript.ResetScreen();
+
 		foreach (GameObject thing in objectsToBeHidden) thing.SetActive(true);
 		Time.timeScale = 1.0f;
 	}
