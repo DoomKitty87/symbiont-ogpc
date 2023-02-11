@@ -56,7 +56,6 @@ public class GunController : MonoBehaviour
     rounds = activeGun.magSize;
     cam = GetComponent<Camera>();
     Cursor.lockState = CursorLockMode.Locked;
-    Cursor.visible = false;
     gun = transform.GetChild(0);
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
