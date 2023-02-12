@@ -12,6 +12,7 @@ public class ButtonScript : MonoBehaviour
 	public GameObject keyboardScreen;
 	public GameObject audioScreen;
   public GameObject videoScreen;
+  public GameObject gunList;
 
 	private PauseHandler pauseHandler;
 
@@ -55,6 +56,14 @@ public class ButtonScript : MonoBehaviour
 
   public void menu_SETTINGS() {
     ChangeActiveSettingsElement(settingsScreen);
+  }
+
+  public void menu_GUNLIST() {
+    if (gunList.activeSelf) {
+      gunList.SetActive(false);
+    } else {
+      gunList.SetActive(true);
+    }
   }
 
   public void menu_QUIT() {

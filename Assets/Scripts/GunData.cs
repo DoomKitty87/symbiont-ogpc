@@ -2,6 +2,9 @@ public class GunData
 {
 
   public string name;
+  public string manufacturer;
+  public string modelName;
+  public string nickName;
   public float fireRate;
   public float upRecoil;
   public float backRecoil;
@@ -18,6 +21,9 @@ public class GunData
     switch(name) {
       case "Pistol":
         id = 0;
+        manufacturer = "ElectroArms";
+        modelName = "ZAP29";
+        nickName = "Bugzapper";
         fireRate = 0.5f;
         upRecoil = 0.2f;
         backRecoil = 0.3f;
@@ -30,6 +36,9 @@ public class GunData
         break;
       case "Assault Rifle":
         id = 1;
+        manufacturer = "PJSC Molnii Ruki";
+        modelName = "TOK35";
+        nickName = "Liberator";
         fireRate = 0.125f;
         upRecoil = 0.05f;
         backRecoil = 0.09f;
@@ -42,6 +51,9 @@ public class GunData
         break;
       case "Heavy Rifle":
         id = 2;
+        manufacturer = "Krieslauf AG";
+        modelName = "OHM100";
+        nickName = "Resistor";
         fireRate = 0.5f;
         upRecoil = 0.05f;
         backRecoil = 0.25f;
