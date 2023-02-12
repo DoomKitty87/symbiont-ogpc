@@ -19,6 +19,7 @@ public class GunListMenu : MonoBehaviour
 	private string[] gunNames = new string[] {"Pistol", "Assault Rifle", "Heavy Rifle"};
 
 	public void Awake() {
+		OnChooseGun();
 		GunData gun = new GunData(gunNames[locationInList]);
 		PopulateGunDataIndicators(gun);
 	}
