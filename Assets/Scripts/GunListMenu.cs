@@ -48,10 +48,14 @@ public class GunListMenu : MonoBehaviour
 		PopulateGunDataIndicators(gun);
 	}
 
+	public void OnChooseGun() {
+		// implement persistent data here
+	}
+
 	void PopulateGunDataIndicators(GunData gun) {
 		nickNameText.GetComponent<TMP_Text>().text = "\"" + gun.nickName + "\"";
 		modelNameText.GetComponent<TMP_Text>().text = gun.modelName;
-		float[] statNums = new float[] {gun.fireRate * 300, (gun.upRecoil + gun.backRecoil) * 300, gun.shotSpread * 50, gun.reloadTime * 100, gun.magSize * 3};
+		float[] statNums = new float[] {1 / gun.fireRate * 50, (gun.upRecoil + gun.backRecoil) * 300, gun.shotSpread * 50, gun.reloadTime * 100, gun.magSize * 3};
 		for (int i = 0; i < 5; i++) {
 			statBars[i].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta = new Vector2(statNums[i], statBars[i].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta.y);
 		}
