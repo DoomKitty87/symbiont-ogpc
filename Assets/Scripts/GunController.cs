@@ -50,9 +50,9 @@ public class GunController : MonoBehaviour
   private GunData activeGun;
 
   private void Start() {
-    activeGun = pistol;
     print(GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun.id);
-    if (GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun != null) activeGun = ChangeGun(GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun);
+    activeGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun;
+    gun = transform.GetChild(activeGun.id);
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
     pov = vcam.GetCinemachineComponent<CinemachinePOV>();
@@ -65,6 +65,7 @@ public class GunController : MonoBehaviour
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
 	  ammoScript.maxAmmo = activeGun.magSize;
+    ReloadGunAssets();
   }
 
   private void Update() {
@@ -72,13 +73,17 @@ public class GunController : MonoBehaviour
     else if (vertRecoilTracking > 0) pov.m_VerticalAxis.Value += 20f * ((activeGun.recoilRecovery * Time.deltaTime) - Mathf.Abs((vertRecoilTracking - activeGun.recoilRecovery * Time.deltaTime)));
     vertRecoilTracking = Mathf.Clamp(vertRecoilTracking - activeGun.recoilRecovery * Time.deltaTime, 0, 1);
     if (Input.GetMouseButtonDown(0)) {
-      if (activeGun == pistol) Shoot();
+      if (activeGun.id == 0) Shoot();
       holdTimer = 0;
     }
     else if (Input.GetMouseButton(0)) {
-      if (activeGun == assaultRifle | activeGun == heavyRifle) Shoot();
+      if (activeGun.id == 1 | activeGun.id == 2) Shoot();
       holdTimer += Time.deltaTime;
     }
+    else if (Input.GetMouseButtonUp(0)) {
+      holdTimer = 0;
+    }
+    //Delete when not used for testing
     if (Input.GetMouseButtonDown(1)) {
       switch(activeGun.id) {
         case 0:
