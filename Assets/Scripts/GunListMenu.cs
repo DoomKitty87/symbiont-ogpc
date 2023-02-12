@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using static GunData;
 
@@ -10,7 +11,9 @@ public class GunListMenu : MonoBehaviour
 	public GameObject gunHolder;
 	public GameObject nickNameText;
 	public GameObject modelNameText;
+	public GameObject checkButton;
 	public GameObject[] statBars;
+	public string chosenGun;
 	public float[] statNums;
 	public int locationInList = 0;
 	private string[] gunNames = new string[] {"Pistol", "Assault Rifle", "Heavy Rifle"};
@@ -21,6 +24,11 @@ public class GunListMenu : MonoBehaviour
 	}
 
 	public void Update() {
+		if (gunNames[locationInList] == chosenGun) {
+			checkButton.GetComponent<Image>().color = new Color32(0, 255, 0, 100);
+		} else {
+			checkButton.GetComponent<Image>().color = new Color32(255, 0, 0, 100);
+		}
 		gunHolder.transform.GetChild(locationInList).RotateAround(gunHolder.transform.GetChild(locationInList).GetChild(0).GetComponent<Renderer>().bounds.center, Vector3.up, 30 * Time.deltaTime);
 	}
 
@@ -46,6 +54,11 @@ public class GunListMenu : MonoBehaviour
 		gunHolder.transform.GetChild(locationInList).gameObject.SetActive(true);
 		GunData gun = new GunData(gunNames[locationInList]);
 		PopulateGunDataIndicators(gun);
+	}
+
+	public void OnChooseGun() {
+		chosenGun = gunNames[locationInList];
+		GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun = new GunData(gunNames[locationInList]);
 	}
 
 	void PopulateGunDataIndicators(GunData gun) {
