@@ -51,7 +51,8 @@ public class GunController : MonoBehaviour
 
   private void Start() {
     activeGun = pistol;
-    if (GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun != null) activeGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun;
+    print(GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun.id);
+    if (GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun != null) activeGun = ChangeGun(GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun);
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
     pov = vcam.GetCinemachineComponent<CinemachinePOV>();
@@ -64,7 +65,6 @@ public class GunController : MonoBehaviour
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
 	  ammoScript.maxAmmo = activeGun.magSize;
-    ReloadGunAssets();
   }
 
   private void Update() {
@@ -96,7 +96,6 @@ public class GunController : MonoBehaviour
 
   //Fetches all necessary child GameObjects from active gun
   private void ReloadGunAssets() {
-    gun = transform.GetChild(activeGun.id);
     magazine = gun.GetChild(1).gameObject;
     gunMuzzle = gun.GetChild(2);
     gun.gameObject.SetActive(true);
