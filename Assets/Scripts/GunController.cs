@@ -50,7 +50,6 @@ public class GunController : MonoBehaviour
   private GunData activeGun;
 
   private void Start() {
-    print(GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun.id);
     activeGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun;
     gun = transform.GetChild(activeGun.id);
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
