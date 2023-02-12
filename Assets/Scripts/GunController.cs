@@ -51,6 +51,7 @@ public class GunController : MonoBehaviour
 
   private void Start() {
     activeGun = pistol;
+    if (GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun != null) activeGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun;
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
     pov = vcam.GetCinemachineComponent<CinemachinePOV>();
