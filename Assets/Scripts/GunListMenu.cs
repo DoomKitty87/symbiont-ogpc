@@ -29,7 +29,7 @@ public class GunListMenu : MonoBehaviour
 		} else {
 			checkButton.GetComponent<Image>().color = new Color32(255, 0, 0, 100);
 		}
-		gunHolder.transform.GetChild(locationInList).RotateAround(gunHolder.transform.GetChild(locationInList).GetChild(0).GetComponent<Renderer>().bounds.center, Vector3.up, 30 * Time.deltaTime);
+		gunHolder.transform.GetChild(locationInList).RotateAround(gunHolder.transform.GetChild(locationInList).GetChild(0).GetComponent<Renderer>().bounds.center, Vector3.up, 30 * Time.unscaledDeltaTime);
 	}
 
 	public void OnClickLeft() {
