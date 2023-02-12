@@ -9,7 +9,7 @@ public class PersistentData : MonoBehaviour
   public GunData selectedGun;
 
   void Awake() {
-    if (GameObject.FindGameObjectWithTag("Data") != null) Destroy(this.gameObject);
+    if (GameObject.FindGameObjectsWithTag("Data").Length > 1) Destroy(this.gameObject);
     DontDestroyOnLoad(this.gameObject);
   }
 }
