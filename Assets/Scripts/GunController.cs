@@ -61,7 +61,6 @@ public class GunController : MonoBehaviour
     rounds = activeGun.magSize;
     cam = GetComponent<Camera>();
     Cursor.lockState = CursorLockMode.Locked;
-    gun = transform.GetChild(0);
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
 	  ammoScript.maxAmmo = activeGun.magSize;
@@ -97,6 +96,7 @@ public class GunController : MonoBehaviour
 
   //Fetches all necessary child GameObjects from active gun
   private void ReloadGunAssets() {
+    gun = transform.GetChild(activeGun.id);
     magazine = gun.GetChild(1).gameObject;
     gunMuzzle = gun.GetChild(2);
     gun.gameObject.SetActive(true);
