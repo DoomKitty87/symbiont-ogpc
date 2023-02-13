@@ -154,6 +154,11 @@ public class GunController : MonoBehaviour
     ammoScript.currAmmo = rounds;
   }
 
+  //Gives activeGun value to other scripts
+  public int GetActiveGun() {
+    return activeGun.id;
+  }
+
   //Handles changing the active gun
   public void ChangeGun(GunData newGun) {
     activeGun = newGun;

@@ -24,7 +24,7 @@ public class CheckListMenu : MonoBehaviour
 		try {
 			chosenGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun.name;
 		} 
-		catch (NullReferenceException e) {
+		catch (NullReferenceException) {
 			GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun = new GunData("Pistol");
 			chosenGun = "Pistol";
 		}
