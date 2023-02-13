@@ -7,6 +7,7 @@ public class ButtonScript : MonoBehaviour
 {
   
   public GameObject pauseScreen;
+  public GameObject checkScreen;
 	public GameObject settingsScreen;
 	public GameObject mouseScreen;
 	public GameObject keyboardScreen;
@@ -51,7 +52,7 @@ public class ButtonScript : MonoBehaviour
 	// Main Menu Button Scripts
 	// --------------------------------
 	public void menu_PLAY() {
-		ChangeScene("SampleScene");
+    ChangeActiveSettingsElement(checkScreen);
   }  
 
   public void menu_SETTINGS() {
@@ -142,6 +143,7 @@ public class ButtonScript : MonoBehaviour
   }
 
   private void ChangeActiveSettingsElement(GameObject targetElement) {
+    if (gunList.activeSelf) gunList.SetActive(false);
     currentActiveElement.SetActive(false);
     currentActiveElement = targetElement;
     currentActiveElement.SetActive(true);

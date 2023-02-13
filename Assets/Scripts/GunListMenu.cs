@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using static GunData;
 
@@ -12,6 +13,7 @@ public class GunListMenu : MonoBehaviour
 	public GameObject nickNameText;
 	public GameObject modelNameText;
 	public GameObject checkButton;
+	public GameObject readyButton;
 	public GameObject[] statBars;
 	public string chosenGun;
 	public float[] statNums;
@@ -55,6 +57,10 @@ public class GunListMenu : MonoBehaviour
 		gunHolder.transform.GetChild(locationInList).gameObject.SetActive(true);
 		GunData gun = new GunData(gunNames[locationInList]);
 		PopulateGunDataIndicators(gun);
+	}
+
+	public void OnClickReady() {
+		SceneManager.LoadScene("SampleScene");
 	}
 
 	public void OnChooseGun() {
