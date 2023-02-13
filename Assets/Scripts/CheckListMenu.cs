@@ -21,7 +21,13 @@ public class CheckListMenu : MonoBehaviour
 	private string[] gunNames = new string[] {"Pistol", "Assault Rifle", "Heavy Rifle"};
 
 	public void Awake() {
-		chosenGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun.name; 
+		try {
+			chosenGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun.name;
+		} 
+		catch (NullReferenceException e) {
+			GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun = new GunData("Pistol");
+			chosenGun = "Pistol";
+		}
 		GunData gun = new GunData(chosenGun);
 		PopulateGunDataIndicators(gun);
 		gunHolder.transform.GetChild(Array.IndexOf(gunNames, chosenGun)).gameObject.SetActive(true);

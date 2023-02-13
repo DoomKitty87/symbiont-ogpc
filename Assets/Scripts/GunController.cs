@@ -297,9 +297,9 @@ public class GunController : MonoBehaviour
     MeshRenderer targetMesh = target.GetComponent<MeshRenderer>();
     Vector3 initScale = target.transform.localScale;
     while (timer < explodeTime) {
-    target.transform.localScale = Vector3.Lerp(initScale, new Vector3(0, 0, 0), Mathf.SmoothStep(0f, 1f, timer / explodeTime));
-    timer += Time.deltaTime;
-    yield return null;
+      target.transform.localScale = Vector3.Lerp(initScale, new Vector3(0, 0, 0), Mathf.SmoothStep(0f, 1f, timer / explodeTime));
+      timer += Time.deltaTime;
+      yield return null;
     }
     sh.mesh = target.GetComponent<MeshFilter>().mesh;
     sh.scale = target.transform.localScale;
@@ -309,6 +309,9 @@ public class GunController : MonoBehaviour
     explodeFX.GetComponent<ParticleSystem>().Play();
     fragmentFX.GetComponent<ParticleSystem>().Play();
     explodeFX.GetComponent<AudioSource>().Play();
+    if (Random.Range(1, 100) % 9 == 0) {
+      print("dropped obj");
+    } 
     Destroy(target);
   }
 
