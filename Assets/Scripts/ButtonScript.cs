@@ -143,7 +143,7 @@ public class ButtonScript : MonoBehaviour
   }
 
   private void ChangeActiveSettingsElement(GameObject targetElement) {
-    if (gunList.activeSelf) gunList.SetActive(false);
+    if (gunList != null && gunList.activeSelf) gunList.SetActive(false);
     currentActiveElement.SetActive(false);
     currentActiveElement = targetElement;
     currentActiveElement.SetActive(true);
