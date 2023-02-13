@@ -41,6 +41,7 @@ public class GunController : MonoBehaviour
   private Vector3 gunInitPos;
   private Quaternion gunInitRot;
   private Transform gunMuzzle;
+  private Transform attachmentHolder;
   private Vector3 beamInit;
   private AudioSource shootSound;
   private AmmoScript ammoScript;
@@ -56,6 +57,7 @@ public class GunController : MonoBehaviour
     RefactorGunData(dataContainer.selectedGun.id);
     gun = transform.GetChild(activeGun.id);
     activeAttachments = dataContainer.selectedAttachments;
+    ReloadGunAssets();
     ProcessAttachments();
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
@@ -68,7 +70,6 @@ public class GunController : MonoBehaviour
     Cursor.lockState = CursorLockMode.Locked;
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
-    ReloadGunAssets();
     ReloadGunValues();
   }
 
@@ -117,6 +118,8 @@ public class GunController : MonoBehaviour
           activeGun.fireRate *= activeAttachments[i].value;
           break;
       }
+      print(attachmentHolder == null);
+      attachmentHolder.GetChild(activeAttachments[i].type).gameObject.SetActive(true);
     }
   }
 
@@ -144,6 +147,7 @@ public class GunController : MonoBehaviour
   private void ReloadGunAssets() {
     magazine = gun.GetChild(1).gameObject;
     gunMuzzle = gun.GetChild(2);
+    attachmentHolder = gunMuzzle.GetChild(5);
     gun.gameObject.SetActive(true);
     gunInitPos = gun.transform.localPosition;
     gunInitRot = gun.transform.localRotation;
