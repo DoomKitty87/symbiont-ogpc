@@ -25,8 +25,8 @@ public class GunListMenu : MonoBehaviour
 	public void Awake() {
 		OnChooseGun();
 		GunData gun = new GunData(gunNames[locationInList]);
+		chosenAttachments = new bool[attachmentNames.Length];
 		PopulateGunDataIndicators(gun);
-    chosenAttachments = new bool[attachmentNames.Length];
 	}
 
 	public void Update() {
@@ -76,6 +76,7 @@ public class GunListMenu : MonoBehaviour
     if (!GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().unlockedAttachments.Contains(id)) return;
     chosenAttachments[id] ^= true;
     transform.parent.GetChild(1).GetChild(id).gameObject.GetComponent<Image>().color = chosenAttachments[id] ? Color.green : Color.red;
+		PopulateGunDataIndicators(new GunData(gunNames[locationInList]));
   }
 
   public void PopulateAttachments() {
@@ -88,7 +89,7 @@ public class GunListMenu : MonoBehaviour
 	void PopulateGunDataIndicators(GunData gun) {
 		nickNameText.GetComponent<TMP_Text>().text = "\"" + gun.nickName + "\"";
 		modelNameText.GetComponent<TMP_Text>().text = gun.modelName;
-		float[] statNums = new float[] {1 / gun.fireRate * 50, (gun.upRecoil + gun.backRecoil) * 300, gun.shotDamage * 50, gun.reloadTime * 100, gun.magSize * 3};
+		float[] statNums = new float[] {1 / (gun.fireRate * (chosenAttachments[1] ? 0.75f : 1)) * 50, (gun.upRecoil + gun.backRecoil) * 300, gun.shotDamage * 50, gun.reloadTime * 100, (gun.magSize + (chosenAttachments[0] ? 10 : 0)) * 3};
 		for (int i = 0; i < 5; i++) {
 			statBars[i].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta = new Vector2(statNums[i], statBars[i].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta.y);
 		}
