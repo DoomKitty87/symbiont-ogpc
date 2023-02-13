@@ -113,6 +113,9 @@ public class GunController : MonoBehaviour
         case 0:
           activeGun.magSize += (int)activeAttachments[i].value;
           break;
+        case 1:
+          activeGun.fireRate *= activeAttachments[i].value;
+          break;
       }
     }
   }

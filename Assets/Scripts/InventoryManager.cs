@@ -31,13 +31,16 @@ public class InventoryManager : MonoBehaviour
       return;
     }
     Time.timeScale = 0f;
-    gunHolder.GetChild(0).gameObject.SetActive(false);
-    gunHolder.GetChild(1).gameObject.SetActive(false);
-    gunHolder.GetChild(2).gameObject.SetActive(false);
-    attachmentHolder.GetChild(0).gameObject.SetActive(false);
+    for (int i = 0; i < gunHolder.childCount; i++) {
+      gunHolder.GetChild(i).gameObject.SetActive(false);
+    }
+    for (int i = 0; i < attachmentHolder.childCount; i++) {
+      attachmentHolder.GetChild(i).gameObject.SetActive(false);
+    }
     gunHolder.GetChild(GetComponent<GunController>().GetActiveGun()).gameObject.SetActive(true);
     for (int i = 0; i < GetComponent<GunController>().GetActiveAttachments().Count; i++) {
       attachmentHolder.GetChild(i).gameObject.SetActive(true);
+      attachmentHolder.GetChild(i).localPosition += new Vector3(250 * i, 0, 0);
     }
   }
 }
