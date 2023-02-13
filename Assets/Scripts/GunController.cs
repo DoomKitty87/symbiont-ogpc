@@ -314,9 +314,7 @@ public class GunController : MonoBehaviour
     explodeFX.GetComponent<ParticleSystem>().Play();
     fragmentFX.GetComponent<ParticleSystem>().Play();
     explodeFX.GetComponent<AudioSource>().Play();
-    if (Random.Range(1, 100) % 9 == 0) {
-      print("dropped obj");
-    } 
+    GetComponent<ItemDrops>().RollForItem();
     Destroy(target);
   }
 

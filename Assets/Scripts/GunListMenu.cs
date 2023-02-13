@@ -72,6 +72,7 @@ public class GunListMenu : MonoBehaviour
 	}
 
   public void OnClickAttachment(int id) {
+    if (!GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().unlockedAttachments.Contains(id)) return;
     chosenAttachments[id] ^= true;
     transform.parent.GetChild(1).GetChild(id).gameObject.GetComponent<Image>().color = chosenAttachments[id] ? Color.green : Color.red;
   }

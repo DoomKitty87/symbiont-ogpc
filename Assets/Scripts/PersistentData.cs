@@ -8,6 +8,7 @@ public class PersistentData : MonoBehaviour
 
   public GunData selectedGun;
   public List<Attachment> selectedAttachments = new List<Attachment>();
+  public List<int> unlockedAttachments = new List<int>();
 
   void Awake() {
     if (GameObject.FindGameObjectsWithTag("Data").Length > 1) Destroy(this.gameObject);
