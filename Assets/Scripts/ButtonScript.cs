@@ -9,7 +9,6 @@ public class ButtonScript : MonoBehaviour
   public GameObject pauseScreen;
   public GameObject checkScreen;
 	public GameObject settingsScreen;
-	public GameObject mouseScreen;
 	public GameObject keyboardScreen;
 	public GameObject audioScreen;
   public GameObject videoScreen;
@@ -75,11 +74,8 @@ public class ButtonScript : MonoBehaviour
 	// --------------------------------
 	// Settings Button Scripts
 	// --------------------------------
-	public void settings_MOUSE() {
-		ChangeActiveSettingsElement(mouseScreen);
-	}
 
-  public void settings_KEYBINDS() {
+  public void settings_CONTROLS() {
 		ChangeActiveSettingsElement(keyboardScreen);
 	}
 

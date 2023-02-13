@@ -7,13 +7,17 @@ public class SliderScript : MonoBehaviour
 {
 
 	[SerializeField] private GameObject valueText;
+	[SerializeField] private string settingsKey;
 
-	public void Update() {
+	private void Start() {
+		GetComponent<Slider>().value = PlayerPrefs.GetFloat(settingsKey);
 		ReplaceTextValue();
 	}
 
-	private void ReplaceTextValue() {
+	public void ReplaceTextValue() {
 		valueText.GetComponent<TextMeshProUGUI>().text = System.Math.Round(GetSliderValue(), 2).ToString() + ExtraText(System.Math.Round(GetSliderValue(), 2));
+		PlayerPrefs.SetFloat(settingsKey, GetSliderValue());
+		GameObject.FindGameObjectWithTag("Handler").GetComponent<PlayerSettings>().ApplySettings(); // Probably at some point should clean this up
 	}
 
 	private string ExtraText(double value) {
