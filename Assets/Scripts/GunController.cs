@@ -68,8 +68,8 @@ public class GunController : MonoBehaviour
     Cursor.lockState = CursorLockMode.Locked;
     beamInit = transform.GetChild(1).GetChild(3).localScale;
     ammoScript = ammoInfo.GetComponent<AmmoScript>();
-	  ammoScript.maxAmmo = activeGun.magSize;
     ReloadGunAssets();
+    ReloadGunValues();
   }
 
   private void Update() {
@@ -146,6 +146,14 @@ public class GunController : MonoBehaviour
     shootSound = gunMuzzle.GetChild(4).gameObject.GetComponent<AudioSource>();
   }
 
+  //Reloads values associated with the active gun
+  private void ReloadGunValues() {
+    rounds = activeGun.magSize;
+    ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
+    ammoScript.maxAmmo = activeGun.magSize;
+    ammoScript.currAmmo = rounds;
+  }
+
   //Handles changing the active gun
   public void ChangeGun(GunData newGun) {
     activeGun = newGun;
@@ -156,12 +164,9 @@ public class GunController : MonoBehaviour
     transform.GetChild(2).gameObject.SetActive(false);
     gun = transform.GetChild(activeGun.id);
     ReloadGunAssets();
-    rounds = activeGun.magSize;
-    ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
-    ammoScript.maxAmmo = activeGun.magSize;
+    ReloadGunValues();
     vertRecoilTracking = 0f;
-	  ammoScript.currAmmo = rounds;
-    }
+  }
 
   //Checks if player is able to shoot, returns bool
   private bool CanShoot() {

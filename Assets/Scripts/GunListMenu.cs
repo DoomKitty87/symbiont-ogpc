@@ -19,10 +19,13 @@ public class GunListMenu : MonoBehaviour
 	public float[] statNums;
 	public int locationInList = 0;
 	private string[] gunNames = new string[] {"Pistol", "Assault Rifle", "Heavy Rifle"};
+  private bool[] chosenAttachments = new bool[1];
+  private PersistentData dataContainer;
 
 	public void Awake() {
 		OnChooseGun();
 		GunData gun = new GunData(gunNames[locationInList]);
+    dataContainer = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>();
 		PopulateGunDataIndicators(gun);
 	}
 
@@ -65,8 +68,13 @@ public class GunListMenu : MonoBehaviour
 
 	public void OnChooseGun() {
 		chosenGun = gunNames[locationInList];
-		GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun = new GunData(gunNames[locationInList]);
+		dataContainer.selectedGun = new GunData(gunNames[locationInList]);
 	}
+
+  public void OnClickAttachment(int id) {
+    chosenAttachments[id] ^= true;
+    transform.GetChild(1).GetChild(id).GetComponent<Image>().color = (chosenAttachments[id] ? Color.green : Color.red);
+  }
 
 	void PopulateGunDataIndicators(GunData gun) {
 		nickNameText.GetComponent<TMP_Text>().text = "\"" + gun.nickName + "\"";
