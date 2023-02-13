@@ -264,7 +264,10 @@ public class GunController : MonoBehaviour
 
   public void HitTarget(RaycastHit hit) {
     hit.collider.gameObject.GetComponent<TargetController>().health -= activeGun.shotDamage;
-    if (hit.collider.gameObject.GetComponent<TargetController>().health >= 0) return;
+    if (hit.collider.gameObject.GetComponent<TargetController>().health >= 0) {
+      hit.collider.gameObject.GetComponent<TargetController>().IsHit();
+      return;
+    }
     GetComponent<PointTracker>().DestroyedTarget(hit.collider.gameObject);
     StartCoroutine(ExplodeTarget(hit.collider.gameObject));
   }
