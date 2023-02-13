@@ -48,10 +48,15 @@ public class GunController : MonoBehaviour
   private GunData assaultRifle = new GunData("Assault Rifle");
   private GunData heavyRifle = new GunData("Heavy Rifle");
   private GunData activeGun;
+  private Attachment[] activeAttachments;
+  private PersistentData dataContainer;
 
   private void Start() {
-    activeGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun;
+    dataContainer = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>();
+    RefactorGunData(dataContainer.selectedGun.id);
     gun = transform.GetChild(activeGun.id);
+    activeAttachments = dataContainer.selectedAttachments;
+    ProcessAttachments();
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
     pov = vcam.GetCinemachineComponent<CinemachinePOV>();
@@ -95,6 +100,33 @@ public class GunController : MonoBehaviour
           ChangeGun(pistol);
           break;
       }
+    }
+  }
+
+  //Loads gun attachments that are in use
+  private void ProcessAttachments() {
+    if (activeAttachments.Length == 0) return;
+    for (int i = 0; i < activeAttachments.Length; i++) {
+      switch(activeAttachments[i].type) {
+        case 0:
+          activeGun.magSize += (int)activeAttachments[i].value;
+          break;
+      }
+    }
+  }
+
+  //Switch statement
+  private void RefactorGunData(int id) {
+    switch(id) {
+      case 0:
+        activeGun = pistol;
+        break;
+      case 1:
+        activeGun = assaultRifle;
+        break;
+      case 2:
+        activeGun = heavyRifle;
+        break;
     }
   }
 

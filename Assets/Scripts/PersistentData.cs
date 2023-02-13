@@ -7,6 +7,7 @@ public class PersistentData : MonoBehaviour
 {
 
   public GunData selectedGun;
+  public Attachment[] selectedAttachments = new Attachment[] {};
 
   void Awake() {
     if (GameObject.FindGameObjectsWithTag("Data").Length > 1) Destroy(this.gameObject);

@@ -15,6 +15,7 @@ public class GunData
   public int shotColor;
   public int magSize;
   public int id;
+  public Attachment[] attachments;
 
   public GunData(string inName) {
     name = inName;
@@ -63,6 +64,24 @@ public class GunData
         upRecoilAnim = false;
         shotColor = 1;
         magSize = 24;
+        break;
+    }
+  }
+}
+
+public class Attachment
+{
+
+  public string name;
+  public int type;
+  public float value;
+
+  public Attachment(string inName) {
+    name = inName;
+    switch(name) {
+      case "Li-Ion Battery":
+        type = 0;
+        value = 10;
         break;
     }
   }
