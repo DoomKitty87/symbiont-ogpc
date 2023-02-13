@@ -88,6 +88,7 @@ public class GunController : MonoBehaviour
       holdTimer = 0;
     }
     //Delete when not used for testing
+    /*
     if (Input.GetMouseButtonDown(1)) {
       switch(activeGun.id) {
         case 0:
@@ -101,6 +102,7 @@ public class GunController : MonoBehaviour
           break;
       }
     }
+    */
   }
 
   //Loads gun attachments that are in use
