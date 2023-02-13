@@ -48,7 +48,7 @@ public class GunController : MonoBehaviour
   private GunData assaultRifle = new GunData("Assault Rifle");
   private GunData heavyRifle = new GunData("Heavy Rifle");
   private GunData activeGun;
-  private Attachment[] activeAttachments;
+  private List<Attachment> activeAttachments;
   private PersistentData dataContainer;
 
   private void Start() {
@@ -105,8 +105,8 @@ public class GunController : MonoBehaviour
 
   //Loads gun attachments that are in use
   private void ProcessAttachments() {
-    if (activeAttachments.Length == 0) return;
-    for (int i = 0; i < activeAttachments.Length; i++) {
+    if (activeAttachments.Count == 0) return;
+    for (int i = 0; i < activeAttachments.Count; i++) {
       switch(activeAttachments[i].type) {
         case 0:
           activeGun.magSize += (int)activeAttachments[i].value;

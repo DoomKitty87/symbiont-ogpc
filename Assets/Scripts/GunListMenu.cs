@@ -19,6 +19,7 @@ public class GunListMenu : MonoBehaviour
 	public float[] statNums;
 	public int locationInList = 0;
 	private string[] gunNames = new string[] {"Pistol", "Assault Rifle", "Heavy Rifle"};
+  private string[] attachmentNames = new string[] {"Li-Ion Battery"};
   private bool[] chosenAttachments = new bool[1];
 
 	public void Awake() {
@@ -62,6 +63,7 @@ public class GunListMenu : MonoBehaviour
 
 	public void OnClickReady() {
 		SceneManager.LoadScene("SampleScene");
+    PopulateAttachments();
 	}
 
 	public void OnChooseGun() {
@@ -72,6 +74,13 @@ public class GunListMenu : MonoBehaviour
   public void OnClickAttachment(int id) {
     chosenAttachments[id] ^= true;
     transform.parent.GetChild(1).GetChild(id).gameObject.GetComponent<Image>().color = chosenAttachments[id] ? Color.green : Color.red;
+  }
+
+  public void PopulateAttachments() {
+    GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedAttachments = new List<Attachment>();
+    for (int i = 0; i < chosenAttachments.Length; i++) {
+      if (chosenAttachments[i]) GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedAttachments.Add(new Attachment(attachmentNames[i]));
+    }
   }
 
 	void PopulateGunDataIndicators(GunData gun) {
