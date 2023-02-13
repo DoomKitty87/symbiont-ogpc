@@ -182,7 +182,7 @@ public class GunController : MonoBehaviour
 
   //Checks if player is able to shoot, returns bool
   private bool CanShoot() {
-    if (Time.timeScale = 0f) return false;
+    if (Time.timeScale == 0f) return false;
     if (rounds == 0) {
       Reload();
       return false;
