@@ -18,5 +18,6 @@ public class ItemDrops : MonoBehaviour
     int drop = Random.Range(0, possibleDrops.Length);
     if (dataContainer.unlockedAttachments.Contains(drop)) return;
     dataContainer.unlockedAttachments.Add(drop);
+    GetComponent<InventoryManager>().PickUpItem(possibleDrops[drop], 1);
   }
 }

@@ -236,21 +236,22 @@ public class GunController : MonoBehaviour
       points[1] = hit.point;
       impactFX.transform.position = hit.point;
       impactFX.GetComponent<ParticleSystem>().Play();
-      if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
-      if (activeGun.id == 2) {
-        int pierced = 1;
-        while (pierced <= 1) {
-          pierced++;
-          if (!Physics.Raycast(hit.point, direction, out hit)) {
-            points[1] = hit.point + (direction * 50);
-            break;
+      if (hit.collider.gameObject.CompareTag("Target")) {
+        HitTarget(hit);
+        if (activeGun.id == 2) {
+          int pierced = 1;
+          while (pierced <= 1) {
+            pierced++;
+            if (!Physics.Raycast(hit.point, direction, out hit)) {
+              points[1] = hit.point + (direction * 50);
+              break;
+            }
+            points[1] = hit.point;
+            impactFX.transform.position = hit.point;
+            impactFX.GetComponent<ParticleSystem>().Play();
+            if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
           }
-          points[1] = hit.point;
-          impactFX.transform.position = hit.point;
-          impactFX.GetComponent<ParticleSystem>().Play();
-          if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
         }
-
       }
     }
     else {
