@@ -71,7 +71,7 @@ public class GunListMenu : MonoBehaviour
 
   public void OnClickAttachment(int id) {
     chosenAttachments[id] ^= true;
-    transform.GetChild(1).GetChild(id).GetComponent<Image>().color = (chosenAttachments[id] ? Color.green : Color.red);
+    transform.parent.GetChild(1).GetChild(id).gameObject.GetComponent<Image>().color = chosenAttachments[id] ? Color.green : Color.red;
   }
 
 	void PopulateGunDataIndicators(GunData gun) {
