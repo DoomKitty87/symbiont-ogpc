@@ -88,6 +88,7 @@ public class GunController : MonoBehaviour
       holdTimer = 0;
     }
     //Delete when not used for testing
+    /*
     if (Input.GetMouseButtonDown(1)) {
       switch(activeGun.id) {
         case 0:
@@ -101,6 +102,7 @@ public class GunController : MonoBehaviour
           break;
       }
     }
+    */
   }
 
   //Loads gun attachments that are in use
@@ -111,8 +113,16 @@ public class GunController : MonoBehaviour
         case 0:
           activeGun.magSize += (int)activeAttachments[i].value;
           break;
+        case 1:
+          activeGun.fireRate *= activeAttachments[i].value;
+          break;
       }
     }
+  }
+
+  //Get value of active attachments
+  public List<Attachment> GetActiveAttachments() {
+    return activeAttachments;
   }
 
   //Switch statement
@@ -175,6 +185,7 @@ public class GunController : MonoBehaviour
 
   //Checks if player is able to shoot, returns bool
   private bool CanShoot() {
+    if (Time.timeScale == 0f) return false;
     if (rounds == 0) {
       Reload();
       return false;

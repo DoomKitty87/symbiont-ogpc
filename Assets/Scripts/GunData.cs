@@ -83,6 +83,10 @@ public class Attachment
         type = 0;
         value = 10;
         break;
+      case "Accelerator":
+        type = 1;
+        value = 0.75f;
+        break;
     }
   }
 }

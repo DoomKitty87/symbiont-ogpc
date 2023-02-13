@@ -19,13 +19,14 @@ public class GunListMenu : MonoBehaviour
 	public float[] statNums;
 	public int locationInList = 0;
 	private string[] gunNames = new string[] {"Pistol", "Assault Rifle", "Heavy Rifle"};
-  private string[] attachmentNames = new string[] {"Li-Ion Battery"};
-  private bool[] chosenAttachments = new bool[1];
+  private string[] attachmentNames = new string[] {"Li-Ion Battery", "Accelerator"};
+  private bool[] chosenAttachments;
 
 	public void Awake() {
 		OnChooseGun();
 		GunData gun = new GunData(gunNames[locationInList]);
 		PopulateGunDataIndicators(gun);
+    chosenAttachments = new bool[attachmentNames.Length];
 	}
 
 	public void Update() {
