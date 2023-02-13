@@ -11,6 +11,7 @@ public class GunData
   public float recoilRecovery;
   public float shotSpread;
   public float reloadTime;
+  public float shotDamage;
   public bool upRecoilAnim;
   public int shotColor;
   public int magSize;
@@ -34,6 +35,7 @@ public class GunData
         upRecoilAnim = false;
         shotColor = 2;
         magSize = 10;
+        shotDamage = 3;
         break;
       case "Assault Rifle":
         id = 1;
@@ -49,6 +51,7 @@ public class GunData
         upRecoilAnim = false;
         shotColor = 0;
         magSize = 30;
+        shotDamage = 2;
         break;
       case "Heavy Rifle":
         id = 2;
@@ -64,6 +67,7 @@ public class GunData
         upRecoilAnim = false;
         shotColor = 1;
         magSize = 24;
+        shotDamage = 7;
         break;
     }
   }

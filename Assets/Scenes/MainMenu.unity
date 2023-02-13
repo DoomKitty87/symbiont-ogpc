@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1916,7 +1916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 356408480}
   m_Layer: 0
-  m_Name: Spread
+  m_Name: Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2488,7 +2488,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' SPREAD
+  m_text: ' DAMAGE
 
 '
   m_isRightToLeft: 0
@@ -5579,7 +5579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1092553624}
   m_Layer: 0
-  m_Name: Spread
+  m_Name: Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6247,7 +6247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' SPREAD
+  m_text: ' DAMAGE
 
 '
   m_isRightToLeft: 0
@@ -11533,7 +11533,6 @@ MonoBehaviour:
   pauseScreen: {fileID: 966289172}
   checkScreen: {fileID: 414951888}
   settingsScreen: {fileID: 588178974}
-  mouseScreen: {fileID: 967527439}
   keyboardScreen: {fileID: 1522797876}
   audioScreen: {fileID: 164224136}
   videoScreen: {fileID: 1222512413}

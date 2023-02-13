@@ -233,6 +233,21 @@ public class GunController : MonoBehaviour
       impactFX.transform.position = hit.point;
       impactFX.GetComponent<ParticleSystem>().Play();
       if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
+      if (activeGun.id == 2) {
+        int pierced = 1;
+        while (pierced <= 1) {
+          pierced++;
+          if (!Physics.Raycast(hit.point, direction, out hit)) {
+            points[1] = hit.point + (direction * 50);
+            break;
+          }
+          points[1] = hit.point;
+          impactFX.transform.position = hit.point;
+          impactFX.GetComponent<ParticleSystem>().Play();
+          if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
+        }
+
+      }
     }
     else {
       points[1] = origin + (direction * 50);
@@ -243,9 +258,10 @@ public class GunController : MonoBehaviour
   }
 
   public void HitTarget(RaycastHit hit) {
+    hit.collider.gameObject.GetComponent<TargetController>().health -= activeGun.shotDamage;
+    if (hit.collider.gameObject.GetComponent<TargetController>().health >= 0) return;
     GetComponent<PointTracker>().DestroyedTarget(hit.collider.gameObject);
     StartCoroutine(ExplodeTarget(hit.collider.gameObject));
-    return;
   }
 
   //Animation for reloading the gun
