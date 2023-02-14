@@ -6,15 +6,21 @@ public class MissileBehavior : MonoBehaviour
 {
 
   [SerializeField] private GameObject missileExplodePrefab;
-  
+
   private Transform target;
+  private Rigidbody rb;
   void Start() {
     target = GameObject.FindGameObjectWithTag("MainCamera").transform;
+    rb = GetComponent<Rigidbody>();
     transform.LookAt(target);
   }
 
   void Update() {
     transform.LookAt(target);
+  }
+
+  void FixedUpdate() {
+    rb.AddForce(transform.forward * 5);
   }
 
   void OnCollisionEnter(Collision col) {
