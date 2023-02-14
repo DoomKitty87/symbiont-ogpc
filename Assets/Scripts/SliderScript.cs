@@ -1,4 +1,4 @@
-using UnityEngine;
+	using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
@@ -8,8 +8,12 @@ public class SliderScript : MonoBehaviour
 
 	[SerializeField] private GameObject valueText;
 	[SerializeField] private string settingsKey;
+	[SerializeField] private float defaultValue;
+
+	private float tempValue;
 
 	private void Start() {
+		tempValue = PlayerPrefs.GetFloat(settingsKey);
 		GetComponent<Slider>().value = PlayerPrefs.GetFloat(settingsKey);
 		ReplaceTextValue();
 	}
@@ -31,6 +35,11 @@ public class SliderScript : MonoBehaviour
 
 	private float GetSliderValue() {
 		return GetComponent<Slider>().value;
+	}
+
+	void OnEnable() {
+		if (!PlayerPrefs.HasKey(settingsKey)) PlayerPrefs.SetFloat(settingsKey, defaultValue);
+		GetComponent<Slider>().value = PlayerPrefs.GetFloat(settingsKey);
 	}
 
 }
