@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18022,7 +18022,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 561889306c2cf6142a439d263b5dca02, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 86f79df9ce084481abdf0ee396aaa9d1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 0.7
@@ -19011,6 +19011,8 @@ MonoBehaviour:
   shell: {fileID: 4951129425761058106, guid: 920dea722f6120f4d9d4f16065234f75, type: 3}
   ammoInfo: {fileID: 1256045570}
   laserBeamPrefab: {fileID: 1362095038030980878, guid: edfe8dd26ae289c448cee08622b726b8,
+    type: 3}
+  explosionAudioPrefab: {fileID: 8462855681465125567, guid: 5335dd00ed0ad47e288fd6d4afa9b022,
     type: 3}
   colors:
   - {r: 85.780106, g: 0, b: 76.79789, a: 1}
@@ -26950,6 +26952,7 @@ MonoBehaviour:
   audioScreen: {fileID: 50037833}
   videoScreen: {fileID: 2137172235}
   gunList: {fileID: 0}
+  armorList: {fileID: 0}
   currentActiveElement: {fileID: 0}
 --- !u!114 &523088998
 MonoBehaviour:
@@ -29940,7 +29943,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 561889306c2cf6142a439d263b5dca02, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 86f79df9ce084481abdf0ee396aaa9d1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -39377,7 +39380,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 561889306c2cf6142a439d263b5dca02, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 86f79df9ce084481abdf0ee396aaa9d1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.8

@@ -13,6 +13,7 @@ public class GunController : MonoBehaviour
   [SerializeField] private GameObject shell;
   [SerializeField] private GameObject ammoInfo;
   [SerializeField] private GameObject laserBeamPrefab;
+  [SerializeField] private GameObject explosionAudioPrefab;
   [SerializeField][ColorUsageAttribute(true, true)] private Color[] colors;
 
   
@@ -352,9 +353,12 @@ public class GunController : MonoBehaviour
     fragmentFX.transform.position = explodeFX.transform.position;
     explodeFX.GetComponent<ParticleSystem>().Play();
     fragmentFX.GetComponent<ParticleSystem>().Play();
-    explodeFX.GetComponent<AudioSource>().Play();
     GetComponent<ItemDrops>().RollForItem();
+    GameObject tmp = Instantiate(explosionAudioPrefab, target.transform.position, Quaternion.identity);
     Destroy(target);
+    tmp.GetComponent<AudioSource>().Play();
+    yield return new WaitForSeconds(tmp.GetComponent<AudioSource>().clip.length);
+    Destroy(tmp);
   }
 
   //Recoil animation with only backwards recoil animated
