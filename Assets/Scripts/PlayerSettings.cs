@@ -30,7 +30,7 @@ public class PlayerSettings : MonoBehaviour
 		}
 
 		Screen.brightness = (float)(PlayerPrefs.GetFloat("Video_Brightness") * 1.5);
-		bloom.intensity.value = PlayerPrefs.GetFloat("Video_Bloom") * 3;
+		//bloom.intensity.value = PlayerPrefs.GetFloat("Video_Bloom") * 3;
 		GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = PlayerPrefs.GetFloat("Video_Shake") * 2;
 	}
 }

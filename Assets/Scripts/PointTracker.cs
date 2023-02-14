@@ -59,7 +59,6 @@ public class PointTracker : MonoBehaviour
     float fxtimer = 0f;
     float flashIn = 0.1f;
     float flashOut = 0.2f;
-    init = bloom.intensity.value;
     initScale = combo.gameObject.transform.localScale;
     combo.gameObject.SetActive(true);
     combo.color = Color.clear;
@@ -116,7 +115,7 @@ public class PointTracker : MonoBehaviour
       StopCoroutine("ScoreFX");
       StopCoroutine("FlashFX");
       combo.gameObject.SetActive(false);
-      bloom.intensity.value = 1;
+      bloom.intensity.value = init;
       combo.gameObject.transform.localScale = initScale;
       noise.m_AmplitudeGain = 0f;
       StartCoroutine(ScoreFX());
@@ -139,6 +138,7 @@ public class PointTracker : MonoBehaviour
     vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
     noise = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     comboParticles = combo.transform.GetChild(0).gameObject;
+    init = bloom.intensity.value;
   }
 
   private void Update() {
