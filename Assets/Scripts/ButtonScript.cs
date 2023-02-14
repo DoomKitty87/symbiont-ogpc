@@ -7,13 +7,14 @@ public class ButtonScript : MonoBehaviour
 {
   
   public GameObject pauseScreen;
-  public GameObject checkScreen;
 	public GameObject settingsScreen;
-	public GameObject keyboardScreen;
-	public GameObject audioScreen;
-  public GameObject videoScreen;
-  public GameObject gunList;
-  public GameObject armorList;
+
+  [SerializeField] private GameObject checkScreen;
+	[SerializeField] private GameObject keyboardScreen;
+	[SerializeField] private GameObject audioScreen;
+  [SerializeField] private GameObject videoScreen;
+  [SerializeField] private GameObject gunList;
+  [SerializeField] private GameObject armorList;
 
 	private PauseHandler pauseHandler;
 
@@ -99,38 +100,6 @@ public class ButtonScript : MonoBehaviour
   public void settings_BACK() {
     ChangeActiveSettingsElement(pauseScreen);
   }
-
-	// --------------------------------
-	// Mouse Button Scripts
-	// --------------------------------
-
-  public void mouse_SENSITIVITY() {
-  // TODO: Change Sensitivity
-  }
-
-  // --------------------------------
-	// Keybinds Button Scripts
-	// --------------------------------
-
-	// --------------------------------
-	// Audio Button Scripts
-	// --------------------------------
-
-  public void audio_GLOBAL() {
-    // TODO: Change Global Volume
-  }
-
-  public void audio_SFX() {
-    // TODO: Change Effect Volume
-  }
-
-  public void audio_MUSIC() {
-    // TODO: Change Music Volume
-  }
-
-	// --------------------------------
-	// Video Button Scripts
-	// --------------------------------
 
 	// --------------------------------
 
