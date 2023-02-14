@@ -13,6 +13,7 @@ public class ButtonScript : MonoBehaviour
 	public GameObject audioScreen;
   public GameObject videoScreen;
   public GameObject gunList;
+  public GameObject armorList;
 
 	private PauseHandler pauseHandler;
 
@@ -63,6 +64,14 @@ public class ButtonScript : MonoBehaviour
       gunList.SetActive(false);
     } else {
       gunList.SetActive(true);
+    }
+  }
+
+  public void menu_ARMORLIST() {
+    if (armorList.activeSelf) {
+      armorList.SetActive(false);
+    } else {
+      armorList.SetActive(true);
     }
   }
 
@@ -140,6 +149,7 @@ public class ButtonScript : MonoBehaviour
 
   private void ChangeActiveSettingsElement(GameObject targetElement) {
     if (gunList != null && gunList.activeSelf) gunList.SetActive(false);
+    if (armorList != null && armorList.activeSelf) armorList.SetActive(false);
     currentActiveElement.SetActive(false);
     currentActiveElement = targetElement;
     currentActiveElement.SetActive(true);
