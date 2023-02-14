@@ -16,7 +16,7 @@ public class GunController : MonoBehaviour
   [SerializeField] private GameObject explosionAudioPrefab;
   [SerializeField][ColorUsageAttribute(true, true)] private Color[] colors;
 
-  
+
   private Camera cam;
   private float canFireTime;
   private float holdTimer;
@@ -236,8 +236,9 @@ public class GunController : MonoBehaviour
       points[1] = hit.point;
       impactFX.transform.position = hit.point;
       impactFX.GetComponent<ParticleSystem>().Play();
-      if (hit.collider.gameObject.CompareTag("Target")) {
-        HitTarget(hit);
+      if (hit.collider.gameObject.CompareTag("Target") | hit.collider.gameObject.CompareTag("Destructible")) {
+        if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
+        else HitObject(hit);
         if (activeGun.id == 2) {
           int pierced = 1;
           while (pierced <= 1) {
@@ -250,6 +251,7 @@ public class GunController : MonoBehaviour
             impactFX.transform.position = hit.point;
             impactFX.GetComponent<ParticleSystem>().Play();
             if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
+            if (hit.collider.gameObject.CompareTag("Destructible")) HitObject(hit);
           }
         }
       }
@@ -269,6 +271,15 @@ public class GunController : MonoBehaviour
       return;
     }
     GetComponent<PointTracker>().DestroyedTarget(hit.collider.gameObject);
+    StartCoroutine(ExplodeTarget(hit.collider.gameObject));
+  }
+
+  public void HitObject(RaycastHit hit) {
+    hit.collider.gameObject.GetComponent<ObjectController>().health -= activeGun.shotDamage;
+    if (hit.collider.gameObject.GetComponent<ObjectController>().health >= 0) {
+      hit.collider.gameObject.GetComponent<ObjectController>().IsHit();
+      return;
+    }
     StartCoroutine(ExplodeTarget(hit.collider.gameObject));
   }
 

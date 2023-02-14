@@ -13,6 +13,7 @@ public class MissileBehavior : MonoBehaviour
     target = GameObject.FindGameObjectWithTag("MainCamera").transform;
     rb = GetComponent<Rigidbody>();
     transform.LookAt(target);
+    Physics.IgnoreCollision(GetComponent<MeshCollider>(), transform.parent.gameObject.GetComponent<MeshCollider>());
   }
 
   void Update() {
@@ -20,7 +21,7 @@ public class MissileBehavior : MonoBehaviour
   }
 
   void FixedUpdate() {
-    rb.AddForce(transform.forward * 5);
+    rb.AddForce(transform.forward * 15);
   }
 
   void OnCollisionEnter(Collision col) {
