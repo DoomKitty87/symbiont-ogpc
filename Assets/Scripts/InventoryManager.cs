@@ -61,9 +61,10 @@ public class InventoryManager : MonoBehaviour
       attachmentHolder.GetChild(i).gameObject.SetActive(false);
     }
     gunHolder.GetChild(GetComponent<GunController>().GetActiveGun()).gameObject.SetActive(true);
-    for (int i = 0; i < GetComponent<GunController>().GetActiveAttachments().Count; i++) {
-      attachmentHolder.GetChild(i).gameObject.SetActive(true);
-      attachmentHolder.GetChild(i).localPosition += new Vector3(250 * i, 0, 0);
+    List<Attachment> activeAttachments = GetComponent<GunController>().GetActiveAttachments();
+    for (int i = 0; i < activeAttachments.Count; i++) {
+      attachmentHolder.GetChild(activeAttachments[i].type).gameObject.SetActive(true);
+      attachmentHolder.GetChild(activeAttachments[i].type).localPosition += new Vector3(0.1f * i, 0, 0);
     }
   }
 }
