@@ -596,6 +596,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: settings_CONTROLS
       objectReference: {fileID: 0}
+    - target: {fileID: 3975096345763183556, guid: 120ccc88e53a84d7d95402a601cdbc10,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2093709328}
+    - target: {fileID: 3975096345763183556, guid: 120ccc88e53a84d7d95402a601cdbc10,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: settings_RESET
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 120ccc88e53a84d7d95402a601cdbc10, type: 3}
 --- !u!1 &98057945

@@ -102,7 +102,6 @@ public class ButtonScript : MonoBehaviour
   }
   
   public void settings_RESET() {
-    Debug.Log("Reset");
     PlayerPrefs.DeleteAll();
     GetComponent<PlayerSettings>().ApplySettings();
   }
