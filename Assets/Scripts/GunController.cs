@@ -78,11 +78,11 @@ public class GunController : MonoBehaviour
     else if (vertRecoilTracking > 0) pov.m_VerticalAxis.Value += 20f * ((activeGun.recoilRecovery * Time.deltaTime) - Mathf.Abs((vertRecoilTracking - activeGun.recoilRecovery * Time.deltaTime)));
     vertRecoilTracking = Mathf.Clamp(vertRecoilTracking - activeGun.recoilRecovery * Time.deltaTime, 0, 1);
     if (Input.GetMouseButtonDown(0)) {
-      if (activeGun.id == 0) Shoot();
+      if (activeGun.id == 0 | activeGun.id == 2) Shoot();
       holdTimer = 0;
     }
     else if (Input.GetMouseButton(0)) {
-      if (activeGun.id == 1 | activeGun.id == 2) Shoot();
+      if (activeGun.id == 1) Shoot();
       holdTimer += Time.deltaTime;
     }
     else if (Input.GetMouseButtonUp(0)) {
