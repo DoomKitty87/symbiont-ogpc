@@ -9,7 +9,7 @@ public class ObjectController : MonoBehaviour
 
     private float[] objectHealth = new float[] {5f, 7f, 9f, 12f};
     void Start() {
-        health = objectHealth[(int)float.Parse(gameObject.name.Substring(6, 1)) - 1];
+        health = objectHealth[(int)float.Parse(gameObject.name.Substring(0, 1)) - 1];
     }
 
     public void IsHit() {
