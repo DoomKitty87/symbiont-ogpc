@@ -100,6 +100,12 @@ public class ButtonScript : MonoBehaviour
   public void settings_BACK() {
     ChangeActiveSettingsElement(pauseScreen);
   }
+  
+  public void settings_RESET() {
+    Debug.Log("Reset");
+    PlayerPrefs.DeleteAll();
+    GetComponent<PlayerSettings>().ApplySettings();
+  }
 
 	// --------------------------------
 
