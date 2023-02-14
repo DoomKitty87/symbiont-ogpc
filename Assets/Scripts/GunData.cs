@@ -66,7 +66,7 @@ public class GunData
         reloadTime = 2f;
         upRecoilAnim = false;
         shotColor = 1;
-        magSize = 24;
+        magSize = 8;
         shotDamage = 7;
         break;
     }
