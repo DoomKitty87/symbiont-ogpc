@@ -8,15 +8,17 @@ public class TargetShoot : MonoBehaviour
   [SerializeField] private GameObject projectilePrefab;
   [SerializeField] private float fireRate;
 
-  private float canFireTime = 0;
+  private float canFireTime = 0f;
 
-  void Update() {
+  private void Update() {
     canFireTime -= Time.deltaTime;
   }
 
-  void OnTriggerStay(Collider col) {
-    if (canFireTime > 0) return;
+  private void OnTriggerStay(Collider col) {
+    print("found object in trigger field");
+    if (canFireTime > 0f) return;
     canFireTime = fireRate;
+    print("attempting to instantiate");
     Instantiate(projectilePrefab, transform.position, Quaternion.identity);
   }
 }

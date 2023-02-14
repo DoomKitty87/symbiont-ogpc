@@ -81,6 +81,7 @@ public class GunListMenu : MonoBehaviour
 
   public void PopulateAttachments() {
     GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedAttachments = new List<Attachment>();
+		if (chosenAttachments == null) chosenAttachments = new bool[0];
     for (int i = 0; i < chosenAttachments.Length; i++) {
       if (chosenAttachments[i]) GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedAttachments.Add(new Attachment(attachmentNames[i]));
     }
