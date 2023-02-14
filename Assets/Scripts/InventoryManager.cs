@@ -35,12 +35,13 @@ public class InventoryManager : MonoBehaviour
   }
 
   private IEnumerator Notification(GameObject tmp) {
-    Vector3 init = tmp.transform.position;
+    Vector3 init = tmp.transform.localPosition;
     float timer = 0f;
-    yield return new WaitForSeconds(1.5f);
-    while (timer < 0.5f) {
-      tmp.transform.position = Vector3.Lerp(init, new Vector3(200, init.y, 0), timer / 0.5f);
+    yield return new WaitForSeconds(1.75f);
+    while (timer < 0.25f) {
+      tmp.transform.localPosition = Vector3.Lerp(init, new Vector3(init.x + 200, init.y, 0), timer / 0.5f);
       timer += Time.deltaTime;
+      yield return null;
     }
     Destroy(tmp);
   }

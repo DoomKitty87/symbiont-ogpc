@@ -118,7 +118,6 @@ public class GunController : MonoBehaviour
           activeGun.fireRate *= activeAttachments[i].value;
           break;
       }
-      print(attachmentHolder == null);
       attachmentHolder.GetChild(activeAttachments[i].type).gameObject.SetActive(true);
     }
   }
