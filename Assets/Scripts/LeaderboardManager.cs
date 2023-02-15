@@ -22,9 +22,7 @@ public class LeaderboardManager : MonoBehaviour
       yield return new WaitForSeconds(0.05f);
     }
     string newText = "";
-    print(scores.Count);
     foreach (Score i in scores) {
-      print(i.score);
       newText += (i.name + ": " + i.score + "\n");
     }
     text.text = newText;

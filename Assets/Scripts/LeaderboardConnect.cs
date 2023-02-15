@@ -21,8 +21,9 @@ public class LeaderboardConnect : MonoBehaviour
     DontDestroyOnLoad(this.gameObject);
   }
 
-  public void PostScores(string name, int score) {
+  public bool PostScores(string name, int score) {
     StartCoroutine(DoPostScores(name, score));
+    return true;
   }
 
   private IEnumerator DoRetrieveScores(List<Score> scores) {
