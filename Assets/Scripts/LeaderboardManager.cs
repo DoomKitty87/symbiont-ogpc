@@ -16,6 +16,7 @@ public class LeaderboardManager : MonoBehaviour
     StartCoroutine(UpdateLeaderboard());
   }
 
+  //Fetches leaderboard information from the MySQL database and posts it to a UI element.
   private IEnumerator UpdateLeaderboard() {
     List<Score> scores = leaderboardConnectionManager.RetrieveScores();
     while (scores.Count == 0) {

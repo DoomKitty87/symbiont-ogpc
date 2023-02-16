@@ -10,6 +10,7 @@ public class LeaderboardConnect : MonoBehaviour
 
   private const string highscoreURL = "https://csprojectdatabase.000webhostapp.com/scores.php";
 
+  //Returns the leaderboard scores for external scripts.
   public List<Score> RetrieveScores() {
     List<Score> scores = new List<Score>();
     StartCoroutine(DoRetrieveScores(scores));
@@ -21,11 +22,15 @@ public class LeaderboardConnect : MonoBehaviour
     DontDestroyOnLoad(this.gameObject);
   }
 
-  public bool PostScores(string name, int score) {
-    StartCoroutine(DoPostScores(name, score));
+  public bool PostScores(int score) {
+    string authPassword = GetComponent<LoginConnect>().GetActiveAuthPass();
+    string name = GetComponent<LoginConnect>().GetActiveAccountName();
+    if (name == "" | authPassword == "") return false;
+    StartCoroutine(DoPostScores(name, authPassword, score));
     return true;
   }
 
+  //Fetches the leaderboard data from the web server, and formats it into Score objects.
   private IEnumerator DoRetrieveScores(List<Score> scores) {
     WWWForm form = new WWWForm();
     form.AddField("retrieve_leaderboard", "true");
@@ -57,10 +62,12 @@ public class LeaderboardConnect : MonoBehaviour
     }
   }
 
-  private IEnumerator DoPostScores(string name, int score) {
+  //Executes a leaderboard update for a player score.
+  private IEnumerator DoPostScores(string name, string password, int score) {
     WWWForm form = new WWWForm();
     form.AddField("post_leaderboard", "true");
     form.AddField("name", name);
+    form.AddField("password", password);
     form.AddField("score", score);
 
     using (UnityWebRequest www = UnityWebRequest.Post(highscoreURL, form)) {
@@ -75,6 +82,7 @@ public class LeaderboardConnect : MonoBehaviour
   }
 }
 
+//Data structure to store score data.
 public struct Score {
   public string name;
   public int score;

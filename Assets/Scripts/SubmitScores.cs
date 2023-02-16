@@ -9,11 +9,13 @@ public class SubmitScores : MonoBehaviour
 
   private CinemachineTrackedDolly dolly;
   private LeaderboardConnect leaderboardConnectionManager;
+  private LoginConnect accountConnectionManager;
   private bool triggered;
 
   void Start() {
     dolly = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
     leaderboardConnectionManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>();
+    accountConnectionManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
   }
 
   void Update() {
@@ -23,7 +25,12 @@ public class SubmitScores : MonoBehaviour
     }
   }
 
+  //Checks for high score and submits it to leaderboard.
   private IEnumerator SubmitScore(string submissionName) {
+    if (accountConnectionManager.GetActiveAccountName == "") {
+      SceneManager.LoadScene("MainMenu");
+      yield break;
+    }
     int score = (int)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PointTracker>().GetPoints();
     List<Score> scores = leaderboardConnectionManager.RetrieveScores();
     while (scores.Count == 0) {
