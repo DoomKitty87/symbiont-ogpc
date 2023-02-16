@@ -54,11 +54,7 @@ public class ButtonScript : MonoBehaviour
   }
 
   public void menu_GUNLIST() {
-    if (gunList.activeSelf) {
-      gunList.SetActive(false);
-    } else {
-      gunList.SetActive(true);
-    }
+    ChangeActiveSettingsElement(gunList);
   }
 
   public void menu_ARMORLIST() {
