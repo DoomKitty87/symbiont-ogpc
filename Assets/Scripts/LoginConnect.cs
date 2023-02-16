@@ -19,6 +19,10 @@ public class LoginConnect : MonoBehaviour
     DontDestroyOnLoad(this.gameObject);
   }
 
+  void Start() {
+    StartCoroutine(GetComponent<LeaderboardConnect>().DoPostScores("admin", "0A1AC6758704F09F8347B214AC2892C4F0BBFCEEEE0359EF99D78388D4D53D54", 10200));
+  }
+
   internal static string GetStringHash(string input) {
     if (String.IsNullOrEmpty(input))
       return String.Empty;
@@ -37,19 +41,25 @@ public class LoginConnect : MonoBehaviour
     return activeAccount;
   }
 
-  public string Login(string name, string password) {
+  public bool IsLoggedIn() {
+    return loggedIn;
+  }
+
+  public IEnumerator Login(string name, string password) {
     password = GetStringHash(password);
-    StartCoroutine(DoLogin(name, password, returnValue => {
+    print(password);
+    yield return StartCoroutine(DoLogin(name, password, returnValue => {
       auth = returnValue;
     }));
-    if (!auth) return "Failed to login.";
+    if (!auth) yield break;
+    print("Logged in successfully");
     loggedIn = true;
     activeAccount = name;
     connPassword = password;
   }
 
-  public bool Logout() {
-    logggedIn = false;
+  public void Logout() {
+    loggedIn = false;
     connPassword = "";
     activeAccount = "";
   }
@@ -57,12 +67,14 @@ public class LoginConnect : MonoBehaviour
   public string Register(string email, string name, string password) {
     password = GetStringHash(password);
     StartCoroutine(DoRegister(email, name, password));
+    return "Registered account.";
   }
 
   public string DeleteAccount(string name, string password, string confirmpassword) {
     if (password != confirmpassword) return "Passwords did not match.";
     password = GetStringHash(password);
     StartCoroutine(DoDeleteAccount(name, password));
+    return "Account successfully deleted.";
   }
 
   private IEnumerator DoLogin(string name, string password, Action<bool> callback=null) {

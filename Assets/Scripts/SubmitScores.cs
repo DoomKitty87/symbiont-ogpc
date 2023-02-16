@@ -21,30 +21,32 @@ public class SubmitScores : MonoBehaviour
   void Update() {
     if (dolly.m_PathPosition >= dolly.m_Path.PathLength && triggered == false) {
       triggered = true;
-      StartCoroutine(SubmitScore("testing"));
+      StartCoroutine(SubmitScore());
     }
   }
 
   //Checks for high score and submits it to leaderboard.
-  private IEnumerator SubmitScore(string submissionName) {
-    if (accountConnectionManager.GetActiveAccountName == "") {
+  private IEnumerator SubmitScore() {
+    if (!accountConnectionManager.IsLoggedIn()) {
       SceneManager.LoadScene("MainMenu");
       yield break;
     }
+    print("made it past first break statement");
     int score = (int)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PointTracker>().GetPoints();
     List<Score> scores = leaderboardConnectionManager.RetrieveScores();
     while (scores.Count == 0) {
       yield return new WaitForSeconds(0.05f);
     }
     foreach (Score i in scores) {
-      if (i.name == submissionName) {
+      if (i.name == accountConnectionManager.GetActiveAccountName()) {
         if (score < i.score) {
           SceneManager.LoadScene("MainMenu");
           yield break;
         }
       }
     }
-    bool response = leaderboardConnectionManager.PostScores(submissionName, score);
+    print("made it past second break statement");
+    bool response = leaderboardConnectionManager.PostScores(score);
     while (!response) {
       yield return new WaitForSeconds(0.05f);
     }

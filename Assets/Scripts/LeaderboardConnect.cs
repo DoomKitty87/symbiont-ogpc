@@ -23,9 +23,9 @@ public class LeaderboardConnect : MonoBehaviour
   }
 
   public bool PostScores(int score) {
+    if (!GetComponent<LoginConnect>().IsLoggedIn()) return false;
     string authPassword = GetComponent<LoginConnect>().GetActiveAuthPass();
     string name = GetComponent<LoginConnect>().GetActiveAccountName();
-    if (name == "" | authPassword == "") return false;
     StartCoroutine(DoPostScores(name, authPassword, score));
     return true;
   }
@@ -63,20 +63,25 @@ public class LeaderboardConnect : MonoBehaviour
   }
 
   //Executes a leaderboard update for a player score.
-  private IEnumerator DoPostScores(string name, string password, int score) {
+  public IEnumerator DoPostScores(string name, string password, int score) {
+    yield return new WaitForSeconds(5);
     WWWForm form = new WWWForm();
     form.AddField("post_leaderboard", "true");
     form.AddField("name", name);
     form.AddField("password", password);
     form.AddField("score", score);
-
+    print(name);
+    print(password);
+    print(score);
     using (UnityWebRequest www = UnityWebRequest.Post(highscoreURL, form)) {
       yield return www.SendWebRequest();
       if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
         Debug.Log(www.error);
+        yield return false;
       }
       else {
         Debug.Log("Successfully posted score!");
+        yield return true;
       }
     }
   }
