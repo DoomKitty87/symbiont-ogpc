@@ -39,7 +39,6 @@ public class GunListMenu : MonoBehaviour
 	}
 
 	public void OnClickLeft() {
-		Debug.Log("Left");
 		gunHolder.transform.GetChild(locationInList).gameObject.SetActive(false);
 		if (locationInList == 0) {
 			locationInList = 2;
@@ -52,7 +51,6 @@ public class GunListMenu : MonoBehaviour
 	}
 
 	public void OnClickRight() {
-		Debug.Log("Right");
 		gunHolder.transform.GetChild(locationInList).gameObject.SetActive(false);
 		if (locationInList == 2) {
 			locationInList = 0;
