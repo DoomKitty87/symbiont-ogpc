@@ -17,13 +17,14 @@ public class LoginConnect : MonoBehaviour
   void Awake() {
     if (GameObject.FindGameObjectsWithTag("ConnectionManager").Length > 1) Destroy(this.gameObject);
     DontDestroyOnLoad(this.gameObject);
-    StartCoroutine(Login("admin", "godhelpme"));
+    //Uncomment for testing/debugging
+    //StartCoroutine(Login("admin", "godhelpme"));
   }
 
-  //void Start() {
+  void Start() {
     //For debugging: uncomment and remove all other database calls.
     //StartCoroutine(GetComponent<LeaderboardConnect>().DoPostScores("admin", "0A1AC6758704F09F8347B214AC2892C4F0BBFCEEEE0359EF99D78388D4D53D54", 11500));
-  //}
+  }
 
   internal static string GetStringHash(string input) {
     if (String.IsNullOrEmpty(input))
@@ -76,6 +77,7 @@ public class LoginConnect : MonoBehaviour
     if (password != confirmpassword) return "Passwords did not match.";
     password = GetStringHash(password);
     StartCoroutine(DoDeleteAccount(name, password));
+    Logout();
     return "Account successfully deleted.";
   }
 
