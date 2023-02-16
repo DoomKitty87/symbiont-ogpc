@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour
 {
   
-  public GameObject pauseScreen;
-	public GameObject settingsScreen;
+  [HideInInspector] public GameObject pauseScreen;
+	[HideInInspector] public GameObject settingsScreen;
 
   [SerializeField] private GameObject checkScreen;
 	[SerializeField] private GameObject keyboardScreen;
@@ -25,33 +24,27 @@ public class ButtonScript : MonoBehaviour
 		currentActiveElement = pauseScreen;
 	}
 
-  // --------------------------------
-  // Game Button Scripts
-  // --------------------------------
-	public void game_RESUME() {
-    pauseHandler.UnPause();
+	// --------------------------------
+	// Start Button Scripts
+	// --------------------------------
+
+  public void start_PLAY() {
+    StartCoroutine(ChangeScene("MainMenu"));
   }
 
-  public void game_RESTART(string currentScene) {
-    pauseHandler.UnPause();
-    ChangeScene(currentScene);
-  }
-
-  public void game_LOAD() {
-    // TODO
-  }
-
-  public void game_SETTINGS() {
+  public void start_SETTINGS() {
     ChangeActiveSettingsElement(settingsScreen);
   }
 
-  public void game_QUIT() {
-	  ChangeScene("MainMenu");
-  }
+  public void start_QUIT() {
+		Debug.Log("Quit Game");
+		Application.Quit();
+	}
 
 	// --------------------------------
 	// Main Menu Button Scripts
 	// --------------------------------
+
 	public void menu_PLAY() {
     ChangeActiveSettingsElement(checkScreen);
   }  
@@ -77,15 +70,40 @@ public class ButtonScript : MonoBehaviour
   }
 
   public void menu_QUIT() {
-    Debug.Log("Quit Game");
-    Application.Quit();
+		StartCoroutine(ChangeScene("StartMenu"));
   }
+
+	// --------------------------------
+	// Game Button Scripts
+	// --------------------------------
+
+	public void game_RESUME() {
+		pauseHandler.UnPause();
+	}
+
+	public void game_RESTART(string currentScene) {
+		pauseHandler.UnPause();
+		StartCoroutine(ChangeScene(currentScene));
+	}
+
+	public void game_LOAD() {
+		// TODO
+	}
+
+	public void game_SETTINGS() {
+		ChangeActiveSettingsElement(settingsScreen);
+	}
+
+	public void game_QUIT() {
+    Time.timeScale = 1.0f;
+		StartCoroutine(ChangeScene("MainMenu"));
+	}
 
 	// --------------------------------
 	// Settings Button Scripts
 	// --------------------------------
 
-  public void settings_CONTROLS() {
+	public void settings_CONTROLS() {
 		ChangeActiveSettingsElement(keyboardScreen);
 	}
 
@@ -112,9 +130,10 @@ public class ButtonScript : MonoBehaviour
     ChangeActiveSettingsElement(settingsScreen);
   }
 
-	private void ChangeScene(string targetScene) {
-    SceneManager.LoadScene(targetScene);
-  }
+  IEnumerator ChangeScene(string targetScene) {
+    yield return new WaitForSeconds(0.1f);
+		SceneManager.LoadScene(targetScene);
+	}
 
   public void ResetScreen() {
     currentActiveElement.SetActive(false);
