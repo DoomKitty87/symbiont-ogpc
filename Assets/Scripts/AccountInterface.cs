@@ -8,19 +8,23 @@ public class AccountInterface : MonoBehaviour
 
   private LoginConnect loginManager;
   [SerializeField] private TMP_InputField loginUser, loginPass, deleteUser, deletePass, deleteConfirmPass, regUser, regEmail, regPass, regConfirmPass;
+  [SerializeField] private TextMeshProUGUI activeAccount;
 
   void Start() {
     loginManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
+
   }
 
   public void OnClickLogin() {
     string name = loginUser.text;
     string password = loginPass.text;
     StartCoroutine(loginManager.Login(name, password));
+    if (loginManager.IsLoggedIn()) activeAccount.text = loginManager.GetActiveAccountName();
   }
 
   public void OnClickLogout() {
     loginManager.Logout();
+    activeAccount.text = "Not logged in.";
   }
 
   public void OnClickDelete() {
