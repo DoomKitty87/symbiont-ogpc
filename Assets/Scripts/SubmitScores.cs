@@ -21,8 +21,12 @@ public class SubmitScores : MonoBehaviour
   void Update() {
     if (dolly.m_PathPosition >= dolly.m_Path.PathLength && triggered == false) {
       triggered = true;
-      StartCoroutine(SubmitScore());
+      EndLevel();
     }
+  }
+
+  public void EndLevel() {
+    StartCoroutine(SubmitScore());
   }
 
   //Checks for high score and submits it to leaderboard.
