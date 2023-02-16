@@ -80,6 +80,8 @@ public class LeaderboardConnect : MonoBehaviour
       }
       else {
         Debug.Log("Successfully posted score!");
+        Debug.Log(www.result);
+        Debug.Log(www.downloadHandler.text);
         yield return true;
       }
     }
