@@ -65,7 +65,8 @@ public class LoginConnect : MonoBehaviour
     activeAccount = "";
   }
 
-  public string Register(string email, string name, string password) {
+  public string Register(string email, string name, string password, string confirmpassword) {
+    if (password != confirmpassword) return "Passwords did not match.";
     password = GetStringHash(password);
     StartCoroutine(DoRegister(email, name, password));
     return "Registered account.";
