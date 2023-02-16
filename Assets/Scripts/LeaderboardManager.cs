@@ -8,12 +8,21 @@ public class LeaderboardManager : MonoBehaviour
 
   private LeaderboardConnect leaderboardConnectionManager;
   private TextMeshProUGUI text;
+  private float timer;
 
   void Start() {
     leaderboardConnectionManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>();
     text = GetComponent<TextMeshProUGUI>();
 
     StartCoroutine(UpdateLeaderboard());
+  }
+
+  void Update() {
+    timer += Time.deltaTime;
+    if (timer > 10) {
+      timer = 0;
+      StartCoroutine(UpdateLeaderboard());
+    }
   }
 
   //Fetches leaderboard information from the MySQL database and posts it to a UI element.
