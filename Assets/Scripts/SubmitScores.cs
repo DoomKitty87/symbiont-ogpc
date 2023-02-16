@@ -26,6 +26,7 @@ public class SubmitScores : MonoBehaviour
   }
 
   public void EndLevel() {
+    Cursor.lockState = CursorLockMode.None;
     StartCoroutine(SubmitScore());
   }
 
