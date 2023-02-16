@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class AccountInterface : Monobehaviour
+public class AccountInterface : MonoBehaviour
 {
 
   private LoginConnect loginManager;
