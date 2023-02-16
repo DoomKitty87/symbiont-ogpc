@@ -77,6 +77,7 @@ public class LoginConnect : MonoBehaviour
     if (password != confirmpassword) return "Passwords did not match.";
     password = GetStringHash(password);
     StartCoroutine(DoDeleteAccount(name, password));
+    Logout();
     return "Account successfully deleted.";
   }
 

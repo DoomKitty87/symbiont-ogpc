@@ -7,7 +7,7 @@ public class AccountInterface : MonoBehaviour
 {
 
   private LoginConnect loginManager;
-  private TMP_InputField loginUser, loginPass, deleteUser, deletePass, deleteConfirmPass, regUser, regEmail, regPass, regConfirmPass;
+  [SerializeField] private TMP_InputField loginUser, loginPass, deleteUser, deletePass, deleteConfirmPass, regUser, regEmail, regPass, regConfirmPass;
 
   void Start() {
     loginManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
