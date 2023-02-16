@@ -64,7 +64,6 @@ public class LeaderboardConnect : MonoBehaviour
 
   //Executes a leaderboard update for a player score.
   public IEnumerator DoPostScores(string name, string password, int score) {
-    yield return new WaitForSeconds(5);
     WWWForm form = new WWWForm();
     form.AddField("post_leaderboard", "true");
     form.AddField("name", name);
