@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour
 {
   
-  [HideInInspector] public GameObject pauseScreen;
-	[HideInInspector] public GameObject settingsScreen;
+  public GameObject pauseScreen;
+	public GameObject settingsScreen;
 
   [SerializeField] private GameObject checkScreen;
-	[SerializeField] private GameObject keyboardScreen;
+	[SerializeField] private GameObject controlsScreen;
 	[SerializeField] private GameObject audioScreen;
   [SerializeField] private GameObject videoScreen;
   [SerializeField] private GameObject gunList;
@@ -57,13 +57,13 @@ public class ButtonScript : MonoBehaviour
     ChangeActiveSettingsElement(gunList);
   }
 
-  public void menu_ARMORLIST() {
-    if (armorList.activeSelf) {
-      armorList.SetActive(false);
-    } else {
-      armorList.SetActive(true);
-    }
-  }
+  // public void menu_ARMORLIST() {
+  //   if (armorList.activeSelf) {
+  //     armorList.SetActive(false);
+  //   } else {
+  //     armorList.SetActive(true);
+  //   }
+  // }
 
   public void menu_QUIT() {
 		StartCoroutine(ChangeScene("StartMenu"));
@@ -100,7 +100,7 @@ public class ButtonScript : MonoBehaviour
 	// --------------------------------
 
 	public void settings_CONTROLS() {
-		ChangeActiveSettingsElement(keyboardScreen);
+		ChangeActiveSettingsElement(controlsScreen);
 	}
 
   public void settings_AUDIO() {

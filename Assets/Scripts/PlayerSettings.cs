@@ -22,15 +22,15 @@ public class PlayerSettings : MonoBehaviour
 	public void ApplySettings() {
 		if (isMainMenu) return; // Prevents null pointer errors in main menu
 
-		GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = PlayerPrefs.GetFloat("Controls_Sensitivity") * 4000;
-		GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = PlayerPrefs.GetFloat("Controls_Sensitivity") * 4000;
+		GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = PlayerPrefs.GetFloat("controls_SENSITIVITY") * 4000;
+		GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = PlayerPrefs.GetFloat("controls_SENSITIVITY") * 4000;
 
 		foreach (AudioSource audio in audioSource) {
-			audio.volume = PlayerPrefs.GetFloat("Audio_Master") * PlayerPrefs.GetFloat("Audio_Effects");
+			audio.volume = PlayerPrefs.GetFloat("audio_MASTER") * PlayerPrefs.GetFloat("audio_EFFECTS");
 		}
 
-		Screen.brightness = (float)(PlayerPrefs.GetFloat("Video_Brightness") * 1.5);
-		bloom.intensity.value = (float)(PlayerPrefs.GetFloat("Video_Bloom") * 2.4);
-		GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = PlayerPrefs.GetFloat("Video_Shake") * 2;
+		Screen.brightness = (float)(PlayerPrefs.GetFloat("video_BRIGHTNESS") * 1.5);
+		bloom.intensity.value = (float)(PlayerPrefs.GetFloat("vide_BLOOM") * 2.4);
+		GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = PlayerPrefs.GetFloat("video_SHAKE") * 2;
 	}
 }

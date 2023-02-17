@@ -10,10 +10,7 @@ public class SliderScript : MonoBehaviour
 	[SerializeField] private string settingsKey;
 	[SerializeField] private float defaultValue;
 
-	private float tempValue;
-
 	private void Start() {
-		tempValue = PlayerPrefs.GetFloat(settingsKey);
 		GetComponent<Slider>().value = PlayerPrefs.GetFloat(settingsKey);
 		ReplaceTextValue();
 	}
@@ -41,5 +38,4 @@ public class SliderScript : MonoBehaviour
 		if (!PlayerPrefs.HasKey(settingsKey)) PlayerPrefs.SetFloat(settingsKey, defaultValue);
 		GetComponent<Slider>().value = PlayerPrefs.GetFloat(settingsKey);
 	}
-
 }
