@@ -23,14 +23,15 @@ public class TileFromNoise : MonoBehaviour
   [SerializeField] private float mapScale;
   [SerializeField] private float heightMultiplier;
   [SerializeField] private AnimationCurve heightCurve;
+  [SerializeField] private GameObject targetPrefab;
 
   private Transform playerVehicle;
   private float tileWidth;
   private float genRange;
 
-  void Start(){
-    GenerateTile();
+  void Awake(){
     playerVehicle = GameObject.FindGameObjectWithTag("Player").transform;
+    GenerateTile();
     tileWidth = GetComponent<Renderer>().bounds.size.x;
     genRange = playerVehicle.gameObject.GetComponent<VehicleMovement>().GetGenRange();
   }
@@ -51,7 +52,9 @@ public class TileFromNoise : MonoBehaviour
 
     Texture2D tileTexture = BuildTexture(heightMap);
     tileRenderer.material.mainTexture = tileTexture;
+    if (Mathf.Abs(playerVehicle.position.z - transform.position.z) > tileWidth) Destroy(meshCollider);
     UpdateMeshVertices(heightMap);
+    //if (Mathf.Abs(playerVehicle.position.z - transform.position.z) < tileWidth) GenerateTargets(heightMap);
   }
 
   private TerrainType ChooseTerrainType(float height) {
@@ -97,7 +100,6 @@ public class TileFromNoise : MonoBehaviour
         float height = heightMap[zIndex, xIndex];
 
         Vector3 vertex = meshVertices[vertexIndex];
-
         meshVertices[vertexIndex] = new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier, vertex.z);
         vertexIndex++;
       }
@@ -106,5 +108,22 @@ public class TileFromNoise : MonoBehaviour
     meshFilter.mesh.RecalculateBounds();
     meshFilter.mesh.RecalculateNormals();
     meshCollider.sharedMesh = meshFilter.mesh;
+  }
+
+  public void GenerateTargets(float[,] heightMap) {
+    int tileDepth = heightMap.GetLength(0);
+    int tileWidth = heightMap.GetLength(1);
+
+    Vector3[] meshVertices = meshFilter.mesh.vertices;
+
+    int vertexIndex = 0;
+    for (int zIndex = 0; zIndex < tileDepth; zIndex++) {
+      for (int xIndex = 0; xIndex < tileWidth; xIndex++) {
+        float height = heightMap[zIndex, xIndex];
+        Vector3 vertex = meshVertices[vertexIndex];
+        if (Random.value > 0.999f) Instantiate(targetPrefab, transform.position + new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier + 5, vertex.z), Quaternion.identity, transform);
+        vertexIndex++;
+      }
+    }
   }
 }
