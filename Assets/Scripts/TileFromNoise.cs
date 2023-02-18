@@ -47,7 +47,7 @@ public class TileFromNoise : MonoBehaviour
     float offsetX = -gameObject.transform.position.x;
     float offsetZ = -gameObject.transform.position.z;
 
-    float[,] heightMap = noiseMapGeneration.GenerateNoise(tileDepth, tileWidth, mapScale, offsetX, offsetZ, waves);
+    float[,] heightMap = noiseMapGeneration.GenerateCellularNoise(tileDepth, tileWidth, mapScale, offsetX, offsetZ, waves);
 
     Texture2D tileTexture = BuildTexture(heightMap);
     tileRenderer.material.mainTexture = tileTexture;

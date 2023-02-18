@@ -126,56 +126,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - seed: 2561
-    frequency: 1
-    amplitude: 1
-  - seed: 2325
-    frequency: 1
-    amplitude: 1
+    frequency: 0.5
+    amplitude: 1.5
+  - seed: 6142
+    frequency: 0.5
+    amplitude: 1.5
+  - seed: 9677
+    frequency: 0.5
+    amplitude: 1.5
   terrainTypes:
   - name: low
     height: 0.4
-    color: {r: 0, g: 0.75257635, b: 1, a: 0}
+    color: {r: 0, g: 0, b: 0, a: 0}
   - name: mid
     height: 0.7
-    color: {r: 0.7921569, g: 0.7533307, b: 0.011764727, a: 0}
+    color: {r: 0, g: 0, b: 0, a: 0}
   - name: high
     height: 1
-    color: {r: 1, g: 0, b: 0.8472252, a: 0}
+    color: {r: 0, g: 0, b: 0, a: 0}
   noiseMapGeneration: {fileID: 2460507308172132531}
   tileRenderer: {fileID: 2460507308172132495}
   meshFilter: {fileID: 2460507308172132528}
   meshCollider: {fileID: 2460507308172132494}
   mapScale: 50
-  heightMultiplier: 15
+  heightMultiplier: 20
   heightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1.0543828
+      inSlope: 0
       outSlope: 0
-      tangentMode: 69
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.20490855
-    - serializedVersion: 3
-      time: 0.4
-      value: 0
-      inSlope: -0
-      outSlope: 1.6666666
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1.6666666
-      outSlope: 1.6666666
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
