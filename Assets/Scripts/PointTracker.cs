@@ -12,12 +12,12 @@ public class PointTracker : MonoBehaviour
   [SerializeField] private float comboTime;
   [SerializeField] private GameObject HUD;
   [SerializeField] private GameObject WorldSpaceHUD;
+  [SerializeField] private TextMeshProUGUI score;
 
   private float points;
   private float timer;
   private float comboLength;
   private float init;
-  private TextMeshProUGUI score;
   private TextMeshProUGUI combo;
   private Volume postProcessing;
   private Bloom bloom;
@@ -130,7 +130,6 @@ public class PointTracker : MonoBehaviour
   }
   
   private void Start() {
-    score = HUD.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
     combo = WorldSpaceHUD.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     initScale = combo.gameObject.transform.localScale;
     postProcessing = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>();

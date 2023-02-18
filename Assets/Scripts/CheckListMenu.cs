@@ -22,10 +22,10 @@ public class CheckListMenu : MonoBehaviour
 
 	public void Awake() {
 		try {
-			chosenGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun.name;
+			chosenGun = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedPrimary.name;
 		} 
 		catch (NullReferenceException) {
-			GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun = new GunData("Pistol");
+			GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedPrimary = new GunData("Pistol");
 			chosenGun = "Pistol";
 		}
 		GunData gun = new GunData(chosenGun);

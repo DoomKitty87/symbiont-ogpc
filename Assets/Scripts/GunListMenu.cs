@@ -70,7 +70,7 @@ public class GunListMenu : MonoBehaviour
 	public void OnChooseGun() {
 		chosenGun = gunNames[locationInList];
 		
-		GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedGun = new GunData(gunNames[locationInList]);
+		GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedPrimary = new GunData(gunNames[locationInList]);
 	}
 
   public void OnClickAttachment(int id) {

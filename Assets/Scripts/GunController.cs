@@ -21,6 +21,7 @@ public class GunController : MonoBehaviour
   private float canFireTime;
   private float holdTimer;
   private float vertRecoilTracking;
+  private float changeTimer;
   private Transform gun;
   private GameObject reloadtext;
   private GameObject leftleg, rightleg;
@@ -50,13 +51,17 @@ public class GunController : MonoBehaviour
   private GunData assaultRifle = new GunData("Assault Rifle");
   private GunData heavyRifle = new GunData("Heavy Rifle");
   private GunData activeGun;
+  private GunData activePrimary;
+  private GunData activeSecondary;
   private List<Attachment> activeAttachments;
   private PersistentData dataContainer;
 
   private void Start() {
+    GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedSecondary = new GunData("Pistol");
     dataContainer = GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>();
-    RefactorGunData(dataContainer.selectedGun.id);
-    gun = transform.GetChild(activeGun.id);
+    RefactorGunData(dataContainer.selectedPrimary.id, dataContainer.selectedSecondary.id);
+    gun = transform.GetChild(activePrimary.id);
+    activeGun = activePrimary;
     activeAttachments = dataContainer.selectedAttachments;
     ReloadGunAssets();
     ProcessAttachments();
@@ -89,22 +94,21 @@ public class GunController : MonoBehaviour
     else if (Input.GetMouseButtonUp(0)) {
       holdTimer = 0;
     }
-    //Delete when not used for testing
-    /*
-    if (Input.GetMouseButtonDown(1)) {
-      switch(activeGun.id) {
-        case 0:
-          ChangeGun(assaultRifle);
-          break;
-        case 1:
-          ChangeGun(heavyRifle);
-          break;
-        case 2:
-          ChangeGun(pistol);
-          break;
-      }
+
+    if (Input.GetKeyDown(KeyCode.R)) {
+      Reload();
     }
-    */
+
+    if (Input.GetKeyDown(KeyCode.Alpha1) && changeTimer <= 0) {
+      ChangeGun(activePrimary);
+      changeTimer = 1;
+    }
+    else if (Input.GetKeyDown(KeyCode.Alpha2) && changeTimer <= 0) {
+      ChangeGun(activeSecondary);
+      changeTimer = 1;
+    }
+
+    changeTimer -= Time.deltaTime;
   }
 
   //Loads gun attachments that are in use
@@ -129,16 +133,27 @@ public class GunController : MonoBehaviour
   }
 
   //Switch statement
-  private void RefactorGunData(int id) {
+  private void RefactorGunData(int id, int secid) {
     switch(id) {
       case 0:
-        activeGun = pistol;
+        activePrimary = pistol;
         break;
       case 1:
-        activeGun = assaultRifle;
+        activePrimary = assaultRifle;
         break;
       case 2:
-        activeGun = heavyRifle;
+        activePrimary = heavyRifle;
+        break;
+    }
+    switch(secid) {
+      case 0:
+        activeSecondary = pistol;
+        break;
+      case 1:
+        activeSecondary = assaultRifle;
+        break;
+      case 2:
+        activeSecondary = heavyRifle;
         break;
     }
   }
