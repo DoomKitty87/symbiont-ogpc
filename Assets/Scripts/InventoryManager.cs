@@ -9,8 +9,8 @@ public class InventoryManager : MonoBehaviour
   private Transform inventory;
   private Transform gunHolder;
   private Transform attachmentHolder;
-  private GameObject notifContainer;
 
+  [SerializeField] private GameObject notifContainer;
   [SerializeField] private GameObject HUD;
   [SerializeField] private GameObject itemNotification;
 
@@ -19,7 +19,6 @@ public class InventoryManager : MonoBehaviour
     inventory = transform.GetChild(3).GetChild(1);
     gunHolder = inventory.GetChild(0).GetChild(0);
     attachmentHolder = inventory.GetChild(0).GetChild(2);
-    notifContainer = HUD.transform.GetChild(8).gameObject;
   }
 
   void Update()
