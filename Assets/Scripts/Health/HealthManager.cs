@@ -5,10 +5,11 @@ using UnityEngine.Events;
 
 [System.Serializable]
 public class OnHealthChangedEvent : UnityEvent<float, float> {}
-public class HealthManager : MonoBehaviour, IDamageable
+public class HealthManager : MonoBehaviour
 {
     public float _currentHealth;
     [SerializeField] private float _maxHealth;
+    public UnityEvent _onHealthInitialize;
     public UnityEvent _onHealthZero;
     public OnHealthChangedEvent _onHealthChanged;
 
@@ -19,6 +20,7 @@ public class HealthManager : MonoBehaviour, IDamageable
     void Start()
     {
         _currentHealth = _maxHealth;
+        _onHealthInitialize?.Invoke();
     }
     private void Update()
     {
