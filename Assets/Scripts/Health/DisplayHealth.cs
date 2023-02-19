@@ -53,13 +53,13 @@ public class DisplayHealth : MonoBehaviour
     private IEnumerator TweenTextValue(TextMeshProUGUI text, float targetValue, float duration)
     {
         float timeElapsed = 0;
-        float initSliderValue = slider.value;
+        // float initSliderValue = slider.value;
         while (timeElapsed < duration)
         {
             timeElapsed += Time.deltaTime;
             float t = timeElapsed / duration;
             t = _easeCurve.Evaluate(t); 
-            slider.value = Mathf.Lerp(initSliderValue, targetValue, t);
+            // slider.value = Mathf.Lerp(initSliderValue, targetValue, t);
             yield return null;
         }
 
