@@ -27,20 +27,15 @@ public class TileFromNoise : MonoBehaviour
 
   private Transform playerVehicle;
   private float tileWidth;
-  private float genRange;
 
   void Awake(){
     playerVehicle = GameObject.FindGameObjectWithTag("Player").transform;
+    if (Mathf.Abs(playerVehicle.position.z - transform.position.z) > tileWidth) Destroy(meshCollider);
     GenerateTile();
     tileWidth = GetComponent<Renderer>().bounds.size.x;
-    genRange = playerVehicle.gameObject.GetComponent<VehicleMovement>().GetGenRange();
   }
 
-  void Update() {
-    if (playerVehicle.position.x - transform.position.x > tileWidth * genRange) Destroy(gameObject);
-  }
-
-  private void GenerateTile() {
+  public void GenerateTile() {
     Vector3[] meshVertices = meshFilter.mesh.vertices;
     int tileDepth = (int)Mathf.Sqrt(meshVertices.Length);
     int tileWidth = tileDepth;
@@ -52,7 +47,6 @@ public class TileFromNoise : MonoBehaviour
 
     Texture2D tileTexture = BuildTexture(heightMap);
     tileRenderer.material.mainTexture = tileTexture;
-    if (Mathf.Abs(playerVehicle.position.z - transform.position.z) > tileWidth) Destroy(meshCollider);
     UpdateMeshVertices(heightMap);
     //if (Mathf.Abs(playerVehicle.position.z - transform.position.z) < tileWidth) GenerateTargets(heightMap);
   }
@@ -107,7 +101,7 @@ public class TileFromNoise : MonoBehaviour
     meshFilter.mesh.vertices = meshVertices;
     meshFilter.mesh.RecalculateBounds();
     meshFilter.mesh.RecalculateNormals();
-    meshCollider.sharedMesh = meshFilter.mesh;
+    if (meshCollider != null) meshCollider.sharedMesh = meshFilter.mesh;
   }
 
   public void GenerateTargets(float[,] heightMap) {
