@@ -6,7 +6,7 @@ using static ArmorData;
 
 public class PersistentData : MonoBehaviour
 {
-
+  // Should store these in the PlayerPrefs -Matthew
   public GunData selectedPrimary;
   public GunData selectedSecondary;
   public ArmorData selectedArmor;
