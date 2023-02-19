@@ -49,8 +49,8 @@ public class TileFromNoise : MonoBehaviour
 
     float[,] heightMap = noiseMapGeneration.CellularNoiseJobs(tileDepth, tileWidth, mapScale, offsetX, offsetZ, waves, amplitude, frequency, seed);
 
-    Texture2D tileTexture = BuildTexture(heightMap);
-    tileRenderer.material.mainTexture = tileTexture;
+    //Texture2D tileTexture = BuildTexture(heightMap);
+    //tileRenderer.material.mainTexture = tileTexture;
     UpdateMeshVertices(heightMap);
     //if (Mathf.Abs(playerVehicle.position.z - transform.position.z) < tileWidth) GenerateTargets(heightMap);
   }
