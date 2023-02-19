@@ -41,11 +41,12 @@ public class NoiseMapGeneration : MonoBehaviour
 
       float normalization = 0f;
       float noise = 0f;
-
+      float upSeed = seed;
       
       for (int n = 0; n < waves; n++) {
-        noise += amplitude * cellular(new Vector2(sampleX * frequency + seed, sampleZ * frequency + seed)).x;
+        noise += amplitude * cellular(new Vector2(sampleX * frequency + upSeed, sampleZ * frequency + upSeed)).x;
         normalization += amplitude;
+        upSeed += amplitude;
       }
       
       noise /= normalization;
