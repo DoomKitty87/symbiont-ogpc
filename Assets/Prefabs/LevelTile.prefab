@@ -124,16 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a7147715a3e8847886d4900b34c99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves:
-  - seed: 2561
-    frequency: 0.5
-    amplitude: 1.5
-  - seed: 6142
-    frequency: 0.5
-    amplitude: 1.5
-  - seed: 9677
-    frequency: 0.5
-    amplitude: 1.5
   terrainTypes:
   - name: low
     height: 0.4
@@ -150,6 +140,13 @@ MonoBehaviour:
   meshCollider: {fileID: 2460507308172132494}
   mapScale: 50
   heightMultiplier: 20
+  amplitude: 0.5
+  frequency: 1.5
+  waves: 3
+  seed:
+  - 215
+  - 2124
+  - 763
   heightCurve:
     serializedVersion: 2
     m_Curve:

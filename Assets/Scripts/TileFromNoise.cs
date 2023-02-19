@@ -14,7 +14,7 @@ public class TerrainType
 public class TileFromNoise : MonoBehaviour
 {
 
-  [SerializeField] private Wave[] waves;
+  //[SerializeField] private Wave[] wavesStruct;
   [SerializeField] private TerrainType[] terrainTypes;
   [SerializeField] private NoiseMapGeneration noiseMapGeneration;
   [SerializeField] private MeshRenderer tileRenderer;
@@ -22,6 +22,10 @@ public class TileFromNoise : MonoBehaviour
   [SerializeField] private MeshCollider meshCollider;
   [SerializeField] private float mapScale;
   [SerializeField] private float heightMultiplier;
+  [SerializeField] private float amplitude;
+  [SerializeField] private float frequency;
+  [SerializeField] private float waves;
+  [SerializeField] private float seed;
   [SerializeField] private AnimationCurve heightCurve;
   [SerializeField] private GameObject targetPrefab;
 
@@ -43,7 +47,7 @@ public class TileFromNoise : MonoBehaviour
     float offsetX = -gameObject.transform.position.x;
     float offsetZ = -gameObject.transform.position.z;
 
-    float[,] heightMap = noiseMapGeneration.GenerateCellularNoise(tileDepth, tileWidth, mapScale, offsetX, offsetZ, waves);
+    float[,] heightMap = noiseMapGeneration.CellularNoiseJobs(tileDepth, tileWidth, mapScale, offsetX, offsetZ, waves, amplitude, frequency, seed);
 
     Texture2D tileTexture = BuildTexture(heightMap);
     tileRenderer.material.mainTexture = tileTexture;
