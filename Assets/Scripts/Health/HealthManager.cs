@@ -13,22 +13,11 @@ public class HealthManager : MonoBehaviour
     public UnityEvent _onHealthZero;
     public OnHealthChangedEvent _onHealthChanged;
 
-    [SerializeField] private bool _useRespawnInput;
-    private float _respawnAxis;
-
     // Start is called before the first frame update
     void Start()
     {
         _currentHealth = _maxHealth;
         _onHealthInitialize?.Invoke();
-    }
-    private void Update()
-    {
-        if (Input.GetAxisRaw("Respawn") == 1)
-        {
-            _onHealthZero?.Invoke();
-            this.enabled = false;
-        }
     }
     public void Damage(float damagePoints)
     {

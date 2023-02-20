@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3889850605595590741}
-  - component: {fileID: 3614170967251303883}
   - component: {fileID: 2053383207}
   - component: {fileID: 2053383206}
   - component: {fileID: 2091525014}
   - component: {fileID: 2091525015}
+  - component: {fileID: 3614170967251303883}
   - component: {fileID: 7229428560301574180}
   - component: {fileID: 9182786652810582969}
   - component: {fileID: -3320822064613768463}
@@ -39,20 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3614170967251303883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8854171373844354109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 759f5162815e74aaba370b509f614750, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  missileExplodePrefab: {fileID: 6619119381066815520, guid: acc4785481ab64366aae3f0c7caf6991,
-    type: 3}
 --- !u!33 &2053383207
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -134,6 +120,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: c5b84688d645c4506bfa1bbe2e390993, type: 3}
+--- !u!114 &3614170967251303883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8854171373844354109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 759f5162815e74aaba370b509f614750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _missileExplodeParticlePrefab: {fileID: 0}
+  _damage: 25
+  _movementSpeed: 10
 --- !u!114 &7229428560301574180
 MonoBehaviour:
   m_ObjectHideFlags: 0

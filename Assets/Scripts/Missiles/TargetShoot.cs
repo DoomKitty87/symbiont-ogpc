@@ -14,7 +14,10 @@ public class TargetShoot : MonoBehaviour
 
   private void Update() {
     canFireTime -= Time.deltaTime;
-    if ((player.position - transform.position).magnitude < 30f) TryShoot();
+    if ((player.position - transform.position).magnitude < 30f)
+    {
+      TryShoot();
+    }
   }
 
   private void Start() {
@@ -22,7 +25,10 @@ public class TargetShoot : MonoBehaviour
   }
 
   private void TryShoot() {
-    if (canFireTime > 0f) return;
+    if (canFireTime > 0f)
+    {
+      return;
+    }
     canFireTime = fireRate;
     Instantiate(projectilePrefab, transform.position, Quaternion.identity, transform);
   }
