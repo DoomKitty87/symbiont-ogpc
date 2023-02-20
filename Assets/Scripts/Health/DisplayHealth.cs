@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class DisplayHealth : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField][Tooltip("This is optional.")] private TextMeshProUGUI _textElement;
+    [SerializeField][Range(0, 10)] private int _healthTextDecimalPlaces;
     [SerializeField][Tooltip("This is optional.")] private Slider _healthSlider;
 
 
@@ -25,12 +27,12 @@ public class DisplayHealth : MonoBehaviour
             Debug.LogWarning("DisplayHealth: Both UI Elements are null. Are you missing a reference?");
         }
     }
-    private void Update()
-    {
-
-    }
     public void OnHealthChanged(float health, float maxHealth)
     {
+        if (_textElement != null)
+        {
+            StartCoroutine(TweenTextValue(_textElement, health, health / maxHealth, _easeDuration, _healthTextDecimalPlaces));
+        }
         if (_healthSlider != null)
         {
             StartCoroutine(TweenSlider(_healthSlider, health / maxHealth, _easeDuration));
@@ -50,7 +52,7 @@ public class DisplayHealth : MonoBehaviour
         }
         slider.value = targetValue;
     }
-    private IEnumerator TweenTextValue(TextMeshProUGUI text, float targetValue, float duration)
+    private IEnumerator TweenTextValue(TextMeshProUGUI text, float startValue, float targetValue, float duration, int decimalPlaces)
     {
         float timeElapsed = 0;
         // float initSliderValue = slider.value;
@@ -59,7 +61,7 @@ public class DisplayHealth : MonoBehaviour
             timeElapsed += Time.deltaTime;
             float t = timeElapsed / duration;
             t = _easeCurve.Evaluate(t); 
-            // slider.value = Mathf.Lerp(initSliderValue, targetValue, t);
+            text.text = Math.Round(Mathf.Lerp(startValue, targetValue, t), decimalPlaces).ToString();
             yield return null;
         }
 
