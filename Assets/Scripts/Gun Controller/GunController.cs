@@ -284,7 +284,7 @@ public class GunController : MonoBehaviour
     if (hit.collider.gameObject.GetComponent<HealthManager>()._currentHealth >= 0) {
       return;
     }
-    GetComponent<PointTracker>().DestroyedTarget(hit.collider.gameObject);
+    gameObject.GetComponent<PointTracker>().DestroyedTarget(hit.collider.gameObject);
     StartCoroutine(ExplodeTarget(hit.collider.gameObject));
   }
 

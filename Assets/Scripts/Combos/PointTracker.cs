@@ -110,6 +110,7 @@ public class PointTracker : MonoBehaviour
 
   //Used to communicate that a target was destroyed
   public void DestroyedTarget(GameObject target) {
+    // TODO: Need script on target GameObjects to handle point storage -Matthew
     float basePoints = float.Parse(target.name.Substring(6, 1)) * 100;
     if (comboLength > 0) {
       StopCoroutine("ScoreFX");
