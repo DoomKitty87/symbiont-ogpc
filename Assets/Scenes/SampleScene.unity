@@ -19473,7 +19473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textElement: {fileID: 1346366430}
   _textElementPrefix: 'Health: '
-  _healthTextDecimalPlaces: 2
+  _healthTextDecimalPlaces: 0
   _healthSlider: {fileID: 0}
   _easeCurve:
     serializedVersion: 2
@@ -19516,7 +19516,19 @@ MonoBehaviour:
   _maxHealth: 1000
   _onHealthInitialize:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 330585557}
+        m_TargetAssemblyTypeName: DisplayHealth, Assembly-CSharp
+        m_MethodName: OnHealthInitialize
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onHealthZero:
     m_PersistentCalls:
       m_Calls:
@@ -52914,8 +52926,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 200}
+  m_AnchoredPosition: {x: -50, y: 0}
+  m_SizeDelta: {x: -100, y: 200}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &1217344388
 CanvasRenderer:

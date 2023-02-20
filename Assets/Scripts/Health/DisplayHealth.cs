@@ -32,22 +32,22 @@ public class DisplayHealth : MonoBehaviour
     {
         if (_textElement != null)
         {
-            _textElement.text = maxHealth.ToString();
+            _textElement.text = _textElementPrefix + maxHealth.ToString();
         }
         if (_healthSlider != null)
         {
             _healthSlider.value = 1;
         }
     }
-    public void OnHealthChanged(float health, float maxHealth)
+    public void OnHealthChanged(float initHealth, float currentHealth, float maxHealth)
     {
         if (_textElement != null)
         {
-            StartCoroutine(TweenTextValue(_textElement, health, health / maxHealth, _easeDuration, _healthTextDecimalPlaces));
+            StartCoroutine(TweenTextValue(_textElement, initHealth, currentHealth, _easeDuration, _healthTextDecimalPlaces));
         }
         if (_healthSlider != null)
         {
-            StartCoroutine(TweenSlider(_healthSlider, health / maxHealth, _easeDuration));
+            StartCoroutine(TweenSlider(_healthSlider, currentHealth / maxHealth, _easeDuration));
         }
     }
     private IEnumerator TweenSlider(Slider slider, float targetValue, float duration)
@@ -76,7 +76,7 @@ public class DisplayHealth : MonoBehaviour
             text.text = _textElementPrefix + Math.Round(Mathf.Lerp(startValue, targetValue, t), decimalPlaces).ToString();
             yield return null;
         }
-        text.text = targetValue.ToString();
+        text.text = _textElementPrefix + targetValue.ToString();
     }
 }
 

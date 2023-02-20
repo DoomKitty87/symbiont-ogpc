@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public class OnHealthInitializeEvent : UnityEvent<float> {}
 [System.Serializable]
-public class OnHealthChangedEvent : UnityEvent<float, float> {}
+public class OnHealthChangedEvent : UnityEvent<float, float, float> {}
 public class HealthManager : MonoBehaviour
 {
     public float _currentHealth;
@@ -26,14 +26,16 @@ public class HealthManager : MonoBehaviour
         if (_currentHealth - damagePoints <= 0)
         {
             _onHealthZero?.Invoke();
+            float initHealth = _currentHealth;
             _currentHealth -= damagePoints;
-            _onHealthChanged?.Invoke(_currentHealth, _maxHealth);
+            _onHealthChanged?.Invoke(initHealth, _currentHealth, _maxHealth);
             this.enabled = false;
         }
         else
         {
+            float initHealth = _currentHealth;
             _currentHealth -= damagePoints;
-            _onHealthChanged?.Invoke(_currentHealth, _maxHealth);
+            _onHealthChanged?.Invoke(initHealth, _currentHealth, _maxHealth);
         }
     }
 }
