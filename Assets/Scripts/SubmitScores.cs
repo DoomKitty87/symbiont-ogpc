@@ -57,5 +57,4 @@ public class SubmitScores : MonoBehaviour
     }
     SceneManager.LoadScene("MainMenu");
   }
-
 }
