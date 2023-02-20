@@ -280,9 +280,8 @@ public class GunController : MonoBehaviour
   }
 
   public void HitTarget(RaycastHit hit) {
-    hit.collider.gameObject.GetComponent<TargetController>().health -= activeGun.shotDamage;
-    if (hit.collider.gameObject.GetComponent<TargetController>().health >= 0) {
-      hit.collider.gameObject.GetComponent<TargetController>().IsHit();
+    hit.collider.gameObject.GetComponent<HealthManager>().Damage(activeGun.shotDamage);
+    if (hit.collider.gameObject.GetComponent<HealthManager>()._currentHealth >= 0) {
       return;
     }
     GetComponent<PointTracker>().DestroyedTarget(hit.collider.gameObject);
@@ -290,9 +289,8 @@ public class GunController : MonoBehaviour
   }
 
   public void HitObject(RaycastHit hit) {
-    hit.collider.gameObject.GetComponent<ObjectController>().health -= activeGun.shotDamage;
-    if (hit.collider.gameObject.GetComponent<ObjectController>().health >= 0) {
-      hit.collider.gameObject.GetComponent<ObjectController>().IsHit();
+    hit.collider.gameObject.GetComponent<HealthManager>().Damage(activeGun.shotDamage);
+    if (hit.collider.gameObject.GetComponent<HealthManager>()._currentHealth >= 0) {
       return;
     }
     StartCoroutine(ExplodeTarget(hit.collider.gameObject));
@@ -361,7 +359,8 @@ public class GunController : MonoBehaviour
     }
   }
 
-  //Destroys target when hit, triggering particle effects
+  // Destroys target when hit, triggering particle effects
+  // NOTE: Gonna move this part to the target to handle -Matthew
   private IEnumerator ExplodeTarget(GameObject target) {
     float timer = 0f;
     float explodeTime = 0.12f;
