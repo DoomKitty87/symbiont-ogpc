@@ -109,7 +109,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6671033984071216058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a920dd10a6a5c61449d8229134e16930, type: 3}
+  m_Script: {fileID: 11500000, guid: 2af215704864ead4296e6186b686ce46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2460507308172132530
@@ -121,29 +121,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 6671033984071216058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7a7147715a3e8847886d4900b34c99e, type: 3}
+  m_Script: {fileID: 11500000, guid: 70f358ff33919c64c871bcb395687ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainTypes:
-  - name: low
-    height: 0.4
-    color: {r: 0, g: 0, b: 0, a: 0}
-  - name: mid
-    height: 0.7
-    color: {r: 0, g: 0, b: 0, a: 0}
-  - name: high
-    height: 1
-    color: {r: 0, g: 0, b: 0, a: 0}
+  terrainTypes: []
   noiseMapGeneration: {fileID: 2460507308172132531}
   tileRenderer: {fileID: 2460507308172132495}
   meshFilter: {fileID: 2460507308172132528}
   meshCollider: {fileID: 2460507308172132494}
   mapScale: 50
-  heightMultiplier: 20
+  heightMultiplier: 10
   amplitude: 0.5
   frequency: 1.5
   waves: 2
-  seed: 863
+  seed: 2567
   heightCurve:
     serializedVersion: 2
     m_Curve:
@@ -170,3 +161,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   targetPrefab: {fileID: 826319800707979801, guid: 2424c17a1caae8541b5ca54341d9d373,
     type: 3}
+  structurePrefab: {fileID: 2313840049918985679, guid: 83064bc823ba9e44eb66ba90781770cc,
+    type: 3}
+  spawnedLayer:
+    serializedVersion: 2
+    m_Bits: 64

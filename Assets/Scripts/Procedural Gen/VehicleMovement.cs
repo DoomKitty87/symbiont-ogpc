@@ -55,7 +55,7 @@ public class VehicleMovement : MonoBehaviour
     }
     generatedDistance += tileWidth;
     xCycles++;
-    if (xCycles > genRange * 2 + 1) xCycles = 0;
+    if (xCycles >= genRange * 2 + 1) xCycles = 0;
   }
 
   private void LoadNewTerrain() {

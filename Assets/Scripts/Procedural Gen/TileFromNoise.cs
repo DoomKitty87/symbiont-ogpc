@@ -28,15 +28,19 @@ public class TileFromNoise : MonoBehaviour
   [SerializeField] private float seed;
   [SerializeField] private AnimationCurve heightCurve;
   [SerializeField] private GameObject targetPrefab;
+  [SerializeField] private GameObject structurePrefab;
+  [SerializeField] private LayerMask spawnedLayer;
 
   private Transform playerVehicle;
-  private float tileWidth;
+  private float tileSize;
+  private float distanceFromPlayer;
 
   void Awake(){
     playerVehicle = GameObject.FindGameObjectWithTag("Player").transform;
-    if (Mathf.Abs(playerVehicle.position.z - transform.position.z) > tileWidth) Destroy(meshCollider);
+    distanceFromPlayer = Mathf.Abs(playerVehicle.position.z - transform.position.z);
+    tileSize = GetComponent<Renderer>().bounds.size.x;
+    if (distanceFromPlayer > tileSize) Destroy(meshCollider);
     GenerateTile();
-    tileWidth = GetComponent<Renderer>().bounds.size.x;
   }
 
   public void GenerateTile() {
@@ -52,6 +56,8 @@ public class TileFromNoise : MonoBehaviour
     //Texture2D tileTexture = BuildTexture(heightMap);
     //tileRenderer.material.mainTexture = tileTexture;
     UpdateMeshVertices(heightMap);
+    if (distanceFromPlayer == tileSize * 3) GenerateStructures(heightMap);
+    if (distanceFromPlayer == tileSize) GenerateTargets(heightMap);
     //if (Mathf.Abs(playerVehicle.position.z - transform.position.z) < tileWidth) GenerateTargets(heightMap);
   }
 
@@ -108,7 +114,29 @@ public class TileFromNoise : MonoBehaviour
     if (meshCollider != null) meshCollider.sharedMesh = meshFilter.mesh;
   }
 
-  public void GenerateTargets(float[,] heightMap) {
+  private void GenerateStructures(float[,] heightMap) {
+    foreach (Transform child in transform) {
+      Destroy(child.gameObject);
+    }
+    int tileDepth = heightMap.GetLength(0);
+
+    Vector3[] meshVertices = meshFilter.mesh.vertices;
+
+    int vertexIndex = 0;
+    for (int zIndex = 0; zIndex < tileDepth; zIndex++) {
+      for (int xIndex = 0; xIndex < tileDepth; xIndex++) {
+        float height = heightMap[zIndex, xIndex];
+        Vector3 vertex = meshVertices[vertexIndex];
+        if (Random.value > 0.995f) {
+          Transform tmp = Instantiate(structurePrefab, transform.position + new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier, vertex.z), Quaternion.identity, transform).transform;
+          tmp.rotation = Quaternion.Euler(new Vector3(-90, Random.Range(0, 360), 0));
+        }
+        vertexIndex++;
+      }
+    }
+  }
+
+  private void GenerateTargets(float[,] heightMap) {
     int tileDepth = heightMap.GetLength(0);
     int tileWidth = heightMap.GetLength(1);
 
@@ -119,8 +147,14 @@ public class TileFromNoise : MonoBehaviour
       for (int xIndex = 0; xIndex < tileWidth; xIndex++) {
         float height = heightMap[zIndex, xIndex];
         Vector3 vertex = meshVertices[vertexIndex];
-        if (Random.value > 0.999f) Instantiate(targetPrefab, transform.position + new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier + 5, vertex.z), Quaternion.identity, transform);
         vertexIndex++;
+        if (Random.value > 0.999f) {
+          Vector3 instPos = new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier + 5, vertex.z) + transform.position;
+          Collider[] collidersOverlapped = new Collider[1];
+          if (Physics.OverlapBoxNonAlloc(instPos, targetPrefab.GetComponent<Renderer>().bounds.size / 2, collidersOverlapped, Quaternion.identity, spawnedLayer) == 0) {
+            Instantiate(targetPrefab, instPos, Quaternion.identity, transform);
+          }
+        }
       }
     }
   }
