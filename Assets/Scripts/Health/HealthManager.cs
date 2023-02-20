@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
+public class OnHealthInitializeEvent : UnityEvent<float> {}
+[System.Serializable]
 public class OnHealthChangedEvent : UnityEvent<float, float> {}
 public class HealthManager : MonoBehaviour
 {
     public float _currentHealth;
     [SerializeField] private float _maxHealth;
-    public UnityEvent _onHealthInitialize;
+    public OnHealthInitializeEvent _onHealthInitialize;
     public UnityEvent _onHealthZero;
     public OnHealthChangedEvent _onHealthChanged;
 
@@ -17,7 +19,7 @@ public class HealthManager : MonoBehaviour
     void Start()
     {
         _currentHealth = _maxHealth;
-        _onHealthInitialize?.Invoke();
+        _onHealthInitialize?.Invoke(_maxHealth);
     }
     public void Damage(float damagePoints)
     {

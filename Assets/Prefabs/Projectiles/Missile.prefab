@@ -14,11 +14,12 @@ GameObject:
   - component: {fileID: 2091525014}
   - component: {fileID: 2091525015}
   - component: {fileID: 3614170967251303883}
+  - component: {fileID: -79100839001941181}
   - component: {fileID: 7229428560301574180}
   - component: {fileID: 9182786652810582969}
   - component: {fileID: -3320822064613768463}
   m_Layer: 0
-  m_Name: 1Missile
+  m_Name: Missile
   m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,9 +133,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759f5162815e74aaba370b509f614750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _missileExplodeParticlePrefab: {fileID: 0}
+  _missileExplodeParticlePrefab: {fileID: 6619119381066815520, guid: acc4785481ab64366aae3f0c7caf6991,
+    type: 3}
   _damage: 25
   _movementSpeed: 10
+--- !u!114 &-79100839001941181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8854171373844354109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c94c67d5b10dc44f90770e873f2eb06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentHealth: 0
+  _maxHealth: 10
+  _onHealthInitialize:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthZero:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7229428560301574180
 MonoBehaviour:
   m_ObjectHideFlags: 0

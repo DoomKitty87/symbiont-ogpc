@@ -9,6 +9,7 @@ public class DisplayHealth : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField][Tooltip("This is optional.")] private TextMeshProUGUI _textElement;
+    [SerializeField] private string _textElementPrefix;
     [SerializeField][Range(0, 10)] private int _healthTextDecimalPlaces;
     [SerializeField][Tooltip("This is optional.")] private Slider _healthSlider;
 
@@ -25,6 +26,17 @@ public class DisplayHealth : MonoBehaviour
         if (_textElement == null & _healthSlider == null)
         {
             Debug.LogWarning("DisplayHealth: Both UI Elements are null. Are you missing a reference?");
+        }
+    }
+    public void OnHealthInitialize(float maxHealth)
+    {
+        if (_textElement != null)
+        {
+            _textElement.text = maxHealth.ToString();
+        }
+        if (_healthSlider != null)
+        {
+            _healthSlider.value = 1;
         }
     }
     public void OnHealthChanged(float health, float maxHealth)
@@ -61,10 +73,10 @@ public class DisplayHealth : MonoBehaviour
             timeElapsed += Time.deltaTime;
             float t = timeElapsed / duration;
             t = _easeCurve.Evaluate(t); 
-            text.text = Math.Round(Mathf.Lerp(startValue, targetValue, t), decimalPlaces).ToString();
+            text.text = _textElementPrefix + Math.Round(Mathf.Lerp(startValue, targetValue, t), decimalPlaces).ToString();
             yield return null;
         }
-
+        text.text = targetValue.ToString();
     }
 }
 
