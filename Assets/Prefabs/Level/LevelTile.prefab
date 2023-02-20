@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2460507308172132494}
   - component: {fileID: 2460507308172132531}
   - component: {fileID: 2460507308172132530}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LevelTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,6 +135,8 @@ MonoBehaviour:
   frequency: 1.5
   waves: 2
   seed: 2567
+  targetDensity: 0.25
+  buildingDensity: 1
   heightCurve:
     serializedVersion: 2
     m_Curve:
