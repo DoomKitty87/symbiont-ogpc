@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5198840070972831591}
   - component: {fileID: 8435651815204932192}
   - component: {fileID: 830252238945866407}
+  - component: {fileID: 1613005881907967717}
   m_Layer: 0
   m_Name: Target3Shoot
   m_TagString: Target
@@ -166,3 +167,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d03bb19daf30949990b5528e405299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1613005881907967717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690332452353972241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b4aec4b7a75b444c84a024d18256270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointsWorth: 0

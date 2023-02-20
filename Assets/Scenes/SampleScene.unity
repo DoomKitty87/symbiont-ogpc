@@ -19215,9 +19215,9 @@ GameObject:
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
   - component: {fileID: 330585551}
-  - component: {fileID: 330585552}
   - component: {fileID: 330585553}
   - component: {fileID: 330585554}
+  - component: {fileID: 330585559}
   - component: {fileID: 330585558}
   - component: {fileID: 330585557}
   - component: {fileID: 330585556}
@@ -19403,22 +19403,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveRate: 5
---- !u!114 &330585552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ec63e1639f5814fa61fe4a6c930fd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboTime: 2
-  HUD: {fileID: 463293369}
-  WorldSpaceHUD: {fileID: 1476147846}
-  score: {fileID: 1845125702}
 --- !u!114 &330585553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19559,6 +19543,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &330585559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedec690c187677478c9830b3d220934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboTime: 2
+  HUD: {fileID: 463293369}
+  WorldSpaceHUD: {fileID: 1476147846}
+  score: {fileID: 1845125702}
 --- !u!1001 &331002972
 PrefabInstance:
   m_ObjectHideFlags: 0

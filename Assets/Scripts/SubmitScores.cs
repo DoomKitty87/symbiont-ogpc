@@ -37,7 +37,7 @@ public class SubmitScores : MonoBehaviour
       yield break;
     }
     print("made it past first break statement");
-    int score = (int)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PointTracker>().GetPoints();
+    int score = (int)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScoreTracker>().GetPoints();
     List<Score> scores = leaderboardConnectionManager.RetrieveScores();
     while (scores.Count == 0) {
       yield return new WaitForSeconds(0.05f);
