@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: -7511558181221131132}
   - component: {fileID: 4152481420744939106}
   - component: {fileID: -633552271103062825}
+  - component: {fileID: 7675844634763816471}
+  - component: {fileID: -271787765059890211}
   m_Layer: 0
   m_Name: Target2Shoot
   m_TagString: Target
@@ -116,3 +118,38 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8854171373844354109, guid: 6221b04b4dacc43898e70769bac007d6,
     type: 3}
   fireRate: 1.8
+--- !u!114 &7675844634763816471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8633186636979683072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c94c67d5b10dc44f90770e873f2eb06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentHealth: 0
+  _maxHealth: 0
+  _onHealthInitialize:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthZero:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-271787765059890211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8633186636979683072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d03bb19daf30949990b5528e405299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

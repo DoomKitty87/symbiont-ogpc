@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4152481420744939106}
   - component: {fileID: -633552271103062825}
   - component: {fileID: 1529442644}
+  - component: {fileID: -1638248625532556541}
+  - component: {fileID: 6763209388028709295}
   m_Layer: 0
   m_Name: Target1Shoot
   m_TagString: Target
@@ -116,3 +118,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6897148839368095385}
   m_Mesh: {fileID: 2534964839176971238, guid: 21b4e096addb745b4981b69973a7a0e7, type: 3}
+--- !u!114 &-1638248625532556541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6897148839368095385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c94c67d5b10dc44f90770e873f2eb06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentHealth: 0
+  _maxHealth: 0
+  _onHealthInitialize:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthZero:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6763209388028709295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6897148839368095385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d03bb19daf30949990b5528e405299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
