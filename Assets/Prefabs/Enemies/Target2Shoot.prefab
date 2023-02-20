@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1529442644}
   - component: {fileID: -7511558181221131132}
   - component: {fileID: 4152481420744939106}
-  - component: {fileID: -9054997260110981840}
   - component: {fileID: -633552271103062825}
   m_Layer: 0
   m_Name: Target2Shoot
@@ -102,19 +101,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: 21b4e096addb745b4981b69973a7a0e7, type: 3}
---- !u!114 &-9054997260110981840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8633186636979683072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d863fff45289d478082de7297f116d66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
 --- !u!114 &-633552271103062825
 MonoBehaviour:
   m_ObjectHideFlags: 0
