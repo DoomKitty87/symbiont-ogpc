@@ -11,6 +11,8 @@ public class VehicleMovement : MonoBehaviour
   private float turnSeverity;
   private float cycleOffset;
   private float lastZ;
+  private float heightIncreaseLast;
+  private float heightIncreaseCurr;
   private int xCycles;
   private int turnDuration;
   private int turnedLast;
@@ -56,6 +58,7 @@ public class VehicleMovement : MonoBehaviour
       }
       landInstances[x, genRange] = Instantiate(tilePrefab, new Vector3((x - forwardRange) * tileWidth, 0, 0), Quaternion.identity);
     }
+    heightIncreaseCurr = 1;
   }
 
   private void UpdateTerrain() {
@@ -69,9 +72,11 @@ public class VehicleMovement : MonoBehaviour
       }
     }
     if (turning) cycleOffset = lastZ + turnSeverity;
+    heightIncreaseLast = heightIncreaseCurr;
+    heightIncreaseCurr = Random.Range(1, 1.5f);
     for (int z = 0; z < genRange * 2 + 1; z++) {
       landInstances[xCycles, z].transform.position += new Vector3((forwardRange * 2 + 1) * tileWidth, 0, cycleOffset);
-      landInstances[xCycles, z].GetComponent<TileFromNoise>().GenerateTile();
+      landInstances[xCycles, z].GetComponent<TileFromNoise>().GenerateTile(heightIncreaseLast, heightIncreaseCurr);
     }
     lastZ = cycleOffset;
     generatedDistance += tileWidth;

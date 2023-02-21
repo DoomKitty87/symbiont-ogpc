@@ -36,25 +36,28 @@ public class TileFromNoise : MonoBehaviour
   private Transform playerVehicle;
   private float tileSize;
   private float distanceFromPlayer;
+  private float heightIncStart;
+  private float heightIncEnd;
 
   void Awake(){
     playerVehicle = GameObject.FindGameObjectWithTag("Player").transform;
     distanceFromPlayer = Mathf.Abs(playerVehicle.position.z - transform.position.z);
     tileSize = GetComponent<Renderer>().bounds.size.x;
     if (distanceFromPlayer > tileSize) Destroy(meshCollider);
-    GenerateTile();
+    GenerateTile(1, 1);
   }
 
-  public void GenerateTile() {
+  public void GenerateTile(float heightIncreaseStart, float heigthIncreaseEnd) {
     Vector3[] meshVertices = meshFilter.mesh.vertices;
     int tileDepth = (int)Mathf.Sqrt(meshVertices.Length);
     int tileWidth = tileDepth;
 
+    heightIncEnd = heightIncreaseStart;
+    heightIncStart = heigthIncreaseEnd;
+
     float offsetX = -gameObject.transform.position.x;
     float offsetZ = -gameObject.transform.position.z;
-
     float[,] heightMap = noiseMapGeneration.CellularNoiseJobs(tileDepth, tileWidth, mapScale, offsetX, offsetZ, waves, amplitude, frequency, seed);
-
     //Texture2D tileTexture = BuildTexture(heightMap);
     //tileRenderer.material.mainTexture = tileTexture;
     UpdateMeshVertices(heightMap);
@@ -107,7 +110,7 @@ public class TileFromNoise : MonoBehaviour
         float height = heightMap[zIndex, xIndex];
 
         Vector3 vertex = meshVertices[vertexIndex];
-        meshVertices[vertexIndex] = new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier, vertex.z);
+        meshVertices[vertexIndex] = new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier * Mathf.Lerp(heightIncStart, heightIncEnd, ((float)xIndex) / (tileWidth - 1)), vertex.z);
         vertexIndex++;
       }
     }
