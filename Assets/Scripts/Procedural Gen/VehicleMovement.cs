@@ -8,13 +8,21 @@ public class VehicleMovement : MonoBehaviour
   private RaycastHit hit;
   private float tileWidth;
   private float generatedDistance;
+  private float turnSeverity;
+  private float cycleOffset;
+  private float lastZ;
   private int xCycles;
+  private int turnDuration;
+  private int turnedLast;
   private GameObject[,] landInstances;
   private Vector3[] pathPoints;
+  private bool turning;
 
   [SerializeField] private GameObject tilePrefab;
   [SerializeField] private int genRange;
   [SerializeField] private int forwardRange;
+  [SerializeField] private int turnDelay;
+  [SerializeField] private float turnProbability;
 
   void Start() {
     tileWidth = tilePrefab.GetComponent<Renderer>().bounds.size.x;
@@ -54,11 +62,21 @@ public class VehicleMovement : MonoBehaviour
   }
 
   private void UpdateTerrain() {
-    int cycleOffset = Random.Range(0, 10);
+    turnedLast++;
+    if (turnedLast > turnDelay) {
+      if (Random.value <= turnProbability) {
+        turnSeverity = Random.Range(-tileWidth, tileWidth);
+        turnDuration = Random.Range(1, turnDelay);
+        turning = true;
+        turnedLast = 0;
+      }
+    }
+    if (turning) cycleOffset = lastZ + turnSeverity;
     for (int z = 0; z < genRange * 2 + 1; z++) {
-      landInstances[xCycles, z].transform.position += new Vector3((forwardRange * 2 + 1) * tileWidth, 0, cycleOffset * tileWidth);
+      landInstances[xCycles, z].transform.position += new Vector3((forwardRange * 2 + 1) * tileWidth, 0, cycleOffset);
       landInstances[xCycles, z].GetComponent<TileFromNoise>().GenerateTile();
     }
+    lastZ = cycleOffset;
     generatedDistance += tileWidth;
     xCycles++;
     if (xCycles >= forwardRange * 2 + 1) xCycles = 0;
