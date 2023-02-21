@@ -10,6 +10,7 @@ public class VehicleMovement : MonoBehaviour
   private float generatedDistance;
   private int xCycles;
   private GameObject[,] landInstances;
+  private Vector3[] pathPoints;
 
   [SerializeField] private GameObject tilePrefab;
   [SerializeField] private int genRange;
@@ -38,7 +39,10 @@ public class VehicleMovement : MonoBehaviour
   }
 
   private void InitialGeneration() {
+    pathPoints = new Vector3[forwardRange * 2 + 1];
     for (int x = 0; x < forwardRange * 2 + 1; x++) {
+      pathPoints[x] = new Vector3((x - forwardRange) * tileWidth, 0, 0);
+      print(new Vector3((x - forwardRange) * tileWidth, 0, 0));
       for (int z = 0; z < genRange; z++) {
         landInstances[x, z] = Instantiate(tilePrefab, new Vector3((x - forwardRange) * tileWidth, 0, z * tileWidth), Quaternion.identity);
       }
@@ -50,8 +54,9 @@ public class VehicleMovement : MonoBehaviour
   }
 
   private void UpdateTerrain() {
+    int cycleOffset = Random.Range(0, 10);
     for (int z = 0; z < genRange * 2 + 1; z++) {
-      landInstances[xCycles, z].transform.position += new Vector3((forwardRange * 2 + 1) * tileWidth, 0, 0);
+      landInstances[xCycles, z].transform.position += new Vector3((forwardRange * 2 + 1) * tileWidth, 0, cycleOffset * tileWidth);
       landInstances[xCycles, z].GetComponent<TileFromNoise>().GenerateTile();
     }
     generatedDistance += tileWidth;
