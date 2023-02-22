@@ -12,6 +12,7 @@ public class GunController : MonoBehaviour
   [SerializeField] private GameObject HUDCanvas;
   [SerializeField] private GameObject shell;
   [SerializeField] private GameObject ammoInfo;
+  [SerializeField] private GameObject crosshairObject;
   [SerializeField] private GameObject laserBeamPrefab;
   [SerializeField] private GameObject explosionAudioPrefab;
   [SerializeField][ColorUsageAttribute(true, true)] private Color[] colors;
@@ -68,9 +69,9 @@ public class GunController : MonoBehaviour
     ammoText = ammoInfo.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
     pov = vcam.GetCinemachineComponent<CinemachinePOV>();
-    crosshair = HUDCanvas.transform.GetChild(0);
-    leftleg = crosshair.GetChild(1).gameObject;
-    rightleg = crosshair.GetChild(2).gameObject;
+    crosshair = crosshairObject.transform.GetChild(0);
+    leftleg = crosshairObject.transform.GetChild(1).gameObject;
+    rightleg = crosshairObject.transform.GetChild(2).gameObject;
     rounds = activeGun.magSize;
     cam = GetComponent<Camera>();
     Cursor.lockState = CursorLockMode.Locked;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -19382,6 +19382,7 @@ MonoBehaviour:
   HUDCanvas: {fileID: 463293369}
   shell: {fileID: 4951129425761058106, guid: 920dea722f6120f4d9d4f16065234f75, type: 3}
   ammoInfo: {fileID: 1256045570}
+  crosshairObject: {fileID: 0}
   laserBeamPrefab: {fileID: 1362095038030980878, guid: edfe8dd26ae289c448cee08622b726b8,
     type: 3}
   explosionAudioPrefab: {fileID: 8462855681465125567, guid: 5335dd00ed0ad47e288fd6d4afa9b022,
@@ -30939,7 +30940,7 @@ GameObject:
   - component: {fileID: 746152257}
   - component: {fileID: 746152256}
   m_Layer: 5
-  m_Name: Crosshair Leg
+  m_Name: Crosshair Leg (Left)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38387,7 +38388,7 @@ GameObject:
   - component: {fileID: 881854354}
   - component: {fileID: 881854353}
   m_Layer: 5
-  m_Name: Crosshair Leg (Left)
+  m_Name: Crosshair Leg (Right)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

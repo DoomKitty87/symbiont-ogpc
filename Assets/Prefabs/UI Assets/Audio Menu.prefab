@@ -68,8 +68,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: AUDIO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 88fae5fc16fabc947baca0c9e2a914e2, type: 2}
+  m_sharedMaterial: {fileID: 4101456709202523672, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -533,8 +534,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: BACK
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 995457cdd1db14e08889fc60371b292d, type: 2}
-  m_sharedMaterial: {fileID: 6454712984503109959, guid: 995457cdd1db14e08889fc60371b292d,
+  m_fontAsset: {fileID: 11400000, guid: 88fae5fc16fabc947baca0c9e2a914e2, type: 2}
+  m_sharedMaterial: {fileID: 4101456709202523672, guid: 88fae5fc16fabc947baca0c9e2a914e2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -608,6 +609,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4986050071088754325}
     m_Modifications:
+    - target: {fileID: 53947859137074716, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
+    - target: {fileID: 53947859137074716, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4101456709202523672, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
     - target: {fileID: 746678098774916259, guid: 0a575f855d7834e438ad5b6abb800436,
         type: 3}
       propertyPath: settingsKey
@@ -640,9 +653,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6462461264457318011, guid: 0a575f855d7834e438ad5b6abb800436,
         type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
+    - target: {fileID: 6462461264457318011, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
       propertyPath: m_fontSizeBase
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 6462461264457318011, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4101456709202523672, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
     - target: {fileID: 7993337478517266486, guid: 0a575f855d7834e438ad5b6abb800436,
         type: 3}
       propertyPath: m_Name
@@ -768,6 +793,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4986050071088754325}
     m_Modifications:
+    - target: {fileID: 53947859137074716, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
+    - target: {fileID: 53947859137074716, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4101456709202523672, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
     - target: {fileID: 746678098774916259, guid: 0a575f855d7834e438ad5b6abb800436,
         type: 3}
       propertyPath: settingsKey
@@ -800,9 +837,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6462461264457318011, guid: 0a575f855d7834e438ad5b6abb800436,
         type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
+    - target: {fileID: 6462461264457318011, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
       propertyPath: m_fontSizeBase
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 6462461264457318011, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4101456709202523672, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
     - target: {fileID: 7993337478517266486, guid: 0a575f855d7834e438ad5b6abb800436,
         type: 3}
       propertyPath: m_Name
@@ -928,6 +977,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4986050071088754325}
     m_Modifications:
+    - target: {fileID: 53947859137074716, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
+    - target: {fileID: 53947859137074716, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4101456709202523672, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
     - target: {fileID: 746678098774916259, guid: 0a575f855d7834e438ad5b6abb800436,
         type: 3}
       propertyPath: settingsKey
@@ -955,9 +1016,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6462461264457318011, guid: 0a575f855d7834e438ad5b6abb800436,
         type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
+    - target: {fileID: 6462461264457318011, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
       propertyPath: m_fontSizeBase
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 6462461264457318011, guid: 0a575f855d7834e438ad5b6abb800436,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4101456709202523672, guid: 88fae5fc16fabc947baca0c9e2a914e2,
+        type: 2}
     - target: {fileID: 7993337478517266486, guid: 0a575f855d7834e438ad5b6abb800436,
         type: 3}
       propertyPath: m_Name
