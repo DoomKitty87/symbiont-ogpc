@@ -59,7 +59,7 @@ public class VehicleMovement : MonoBehaviour
     transform.position += new Vector3(10f * Time.deltaTime, 0, 0);
     if (Physics.Raycast(transform.position, -transform.up, out hit)) {
       if (Mathf.Abs(Mathf.Abs(hit.point.y - transform.position.y) - 5) > 0.5f) {
-        transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, hit.point.y + 5, 0.1f), transform.position.z);
+        transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, hit.point.y + 5, 0.025f), transform.position.z);
       }
     }
   }

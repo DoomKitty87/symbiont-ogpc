@@ -32,14 +32,17 @@ public class TileFromNoise : MonoBehaviour
   [SerializeField] private GameObject targetPrefab;
   [SerializeField] private GameObject structurePrefab;
   [SerializeField] private LayerMask spawnedLayer;
+  [SerializeField] private LayerMask groundLayer;
 
   private Transform playerVehicle;
   private float tileSize;
   private float distanceFromPlayer;
   private float heightIncStart;
   private float heightIncEnd;
+  private LayerMask targetSpawnMask;
 
   void Awake(){
+    targetSpawnMask = spawnedLayer | groundLayer;
     playerVehicle = GameObject.FindGameObjectWithTag("Player").transform;
     distanceFromPlayer = Mathf.Abs(playerVehicle.position.z - transform.position.z);
     tileSize = GetComponent<Renderer>().bounds.size.x;
@@ -148,10 +151,10 @@ public class TileFromNoise : MonoBehaviour
     if (targetCount < 1) targetCount = (Random.value <= targetCount) ? 1 : 0;
     for (int i = 0; i < targetCount; i++) {
       RaycastHit hit;
-      Physics.Raycast(transform.position + new Vector3(Random.Range(-tileSize / 2, tileSize / 2), 50, Random.Range(-tileSize / 2, tileSize / 2)), Vector3.down, out hit);
+      Physics.Raycast(transform.position + new Vector3(Random.Range(-tileSize / 2, tileSize / 2), 250, Random.Range(-tileSize / 2, tileSize / 2)), Vector3.down, out hit);
       Vector3 instPos = hit.point + new Vector3(0, 5, 0);
       Collider[] collidersOverlapped = new Collider[1];
-      if (Physics.OverlapBoxNonAlloc(instPos, targetPrefab.GetComponent<Renderer>().bounds.size / 2, collidersOverlapped, Quaternion.identity, spawnedLayer) == 0) {
+      if (Physics.OverlapBoxNonAlloc(instPos, targetPrefab.GetComponent<Renderer>().bounds.size / 2, collidersOverlapped, Quaternion.identity, targetSpawnMask) == 0) {
         Instantiate(targetPrefab, instPos, Quaternion.identity, transform);
       }
     }
