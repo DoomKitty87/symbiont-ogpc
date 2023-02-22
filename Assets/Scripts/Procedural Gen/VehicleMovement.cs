@@ -40,6 +40,7 @@ public class VehicleMovement : MonoBehaviour
   [SerializeField] private int minHillLength;
 
   void Start() {
+    Cursor.lockState = CursorLockMode.Locked;
     tileWidth = tilePrefab.GetComponent<Renderer>().bounds.size.x;
     landInstances = new GameObject[forwardRange * 2 + 1, genRange * 2 + 1];
     cachedPositions = new float[forwardRange + 1];
