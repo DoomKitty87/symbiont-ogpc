@@ -18,8 +18,8 @@ public class PlayerAim : MonoBehaviour
   }
 
   void Update() {
-    rotY += Input.GetAxisRaw("Mouse X") * horizontalSens;
-    rotX += Input.GetAxisRaw("Mouse Y") * verticalSens;
+    rotY += Input.GetAxis("Mouse X") * horizontalSens;
+    rotX += Input.GetAxis("Mouse Y") * verticalSens;
 
     cam.eulerAngles = new Vector3(-rotX, rotY, 0);
   }
