@@ -134,7 +134,7 @@ public class TileFromNoise : MonoBehaviour
         float height = heightMap[zIndex, xIndex];
         Vector3 vertex = meshVertices[vertexIndex];
         if (Random.value > 1 - buildingDensity / 100) {
-          Transform tmp = Instantiate(structurePrefab, transform.position + new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier, vertex.z), Quaternion.identity, transform).transform;
+          Transform tmp = Instantiate(structurePrefab, transform.position + vertex, Quaternion.identity, transform).transform;
           tmp.rotation = Quaternion.Euler(new Vector3(-90, Random.Range(0, 360), 0));
           tmp.localScale *= buildingScale;
         }

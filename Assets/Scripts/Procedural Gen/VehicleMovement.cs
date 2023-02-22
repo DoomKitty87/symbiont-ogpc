@@ -30,7 +30,9 @@ public class VehicleMovement : MonoBehaviour
   [SerializeField] private int hillDelay;
   [SerializeField] private float turnProbability;
   [SerializeField] private float hillProbability;
+  [SerializeField] private float minHillAmplitude;
   [SerializeField] private float maxHillAmplitude;
+  [SerializeField] private int minHillLength;
 
   void Start() {
     tileWidth = tilePrefab.GetComponent<Renderer>().bounds.size.x;
@@ -82,9 +84,8 @@ public class VehicleMovement : MonoBehaviour
 
     if (hillLast > hillDelay) {
       if (Random.value <= hillProbability) {
-        print("starting hill");
-        hillSeverity = Random.Range(0, maxHillAmplitude);
-        hillDuration = Random.Range(2, hillDelay);
+        hillSeverity = Random.Range(minHillAmplitude, maxHillAmplitude);
+        hillDuration = Random.Range(minHillLength, hillDelay);
         hill = true;
         hillLast = 0;
       }
@@ -95,7 +96,6 @@ public class VehicleMovement : MonoBehaviour
       if (hillDuration % 2 == 0) hillDuration -= 1;
       if (hillLast > hillDuration) {
         hill = false;
-        print("stopping hill");
       }
       else if (hillLast < hillDuration / 2f) {
         heightIncreaseCurr = Mathf.Lerp(1, hillSeverity, (hillLast + 1) / ((hillDuration + 1) / 2f));
@@ -107,7 +107,6 @@ public class VehicleMovement : MonoBehaviour
     else {
       heightIncreaseCurr = 1;
     }
-    print(heightIncreaseCurr);
 
     for (int z = 0; z < genRange * 2 + 1; z++) {
       landInstances[xCycles, z].transform.position += new Vector3((forwardRange * 2 + 1) * tileWidth, 0, cycleOffset);
