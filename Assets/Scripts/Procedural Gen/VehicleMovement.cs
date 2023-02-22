@@ -14,12 +14,17 @@ public class VehicleMovement : MonoBehaviour
   private float lastZ;
   private float heightIncreaseLast;
   private float heightIncreaseCurr;
+  private float trickleDownLast;
+  private float trickleDownNext;
+  private float goingFrom;
+  private float goingTo;
   private int xCycles;
   private int turnDuration;
   private int turnedLast;
   private int hillLast;
   private int hillDuration;
   private GameObject[,] landInstances;
+  private float[] cachedPositions;
   private bool turning;
   private bool hill;
 
@@ -37,6 +42,7 @@ public class VehicleMovement : MonoBehaviour
   void Start() {
     tileWidth = tilePrefab.GetComponent<Renderer>().bounds.size.x;
     landInstances = new GameObject[forwardRange * 2 + 1, genRange * 2 + 1];
+    cachedPositions = new float[forwardRange + 1];
     InitialGeneration();
   }
 
@@ -46,17 +52,22 @@ public class VehicleMovement : MonoBehaviour
 
   void Update() {
     if (transform.position.x - generatedDistance > tileWidth) UpdateTerrain();
+    transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(goingFrom, goingTo, (transform.position.x % 10) / 10));
   }
 
   void FixedUpdate() {
     transform.position += new Vector3(10f * Time.deltaTime, 0, 0);
-    Physics.Raycast(transform.position, -transform.up, out hit);
-    if (Mathf.Abs(Mathf.Abs(hit.point.y - transform.position.y) - 5) > 0.5f) {
-      transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, hit.point.y + 5, 0.1f), transform.position.z);
+    if (Physics.Raycast(transform.position, -transform.up, out hit)) {
+      if (Mathf.Abs(Mathf.Abs(hit.point.y - transform.position.y) - 5) > 0.5f) {
+        transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, hit.point.y + 5, 0.1f), transform.position.z);
+      }
     }
   }
 
   private void InitialGeneration() {
+    for (int i = 0; i < forwardRange + 1; i++) {
+      cachedPositions[i] = transform.position.z;
+    }
     for (int x = 0; x < forwardRange * 2 + 1; x++) {
       for (int z = 0; z < genRange; z++) {
         landInstances[x, z] = Instantiate(tilePrefab, new Vector3((x - forwardRange) * tileWidth, 0, z * tileWidth), Quaternion.identity);
@@ -98,10 +109,10 @@ public class VehicleMovement : MonoBehaviour
         hill = false;
       }
       else if (hillLast < hillDuration / 2f) {
-        heightIncreaseCurr = Mathf.Lerp(1, hillSeverity, (hillLast + 1) / ((hillDuration + 1) / 2f));
+        heightIncreaseCurr = Mathf.SmoothStep(1, hillSeverity, (hillLast + 1) / ((hillDuration + 1) / 2f));
       }
       else if (hillLast > hillDuration / 2f) {
-        heightIncreaseCurr = Mathf.Lerp(hillSeverity, 1, (hillLast + 1 - ((hillDuration + 1) / 2)) / ((hillDuration + 1) / 2f));
+        heightIncreaseCurr = Mathf.SmoothStep(hillSeverity, 1, (hillLast + 1 - ((hillDuration + 1) / 2)) / ((hillDuration + 1) / 2f));
       }
     }
     else {
@@ -113,6 +124,14 @@ public class VehicleMovement : MonoBehaviour
       landInstances[xCycles, z].GetComponent<TileFromNoise>().GenerateTile(heightIncreaseLast, heightIncreaseCurr);
     }
     lastZ = cycleOffset;
+    trickleDownLast = cycleOffset;
+    for (int i = cachedPositions.Length - 1; i >= 0; i--) {
+      trickleDownNext = cachedPositions[i];
+      cachedPositions[i] = trickleDownLast;
+      trickleDownLast = trickleDownNext;
+    }
+    goingFrom = goingTo;
+    goingTo = cachedPositions[0];
     generatedDistance += tileWidth;
     xCycles++;
     if (xCycles >= forwardRange * 2 + 1) xCycles = 0;
