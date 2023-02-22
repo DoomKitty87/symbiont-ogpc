@@ -113,7 +113,7 @@ public class TileFromNoise : MonoBehaviour
         float height = heightMap[zIndex, xIndex];
 
         Vector3 vertex = meshVertices[vertexIndex];
-        meshVertices[vertexIndex] = new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier * Mathf.Lerp(heightIncStart, heightIncEnd, ((float)xIndex) / (tileWidth - 1)), vertex.z);
+        meshVertices[vertexIndex] = new Vector3(vertex.x, heightCurve.Evaluate(height) * heightMultiplier + Mathf.Lerp(heightIncStart, heightIncEnd, ((float)xIndex) / (tileWidth - 1)), vertex.z);
         vertexIndex++;
       }
     }
