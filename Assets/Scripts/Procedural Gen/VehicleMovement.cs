@@ -83,7 +83,7 @@ public class VehicleMovement : MonoBehaviour
   private void UpdateTerrain() {
     turnedLast++;
     hillLast++;
-    if (turnedLast > turnDelay) {
+    if (turnedLast > turnDelay && !turning) {
       if (Random.value <= turnProbability) {
         turnSeverity = Random.Range(-tileWidth, tileWidth);
         turnDuration = Random.Range(1, turnDelay);
@@ -91,7 +91,10 @@ public class VehicleMovement : MonoBehaviour
         turnedLast = 0;
       }
     }
-    if (turning) cycleOffset = lastZ + turnSeverity;
+    if (turning) {
+      cycleOffset = lastZ + turnSeverity;
+      if (turnedLast == turnDuration) turning = false;
+    }
 
     if (hillLast > hillDelay) {
       if (Random.value <= hillProbability) {
@@ -125,13 +128,14 @@ public class VehicleMovement : MonoBehaviour
     }
     lastZ = cycleOffset;
     trickleDownLast = cycleOffset;
-    for (int i = cachedPositions.Length - 1; i >= 0; i--) {
+    for (int i = cachedPositions.Length - 2; i >= 0; i--) {
       trickleDownNext = cachedPositions[i];
       cachedPositions[i] = trickleDownLast;
       trickleDownLast = trickleDownNext;
     }
     goingFrom = goingTo;
     goingTo = cachedPositions[0];
+    print(goingTo);
     generatedDistance += tileWidth;
     xCycles++;
     if (xCycles >= forwardRange * 2 + 1) xCycles = 0;
