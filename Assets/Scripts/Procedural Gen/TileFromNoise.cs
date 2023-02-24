@@ -33,6 +33,9 @@ public class TileFromNoise : MonoBehaviour
   [SerializeField] private GameObject structurePrefab;
   [SerializeField] private LayerMask spawnedLayer;
   [SerializeField] private LayerMask groundLayer;
+  [SerializeField] private int targetSpawnOffset;
+  [SerializeField] private int buildingSpawnOffset;
+  [SerializeField] private int buildingCycles;
 
   private Transform playerVehicle;
   private float tileSize;
@@ -50,13 +53,13 @@ public class TileFromNoise : MonoBehaviour
     GenerateTile(1, 1);
   }
 
-  public void GenerateTile(float heightIncreaseStart, float heigthIncreaseEnd) {
+  public void GenerateTile(float heightIncreaseStart, float heightIncreaseEnd) {
     Vector3[] meshVertices = meshFilter.mesh.vertices;
     int tileDepth = (int)Mathf.Sqrt(meshVertices.Length);
     int tileWidth = tileDepth;
 
     heightIncEnd = heightIncreaseStart;
-    heightIncStart = heigthIncreaseEnd;
+    heightIncStart = heightIncreaseEnd;
 
     float offsetX = -gameObject.transform.position.x;
     float offsetZ = -gameObject.transform.position.z;
@@ -64,10 +67,10 @@ public class TileFromNoise : MonoBehaviour
     //Texture2D tileTexture = BuildTexture(heightMap);
     //tileRenderer.material.mainTexture = tileTexture;
     UpdateMeshVertices(heightMap);
-    if (distanceFromPlayer == tileSize * 3) GenerateStructures(heightMap, 1);
-    if (distanceFromPlayer == tileSize * 5) GenerateStructures(heightMap, 2);
-    if (distanceFromPlayer == tileSize) GenerateTargets(heightMap);
-    //if (Mathf.Abs(playerVehicle.position.z - transform.position.z) < tileWidth) GenerateTargets(heightMap);
+    for (int n = 0; n < buildingCycles; n++) {
+      if (distanceFromPlayer == tileSize * (buildingSpawnOffset + (n * 2))) GenerateStructures(heightMap, 1 + n);
+    }
+    if (distanceFromPlayer == tileSize * targetSpawnOffset) GenerateTargets(heightMap);
   }
 
   private TerrainType ChooseTerrainType(float height) {
