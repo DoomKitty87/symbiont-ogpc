@@ -52,7 +52,7 @@ public class VehicleMovement : MonoBehaviour
 
   void Update() {
     if (transform.position.x - generatedDistance > tileWidth) UpdateTerrain();
-    transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(goingFrom, goingTo, (transform.position.x % 10) / 10));
+    transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.SmoothStep(goingFrom, goingTo, (transform.position.x % 10) / 10));
   }
 
   void FixedUpdate() {
@@ -127,7 +127,7 @@ public class VehicleMovement : MonoBehaviour
       landInstances[xCycles, z].GetComponent<TileFromNoise>().GenerateTile(heightIncreaseLast, heightIncreaseCurr);
     }
     lastZ = cycleOffset;
-    trickleDownLast = cycleOffset;
+    trickleDownLast = landInstances[xCycles, genRange].transform.position.z;
     for (int i = cachedPositions.Length - 2; i >= 0; i--) {
       trickleDownNext = cachedPositions[i];
       cachedPositions[i] = trickleDownLast;
@@ -135,7 +135,6 @@ public class VehicleMovement : MonoBehaviour
     }
     goingFrom = goingTo;
     goingTo = cachedPositions[0];
-    print(goingTo);
     generatedDistance += tileWidth;
     xCycles++;
     if (xCycles >= forwardRange * 2 + 1) xCycles = 0;
