@@ -7,7 +7,7 @@ public class TerrainType
 {
 
   public string name;
-  public float height;
+  public float distance;
   public Color color;
 }
 
@@ -64,22 +64,22 @@ public class TileFromNoise : MonoBehaviour
     float offsetX = -gameObject.transform.position.x;
     float offsetZ = -gameObject.transform.position.z;
     float[,] heightMap = noiseMapGeneration.CellularNoiseJobs(tileDepth, tileWidth, mapScale, offsetX, offsetZ, waves, amplitude, frequency, seed);
-    //Texture2D tileTexture = BuildTexture(heightMap);
-    //tileRenderer.material.mainTexture = tileTexture;
     UpdateMeshVertices(heightMap);
+    Texture2D tileTexture = BuildTexture(heightMap);
+    tileRenderer.material.mainTexture = tileTexture;
     for (int n = 0; n < buildingCycles; n++) {
       if (distanceFromPlayer == tileSize * (buildingSpawnOffset + (n * 2))) GenerateStructures(heightMap, 1 + n);
     }
     if (distanceFromPlayer == tileSize * targetSpawnOffset) GenerateTargets(heightMap);
   }
 
-  private TerrainType ChooseTerrainType(float height) {
-    foreach (TerrainType terrainType in terrainTypes) {
-      if (height < terrainType.height) {
-        return terrainType;
+  private TerrainType[] ChooseTerrainType(float distance) {
+    for (int i = 0; i < terrainTypes.Length; i++) {
+      if (distance < terrainTypes[i].distance) {
+        return new TerrainType[] {terrainTypes[(i > 1) ? i - 1 : 0], terrainTypes[i]};
       }
     }
-    return terrainTypes[terrainTypes.Length -1];
+    return new TerrainType[] {terrainTypes[0], terrainTypes[0]};
   }
 
   private Texture2D BuildTexture(float[,] heightMap) {
@@ -87,14 +87,14 @@ public class TileFromNoise : MonoBehaviour
     int tileWidth = heightMap.GetLength(1);
 
     Color[] colorMap = new Color[tileDepth * tileWidth];
-    for (int zIndex = 0; zIndex < tileDepth; zIndex++) {
-      for (int xIndex = 0; xIndex < tileWidth; xIndex++) {
-        int colorIndex = zIndex * tileWidth + xIndex;
-        float height = heightMap[zIndex, xIndex];
+    
+    Vector3[] meshVertices = meshFilter.mesh.vertices;
+    for (int vertexIndex = 0; vertexIndex < meshVertices.Length; vertexIndex++) {
+      int colorIndex = vertexIndex;
+      float distance = meshVertices[vertexIndex].x + transform.position.x;
 
-        TerrainType terrainType = ChooseTerrainType(height);
-        colorMap[colorIndex] = terrainType.color;
-      }
+      TerrainType[] terrainType = ChooseTerrainType(distance);
+      colorMap[colorIndex] = Color.Lerp(terrainType[0].color, terrainType[1].color, (distance % 2000 - 1500) / 500);
     }
     Texture2D tileTexture = new Texture2D(tileWidth, tileDepth);
     tileTexture.wrapMode = TextureWrapMode.Clamp;

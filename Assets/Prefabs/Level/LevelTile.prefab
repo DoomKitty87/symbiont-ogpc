@@ -124,7 +124,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f358ff33919c64c871bcb395687ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainTypes: []
+  terrainTypes:
+  - name: 
+    distance: 0
+    color: {r: 0.25, g: 1, b: 0.60284746, a: 0}
+  - name: 
+    distance: 2000
+    color: {r: 1, g: 0, b: 0.91517925, a: 0}
   noiseMapGeneration: {fileID: 2460507308172132531}
   tileRenderer: {fileID: 2460507308172132495}
   meshFilter: {fileID: 2460507308172132528}
