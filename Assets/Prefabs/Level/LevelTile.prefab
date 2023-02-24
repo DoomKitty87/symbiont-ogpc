@@ -128,9 +128,13 @@ MonoBehaviour:
   - name: 
     distance: 0
     color: {r: 0.25, g: 1, b: 0.60284746, a: 0}
+    structureType: {fileID: 2313840049918985679, guid: 83064bc823ba9e44eb66ba90781770cc,
+      type: 3}
   - name: 
     distance: 2000
     color: {r: 1, g: 0, b: 0.91517925, a: 0}
+    structureType: {fileID: 3827609704114628824, guid: 2425ab6c3148a2244a87fda410407213,
+      type: 3}
   noiseMapGeneration: {fileID: 2460507308172132531}
   tileRenderer: {fileID: 2460507308172132495}
   meshFilter: {fileID: 2460507308172132528}
@@ -143,6 +147,7 @@ MonoBehaviour:
   seed: 2567
   targetDensity: 0.25
   buildingDensity: 1
+  terrainInterval: 2000
   heightCurve:
     serializedVersion: 2
     m_Curve:
@@ -170,6 +175,8 @@ MonoBehaviour:
   targetPrefab: {fileID: 826319800707979801, guid: 2424c17a1caae8541b5ca54341d9d373,
     type: 3}
   structurePrefab: {fileID: 2313840049918985679, guid: 83064bc823ba9e44eb66ba90781770cc,
+    type: 3}
+  structurePrefab2: {fileID: 3827609704114628824, guid: 2425ab6c3148a2244a87fda410407213,
     type: 3}
   spawnedLayer:
     serializedVersion: 2

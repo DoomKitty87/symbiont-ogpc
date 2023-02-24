@@ -9,6 +9,7 @@ public class TerrainType
   public string name;
   public float distance;
   public Color color;
+  public GameObject structureType;
 }
 
 public class TileFromNoise : MonoBehaviour
@@ -28,9 +29,9 @@ public class TileFromNoise : MonoBehaviour
   [SerializeField] private float seed;
   [SerializeField] private float targetDensity;
   [SerializeField] private float buildingDensity;
+  [SerializeField] private float terrainInterval;
   [SerializeField] private AnimationCurve heightCurve;
   [SerializeField] private GameObject targetPrefab;
-  [SerializeField] private GameObject structurePrefab;
   [SerializeField] private LayerMask spawnedLayer;
   [SerializeField] private LayerMask groundLayer;
   [SerializeField] private int targetSpawnOffset;
@@ -44,7 +45,7 @@ public class TileFromNoise : MonoBehaviour
   private float heightIncEnd;
   private LayerMask targetSpawnMask;
 
-  void Awake(){
+  void Awake() {
     targetSpawnMask = spawnedLayer | groundLayer;
     playerVehicle = GameObject.FindGameObjectWithTag("Player").transform;
     distanceFromPlayer = Mathf.Abs(playerVehicle.position.z - transform.position.z);
@@ -76,7 +77,7 @@ public class TileFromNoise : MonoBehaviour
   private TerrainType[] ChooseTerrainType(float distance) {
     for (int i = 0; i < terrainTypes.Length; i++) {
       if (distance < terrainTypes[i].distance) {
-        return new TerrainType[] {terrainTypes[(i > 1) ? i - 1 : 0], terrainTypes[i]};
+        return new TerrainType[] {terrainTypes[(i > 0) ? i - 1 : 0], terrainTypes[i]};
       }
     }
     return new TerrainType[] {terrainTypes[0], terrainTypes[0]};
@@ -94,7 +95,7 @@ public class TileFromNoise : MonoBehaviour
       float distance = meshVertices[vertexIndex].x + transform.position.x;
 
       TerrainType[] terrainType = ChooseTerrainType(distance);
-      colorMap[colorIndex] = Color.Lerp(terrainType[0].color, terrainType[1].color, (distance % 2000 - 1500) / 500);
+      colorMap[colorIndex] = Color.Lerp(terrainType[0].color, terrainType[1].color, (distance % terrainInterval - (terrainInterval * 0.75f)) / (terrainInterval * 0.25f));
     }
     Texture2D tileTexture = new Texture2D(tileWidth, tileDepth);
     tileTexture.wrapMode = TextureWrapMode.Clamp;
@@ -135,12 +136,13 @@ public class TileFromNoise : MonoBehaviour
     Vector3[] meshVertices = meshFilter.mesh.vertices;
 
     int vertexIndex = 0;
+    TerrainType[] options = ChooseTerrainType(transform.position.x);
     for (int zIndex = 0; zIndex < tileDepth; zIndex++) {
       for (int xIndex = 0; xIndex < tileDepth; xIndex++) {
         float height = heightMap[zIndex, xIndex];
         Vector3 vertex = meshVertices[vertexIndex];
         if (Random.value > 1 - buildingDensity / 100) {
-          Transform tmp = Instantiate(structurePrefab, transform.position + vertex, Quaternion.identity, transform).transform;
+          Transform tmp = Instantiate(Random.value < ((transform.position.x % terrainInterval - (terrainInterval * 0.75f)) / (terrainInterval * 0.25f)) ? options[1].structureType : options[0].structureType, transform.position + vertex, Quaternion.identity, transform).transform;
           tmp.rotation = Quaternion.Euler(new Vector3(-90, Random.Range(0, 360), 0));
           tmp.localScale *= buildingScale;
         }
