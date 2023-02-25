@@ -15,7 +15,7 @@ public class X5_57Controller : MonoBehaviour
   private GameObject focusedTarget;
   private GameObject persistentData;
   private GameObject beingDestroyed;
-  private string currentMode = "Attack";
+  private string currentMode = "ProtectOffensive";
   private ParticleSystem.MainModule main;
   private ParticleSystem.ShapeModule sh;
   private float timer;
@@ -29,7 +29,8 @@ public class X5_57Controller : MonoBehaviour
   [SerializeField] private GameObject explosionAudioPrefab;
   [SerializeField] private GameObject laserBeamPrefab;
   [SerializeField][ColorUsageAttribute(true, true)] private Color laserColor;
-
+  [SerializeField] private ParticleSystem healEmitter;
+ 
   void Awake() {
     persistentData = GameObject.FindGameObjectWithTag("Data");
     // botData = persistentData.GetComponent<PersistentData>().selectedBotStats;
@@ -38,6 +39,8 @@ public class X5_57Controller : MonoBehaviour
     currentShieldHealthAmount = botData.shieldMaxHealth;
     main = explodeFX.GetComponent<ParticleSystem>().main;
     sh = explodeFX.GetComponent<ParticleSystem>().shape;
+    healEmitter = transform.GetChild(1).GetComponent<ParticleSystem>();
+    GetComponent<ParticleSystem>().Play();
   }
   void Update() {
     switch (currentMode) {
@@ -64,29 +67,33 @@ public class X5_57Controller : MonoBehaviour
 
   void ChangeMode(string selectedMode) {
     currentMode = selectedMode;
+    focusedTarget = null;
   }
 
   void AttackMode() {
     // This mode has the bot shoot at the closest targets/turrets/etc. 
     if (!focusedTarget) {
       float distance;
+      bool noTargets = true;
       float bestDistance = Mathf.Infinity;
       GameObject bestTarget;
       Collider[] targets = Physics.OverlapSphere(transform.position, botData.maxRange);
       if (!targets.Any()) {
         StartCoroutine(MoveToObject(player, 2, 2, 2));
         return;
-      } 
+      }
       else {
         bestTarget = targets[0].gameObject;
         foreach (Collider col in targets) {
           distance = (transform.position - col.transform.position).magnitude;
           if (col.gameObject.tag == "Target" && distance < bestDistance && col.gameObject != beingDestroyed) {
             bestTarget = col.gameObject;
+            noTargets = false;
             bestDistance = distance;
           }
         }
         focusedTarget = bestTarget;
+        if (noTargets) StartCoroutine(MoveToObject(player, 2, 2, 2));
       }
     }
     if (!turning) {
@@ -122,7 +129,7 @@ public class X5_57Controller : MonoBehaviour
     StartCoroutine(MoveToObject(player, 2, 2, 2));
     timer += Time.deltaTime;
     if (timer >= botData.healPeriod) {
-      HealPlayer();
+      StartCoroutine(HealPlayer());
       timer = 0;
     }
   }
@@ -133,6 +140,40 @@ public class X5_57Controller : MonoBehaviour
 
   void ProtectModeOffensive() {
     // this mode has the bot shoot down missiles coming the player's direction.
+    StartCoroutine(MoveToObject(player, 2, 2, 2));
+    if (!focusedTarget) {
+      Collider[] targets = Physics.OverlapSphere(transform.position, botData.maxRange);
+      foreach (Collider col in targets) {
+        if (col.gameObject.tag == "Destructible") {
+          focusedTarget = col.gameObject;
+          break;
+        }
+      }
+    } else {
+      RaycastHit hit;
+      if (transform.rotation != Quaternion.LookRotation(focusedTarget.transform.position - transform.position) * Quaternion.Euler(-90, 90, 0)) {
+        StartCoroutine(TurnToObject(focusedTarget));
+        return;
+      }
+      if (!Physics.Raycast(transform.position, focusedTarget.transform.position - transform.position, out hit)) {
+        return;
+      }
+      if (hit.collider.gameObject == focusedTarget) {
+        if (timeSinceShot >= botData.attackRate) {
+          HitObject(focusedTarget);
+          muzzleFlashFX.GetComponent<ParticleSystem>().Play();
+          impactFX.transform.position = hit.point;
+          impactFX.GetComponent<ParticleSystem>().Play();
+          StartCoroutine(LaserFX(new Vector3[] {transform.position, hit.point}));
+          timeSinceShot = 0;
+        }
+      }
+      else if (transform.rotation == Quaternion.LookRotation(focusedTarget.transform.position - transform.position) * Quaternion.Euler(-90, 90, 0)) {
+        focusedTarget = null;
+        return;
+      }
+    }
+    timeSinceShot += Time.deltaTime;
   }
 
   void ProtectModeDefensive() {
@@ -147,7 +188,7 @@ public class X5_57Controller : MonoBehaviour
   private IEnumerator TurnToObject(GameObject focus) {
     turning = true;
     float elapsedTime = 0f;
-    float waitTime = 1f;      
+    float waitTime = 0.01f;      
     Vector3 relativePos = focus.transform.position - transform.position;
     Quaternion toRotation = Quaternion.LookRotation(relativePos) * Quaternion.Euler(new Vector3(-90, 90, 0));
     Quaternion initRotation = transform.rotation;
@@ -178,6 +219,18 @@ public class X5_57Controller : MonoBehaviour
       return;
     }
     player.GetComponent<ScoreTracker>().DestroyedTarget(hit);
+    StartCoroutine(ExplodeTarget(hit));
+    focusedTarget = null;
+    beingDestroyed = hit;
+    StartCoroutine(MoveToObject(player, 2, 2, 2));
+    StartCoroutine(TurnToObject(player));
+  }
+
+  public void HitObject(GameObject hit) {
+    hit.GetComponent<HealthManager>().Damage(botData.attackPower);
+    if (hit.GetComponent<HealthManager>()._currentHealth >= 0) {
+      return;
+    }
     StartCoroutine(ExplodeTarget(hit));
     focusedTarget = null;
     beingDestroyed = hit;
@@ -249,11 +302,12 @@ public class X5_57Controller : MonoBehaviour
     Destroy(laserEffect.gameObject);
   }
 
-  private void HealPlayer() {
-    if (Vector3.Distance(transform.position, player.transform.position) < botData.healRange) {
-      player.GetComponent<HealthManager>()._currentHealth += botData.healPower;
+  private IEnumerator HealPlayer() {
+    if (Vector3.Distance(transform.position, player.transform.position) < botData.healRange && player.GetComponent<HealthManager>()._currentHealth < player.GetComponent<HealthManager>()._maxHealth) {
+      yield return StartCoroutine(TurnToObject(player));
+      player.GetComponent<HealthManager>().Damage(-botData.healPower);
       currentHealthTankAmount -= botData.healPower;
-      print(currentHealthTankAmount);
+      healEmitter.Play();
     } else {
       StartCoroutine(MoveToObject(player, 2, 2, 2));
     }

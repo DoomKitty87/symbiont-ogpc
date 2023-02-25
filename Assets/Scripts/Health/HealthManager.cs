@@ -10,7 +10,7 @@ public class OnHealthChangedEvent : UnityEvent<float, float, float> {}
 public class HealthManager : MonoBehaviour
 {
   public float _currentHealth;
-  [SerializeField] private float _maxHealth;
+  [SerializeField] public float _maxHealth;
   [Tooltip("OnHealthInitialize(_maxHealth)")] public OnHealthInitializeEvent _onHealthInitialize;
   [Tooltip("OnHealthZero()")] public UnityEvent _onHealthZero;
   [Tooltip("OnHealthChanged(healthBeforeDamage, _currentHealth, _maxHealth)")] public OnHealthChangedEvent _onHealthChanged;
