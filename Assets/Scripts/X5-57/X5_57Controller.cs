@@ -6,18 +6,31 @@ using UnityEngine;
 public class X5_57Controller : MonoBehaviour
 {
 
+  public BotData botData;
   public GameObject player;
-  private GameObject persistentData = GameObject.FindGameObjectWithTag("Data");
-  public BotData botData = persistentData.GetComponent<PersistentData>().selectedBotStats;
-  public float currentHealthTankAmount = botData.healTankMaxCapacity;
-  public float currentChargeAmount = botData.maxCharge; 
-  public float currentShieldHealthAmount = botData.shieldMaxHealth;
-  public string currentMode;
-  public GameObject focusedTarget;
+  public float currentHealthTankAmount;
+  public float currentChargeAmount; 
+  public float currentShieldHealthAmount;
 
-  ParticleSystem.MainModule main = explodeFX.GetComponent<ParticleSystem>().main;
-  ParticleSystem.ShapeModule sh = explodeFX.GetComponent<ParticleSystem>().shape;
+  private GameObject focusedTarget;
+  private GameObject persistentData;
+  private string currentMode;
+  private ParticleSystem.MainModule main;
+  private ParticleSystem.ShapeModule sh;
 
+  [SerializeField] private GameObject explodeFX;
+  [SerializeField] private GameObject fragmentFX;
+  [SerializeField] private GameObject explosionAudioPrefab;
+
+  void Awake() {
+    persistentData = GameObject.FindGameObjectWithTag("Data");
+    botData = persistentData.GetComponent<PersistentData>().selectedBotStats;
+    currentHealthTankAmount = botData.healTankMaxCapacity;
+    currentChargeAmount = botData.maxCharge;
+    currentShieldHealthAmount = botData.shieldMaxHealth;
+    main = explodeFX.GetComponent<ParticleSystem>().main;
+    sh = explodeFX.GetComponent<ParticleSystem>().shape;
+  }
   void Update() {
     switch (currentMode) {
       case "Attack":
@@ -48,7 +61,7 @@ public class X5_57Controller : MonoBehaviour
       float distance;
       float bestDistance = Mathf.Infinity;
       GameObject bestTarget;
-      Collider[] targets = Physics.OverlapSphere(transform.position, maxRange);
+      Collider[] targets = Physics.OverlapSphere(transform.position, botData.maxRange);
       if (!targets.Any()) {
         MoveToTarget(player, 2, 2, 2);
         return;
@@ -71,7 +84,7 @@ public class X5_57Controller : MonoBehaviour
 
   void HealMode() {
     // this mode gives the player health periodically.
-    InvokeRepeating("HealPlayer", 0f, botData.healPeriod());
+    InvokeRepeating("HealPlayer", 0f, botData.healPeriod);
   }
 
   void ConservePowerMode() {
@@ -110,7 +123,7 @@ public class X5_57Controller : MonoBehaviour
   }
 
   public void HitTarget(RaycastHit hit) {
-    hit.collider.gameObject.GetComponent<HealthManager>().Damage(attackPower);
+    hit.collider.gameObject.GetComponent<HealthManager>().Damage(botData.attackPower);
     if (hit.collider.gameObject.GetComponent<HealthManager>()._currentHealth >= 0) {
       return;
     }

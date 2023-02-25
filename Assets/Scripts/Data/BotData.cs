@@ -8,5 +8,5 @@ public class BotData
   public float attackPower;
   public float attackRate;
   public float healPower;
-  public float healRate;
+  public float healPeriod;
 }

@@ -35,15 +35,7 @@ public class MissileBehavior : MonoBehaviour
     if (!collider.gameObject.CompareTag("Player")) {
       return;
     }
-    RedirectGameObjectReference redirectGameObjectReference = collider.gameObject.GetComponent<RedirectGameObjectReference>();
-    GameObject hitGameObject;
-    if (redirectGameObjectReference != null) {
-      hitGameObject = redirectGameObjectReference.gameObjectRedirect;
-    }
-    else {
-      hitGameObject = collider.gameObject;
-    }
-    DamageGameObject(hitGameObject);
+    DamageGameObject(collider.gameObject);
     SpawnParticleEffects();
     Destroy(this.gameObject);
   }
