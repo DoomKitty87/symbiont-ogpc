@@ -35,14 +35,11 @@ public class MissileBehavior : MonoBehaviour
     if (!collider.gameObject.CompareTag("Player")) {
       return;
     }
-    DamageGameObject(collider.gameObject);
+    collider.transform.parent.gameObject.GetComponent<HealthManager>().Damage(_damage);
     SpawnParticleEffects();
     Destroy(this.gameObject);
   }
-  void DamageGameObject(GameObject obj) {
-    HealthManager healthManager = obj.GetComponent<HealthManager>();
-    healthManager.Damage(_damage);
-  }
+
   void SpawnParticleEffects() {
     GameObject emitter = Instantiate(_missileExplodeParticlePrefab, transform.position, Quaternion.identity);
     emitter.GetComponent<ParticleSystem>().Play();
