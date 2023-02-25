@@ -39,8 +39,8 @@ public class MissileBehavior : MonoBehaviour
     SpawnParticleEffects();
     Destroy(this.gameObject);
   }
-  void DamageGameObject(GameObject gameObject) {
-    HealthManager healthManager = gameObject.GetComponent<HealthManager>();
+  void DamageGameObject(GameObject obj) {
+    HealthManager healthManager = obj.GetComponent<HealthManager>();
     healthManager.Damage(_damage);
   }
   void SpawnParticleEffects() {
