@@ -20,7 +20,7 @@ public class BotData
     attackPower = 2f;
     attackRate = 1f;
     healPower = 25f;
-    healPeriod = 10f;
+    healPeriod = 3f;
     healRange = 10f;
   }
 }
