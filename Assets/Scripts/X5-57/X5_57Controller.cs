@@ -63,7 +63,7 @@ public class X5_57Controller : MonoBehaviour
       GameObject bestTarget;
       Collider[] targets = Physics.OverlapSphere(transform.position, botData.maxRange);
       if (!targets.Any()) {
-        MoveToTarget(player, 2, 2, 2);
+        StartCoroutine(MoveToTarget(player, 2, 2, 2));
         return;
       } else {
         foreach (Collider col in targets) {
@@ -130,7 +130,7 @@ public class X5_57Controller : MonoBehaviour
     player.GetComponent<ScoreTracker>().DestroyedTarget(hit.collider.gameObject);
     StartCoroutine(ExplodeTarget(hit.collider.gameObject));
     focusedTarget = null;
-    MoveToTarget(player, 2, 2, 2);
+    StartCoroutine(MoveToTarget(player, 2, 2, 2));
   }
 
   private IEnumerator ExplodeTarget(GameObject target) {
@@ -159,11 +159,11 @@ public class X5_57Controller : MonoBehaviour
   }
 
   private void HealPlayer() {
-    if (Vector3.Distance(transform.position, player.transform.position) < 20) {
+    if (Vector3.Distance(transform.position, player.transform.position) < 5) {
       player.GetComponent<HealthManager>()._currentHealth += botData.healPower;
       currentHealthTankAmount -= botData.healPower;
     } else {
-      MoveToTarget(player, 2, 2, 2);
+      StartCoroutine(MoveToTarget(player, 2, 2, 2));
     }
   }
 }
