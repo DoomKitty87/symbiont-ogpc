@@ -21,6 +21,7 @@ public class X5_57Controller : MonoBehaviour
   private float timer;
   private float timeSinceShot;
   private bool turning;
+  private bool tracking;
 
   [SerializeField] private GameObject explodeFX;
   [SerializeField] private GameObject fragmentFX;
@@ -149,29 +150,9 @@ public class X5_57Controller : MonoBehaviour
           break;
         }
       }
-    } else {
-      RaycastHit hit;
-      if (transform.rotation != Quaternion.LookRotation(focusedTarget.transform.position - transform.position) * Quaternion.Euler(-90, 90, 0)) {
-        StartCoroutine(TurnToObject(focusedTarget));
-        return;
-      }
-      if (!Physics.Raycast(transform.position, focusedTarget.transform.position - transform.position, out hit)) {
-        return;
-      }
-      if (hit.collider.gameObject == focusedTarget) {
-        if (timeSinceShot >= botData.attackRate) {
-          HitObject(focusedTarget);
-          muzzleFlashFX.GetComponent<ParticleSystem>().Play();
-          impactFX.transform.position = hit.point;
-          impactFX.GetComponent<ParticleSystem>().Play();
-          StartCoroutine(LaserFX(new Vector3[] {transform.position, hit.point}));
-          timeSinceShot = 0;
-        }
-      }
-      else if (transform.rotation == Quaternion.LookRotation(focusedTarget.transform.position - transform.position) * Quaternion.Euler(-90, 90, 0)) {
-        focusedTarget = null;
-        return;
-      }
+    }
+    if (!turning && !tracking && focusedTarget != null) {
+      StartCoroutine(TrackMissile(focusedTarget));
     }
     timeSinceShot += Time.deltaTime;
   }
@@ -185,10 +166,46 @@ public class X5_57Controller : MonoBehaviour
     StartCoroutine(MoveToObject(player, 2, 2, 2));
   }
 
-  private IEnumerator TurnToObject(GameObject focus) {
+  private IEnumerator TrackMissile(GameObject focus) {
+    StopCoroutine("TurnToObject");
+    tracking = true;
+    float elapsedTime = 0f;
+    float waitTime = 0.5f;
+    Vector3 relativePos = focus.transform.position - transform.position;
+    Quaternion toRotation = Quaternion.LookRotation(relativePos) * Quaternion.Euler(new Vector3(-90, 90, 0));
+    Quaternion initRotation = transform.rotation;
+    while (elapsedTime < waitTime) {
+      transform.rotation = Quaternion.Lerp(initRotation, toRotation, elapsedTime / waitTime);
+      elapsedTime += Time.deltaTime;
+      yield return null;
+    }
+    RaycastHit hit;
+    while (focus != null) {
+      transform.rotation = Quaternion.LookRotation(focus.transform.position - transform.position) * Quaternion.Euler(new Vector3(-90, 90, 0));
+      if (Physics.Raycast(transform.position, focus.transform.position - transform.position, out hit)) {
+        if (hit.collider.gameObject == focus) {
+          if (timeSinceShot >= botData.attackRate) {
+            HitObject(focus);
+            muzzleFlashFX.GetComponent<ParticleSystem>().Play();
+            impactFX.transform.position = hit.point;
+            impactFX.GetComponent<ParticleSystem>().Play();
+            StartCoroutine(LaserFX(new Vector3[] {transform.position, hit.point}));
+            timeSinceShot = 0;
+          }
+        }
+        else break;
+      }
+      yield return null;
+    }
+    focusedTarget = null;
+    tracking = false;
+    StartCoroutine(TurnToObject(player), 0.5f);
+  }
+
+  private IEnumerator TurnToObject(GameObject focus, float turnTime = 1f) {
     turning = true;
     float elapsedTime = 0f;
-    float waitTime = 0.01f;      
+    float waitTime = turnTime;      
     Vector3 relativePos = focus.transform.position - transform.position;
     Quaternion toRotation = Quaternion.LookRotation(relativePos) * Quaternion.Euler(new Vector3(-90, 90, 0));
     Quaternion initRotation = transform.rotation;
@@ -260,6 +277,7 @@ public class X5_57Controller : MonoBehaviour
     tmp.GetComponent<AudioSource>().Play();
     yield return new WaitForSeconds(tmp.GetComponent<AudioSource>().clip.length);
     Destroy(tmp);
+    beingDestroyed = null;
   }
 
   private IEnumerator LaserFX(Vector3[] points) {
