@@ -44,6 +44,9 @@ public class X5_57Controller : MonoBehaviour
     GetComponent<ParticleSystem>().Play();
   }
   void Update() {
+    if (currentChargeAmount <= 0) {
+      StartCoroutine(AttachToBack());
+    }
     switch (currentMode) {
       case "Attack":
         AttackMode();
@@ -51,15 +54,14 @@ public class X5_57Controller : MonoBehaviour
       case "Heal":
         HealMode();
         break;
-      case "ConservePower":
-        ConservePowerMode();
-        break;
       case "ProtectOffensive":
         ProtectModeOffensive();
         break;
       case "ProtectDefensive":
         ProtectModeDefensive();
         break;
+      case "Recharging":
+        RechargingMode();
       case "Testing":
         TestingMode();
         break;
@@ -67,7 +69,11 @@ public class X5_57Controller : MonoBehaviour
   }
 
   void ChangeMode(string selectedMode) {
+    if (selectedMode == "Recharging") {
+      StartCoroutine(AttachToBack());
+    } else {
     currentMode = selectedMode;
+    }
     focusedTarget = null;
   }
 
@@ -134,11 +140,7 @@ public class X5_57Controller : MonoBehaviour
       timer = 0;
     }
   }
-
-  void ConservePowerMode() {
-    // this mode has the bot get as far away as possible in order to stay alive.
-  }
-
+  
   void ProtectModeOffensive() {
     // this mode has the bot shoot down missiles coming the player's direction.
     StartCoroutine(MoveToObject(player, 2, 2, 2));
@@ -159,6 +161,10 @@ public class X5_57Controller : MonoBehaviour
 
   void ProtectModeDefensive() {
     // this mode has the bot block the player with a shield.
+  }
+
+  void RechargingMode() {
+    StartCoroutine(IncreasingCharge());
   }
 
   void TestingMode() {
@@ -328,6 +334,23 @@ public class X5_57Controller : MonoBehaviour
       healEmitter.Play();
     } else {
       StartCoroutine(MoveToObject(player, 2, 2, 2));
+    }
+  }
+
+  private IEnumerator AttachToBack() {
+    yield return MoveToObject(player, 2, 2, 2);
+    StartCoroutine(IncreasingCharge());
+    ChangeMode("Recharging");
+  }
+
+  private IEnumerator IncreasingCharge() {
+    float elapsedTime = 0f;
+    float waitTime = botData.chargeFullSpeed;
+    float initCharge = currentChargeAmount;
+    while (elapsedTime < waitTime) {
+      transform.position = Vector3.Lerp(0, botData.maxCharge, elapsedTime / waitTime + (currentChargeAmount / botData.maxCharge));
+      elapsedTime += Time.deltaTime;
+      yield return null;
     }
   }
 }

@@ -4,7 +4,7 @@ public class BotData
   public float maxRange;
   public float shieldMaxHealth;
   public float healTankMaxCapacity;
-  public float speed;
+  public float chargeFillSpeed;
   public float attackPower;
   public float attackRate;
   public float healPower;
@@ -16,7 +16,7 @@ public class BotData
     maxRange = 20f;
     shieldMaxHealth = 200f;
     healTankMaxCapacity = 300f;
-    speed = 20f;
+    chargeFillSpeed = 45f;
     attackPower = 2f;
     attackRate = 1f;
     healPower = 25f;
