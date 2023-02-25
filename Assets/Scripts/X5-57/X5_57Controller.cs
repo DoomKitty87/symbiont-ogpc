@@ -6,7 +6,7 @@ using UnityEngine;
 public class X5_57Controller : MonoBehaviour
 {
 
-  public BotData botData;
+  public BotData botData = new BotData();
   public GameObject player;
   public float currentHealthTankAmount;
   public float currentChargeAmount; 
@@ -14,9 +14,10 @@ public class X5_57Controller : MonoBehaviour
 
   private GameObject focusedTarget;
   private GameObject persistentData;
-  private string currentMode;
+  private string currentMode = "Heal";
   private ParticleSystem.MainModule main;
   private ParticleSystem.ShapeModule sh;
+  private float timer;
 
   [SerializeField] private GameObject explodeFX;
   [SerializeField] private GameObject fragmentFX;
@@ -24,7 +25,7 @@ public class X5_57Controller : MonoBehaviour
 
   void Awake() {
     persistentData = GameObject.FindGameObjectWithTag("Data");
-    botData = persistentData.GetComponent<PersistentData>().selectedBotStats;
+    // botData = persistentData.GetComponent<PersistentData>().selectedBotStats;
     currentHealthTankAmount = botData.healTankMaxCapacity;
     currentChargeAmount = botData.maxCharge;
     currentShieldHealthAmount = botData.shieldMaxHealth;
@@ -48,6 +49,9 @@ public class X5_57Controller : MonoBehaviour
       case "ProtectDefensive":
         ProtectModeDefensive();
         break;
+      case "Testing":
+        TestingMode();
+        break;
     }
   }
 
@@ -63,7 +67,7 @@ public class X5_57Controller : MonoBehaviour
       GameObject bestTarget;
       Collider[] targets = Physics.OverlapSphere(transform.position, botData.maxRange);
       if (!targets.Any()) {
-        StartCoroutine(MoveToTarget(player, 2, 2, 2));
+        StartCoroutine(MoveToObject(player, 2, 2, 2));
         return;
       } else {
         foreach (Collider col in targets) {
@@ -84,7 +88,11 @@ public class X5_57Controller : MonoBehaviour
 
   void HealMode() {
     // this mode gives the player health periodically.
-    InvokeRepeating("HealPlayer", 0f, botData.healPeriod);
+    timer += Time.deltaTime;
+    if (timer >= botData.healPeriod) {
+      HealPlayer();
+      timer = 0;
+    }
   }
 
   void ConservePowerMode() {
@@ -99,11 +107,16 @@ public class X5_57Controller : MonoBehaviour
     // this mode has the bot block the player with a shield.
   }
 
+  void TestingMode() {
+    StartCoroutine(TurnToObject(player));
+    StartCoroutine(MoveToObject(player, 2, 2, 2));
+  }
+
   private IEnumerator TurnToObject(GameObject focus) {
     float elapsedTime = 0f;
     float waitTime = 1f;      
     Vector3 relativePos = focus.transform.position - transform.position;
-    Quaternion toRotation = Quaternion.LookRotation(relativePos);
+    Quaternion toRotation = Quaternion.LookRotation(relativePos, Vector3.forward);
     while (elapsedTime < waitTime) {
       transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, elapsedTime / waitTime);
       elapsedTime += Time.deltaTime;
@@ -111,7 +124,7 @@ public class X5_57Controller : MonoBehaviour
     }
   }
 
-  private IEnumerator MoveToTarget(GameObject focus, int proxX, int proxY, int proxZ) {
+  private IEnumerator MoveToObject(GameObject focus, int proxX, int proxY, int proxZ) {
     float elapsedTime = 0f;
     float waitTime = 1f;      
     Vector3 targetLocation = new Vector3(focus.transform.position.x + proxX, player.transform.position.y + proxY, player.transform.position.z + proxZ);
@@ -130,7 +143,7 @@ public class X5_57Controller : MonoBehaviour
     player.GetComponent<ScoreTracker>().DestroyedTarget(hit.collider.gameObject);
     StartCoroutine(ExplodeTarget(hit.collider.gameObject));
     focusedTarget = null;
-    StartCoroutine(MoveToTarget(player, 2, 2, 2));
+    StartCoroutine(MoveToObject(player, 2, 2, 2));
   }
 
   private IEnumerator ExplodeTarget(GameObject target) {
@@ -159,11 +172,12 @@ public class X5_57Controller : MonoBehaviour
   }
 
   private void HealPlayer() {
-    if (Vector3.Distance(transform.position, player.transform.position) < 5) {
+    if (Vector3.Distance(transform.position, player.transform.position) < botData.healRange) {
       player.GetComponent<HealthManager>()._currentHealth += botData.healPower;
       currentHealthTankAmount -= botData.healPower;
+      print(currentHealthTankAmount);
     } else {
-      StartCoroutine(MoveToTarget(player, 2, 2, 2));
+      StartCoroutine(MoveToObject(player, 2, 2, 2));
     }
   }
 }
