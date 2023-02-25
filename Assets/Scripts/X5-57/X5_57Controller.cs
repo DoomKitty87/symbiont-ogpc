@@ -14,14 +14,21 @@ public class X5_57Controller : MonoBehaviour
 
   private GameObject focusedTarget;
   private GameObject persistentData;
-  private string currentMode = "Heal";
+  private GameObject beingDestroyed;
+  private string currentMode = "Attack";
   private ParticleSystem.MainModule main;
   private ParticleSystem.ShapeModule sh;
   private float timer;
+  private float timeSinceShot;
+  private bool turning = false;
 
   [SerializeField] private GameObject explodeFX;
   [SerializeField] private GameObject fragmentFX;
+  [SerializeField] private GameObject muzzleFlashFX;
+  [SerializeField] private GameObject impactFX;
   [SerializeField] private GameObject explosionAudioPrefab;
+  [SerializeField] private GameObject laserBeamPrefab;
+  [SerializeField][ColorUsageAttribute(true, true)] private Color laserColor;
 
   void Awake() {
     persistentData = GameObject.FindGameObjectWithTag("Data");
@@ -60,7 +67,7 @@ public class X5_57Controller : MonoBehaviour
   }
 
   void AttackMode() {
-    // this mode has the bot shoot at the closest targets/turrets/etc. 
+    // This mode has the bot shoot at the closest targets/turrets/etc. 
     if (!focusedTarget) {
       float distance;
       float bestDistance = Mathf.Infinity;
@@ -69,21 +76,38 @@ public class X5_57Controller : MonoBehaviour
       if (!targets.Any()) {
         StartCoroutine(MoveToObject(player, 2, 2, 2));
         return;
-      } else {
+      } 
+      else {
+        bestTarget = targets[0].gameObject;
         foreach (Collider col in targets) {
-          distance = Vector3.Distance(transform.position, col.transform.position);
-          if (col.gameObject.tag == "Target" && distance < bestDistance) {
+          distance = (transform.position - col.transform.position).magnitude;
+          if (col.gameObject.tag == "Target" && distance < bestDistance && col.gameObject != beingDestroyed) {
             bestTarget = col.gameObject;
             bestDistance = distance;
           }
         }
+        focusedTarget = bestTarget;
       }
     }
-    TurnToObject(focusedTarget);
-    RaycastHit hit;
-    if (Physics.Raycast(transform.position, transform.forward, out hit)) {
-      if (hit.collider.gameObject.CompareTag("Target")) HitTarget(hit);
+    if (!turning) {
+      RaycastHit hit;
+      if (!Physics.Raycast(transform.position, transform.forward, out hit)) {
+        StartCoroutine(TurnToObject(focusedTarget));
+        return;
+      }
+      if (hit.collider.gameObject == focusedTarget) {
+        if (timeSinceShot >= botData.attackRate) {
+          HitTarget(focusedTarget);
+          muzzleFlashFX.GetComponent<ParticleSystem>().Play();
+          impactFX.transform.position = hit.point;
+          impactFX.GetComponent<ParticleSystem>().Play();
+          StartCoroutine(LaserFX(new Vector3[] {transform.position, hit.point}));
+          timeSinceShot = 0;
+        }
+      }
+      else StartCoroutine(TurnToObject(focusedTarget));
     }
+    timeSinceShot += Time.deltaTime;
   }
 
   void HealMode() {
@@ -113,36 +137,42 @@ public class X5_57Controller : MonoBehaviour
   }
 
   private IEnumerator TurnToObject(GameObject focus) {
+    turning = true;
     float elapsedTime = 0f;
     float waitTime = 1f;      
     Vector3 relativePos = focus.transform.position - transform.position;
-    Quaternion toRotation = Quaternion.LookRotation(relativePos, Vector3.forward);
+    Quaternion toRotation = Quaternion.LookRotation(relativePos);
+    Quaternion initRotation = transform.rotation;
     while (elapsedTime < waitTime) {
-      transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, elapsedTime / waitTime);
+      transform.rotation = Quaternion.Lerp(initRotation, toRotation, elapsedTime / waitTime);
       elapsedTime += Time.deltaTime;
       yield return null;
     }
+    transform.rotation = toRotation;
+    turning = false;
   }
 
   private IEnumerator MoveToObject(GameObject focus, int proxX, int proxY, int proxZ) {
     float elapsedTime = 0f;
     float waitTime = 1f;      
     Vector3 targetLocation = new Vector3(focus.transform.position.x + proxX, player.transform.position.y + proxY, player.transform.position.z + proxZ);
+    Vector3 initLoc = transform.position;
     while (elapsedTime < waitTime) {
-      transform.position = Vector3.Lerp(transform.position, targetLocation, elapsedTime / waitTime);
+      transform.position = Vector3.Lerp(initLoc, targetLocation, elapsedTime / waitTime);
       elapsedTime += Time.deltaTime;
       yield return null;
     }
   }
 
-  public void HitTarget(RaycastHit hit) {
-    hit.collider.gameObject.GetComponent<HealthManager>().Damage(botData.attackPower);
-    if (hit.collider.gameObject.GetComponent<HealthManager>()._currentHealth >= 0) {
+  public void HitTarget(GameObject hit) {
+    hit.GetComponent<HealthManager>().Damage(botData.attackPower);
+    if (hit.GetComponent<HealthManager>()._currentHealth >= 0) {
       return;
     }
-    player.GetComponent<ScoreTracker>().DestroyedTarget(hit.collider.gameObject);
-    StartCoroutine(ExplodeTarget(hit.collider.gameObject));
+    player.GetComponent<ScoreTracker>().DestroyedTarget(hit);
+    StartCoroutine(ExplodeTarget(hit));
     focusedTarget = null;
+    beingDestroyed = hit;
     StartCoroutine(MoveToObject(player, 2, 2, 2));
   }
 
@@ -163,12 +193,51 @@ public class X5_57Controller : MonoBehaviour
     fragmentFX.transform.position = explodeFX.transform.position;
     explodeFX.GetComponent<ParticleSystem>().Play();
     fragmentFX.GetComponent<ParticleSystem>().Play();
-    GetComponent<ItemDrops>().RollForItem();
     GameObject tmp = Instantiate(explosionAudioPrefab, target.transform.position, Quaternion.identity);
     Destroy(target);
     tmp.GetComponent<AudioSource>().Play();
     yield return new WaitForSeconds(tmp.GetComponent<AudioSource>().clip.length);
     Destroy(tmp);
+  }
+
+  private IEnumerator LaserFX(Vector3[] points) {
+    float fxtimer = 0f;
+    float durIn = 0.08f;
+    float durOut = 0.1f;
+    Color colin = Color.white;
+    Color colout = Color.clear;
+    LineRenderer laserEffect = Instantiate(laserBeamPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform).GetComponent<LineRenderer>();
+    Renderer laser = laserEffect.gameObject.GetComponent<Renderer>();
+    laserEffect.SetPosition(0, points[0]);
+    laserEffect.SetPosition(1, points[1]);
+    laserEffect.material.SetColor("_EmissionColor", laserColor);
+    laserEffect.enabled = true;
+    laser.material.color = colout;
+    laserEffect.startWidth = 0f;
+    laserEffect.endWidth = laserEffect.startWidth;
+    while (fxtimer < durIn) {
+      laserEffect.startWidth = Mathf.Lerp(0f, 0.25f, fxtimer / durIn);
+      laserEffect.endWidth = laserEffect.startWidth;
+      laser.material.color = Color.Lerp(colout, colin, fxtimer / durIn);
+      fxtimer += Time.deltaTime;
+      yield return null;
+    }
+    fxtimer = 0f;
+    laser.material.color = colin;
+    laserEffect.startWidth = 0.25f;
+    laserEffect.endWidth = laserEffect.startWidth;
+    while (fxtimer < durOut) {
+      laserEffect.startWidth = Mathf.Lerp(0.25f, 0f, fxtimer / durOut);
+      laserEffect.endWidth = laserEffect.startWidth;
+      laser.material.color = Color.Lerp(colin, colout, fxtimer / durOut);
+      fxtimer += Time.deltaTime;
+      yield return null;
+    }
+    laserEffect.startWidth = 0f;
+    laserEffect.endWidth = laserEffect.startWidth;
+    laser.material.color = colout;
+    laserEffect.enabled = false;
+    Destroy(laserEffect.gameObject);
   }
 
   private void HealPlayer() {
