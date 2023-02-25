@@ -34,6 +34,7 @@ public class VehicleMovement : MonoBehaviour
   [SerializeField] private int turnDelay;
   [SerializeField] private int hillDelay;
   [SerializeField] private float turnProbability;
+  [SerializeField] private float turnMultiplier;
   [SerializeField] private float hillProbability;
   [SerializeField] private float minHillAmplitude;
   [SerializeField] private float maxHillAmplitude;
@@ -85,18 +86,18 @@ public class VehicleMovement : MonoBehaviour
     hillLast++;
     if (turnedLast > turnDelay && !turning) {
       if (Random.value <= turnProbability) {
-        turnSeverity = Random.Range(-tileWidth, tileWidth);
+        turnSeverity = Random.Range(-tileWidth * turnMultiplier, tileWidth * turnMultiplier);
         turnDuration = Random.Range(1, turnDelay - 1);
         turning = true;
         turnedLast = 0;
-        print(turning);
       }
     }
     if (turning) {
-      cycleOffset = lastZ + turnSeverity;
       if (turnedLast >= turnDuration) {
         turning = false;
-        print(turning);
+      }
+      else {
+        cycleOffset = lastZ + turnSeverity;
       }
     }
 
