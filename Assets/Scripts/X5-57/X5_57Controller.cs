@@ -91,8 +91,11 @@ public class X5_57Controller : MonoBehaviour
     }
     if (!turning) {
       RaycastHit hit;
-      if (!Physics.Raycast(transform.position, Quaternion.Euler(-90, 90, 0) * transform.up, out hit)) {
+      if (transform.rotation != Quaternion.LookRotation(focusedTarget.transform.position - transform.position) * Quaternion.Euler(-90, 90, 0)) {
         StartCoroutine(TurnToObject(focusedTarget));
+        return;
+      }
+      if (!Physics.Raycast(transform.position, focusedTarget.transform.position - transform.position, out hit)) {
         return;
       }
       if (hit.collider.gameObject == focusedTarget) {
