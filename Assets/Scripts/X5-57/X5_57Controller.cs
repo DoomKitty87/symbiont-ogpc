@@ -164,7 +164,6 @@ public class X5_57Controller : MonoBehaviour
   }
 
   void RechargingMode() {
-    StartCoroutine(IncreasingCharge());
   }
 
   void TestingMode() {
@@ -347,7 +346,7 @@ public class X5_57Controller : MonoBehaviour
     float elapsedTime = 0f;
     float waitTime = botData.chargeFullSpeed;
     float initCharge = currentChargeAmount;
-    while (elapsedTime < waitTime) {
+    while (elapsedTime / waitTime < 1 - (currentChargeAmount / botData.maxCharge)) {
       transform.position = Vector3.Lerp(0, botData.maxCharge, elapsedTime / waitTime + (currentChargeAmount / botData.maxCharge));
       elapsedTime += Time.deltaTime;
       yield return null;
