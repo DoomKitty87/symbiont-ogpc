@@ -10,6 +10,7 @@ public class PersistentData : MonoBehaviour
   public GunData selectedPrimary;
   public GunData selectedSecondary;
   public ArmorData selectedArmor;
+  public BotData selectedBotStats;
   public List<Attachment> selectedAttachments = new List<Attachment>();
   public List<int> unlockedAttachments = new List<int>();
 
