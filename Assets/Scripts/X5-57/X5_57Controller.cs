@@ -20,7 +20,7 @@ public class X5_57Controller : MonoBehaviour
   private ParticleSystem.ShapeModule sh;
   private float timer;
   private float timeSinceShot;
-  private bool turning = false;
+  private bool turning;
 
   [SerializeField] private GameObject explodeFX;
   [SerializeField] private GameObject fragmentFX;
@@ -105,6 +105,10 @@ public class X5_57Controller : MonoBehaviour
           timeSinceShot = 0;
         }
       }
+      else if (transform.rotation == Quaternion.LookRotation(focusedTarget.transform.position - transform.position)) {
+        focusedTarget = null;
+        return;
+      }
       else StartCoroutine(TurnToObject(focusedTarget));
     }
     timeSinceShot += Time.deltaTime;
@@ -174,6 +178,7 @@ public class X5_57Controller : MonoBehaviour
     focusedTarget = null;
     beingDestroyed = hit;
     StartCoroutine(MoveToObject(player, 2, 2, 2));
+    StartCoroutine(TurnToObject(player));
   }
 
   private IEnumerator ExplodeTarget(GameObject target) {

@@ -126,10 +126,9 @@ MonoBehaviour:
   _onHealthChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2113223345920625142, guid: 2424c17a1caae8541b5ca54341d9d373,
-          type: 3}
+      - m_Target: {fileID: -2829274875617086834}
         m_TargetAssemblyTypeName: BounceEffect, Assembly-CSharp
-        m_MethodName: StartEffect
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -163,4 +162,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4aec4b7a75b444c84a024d18256270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsWorth: 0
+  _pointsWorth: 200
