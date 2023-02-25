@@ -86,14 +86,18 @@ public class VehicleMovement : MonoBehaviour
     if (turnedLast > turnDelay && !turning) {
       if (Random.value <= turnProbability) {
         turnSeverity = Random.Range(-tileWidth, tileWidth);
-        turnDuration = Random.Range(1, turnDelay);
+        turnDuration = Random.Range(1, turnDelay - 1);
         turning = true;
         turnedLast = 0;
+        print(turning);
       }
     }
     if (turning) {
       cycleOffset = lastZ + turnSeverity;
-      if (turnedLast == turnDuration) turning = false;
+      if (turnedLast >= turnDuration) {
+        turning = false;
+        print(turning);
+      }
     }
 
     if (hillLast > hillDelay) {

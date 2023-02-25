@@ -131,23 +131,13 @@ public class TileFromNoise : MonoBehaviour
     foreach (Transform child in transform) {
       Destroy(child.gameObject);
     }
-    int tileDepth = heightMap.GetLength(0);
-
     Vector3[] meshVertices = meshFilter.mesh.vertices;
-
-    int vertexIndex = 0;
     TerrainType[] options = ChooseTerrainType(transform.position.x);
-    for (int zIndex = 0; zIndex < tileDepth; zIndex++) {
-      for (int xIndex = 0; xIndex < tileDepth; xIndex++) {
-        float height = heightMap[zIndex, xIndex];
-        Vector3 vertex = meshVertices[vertexIndex];
-        if (Random.value > 1 - buildingDensity / 100) {
-          Transform tmp = Instantiate(Random.value < ((transform.position.x % terrainInterval - (terrainInterval * 0.75f)) / (terrainInterval * 0.25f)) ? options[1].structureType : options[0].structureType, transform.position + vertex, Quaternion.identity, transform).transform;
-          tmp.rotation = Quaternion.Euler(new Vector3(-90, Random.Range(0, 360), 0));
-          tmp.localScale *= buildingScale;
-        }
-        vertexIndex++;
-      }
+    for (int i = 0; i < Random.Range(buildingDensity, buildingDensity * 2); i++) {
+      Vector3 vertex = meshVertices[Random.Range(0, meshVertices.Length)];
+      Transform tmp = Instantiate(Random.value < ((transform.position.x % terrainInterval - (terrainInterval * 0.75f)) / (terrainInterval * 0.25f)) ? options[1].structureType : options[0].structureType, transform.position + vertex, Quaternion.identity, transform).transform;
+      tmp.rotation = Quaternion.Euler(new Vector3(-90, Random.Range(0, 360), 0));
+      tmp.localScale *= buildingScale;
     }
   }
 
