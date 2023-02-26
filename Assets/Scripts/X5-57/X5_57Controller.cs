@@ -62,6 +62,7 @@ public class X5_57Controller : MonoBehaviour
         break;
       case "Recharging":
         RechargingMode();
+        break;
       case "Testing":
         TestingMode();
         break;
@@ -204,7 +205,7 @@ public class X5_57Controller : MonoBehaviour
     }
     focusedTarget = null;
     tracking = false;
-    StartCoroutine(TurnToObject(player), 0.5f);
+    StartCoroutine(TurnToObject(player, 0.5f));
   }
 
   private IEnumerator TurnToObject(GameObject focus, float turnTime = 1f) {
@@ -344,10 +345,10 @@ public class X5_57Controller : MonoBehaviour
 
   private IEnumerator IncreasingCharge() {
     float elapsedTime = 0f;
-    float waitTime = botData.chargeFullSpeed;
+    float waitTime = botData.chargeFillSpeed;
     float initCharge = currentChargeAmount;
-    while (elapsedTime / waitTime < 1 - (currentChargeAmount / botData.maxCharge)) {
-      transform.position = Vector3.Lerp(0, botData.maxCharge, elapsedTime / waitTime + (currentChargeAmount / botData.maxCharge));
+    while (elapsedTime / waitTime < 1 - (initCharge / botData.maxCharge)) {
+      currentChargeAmount = Mathf.Lerp(0, botData.maxCharge, elapsedTime / waitTime + (initCharge / botData.maxCharge));
       elapsedTime += Time.deltaTime;
       yield return null;
     }
