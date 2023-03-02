@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5948073852098713276}
   - component: {fileID: 2113223345920625142}
   - component: {fileID: 6878899061837877361}
+  - component: {fileID: -8655590098420475728}
   m_Layer: 6
   m_Name: Target1
   m_TagString: Target
@@ -175,3 +176,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pointsWorth: 100
+--- !u!114 &-8655590098420475728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826319800707979801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34da193ccd7a1cc478fe4d381bee079c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionAudioPrefab: {fileID: 0}
+  _OnEffectComplete:
+    m_PersistentCalls:
+      m_Calls: []

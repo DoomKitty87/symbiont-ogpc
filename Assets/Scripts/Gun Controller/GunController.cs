@@ -7,6 +7,7 @@ using static GunData;
 
 public class GunController : MonoBehaviour
 {
+  // TODO: Remove ExplodeTarget from this script and it's dependancies: It'll be handled in the target prefabs through ExplodeEffect + HealthManager.OnHealthZero
   [SerializeField] private GameObject gameHandler;
 
   [SerializeField] private GameObject HUDCanvas;

@@ -1096,13 +1096,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989816e2138ab4239a47d687fb0caa35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireOrigin: {fileID: 330585546}
-  _fireDistance: 50
+  _raycastOrigin: {fileID: 330585546}
+  _raycastDistance: 50
   _layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2147483647
   _hitDamage: 20
-  _debug: 0
+  _fireDelay: 0.2
+  _debug: 1
 --- !u!114 &84568773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,12 +1124,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 84568772}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+        m_TargetAssemblyTypeName: FireRaycast, Assembly-CSharp
+        m_MethodName: Fire
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
