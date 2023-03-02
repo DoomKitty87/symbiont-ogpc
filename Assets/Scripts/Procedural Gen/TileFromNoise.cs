@@ -10,6 +10,7 @@ public class TerrainType
   public float distance;
   public Color color;
   public GameObject structureType;
+  public GameObject groundDeco;
 }
 
 public class TileFromNoise : MonoBehaviour
@@ -29,7 +30,7 @@ public class TileFromNoise : MonoBehaviour
   [SerializeField] private float seed;
   [SerializeField] private float targetDensity;
   [SerializeField] private float buildingDensity;
-  [SerializeField] private float terrainInterval;
+  [SerializeField] private float bonusDensity;
   [SerializeField] private AnimationCurve heightCurve;
   [SerializeField] private GameObject targetPrefab;
   [SerializeField] private LayerMask spawnedLayer;
@@ -69,8 +70,9 @@ public class TileFromNoise : MonoBehaviour
     Texture2D tileTexture = BuildTexture(heightMap);
     tileRenderer.material.mainTexture = tileTexture;
     for (int n = 0; n < buildingCycles; n++) {
-      if (distanceFromPlayer == tileSize * (buildingSpawnOffset + (n * 2))) GenerateStructures(heightMap, 1 + n);
+      if (distanceFromPlayer == tileSize * (buildingSpawnOffset + (n * 2))) GenerateStructures(1 + n);
     }
+    if (distanceFromPlayer < buildingSpawnOffset * tileSize) GenerateBonus();
     if (distanceFromPlayer == tileSize * targetSpawnOffset) GenerateTargets(heightMap);
   }
 
@@ -95,6 +97,7 @@ public class TileFromNoise : MonoBehaviour
       float distance = meshVertices[vertexIndex].x + transform.position.x;
 
       TerrainType[] terrainType = ChooseTerrainType(distance);
+      float terrainInterval = terrainType[1].distance - terrainType[0].distance;
       colorMap[colorIndex] = Color.Lerp(terrainType[0].color, terrainType[1].color, (distance % terrainInterval - (terrainInterval * 0.75f)) / (terrainInterval * 0.25f));
     }
     Texture2D tileTexture = new Texture2D(tileWidth, tileDepth);
@@ -127,12 +130,13 @@ public class TileFromNoise : MonoBehaviour
     if (meshCollider != null) meshCollider.sharedMesh = meshFilter.mesh;
   }
 
-  private void GenerateStructures(float[,] heightMap, float buildingScale) {
+  private void GenerateStructures(float buildingScale) {
     foreach (Transform child in transform) {
       Destroy(child.gameObject);
     }
     Vector3[] meshVertices = meshFilter.mesh.vertices;
     TerrainType[] options = ChooseTerrainType(transform.position.x);
+    float terrainInterval = options[1].distance - options[0].distance;
     for (int i = 0; i < Random.Range(buildingDensity, buildingDensity * 2); i++) {
       Vector3 vertex = meshVertices[Random.Range(0, meshVertices.Length)];
       Transform tmp = Instantiate(Random.value < ((transform.position.x % terrainInterval - (terrainInterval * 0.75f)) / (terrainInterval * 0.25f)) ? options[1].structureType : options[0].structureType, transform.position + vertex, Quaternion.identity, transform).transform;
@@ -152,6 +156,16 @@ public class TileFromNoise : MonoBehaviour
       if (Physics.OverlapBoxNonAlloc(instPos, targetPrefab.GetComponent<Renderer>().bounds.size / 2, collidersOverlapped, Quaternion.identity, targetSpawnMask) == 0) {
         Instantiate(targetPrefab, instPos, Quaternion.identity, transform);
       }
+    }
+  }
+
+  private void GenerateBonus() {
+    Vector3[] meshVertices = meshFilter.mesh.vertices;
+    TerrainType[] options = ChooseTerrainType(transform.position.x);
+        float terrainInterval = options[1].distance - options[0].distance;
+    for (int i = 0; i < Random.Range(bonusDensity, bonusDensity * 2); i++) {
+      Vector3 vertex = meshVertices[Random.Range(0, meshVertices.Length)];
+      Instantiate(Random.value < ((transform.position.x % terrainInterval - (terrainInterval * 0.75f)) / (terrainInterval * 0.25f)) ? options[1].groundDeco : options[0].groundDeco, transform.position + vertex, Random.rotation, transform);
     }
   }
 }
