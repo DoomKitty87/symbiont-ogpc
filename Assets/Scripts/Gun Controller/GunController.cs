@@ -28,12 +28,9 @@ public class GunController : MonoBehaviour
   private GameObject reloadtext;
   private GameObject leftleg, rightleg;
   private GameObject impactFX;
-  private GameObject explodeFX;
   private GameObject muzzleFlashFX;
   private GameObject fragmentFX;
   private GameObject magazine;
-  private ParticleSystem.MainModule main;
-  private ParticleSystem.ShapeModule sh;
   private CinemachineVirtualCamera vcam;
   private CinemachinePOV pov;
   private int rounds;
@@ -170,9 +167,6 @@ public class GunController : MonoBehaviour
     gunInitRot = gun.transform.localRotation;
     impactFX = gunMuzzle.GetChild(0).gameObject;
     fragmentFX = gunMuzzle.GetChild(1).gameObject;
-    explodeFX = gunMuzzle.GetChild(2).gameObject;
-    main = explodeFX.GetComponent<ParticleSystem>().main;
-    sh = explodeFX.GetComponent<ParticleSystem>().shape;
     muzzleFlashFX = gunMuzzle.GetChild(3).gameObject;
     shootSound = gunMuzzle.GetChild(4).gameObject.GetComponent<AudioSource>();
   }
@@ -281,13 +275,13 @@ public class GunController : MonoBehaviour
     pov.m_VerticalAxis.Value -= 20f * activeGun.upRecoil;
   }
 
+  // TODO: Move score logic to targets, turn ScoreManager into singleton?
   public void HitTarget(RaycastHit hit) {
     hit.collider.gameObject.GetComponent<HealthManager>().Damage(activeGun.shotDamage);
     if (hit.collider.gameObject.GetComponent<HealthManager>()._currentHealth >= 0) {
       return;
     }
     gameObject.GetComponent<ScoreTracker>().DestroyedTarget(hit.collider.gameObject);
-    StartCoroutine(ExplodeTarget(hit.collider.gameObject));
   }
 
   public void HitObject(RaycastHit hit) {
@@ -295,7 +289,6 @@ public class GunController : MonoBehaviour
     if (hit.collider.gameObject.GetComponent<HealthManager>()._currentHealth >= 0) {
       return;
     }
-    StartCoroutine(ExplodeTarget(hit.collider.gameObject));
   }
 
   //Animation for reloading the gun
@@ -359,33 +352,6 @@ public class GunController : MonoBehaviour
       timer += Time.deltaTime;
       yield return null;
     }
-  }
-
-  // Destroys target when hit, triggering particle effects
-  // NOTE: Gonna move this part to the target to handle -Matthew
-  private IEnumerator ExplodeTarget(GameObject target) {
-    float timer = 0f;
-    float explodeTime = 0.12f;
-    MeshRenderer targetMesh = target.GetComponent<MeshRenderer>();
-    Vector3 initScale = target.transform.localScale;
-    while (timer < explodeTime) {
-      target.transform.localScale = Vector3.Lerp(initScale, new Vector3(0, 0, 0), Mathf.SmoothStep(0f, 1f, timer / explodeTime));
-      timer += Time.deltaTime;
-      yield return null;
-    }
-    sh.mesh = target.GetComponent<MeshFilter>().mesh;
-    sh.scale = target.transform.localScale;
-    main.startSizeMultiplier = 0.25f;
-    explodeFX.transform.position = target.transform.position;
-    fragmentFX.transform.position = explodeFX.transform.position;
-    explodeFX.GetComponent<ParticleSystem>().Play();
-    fragmentFX.GetComponent<ParticleSystem>().Play();
-    GetComponent<ItemDrops>().RollForItem();
-    GameObject tmp = Instantiate(explosionAudioPrefab, target.transform.position, Quaternion.identity);
-    Destroy(target);
-    tmp.GetComponent<AudioSource>().Play();
-    yield return new WaitForSeconds(tmp.GetComponent<AudioSource>().clip.length);
-    Destroy(tmp);
   }
 
   //Recoil animation with only backwards recoil animated
