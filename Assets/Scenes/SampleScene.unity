@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1070,6 +1070,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 84568771}
+  - component: {fileID: 84568773}
+  - component: {fileID: 84568772}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1094,6 +1096,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &84568772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84568770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 989816e2138ab4239a47d687fb0caa35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _raycastOrigin: {fileID: 330585546}
+  _raycastDistance: 50
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  _hitDamage: 20
+  _fireDelay: 0.1
+  _debug: 0
+--- !u!114 &84568773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84568770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9833156f5ba043569ad740058cf14c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireInputAxis: Fire1
+  _OnFireInputDown:
+    m_PersistentCalls:
+      m_Calls: []
+  _OnFireInputHeld:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 84568772}
+        m_TargetAssemblyTypeName: FireRaycast, Assembly-CSharp
+        m_MethodName: Fire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _OnFireInputUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &86345614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29601,7 +29657,6 @@ GameObject:
   - component: {fileID: 330585551}
   - component: {fileID: 330585553}
   - component: {fileID: 330585554}
-  - component: {fileID: 330585559}
   - component: {fileID: 330585558}
   - component: {fileID: 330585557}
   - component: {fileID: 330585556}
@@ -29757,7 +29812,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bce1c74ba50f341789dc24594b875b89, type: 3}
   m_Name: 
@@ -29787,6 +29842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0d37a3dd2e9bf840aafc87029fbc019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreTracker: {fileID: 523089001}
   moveRate: 5
 --- !u!114 &330585553
 MonoBehaviour:
@@ -29928,22 +29984,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &330585559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cedec690c187677478c9830b3d220934, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboTime: 2
-  HUD: {fileID: 463293369}
-  WorldSpaceHUD: {fileID: 1476147846}
-  score: {fileID: 1845125702}
 --- !u!1001 &331002972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37806,6 +37846,7 @@ GameObject:
   - component: {fileID: 523088998}
   - component: {fileID: 523088997}
   - component: {fileID: 523089000}
+  - component: {fileID: 523089001}
   m_Layer: 0
   m_Name: Game Handler
   m_TagString: Handler
@@ -37892,6 +37933,22 @@ MonoBehaviour:
   - {fileID: 1298554193}
   - {fileID: 1298554193}
   isMainMenu: 0
+--- !u!114 &523089001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523088996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedec690c187677478c9830b3d220934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboTime: 2
+  HUD: {fileID: 463293369}
+  WorldSpaceHUD: {fileID: 1476147846}
+  score: {fileID: 1845125702}
 --- !u!1 &531659231
 GameObject:
   m_ObjectHideFlags: 0

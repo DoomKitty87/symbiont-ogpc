@@ -3,24 +3,27 @@ using UnityEngine;
 
 public class BounceEffect : MonoBehaviour
 {
+  [SerializeField][Range(0, 2)] private float _bounceScaleMultiplier = 0.9f;
+  [SerializeField] private float _bounceDurationSeconds = 0.075f;
+  [SerializeField] private float _reboundDurationSeconds = 0.1f;
   public void StartEffect() {
     StopCoroutine(Bounce());
     StartCoroutine(Bounce());
   }
   private IEnumerator Bounce() {
-    Vector3 init = transform.localScale;
+    Vector3 initScale = transform.localScale;
     float timer = 0f;
-    while (timer < 0.075f) {
-      transform.localScale = Vector3.Lerp(init, init * 0.9f, timer / 0.075f);
+    while (timer < _bounceDurationSeconds) {
+      transform.localScale = Vector3.Lerp(initScale, initScale * _bounceScaleMultiplier, timer / _bounceDurationSeconds);
       timer += Time.deltaTime;
       yield return null;
     }
     timer = 0f;
-    while (timer < 0.1f) {
-      transform.localScale = Vector3.Lerp(init * 0.9f, init, timer / 0.1f);
+    while (timer < _reboundDurationSeconds) {
+      transform.localScale = Vector3.Lerp(initScale * _bounceScaleMultiplier, initScale, timer / _reboundDurationSeconds);
       timer += Time.deltaTime;
       yield return null;
     }
-    transform.localScale = init;
+    transform.localScale = initScale;
   }
 }

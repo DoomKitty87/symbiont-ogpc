@@ -11,6 +11,8 @@ public class FireInput : MonoBehaviour
   // Maybe FireRaycast should have this as a dependancy and use C# Events instead of UnityEvents later on;
   // only if we see a major performance impact though.
 
+  // TODO: Update this to the new input system if neccessary
+
   [Header("Input Axis")]
   [SerializeField][Tooltip("Defaults to 'Fire1' if axis is empty or doesn't exist.")] private string _fireInputAxis;
   [Tooltip("Fires on the first frame FireInputAxis is 1.")] public UnityEvent _OnFireInputDown;

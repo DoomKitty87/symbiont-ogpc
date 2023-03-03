@@ -8,7 +8,6 @@ using Cinemachine;
 
 public class ScoreTracker : MonoBehaviour
 {
-
   [SerializeField] private float comboTime;
   [SerializeField] private GameObject HUD;
   [SerializeField] private GameObject WorldSpaceHUD;
@@ -107,18 +106,7 @@ public class ScoreTracker : MonoBehaviour
     combo.gameObject.transform.localScale = initScale;
     combo.color = Color.clear;
   }
-
-  //Used to communicate that a target was destroyed
-  public void DestroyedTarget(GameObject target) {
-    PointsValue pointsContainer = target.GetComponent<PointsValue>();
-    float basePoints;
-    if (pointsContainer == null) {
-      basePoints = 0;
-      Debug.LogError("ScoreTracker: Cannot get PointsValue of DestroyedTarget!");
-    }
-    else {
-      basePoints = pointsContainer._pointsWorth;
-    }
+  public void AddPoints(float basePoints) {
     if (comboLength > 0) {
       StopCoroutine("ScoreFX");
       StopCoroutine("FlashFX");

@@ -6,7 +6,7 @@ using Cinemachine;
 
 public class SubmitScores : MonoBehaviour
 {
-
+  [Header("This requires a GameObject with tag 'Handler' containing ScoreTracker")]
   private CinemachineTrackedDolly dolly;
   private LeaderboardConnect leaderboardConnectionManager;
   private LoginConnect accountConnectionManager;
@@ -37,7 +37,7 @@ public class SubmitScores : MonoBehaviour
       yield break;
     }
     print("made it past first break statement");
-    int score = (int)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScoreTracker>().GetPoints();
+    int score = (int)GameObject.FindGameObjectWithTag("Handler").GetComponent<ScoreTracker>().GetPoints();
     List<Score> scores = leaderboardConnectionManager.RetrieveScores();
     while (scores.Count == 0) {
       yield return new WaitForSeconds(0.05f);

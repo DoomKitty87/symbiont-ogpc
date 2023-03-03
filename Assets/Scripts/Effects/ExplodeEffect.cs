@@ -9,45 +9,65 @@ public class ExplodeEffect : MonoBehaviour
   // NOTE: Once this is finished, hook up to target HealthManager and remove code from gun controller to test;
   // will update SampleScene as well to finalize
 
-  private GameObject explodeFX;
-  private GameObject fragmentFX;
-  [SerializeField] private GameObject explosionAudioPrefab;
+  [Header("Particles")]
+  [SerializeField] private GameObject _explodeFXPrefab;
+  [SerializeField] private GameObject _fragmentFXPrefab;
+  [SerializeField] private GameObject _explosionAudioPrefab;
 
-  private ParticleSystem.MainModule main;
-  private ParticleSystem.ShapeModule sh;
+  [Header("Explosion Settings")]
+  [Tooltip("The amount of time it takes for this object to scale to (0, 0, 0) from its current scale")]
+  [SerializeField] private float _scalingDuration = 0.12f;
+  [SerializeField] private float _initialParticleSizeMultiplier = 0.25f;
   
   public UnityEvent _OnEffectComplete;
 
   private void Start()
   {
-    main = explodeFX.GetComponent<ParticleSystem>().main;
-    sh = explodeFX.GetComponent<ParticleSystem>().shape;
+    if (_explodeFXPrefab == null) {
+      Debug.LogError("ExpldoeEffect: ExplodeFX Particle Prefab is null!");
+    }
+    if (_explodeFXPrefab.TryGetComponent<ParticleSystem>(out _) == false) {
+      Debug.LogError("ExplodeEffect: ExplodeFX Particle Prefab doesn't contain a particle system!");
+    }
+    if (_fragmentFXPrefab.TryGetComponent<ParticleSystem>(out _) == false) {
+      Debug.LogError("ExplodeEffect: FragmentFX Particle Prefab doesn't contain a particle system!");
+    }
   }
   public void StartEffect() {
     StartCoroutine(ExplodeTarget());
   }
   private IEnumerator ExplodeTarget() {
     float timer = 0f;
-    float explodeTime = 0.12f;
     MeshRenderer targetMesh = gameObject.GetComponent<MeshRenderer>();
-    Vector3 initScale = gameObject.transform.localScale;
-    while (timer < explodeTime) {
-      gameObject.transform.localScale = Vector3.Lerp(initScale, new Vector3(0, 0, 0), Mathf.SmoothStep(0f, 1f, timer / explodeTime));
+    Vector3 initScale = transform.localScale;
+    while (timer < _scalingDuration) {
+      transform.localScale = Vector3.Lerp(initScale, new Vector3(0, 0, 0), Mathf.SmoothStep(0f, 1f, timer / _scalingDuration));
       timer += Time.deltaTime;
       yield return null;
     }
-    sh.mesh = gameObject.GetComponent<MeshFilter>().mesh;
-    sh.scale = transform.localScale;
-    main.startSizeMultiplier = 0.25f;
-    explodeFX.transform.position = transform.position;
-    fragmentFX.transform.position = explodeFX.transform.position;
-    explodeFX.GetComponent<ParticleSystem>().Play();
-    fragmentFX.GetComponent<ParticleSystem>().Play();
-    GetComponent<ItemDrops>().RollForItem();
-    GameObject tmp = Instantiate(explosionAudioPrefab, transform.position, Quaternion.identity);
+    transform.localScale = Vector3.zero;
+    GameObject explodeFXInstance = Instantiate(_explodeFXPrefab, transform.position, Quaternion.identity);
+    GameObject fragmentFXInstance = Instantiate(_fragmentFXPrefab, transform.position, Quaternion.identity);
+    ParticleSystem explodeFX = explodeFXInstance.GetComponent<ParticleSystem>();
+    ParticleSystem fragmentFX = fragmentFXInstance.GetComponent<ParticleSystem>();
+
+    // Apparently the properties inside the modules are only settable through a specific class,
+    // and not from the top level ParticleSystem class, so we have to create them here.
+    ParticleSystem.MainModule explodeFXMain = explodeFX.main;
+    ParticleSystem.ShapeModule explodeFXShape = explodeFX.shape;
+
+    explodeFXMain.startSizeMultiplier = _initialParticleSizeMultiplier;
+    explodeFXShape.mesh = gameObject.GetComponent<MeshFilter>().mesh;
+    explodeFXShape.scale = transform.localScale;
+    explodeFX.Play();
+    fragmentFX.Play();
+    GameObject audioPrefabInstance = Instantiate(_explosionAudioPrefab, transform.position, Quaternion.identity);
+    AudioSource prefabAudioSource = audioPrefabInstance.GetComponent<AudioSource>();
+    prefabAudioSource.Play();
+    yield return new WaitForSeconds(prefabAudioSource.clip.length);
+    Destroy(explodeFXInstance);
+    Destroy(fragmentFXInstance);
+    Destroy(audioPrefabInstance);
     Destroy(gameObject);
-    tmp.GetComponent<AudioSource>().Play();
-    yield return new WaitForSeconds(tmp.GetComponent<AudioSource>().clip.length);
-    Destroy(tmp);
   }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class X5_57Controller : MonoBehaviour
 {
-
+  // TODO: Convert all modes to enum type: strings are just bad
   public BotData botData = new BotData();
   public GameObject player;
   public float currentHealthTankAmount;
@@ -241,7 +241,6 @@ public class X5_57Controller : MonoBehaviour
     if (hit.GetComponent<HealthManager>()._currentHealth >= 0) {
       return;
     }
-    player.GetComponent<ScoreTracker>().DestroyedTarget(hit);
     StartCoroutine(ExplodeTarget(hit));
     focusedTarget = null;
     beingDestroyed = hit;

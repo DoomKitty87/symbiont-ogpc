@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: -633552271103062825}
   - component: {fileID: 7675844634763816471}
   - component: {fileID: -271787765059890211}
-  - component: {fileID: 6896330749266610456}
+  - component: {fileID: -9082125915097191779}
+  - component: {fileID: -5235697239209369428}
   m_Layer: 0
   m_Name: Target2Shoot
   m_TagString: Target
@@ -131,14 +132,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c94c67d5b10dc44f90770e873f2eb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 0
+  _currentHealth: 10
   _maxHealth: 10
   _onHealthInitialize:
     m_PersistentCalls:
       m_Calls: []
   _onHealthZero:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -9082125915097191779}
+        m_TargetAssemblyTypeName: ExplodeEffect, Assembly-CSharp
+        m_MethodName: StartEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -5235697239209369428}
+        m_TargetAssemblyTypeName: BroadcastScore, Assembly-CSharp
+        m_MethodName: BroadcastPoints
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onHealthChanged:
     m_PersistentCalls:
       m_Calls:
@@ -166,7 +191,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d03bb19daf30949990b5528e405299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6896330749266610456
+  _bounceScaleMultiplier: 0.9
+  _bounceDurationSeconds: 0.075
+  _reboundDurationSeconds: 0.1
+--- !u!114 &-9082125915097191779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,7 +203,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 8633186636979683072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b4aec4b7a75b444c84a024d18256270, type: 3}
+  m_Script: {fileID: 11500000, guid: 34da193ccd7a1cc478fe4d381bee079c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsWorth: 200
+  _explodeFXPrefab: {fileID: 7057248364003944643, guid: 87745f43d4dff184bac8105ae91f39cc,
+    type: 3}
+  _fragmentFXPrefab: {fileID: 2232450012909524900, guid: ea74d1da1559c054bae768a477a7e9e7,
+    type: 3}
+  _explosionAudioPrefab: {fileID: 8462855681465125567, guid: 5335dd00ed0ad47e288fd6d4afa9b022,
+    type: 3}
+  _scalingDuration: 0.12
+  _initialParticleSizeMultiplier: 0.25
+  _OnEffectComplete:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-5235697239209369428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8633186636979683072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18769f119d8b6934e96b63a94a2bb9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointsWorth: 300

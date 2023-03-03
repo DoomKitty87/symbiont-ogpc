@@ -13,7 +13,7 @@ public class HealthManager : MonoBehaviour
   [SerializeField] public float _maxHealth;
   [Tooltip("OnHealthInitialize(_maxHealth)")] public OnHealthInitializeEvent _onHealthInitialize;
   [Tooltip("OnHealthZero()")] public UnityEvent _onHealthZero;
-  [Tooltip("OnHealthChanged(healthBeforeDamage, _currentHealth, _maxHealth)")] public OnHealthChangedEvent _onHealthChanged;
+  [Tooltip("OnHealthChanged(healthBeforeDamage, _currentHealth, _maxHealth) Doesn't fire when health changes to a value below zero.")] public OnHealthChangedEvent _onHealthChanged;
 
   // Start is called before the first frame update
   void Start() {
@@ -23,9 +23,6 @@ public class HealthManager : MonoBehaviour
   public void Damage(float damagePoints) {
     if (_currentHealth - damagePoints <= 0) {
       _onHealthZero?.Invoke();
-      float initialHealth = _currentHealth;
-      _currentHealth -= damagePoints;
-      _onHealthChanged?.Invoke(initialHealth, _currentHealth, _maxHealth);
       this.enabled = false;
     }
     else {
