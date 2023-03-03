@@ -13,6 +13,6 @@ public class MenuScreenAnimations : MonoBehaviour
     }
 
     public void ChangeScene(string targetScene) {
-        // targetScene = GameObject.FindWithTag("Handler").GetComponent<ButtonScript>().
+        targetScene = GameObject.FindWithTag("Handler").GetComponent<ButtonScript>().
     }
 }

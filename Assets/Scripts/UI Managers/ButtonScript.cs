@@ -1,21 +1,21 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour
 {
-  
-  //public GameObject[]
 
-  public GameObject pauseScreen;
-	public GameObject settingsScreen;
-
-  [SerializeField] private GameObject checkScreen;
-	[SerializeField] private GameObject controlsScreen;
-	[SerializeField] private GameObject audioScreen;
-  [SerializeField] private GameObject videoScreen;
-  [SerializeField] private GameObject gunList;
-  [SerializeField] private GameObject armorList;
+	// Really bad but only runs on startup
+	IDictionary<string, GameObject> menuScreens = new Dictionary<string, GameObject>() {
+		{ "pauseScreen", GameObject.Find("Pause Menu") },
+		{ "settingsScreen", GameObject.Find("Settings Menu") },
+		{ "checkScreen", GameObject.Find("Check Menu") },
+		{ "controlsScreen", GameObject.Find("Controls Menu") },
+		{ "audioScreen", GameObject.Find("Audio Menu") },
+		{ "videoScreen", GameObject.Find("Video Menu") },
+		{ "gunList", GameObject.Find("Gun Menu") },
+		{ "armorList", GameObject.Find("Armor Menu") }
+	};
 
 	private PauseHandler pauseHandler;
 
@@ -24,7 +24,7 @@ public class ButtonScript : MonoBehaviour
 
 	private void Awake() {
 		pauseHandler = GetComponent<PauseHandler>();
-		currentActiveElement = pauseScreen;
+		currentActiveElement = menuScreens["pauseScreen"];
 	}
 
 	// --------------------------------
