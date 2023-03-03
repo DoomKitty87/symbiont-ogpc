@@ -12,7 +12,7 @@ public class MissileBehavior : MonoBehaviour
   private Rigidbody _rigidBody;
   void Start() {
     // We gotta find a better way to do this 
-    _playerTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
+    _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     _rigidBody = gameObject.GetComponent<Rigidbody>();
     if (_playerTransform == null){
       Debug.LogError("MissileBehavior: Player Transform is null!");
@@ -35,7 +35,7 @@ public class MissileBehavior : MonoBehaviour
     if (!collider.gameObject.CompareTag("Player")) {
       return;
     }
-    collider.transform.parent.gameObject.GetComponent<HealthManager>().Damage(_damage);
+    collider.gameObject.GetComponent<HealthManager>().Damage(_damage);
     SpawnParticleEffects();
     Destroy(this.gameObject);
   }

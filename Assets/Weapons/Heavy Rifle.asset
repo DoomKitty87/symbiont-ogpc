@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51dfbe5df0024eb41b8dea943b82e833, type: 3}
+  m_Name: Heavy Rifle
+  m_EditorClassIdentifier: 
+  name: Heavy Rifle
+  id: 2
+  gunPrefab: {fileID: 0}
+  gunOffset: {x: 0, y: 0, z: 0}
+  manufacturer: Krieslauf AG
+  modelName: OHM100
+  nickName: Resistor
+  fireRate: 0.5
+  shotDamage: 7
+  magSize: 8
+  reloadTime: 2
+  upRecoil: 0.05
+  backRecoil: 0.25
+  recoilRecovery: 0.4
+  shotSpread: 2.5
+  upRecoilAnim: 0
+  shotColor: 1
