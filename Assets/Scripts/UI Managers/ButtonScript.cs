@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour
 {
   
+  public GameObject[]
+
   public GameObject pauseScreen;
 	public GameObject settingsScreen;
 
@@ -19,7 +21,8 @@ public class ButtonScript : MonoBehaviour
 
   [HideInInspector] public GameObject currentActiveElement;
 
-	private void Start() {
+
+	private void Awake() {
 		pauseHandler = GetComponent<PauseHandler>();
 		currentActiveElement = pauseScreen;
 	}
@@ -29,7 +32,7 @@ public class ButtonScript : MonoBehaviour
 	// --------------------------------
 
   public void start_PLAY() {
-    StartCoroutine(ChangeScene("MainMenu"));
+    // StartCoroutine(ChangeScene("MainMenu"));
   }
 
   public void start_SETTINGS() {
@@ -66,7 +69,7 @@ public class ButtonScript : MonoBehaviour
   // }
 
   public void menu_QUIT() {
-		StartCoroutine(ChangeScene("StartMenu"));
+		// StartCoroutine(ChangeScene("StartMenu"));
   }
 
 	// --------------------------------
@@ -79,7 +82,7 @@ public class ButtonScript : MonoBehaviour
 
 	public void game_RESTART(string currentScene) {
 		pauseHandler.UnPause();
-		StartCoroutine(ChangeScene(currentScene));
+		// StartCoroutine(ChangeScene(currentScene));
 	}
 
 	public void game_LOAD() {
@@ -92,7 +95,7 @@ public class ButtonScript : MonoBehaviour
 
 	public void game_QUIT() {
     Time.timeScale = 1.0f;
-		StartCoroutine(ChangeScene("MainMenu"));
+		// StartCoroutine(ChangeScene("MainMenu"));
 	}
 
 	// --------------------------------
@@ -126,10 +129,11 @@ public class ButtonScript : MonoBehaviour
     ChangeActiveSettingsElement(settingsScreen);
   }
 
-  IEnumerator ChangeScene(string targetScene) {
+  /* IEnumerator ChangeScene(string targetScene) {
     yield return new WaitForSeconds(0.1f);
 		SceneManager.LoadScene(targetScene);
 	}
+  */
 
   public void ResetScreen() {
     currentActiveElement.SetActive(false);
