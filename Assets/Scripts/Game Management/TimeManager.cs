@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-
+  // TODO: Will update this to include minutes per in game day, maybe representation of in game time? 
   private float dayProgression;
 
   [SerializeField] private Transform skyAxis;
