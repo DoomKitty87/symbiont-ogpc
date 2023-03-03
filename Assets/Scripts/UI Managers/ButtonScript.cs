@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour
 {
   
-  public GameObject[]
+  //public GameObject[]
 
   public GameObject pauseScreen;
 	public GameObject settingsScreen;
