@@ -48,6 +48,7 @@ public class GunListMenu : MonoBehaviour
 		gunHolder.transform.GetChild(locationInList).gameObject.SetActive(true);
 		GunData gun = new GunData(gunNames[locationInList]);
 		PopulateGunDataIndicators(gun);
+		OnChooseGun();
 	}
 
 	public void OnClickRight() {
@@ -60,14 +61,10 @@ public class GunListMenu : MonoBehaviour
 		gunHolder.transform.GetChild(locationInList).gameObject.SetActive(true);
 		GunData gun = new GunData(gunNames[locationInList]);
 		PopulateGunDataIndicators(gun);
+		OnChooseGun();
 	}
 
-	public void OnClickReady() {
-		SceneManager.LoadScene("SampleScene");
-    PopulateAttachments();
-	}
-
-	public void OnChooseGun() {
+	private void OnChooseGun() {
 		chosenGun = gunNames[locationInList];
 		
 		GameObject.FindGameObjectWithTag("Data").GetComponent<PersistentData>().selectedPrimary = new GunData(gunNames[locationInList]);

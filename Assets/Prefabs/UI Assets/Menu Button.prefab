@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7227854701743637171}
   - component: {fileID: 4941766735226954269}
   - component: {fileID: 4029111257085744407}
+  - component: {fileID: 1503579429248389316}
   m_Layer: 5
   m_Name: Menu Button
   m_TagString: Untagged
@@ -199,6 +200,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentObject: {fileID: 0}
+--- !u!114 &1503579429248389316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057665050356223937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88b10a61ddac4723a0da38ec0bd7463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentActiveElement: {fileID: 0}
 --- !u!1 &8913622544490280530
 GameObject:
   m_ObjectHideFlags: 0
