@@ -22,7 +22,7 @@ public class PlayerSettings : MonoBehaviour
 		GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = PlayerPrefs.GetFloat("controls_SENSITIVITY") * 4000;
 
 		foreach (AudioSource audio in audioSource) {
-			audio.volume = PlayerPrefs.GetFloat("audio_MASTER") * PlayerPrefs.GetFloat("audio_EFFECTS");
+			// audio.volume = PlayerPrefs.GetFloat("audio_MASTER") * PlayerPrefs.GetFloat("audio_EFFECTS");
 		}
 
 		Screen.brightness = (float)(PlayerPrefs.GetFloat("video_BRIGHTNESS") * 1.5);
