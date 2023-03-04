@@ -51,7 +51,7 @@ public class ButtonScript : MonoBehaviour
 				return list[i];
 			}
 		}
-		Debug.LogError("Unable to find GameObject " + name);
+		// Debug.LogError("Unable to find GameObject " + name);
 		return null;
 	}
 }
