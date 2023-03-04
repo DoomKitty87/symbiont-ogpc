@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(WeaponInventory))]
 public class FireRaycast : MonoBehaviour
 {
+  // NOTE: This can also be used by Enemy AI scripts to fire at the player.
+  // Just call the Fire() function from the EnemyAI script.
+  
+  
   // TODO: Find a way to configure which event Fire() uses in FireInput.cs
   // EX: Pistols will want to use FireInput.OnFireInputDown because of semi-auto,
   // but Rifles will need OnFireInputHeld.
