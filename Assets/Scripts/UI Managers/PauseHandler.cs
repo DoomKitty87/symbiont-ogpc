@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PauseHandler : MonoBehaviour 
 {
-
+/*
 	[SerializeField] private GameObject[] objectsToBeShown;
 	[SerializeField] private GameObject[] objectsToBeHidden;
 
@@ -50,4 +50,5 @@ public class PauseHandler : MonoBehaviour
 		else if (buttonScript.currentActiveElement == buttonScript.settingsScreen) buttonScript.settings_BACK();
 		else buttonScript.default_BACK();
 	}
+	*/
 }

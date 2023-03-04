@@ -6,27 +6,40 @@ public class ButtonScript : MonoBehaviour
 {
 
 	// Really bad but only runs on startup
-	IDictionary<string, GameObject> menuScreens = new Dictionary<string, GameObject>() {
-		{ "pauseScreen", GameObject.Find("Pause Menu") },
-		{ "settingsScreen", GameObject.Find("Settings Menu") },
-		{ "checkScreen", GameObject.Find("Check Menu") },
-		{ "controlsScreen", GameObject.Find("Controls Menu") },
-		{ "audioScreen", GameObject.Find("Audio Menu") },
-		{ "videoScreen", GameObject.Find("Video Menu") },
-		{ "gunList", GameObject.Find("Gun Menu") },
-		{ "armorList", GameObject.Find("Armor Menu") }
-	};
+	IDictionary<string, GameObject> menuScreens;
+
+	[HideInInspector] public GameObject currentActiveElement;
 
 	private PauseHandler pauseHandler;
-
-  [HideInInspector] public GameObject currentActiveElement;
-
+	private MenuScreenAnimations menuScreenAnimations;
 
 	private void Awake() {
+
+		menuScreens = new Dictionary<string, GameObject>() {
+			{ "pauseScreen", GameObject.Find("Pause Menu") },
+			{ "settingsScreen", GameObject.Find("Settings Menu") },
+			{ "checkScreen", GameObject.Find("Check Menu") },
+			{ "controlsScreen", GameObject.Find("Controls Menu") },
+			{ "audioScreen", GameObject.Find("Audio Menu") },
+			{ "videoScreen", GameObject.Find("Video Menu") },
+			{ "gunList", GameObject.Find("Gun Menu") },
+			{ "armorList", GameObject.Find("Armor Menu") }
+		};
+
 		pauseHandler = GetComponent<PauseHandler>();
 		currentActiveElement = menuScreens["pauseScreen"];
+		menuScreenAnimations = GetComponent<MenuScreenAnimations>();
 	}
 
+	public void buttonChangeMenuScreen(string targetScreen){
+		StartCoroutine(menuScreenAnimations.ChangeMenuScreen(menuScreens[targetScreen]));
+	}
+
+	public void buttonChangeScene(string targetScene) {
+		StartCoroutine(menuScreenAnimations.ChangeScreen(targetScene));
+	}
+
+/*
 	// --------------------------------
 	// Start Button Scripts
 	// --------------------------------
@@ -129,11 +142,11 @@ public class ButtonScript : MonoBehaviour
     ChangeActiveSettingsElement(settingsScreen);
   }
 
-  /* IEnumerator ChangeScene(string targetScene) {
+   IEnumerator ChangeScene(string targetScene) {
     yield return new WaitForSeconds(0.1f);
 		SceneManager.LoadScene(targetScene);
 	}
-  */
+  
 
   public void ResetScreen() {
     currentActiveElement.SetActive(false);
@@ -147,4 +160,5 @@ public class ButtonScript : MonoBehaviour
     currentActiveElement = targetElement;
     currentActiveElement.SetActive(true);
   }
+*/
 }

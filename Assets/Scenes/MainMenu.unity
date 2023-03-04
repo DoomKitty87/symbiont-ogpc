@@ -1925,12 +1925,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170960938}
   m_CullTransparentMesh: 1
---- !u!1 &174126215 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4986050071088754314, guid: 6d9b067c5a9204cfaa28900baa18c51a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1551630804}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &174126216 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4986050071088754325, guid: 6d9b067c5a9204cfaa28900baa18c51a,
@@ -5399,12 +5393,6 @@ MonoBehaviour:
   - {fileID: 784369070}
   chosenGun: 
   statNums: []
---- !u!1 &633460588 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6125622990704435615, guid: 5558191a273c64177b1a3ac8348cd3d0,
-    type: 3}
-  m_PrefabInstance: {fileID: 8621458342047096308}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &633460589 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1446133283590809802, guid: 5558191a273c64177b1a3ac8348cd3d0,
@@ -8700,7 +8688,7 @@ GameObject:
   - component: {fileID: 1126586037}
   - component: {fileID: 1126586038}
   m_Layer: 5
-  m_Name: Gun List
+  m_Name: Gun Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13859,12 +13847,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f7a4e1d94b2f7642b119692c1111b51, type: 3}
---- !u!1 &1627592761 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2229918517224300309, guid: 120ccc88e53a84d7d95402a601cdbc10,
-    type: 3}
-  m_PrefabInstance: {fileID: 72310508}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1627592762 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2229918517224300298, guid: 120ccc88e53a84d7d95402a601cdbc10,
@@ -15930,12 +15912,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804582894}
   m_CullTransparentMesh: 1
---- !u!1 &1805777168 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2355289181996297604, guid: 0a5c8d540523047cba0297bf1fa3fbb6,
-    type: 3}
-  m_PrefabInstance: {fileID: 715786914586736283}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1805777169 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7684705043603510224, guid: 0a5c8d540523047cba0297bf1fa3fbb6,
@@ -16893,14 +16869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88b10a61ddac4723a0da38ec0bd7463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseScreen: {fileID: 966289172}
-  settingsScreen: {fileID: 1627592761}
-  checkScreen: {fileID: 414951888}
-  controlsScreen: {fileID: 633460588}
-  audioScreen: {fileID: 174126215}
-  videoScreen: {fileID: 1805777168}
-  gunList: {fileID: 1126586036}
-  armorList: {fileID: 0}
   currentActiveElement: {fileID: 0}
 --- !u!4 &2093709329
 Transform:

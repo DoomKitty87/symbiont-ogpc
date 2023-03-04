@@ -205,7 +205,7 @@ public class GunController : MonoBehaviour
       Reload();
       return false;
     }
-    else if (Time.time > canFireTime && reloading == false && gameHandler.GetComponent<PauseHandler>().isPaused == false) return true;
+    //else if (Time.time > canFireTime && reloading == false && gameHandler.GetComponent<PauseHandler>().isPaused == false) return true;
     else return false;
   }
 
