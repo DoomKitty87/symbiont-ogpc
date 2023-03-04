@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour
 {
 
-	IDictionary<string, GameObject> menuScreens;
+	public IDictionary<string, GameObject> menuScreens;
 
 	[HideInInspector] public GameObject currentActiveElement;
 
@@ -26,17 +26,24 @@ public class ButtonScript : MonoBehaviour
 			{ "Armor Menu", FindObjectOfName("Armor Menu") }
 		};
 
-		// pauseHandler = GetComponent<PauseHandler>();
-		currentActiveElement = menuScreens["Pause Menu"];
 		menuScreenAnimations = GetComponent<MenuScreenAnimations>();
-		if (menuScreens["Settings Menu"] == null) {
-			Debug.Log("Error");
-		}
+	}
+
+	public void ButtonHideScreen() {
+		currentActiveElement = null;
+		StartCoroutine(menuScreenAnimations.ChangeMenuScreen(null));
 	}
 
 	public void ButtonChangeMenuScreen(string targetScreen){
-		StartCoroutine(menuScreenAnimations.ChangeMenuScreen(menuScreens[targetScreen]));
-		currentActiveElement = menuScreens[targetScreen];
+		Debug.Log(menuScreenAnimations);
+		if (targetScreen == "") {
+			GameObject.FindWithTag("Handler").GetComponent<PauseHandler>().UnPause();
+		} else {
+			Debug.Log(targetScreen);
+			Debug.Log(menuScreens[targetScreen]);
+			StartCoroutine(menuScreenAnimations.ChangeMenuScreen(menuScreens[targetScreen]));
+			currentActiveElement = menuScreens[targetScreen];
+		}
 	}
 
 	public void ButtonChangeScene(string targetScene) {

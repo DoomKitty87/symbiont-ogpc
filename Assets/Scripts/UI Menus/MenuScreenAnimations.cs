@@ -19,19 +19,28 @@ public class MenuScreenAnimations : MonoBehaviour
 
   // At some point I'll learn animation events but for now this is fine
 	public IEnumerator ChangeMenuScreen(GameObject targetScene) {
-    animator.SetBool("closing", true);  
 
-    float timeToWait = 0.5f;
-    yield return new WaitForSeconds(timeToWait);
-    targetScene.SetActive(true);
-    parentObject.SetActive(false);
-  }
+    if (targetScene == null) {
+      parentObject.SetActive(false);
+      Debug.Log("Not Done");
+    } else {
+
+      animator.SetBool("closing", true);
+
+      float timeToWait = 0.5f;
+      yield return new WaitForSecondsRealtime(timeToWait);
+      targetScene.SetActive(true);
+      parentObject.SetActive(false);
+      Debug.Log("Done");
+    }
+   }
 
   public IEnumerator ChangeScene(string targetScreen) {
 		animator.SetBool("closing", true);
     float timeToWait = 0.5f;
-    yield return new WaitForSeconds(timeToWait);
+    yield return new WaitForSecondsRealtime(timeToWait);
 
+    Time.timeScale = 1f;
     SceneManager.LoadScene(targetScreen);
   }
 }
