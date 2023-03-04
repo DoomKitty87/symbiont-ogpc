@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class LevelManager : MonoBehaviour
 { 
-  [Header("This (without assignment) requires a GameObject with" + "\n" + "tag 'Handler' containing ScoreTracker")]
+  [Header("This (without assignment) requires a GameObject with" + "\n" + "tag 'Handler' containing ScoreTracker" + "\n\n" + "It also requires a GameObject with the tag 'VCam' with the" + "\n" + "Cinemachine Virtual Camera and the Cinemachine Tracked Dolly" + "\n")]
   [SerializeField] private ScoreTracker _scoreTracker;
   [SerializeField] public float moveRate;
   
