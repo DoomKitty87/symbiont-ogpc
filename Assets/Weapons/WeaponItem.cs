@@ -16,8 +16,8 @@ public class WeaponItem : ScriptableObject
   public string modelName;
   public string nickName;
   [Header("Stats")]
-  public float fireRate;
   public float shotDamage;
+  public float fireRate;
   public int magSize;
   public float reloadTime;
   [Header("Recoil")]
