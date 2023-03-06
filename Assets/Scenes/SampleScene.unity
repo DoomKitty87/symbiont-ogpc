@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1166,6 +1166,22 @@ MonoBehaviour:
   _OnFireInputUp:
     m_PersistentCalls:
       m_Calls: []
+  _reloadInputAxis: Reload
+  _OnReloadInputDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 84568780}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: Reload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &84568774
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1356,10 +1372,11 @@ MonoBehaviour:
     m_Bits: 2147483647
   _hitDamage: 20
   _fireDelay: 0.1
+  _shotSpread: 0.02
   _currentAmmo: 0
   _magSize: 30
   _reloadTime: 1
-  _debug: 0
+  _debug: 1
   _OnFire:
     m_PersistentCalls:
       m_Calls: []
@@ -89754,7 +89771,7 @@ PrefabInstance:
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.0999756
+      value: -1.1000977
       objectReference: {fileID: 0}
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -91289,7 +91306,7 @@ PrefabInstance:
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.0999756
+      value: -1.1000977
       objectReference: {fileID: 0}
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -92133,7 +92150,7 @@ PrefabInstance:
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.0999756
+      value: -1.1000977
       objectReference: {fileID: 0}
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -98190,7 +98207,7 @@ PrefabInstance:
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.0999756
+      value: -1.1000977
       objectReference: {fileID: 0}
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -98722,12 +98739,12 @@ PrefabInstance:
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.0999756
+      value: -1.1000977
       objectReference: {fileID: 0}
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -861.5447
+      value: -861.54443
       objectReference: {fileID: 0}
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -99637,7 +99654,7 @@ PrefabInstance:
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.0999756
+      value: -1.1000977
       objectReference: {fileID: 0}
     - target: {fileID: 3255641360697734351, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
