@@ -44,7 +44,7 @@ public class GunData
         nickName = "Liberator";
         fireRate = 0.125f;
         upRecoil = 0.05f;
-        backRecoil = 0.09f;
+        backRecoil = 0.09f; // For GunController anim
         recoilRecovery = 0.5f;
         shotSpread = 5f;
         reloadTime = 1.5f;

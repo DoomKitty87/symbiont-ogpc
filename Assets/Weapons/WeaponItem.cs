@@ -27,6 +27,6 @@ public class WeaponItem : ScriptableObject
   public float shotSpread;
   [Header("Effects")]
   public bool upRecoilAnim;
-  public int shotColor;
+  [ColorUsage(true, true)] public Color shotColor;
   [SerializeField] public List<Attachment> attachments;
 }
