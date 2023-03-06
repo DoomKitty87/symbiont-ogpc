@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class FireGunLogic : MonoBehaviour
 {
   // NOTE: This can also be used by Enemy AI scripts to fire at the player.
@@ -22,7 +23,8 @@ public class FireGunLogic : MonoBehaviour
   
   [Header("Debug")]
   [SerializeField] private bool _debug;
-
+  
+  [Header("Events")]
   public UnityEvent _OnFire;
   public UnityEvent _OnReloadStart;
   public UnityEvent _OnReloadEnd;

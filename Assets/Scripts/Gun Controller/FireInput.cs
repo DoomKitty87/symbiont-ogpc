@@ -4,20 +4,22 @@ using UnityEngine;
 using UnityEngine.Events;
 public class FireInput : MonoBehaviour
 {
-  // NOTE: This is seperated out from FireRaycast because of the different inputs possible with just the
-  // input axis. Eventually, FireRaycast will be able to use these to change the input style of different
-  // weapons.
-
-  // Maybe FireRaycast should have this as a dependancy and use C# Events instead of UnityEvents later on;
-  // only if we see a major performance impact though.
-
   // TODO: Update this to the new input system if neccessary (not at the moment)
 
   [Header("Input Axis")]
   [SerializeField][Tooltip("Defaults to 'Fire1' if axis is empty or doesn't exist.")] private string _fireInputAxis;
+
+  // These are UnityEvents so that if we need to add more scripts that run off input 
+  // they don't have to be explicitly referenced in here.
+
+  // It's better because if a script thats directly referenced fails, all the other scripts don't
+  // function either, making debugging complex problems difficult.
+  // Plus, it's easier (and more time efficent) to scale; We need all the time we can get before the deadline
   [Tooltip("Fires on the first frame FireInputAxis is 1.")] public UnityEvent _OnFireInputDown;
   [Tooltip("Fires on every frame FireInputAxis is 1, except for the first frame.")] public UnityEvent _OnFireInputHeld;
   [Tooltip("Fires on the frame after the last frame FireInputAxis is 1.")] public UnityEvent _OnFireInputUp;
+
+
   private bool _hadInputLastFrame;
 
   private void Start() {
