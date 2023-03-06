@@ -22,7 +22,6 @@ public class MenuScreenAnimations : MonoBehaviour
 
     if (targetScene == null) {
       parentObject.SetActive(false);
-      Debug.Log("Not Done");
     } else {
 
       animator.SetBool("closing", true);
@@ -31,7 +30,6 @@ public class MenuScreenAnimations : MonoBehaviour
       yield return new WaitForSecondsRealtime(timeToWait);
       targetScene.SetActive(true);
       parentObject.SetActive(false);
-      Debug.Log("Done");
     }
    }
 
