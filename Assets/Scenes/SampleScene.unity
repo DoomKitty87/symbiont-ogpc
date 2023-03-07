@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1147,13 +1147,49 @@ MonoBehaviour:
   _fireInputAxis: Fire1
   _OnFireInputDown:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 84568780}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: FireSemiAuto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 84568780}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: FireBurst
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 84568780}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: ChargeWeapon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _OnFireInputHeld:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 84568780}
         m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
-        m_MethodName: Fire
+        m_MethodName: FireFullAuto
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1165,7 +1201,19 @@ MonoBehaviour:
         m_CallState: 2
   _OnFireInputUp:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 84568780}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: ReleaseCharge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _reloadInputAxis: Reload
   _OnReloadInputDown:
     m_PersistentCalls:
@@ -1370,12 +1418,21 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 2147483647
-  _hitDamage: 20
+  _weaponFireType: 1
+  _maxShotDamage: 5
   _fireDelay: 0.1
-  _shotSpread: 0.02
-  _currentAmmo: 0
+  _currentShotSpread: 0.1
+  _minShotSpread: 0
+  _maxShotSpread: 0.1
+  _spreadIncreasePerShot: 0.01
+  _shotSpreadRecovery: 0.05
+  _currentAmmo: 30
   _magSize: 30
   _reloadTime: 1
+  _shotsPerBurst: 3
+  _secondsBetweenBurstShots: 0.1
+  _minShotDamage: 0
+  _chargeTime: 0
   _debug: 1
   _OnFire:
     m_PersistentCalls:
@@ -1384,6 +1441,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _OnReloadEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  _OnChargeStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _OnChargeEnd:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &86345614

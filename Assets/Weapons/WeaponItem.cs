@@ -15,16 +15,34 @@ public class WeaponItem : ScriptableObject
   public string manufacturer;
   public string modelName;
   public string nickName;
-  [Header("Stats")]
-  public float shotDamage;
-  public float fireRate;
+  [Header("Type")]
+  public FireType fireType;
+  public enum FireType {
+    SemiAuto,
+    Burst,
+    FullAuto,
+    Charge,
+  }
+  [Header("Global Stats")]
+  public float maxShotDamage;
+  public float fireDelaySeconds;
   public int magSize;
-  public float reloadTime;
-  [Header("Recoil")]
-  public float upRecoil;
+  public float reloadTimeSeconds;
+  [Header("Vertical Recoil")]
+  public float verticalRecoilDegrees;
+  public float verticalRecoilRecovery;
   public float backRecoil;
-  public float recoilRecovery;
-  public float shotSpread;
+  [Header("Shot Spread")]
+  public float minShotSpreadDegrees;
+  public float maxShotSpreadDegrees;
+  public float shotSpreadFireInaccuracyDegrees;
+  public float shotSpreadRecovery;
+  [Header("Burst Stats")]
+  public int shotsPerBurst;
+  public float secondsBetweenBurstShots;
+  [Header("Charge Stats")]
+  public float minShotDamage;
+  public float chargeTimeSeconds;
   [Header("Effects")]
   public bool upRecoilAnim;
   [ColorUsage(true, true)] public Color shotColor;
