@@ -45,6 +45,7 @@ public class TileFromNoise : MonoBehaviour
   private float heightIncStart;
   private float heightIncEnd;
   private LayerMask targetSpawnMask;
+  private float[] offsets = {-0.5f, 0, 0.5f};
 
   void Awake() {
     targetSpawnMask = spawnedLayer | groundLayer;
@@ -150,8 +151,14 @@ public class TileFromNoise : MonoBehaviour
     if (targetCount < 1) targetCount = (Random.value <= targetCount) ? 1 : 0;
     for (int i = 0; i < targetCount; i++) {
       RaycastHit hit;
-      Physics.Raycast(transform.position + new Vector3(Random.Range(-tileSize / 2, tileSize / 2), 250, Random.Range(-tileSize / 2, tileSize / 2)), Vector3.down, out hit);
-      Vector3 instPos = hit.point + new Vector3(0, 5, 0);
+      Physics.Raycast(transform.position + new Vector3(tileSize * offsets[Random.Range(0, 2)], 250, tileSize * offsets[Random.Range(0, 2)]), Vector3.down, out hit);
+      Vector3 instPos;
+      instPos = new Vector3(hit.point.x, Mathf.Floor(hit.point.y / 5) * 5, hit.point.z);
+      if (instPos.y - hit.point.y < 7) {
+        while (instPos.y - hit.point.y < 7) {
+          instPos += new Vector3(0, 5, 0);
+        }
+      }
       Collider[] collidersOverlapped = new Collider[1];
       if (Physics.OverlapBoxNonAlloc(instPos, targetPrefab.GetComponent<Renderer>().bounds.size / 2, collidersOverlapped, Quaternion.identity, targetSpawnMask) == 0) {
         Instantiate(targetPrefab, instPos, Quaternion.identity, transform);
