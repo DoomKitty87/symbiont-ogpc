@@ -19,13 +19,21 @@ MonoBehaviour:
   manufacturer: PJSC Molnii Ruki
   modelName: TOK35
   nickName: Liberator
-  fireRate: 0.125
-  shotDamage: 2
+  fireType: 2
+  maxShotDamage: 10
+  fireDelaySeconds: 0.1
   magSize: 30
-  reloadTime: 1.5
-  upRecoil: 0.05
+  reloadTimeSeconds: 2
+  verticalRecoilDegrees: 1
+  verticalRecoilRecovery: 1
   backRecoil: 0.09
-  recoilRecovery: 0.5
-  shotSpread: 5
+  minShotSpreadDegrees: 0.1
+  maxShotSpreadDegrees: 0.3
+  shotSpreadFireInaccuracyDegrees: 0.08
+  shotSpreadRecovery: 0.1
+  shotsPerBurst: 0
+  secondsBetweenBurstShots: 0
+  minShotDamage: 0
+  chargeTimeSeconds: 0
   upRecoilAnim: 0
-  shotColor: 0
+  shotColor: {r: 0, g: 0, b: 0, a: 0}

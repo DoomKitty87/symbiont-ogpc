@@ -3,15 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// This class handles the actual Raycasting used to determine a hit
-// It also contains the logic for shot spread inaccuracy, reloading, and different fire types
-// It also has the function UpdateForNewValues, which can be called with a new WeaponItem to set the
-// values.
+// I really didn't want to, but the ==='s just make it so much easier to separate the sections of the script
+// out mentally for me, and for later reference for whoever decides to edit or change this. 
+// This is an annoyingly big script, and I wish I could have split it up into multiple files, but I really really 
+// don't want to spend the time to:
 
+// 1: figure out how to split them right now
+// 2: deal with the headache of having to make sure the files are in the right place
+// 3: deal with all the files referencing each other
+
+// So this is just going to be how it is.
+
+// ------------------------------
+
+// This class handles the actual Raycasting used to determine a hit, and it also contains 
+// the logic for shot spread inaccuracy, reloading, and the different fire types.
+
+// UpdateForNewValues can be called with a new WeaponItem to set different weapon values.
+
+// NOTE: This can also be used by Enemy AI scripts to fire at the player.
+// Just call the Fire() function from the EnemyAI script.
+
+public class OnFireEvent : UnityEvent<float> {}
 public class FireGunLogic : MonoBehaviour
 {
-  // NOTE: This can also be used by Enemy AI scripts to fire at the player.
-  // Just call the Fire() function from the EnemyAI script.
 
   [Header("Raycast Settings")]
   [SerializeField] private Transform _raycastOrigin;
@@ -20,6 +35,7 @@ public class FireGunLogic : MonoBehaviour
 
   [Header("Fire/Hit Settings")]
   [SerializeField] private WeaponItem.FireType _weaponFireType;
+  [SerializeField] private float _currentShotDamage;
   [SerializeField] private float _maxShotDamage;
   [SerializeField] private float _fireDelay;
 
@@ -43,23 +59,27 @@ public class FireGunLogic : MonoBehaviour
   [Header("Charge Settings")]
   [SerializeField] private float _minShotDamage;
   [SerializeField] private float _chargeTime;
-  private float _currentCharge;
-  private float _timeSinceChargeStart;
+
+  // from 0 to 1
+  private float _currentCharge; 
   private bool _isCharging = false;
   
   [Header("Debug")]
   [SerializeField] private bool _debug;
   
   [Header("Events")]
-  public UnityEvent _OnFire;
+  [Tooltip("Broadcasts OnFire(currentAmmo)")] public OnFireEvent _OnFire;
   public UnityEvent _OnReloadStart;
   public UnityEvent _OnReloadEnd;
+  
   [Header("Charge Events")]
   public UnityEvent _OnChargeStart;
   public UnityEvent _OnChargeEnd;
 
   private float _secondsSinceLastFire = 0;
   private bool _isReloading = false;
+
+  // ==================================================================================================
 
   void Start() {
     if (_raycastOrigin == null) {
@@ -68,16 +88,19 @@ public class FireGunLogic : MonoBehaviour
     if (_raycastDistance <= 0) {
       Debug.LogWarning("FireRaycast: FireDistance is less than or equal to 0. Is this intended?");
     }
+    _currentShotDamage = _maxShotDamage;
     _currentAmmo = _magSize;
     _currentShotSpread = _minShotSpread;
   }
 
+  // A little messy looking, but that's the price of having a lot of different fire types.
   public void UpdateForNewValues(WeaponItem weaponItem) {
     // Type
     _weaponFireType = weaponItem.fireType;
     
     // Global Stats
     _maxShotDamage = weaponItem.maxShotDamage;
+    _currentShotDamage = _maxShotDamage;
     _fireDelay = weaponItem.fireDelaySeconds;
     _magSize = weaponItem.magSize;
     _currentAmmo = _magSize;
@@ -106,19 +129,28 @@ public class FireGunLogic : MonoBehaviour
     _currentShotSpread = Mathf.Clamp(_currentShotSpread -= _shotSpreadRecovery * Time.deltaTime, _minShotSpread, _maxShotSpread);
   }
 
+  // ======================== Firing Functions ========================
+
+  // These end up calling Fire() after all the checks and modifiers.
+
   // When this script recieves OnInputDown, FireSemiAuto should fire, ChargeWeapon should fire, and FireBurst should fire
   // When this script recieves OnInputHeld, FireAuto should fire.
   // When this script recieves OnInputUp, ReleaseCharge should fire.
 
-  // ^ is so an EnemyAI script can call the right manager functions
+  // ^ is for reference so an EnemyAI script can call the right manager functions.
 
-  // Firing Manager Methods
+  // Again, if you're annoyed by the ---'s and ==='s, refer to line 6.
+
   public void FireSemiAuto() {
     if (_weaponFireType != WeaponItem.FireType.SemiAuto) return;
     if (!(HasAmmo() && CanFire())) return;
     _secondsSinceLastFire = 0;
+    _currentShotDamage = _maxShotDamage;
     Fire();
   }
+
+  // ------------------------
+
   public void FireBurst() {
     if (_weaponFireType != WeaponItem.FireType.Burst) return;
     if (!(HasAmmo() && CanFire())) return;
@@ -129,33 +161,72 @@ public class FireGunLogic : MonoBehaviour
     _isFiringBurst = true;
     for (int i = 0; i < _shotsPerBurst; i++) {
       if (!HasAmmo()) break;
+      _currentShotDamage = _maxShotDamage;
       Fire();
       yield return new WaitForSeconds(_secondsBetweenBurstShots);
     }
     _isFiringBurst = false;
   }
+
+  // ------------------------
+
   public void FireFullAuto() {
     if (_weaponFireType != WeaponItem.FireType.FullAuto) return;
     if (!(HasAmmo() && CanFire())) return;
     _secondsSinceLastFire = 0;
+    _currentShotDamage = _maxShotDamage;
     Fire();
   }
+
+  // ------------------------
+
   public void ChargeWeapon() {
     if (_weaponFireType != WeaponItem.FireType.Charge) return;
     if (!(HasAmmo() && CanFire())) return;
+    if (_isCharging) {
+      // Just in case; should never happen
+      Debug.LogError("FireGunLogic: ChargeWeapon() invoked before ReleaseCharge() set _isCharging to false! This usually means the coroutine is still running, or that inputs were set up wrong.");
+      return;
+    } 
+    _OnChargeStart?.Invoke();
+    StartCoroutine(ChargeWeaponCoroutine());
+  }
+  private IEnumerator ChargeWeaponCoroutine() {
+    _isCharging = true;
+    float timeSinceChargeStart = 0;
+    while (_isCharging) {
+      timeSinceChargeStart += Time.deltaTime;
+      _currentCharge = Mathf.Clamp(timeSinceChargeStart / _chargeTime, 0, 1);
+      _currentShotDamage = Mathf.Lerp(_minShotDamage, _maxShotDamage, _currentCharge);
+      if (_currentCharge == 1) {
+        _currentShotDamage = _maxShotDamage;
+        ReleaseCharge();
+      }
+      yield return null;
+    }
   }
   public void ReleaseCharge() {
     if (_weaponFireType != WeaponItem.FireType.Charge) return;
+    if (!_isCharging) return;
+    if (!HasAmmo()) return; // Double check just in case
+    _OnChargeEnd?.Invoke();
+    _isCharging = false;
     _secondsSinceLastFire = 0;
+    StopCoroutine(ChargeWeaponCoroutine());
+    Fire();
+    _currentCharge = 0;
   }
+
+  // ---------------------------------
+
   public void Fire() {
-    _OnFire?.Invoke();
+    _OnFire?.Invoke(_currentAmmo);
     DrawFireLine(Color.green, 1f);
     if (Physics.Raycast(_raycastOrigin.position, CalculateDirectionWithShotSpread(_minShotSpread), out RaycastHit hit, _raycastDistance, _layerMask)) {
       GameObject hitGameObject = hit.collider.gameObject;
       HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
       if (healthManager != null) {
-        healthManager.Damage(_maxShotDamage);
+        healthManager.Damage(_currentShotDamage);
         DrawFireLine(Color.yellow, 1f);
       }
     }
@@ -163,7 +234,9 @@ public class FireGunLogic : MonoBehaviour
     _currentAmmo -= 1;
   }
 
-  // Needed for Fire method; Obvious by name
+  // ==================== Supporting Functions ====================
+
+  // Needed for Fire method and managers; Obvious by name
   private Vector3 CalculateDirectionWithShotSpread(float shotSpreadDegrees) {
     return _raycastOrigin.forward + new Vector3(Random.Range(-shotSpreadDegrees, shotSpreadDegrees), Random.Range(-_minShotSpread, _minShotSpread));
   }
@@ -173,7 +246,6 @@ public class FireGunLogic : MonoBehaviour
       _currentShotSpread = _maxShotSpread;
     }
   }
-
   private bool HasAmmo() {
     if (_currentAmmo <= 0) return false;
     else {
@@ -182,13 +254,16 @@ public class FireGunLogic : MonoBehaviour
   }
   private bool CanFire() {
     if (_secondsSinceLastFire < _fireDelay) return false;
+    if (_isReloading) return false;
     if (_isFiringBurst) return false;
     else {
       return true;
     }
   }
 
-  // This is called by the FireInput script
+  // =================== Reloading ===================
+
+  // This needs to be called by an input script
   public void Reload() {
     if (_isReloading) {
       return;
@@ -210,23 +285,28 @@ public class FireGunLogic : MonoBehaviour
     _isReloading = false;
   }
 
-  // Debug functions, used to draw fire lines in the editor
+  // =================== Debug Functions ===================
+
   private void DrawFireLine(Color lineColor, float durationSeconds)
   {
     if (_debug) {
       Debug.DrawLine(_raycastOrigin.position, (CalculateDirectionWithShotSpread(_minShotSpread) * _raycastDistance) + _raycastOrigin.position, lineColor, durationSeconds);
       Physics.Raycast(_raycastOrigin.position, CalculateDirectionWithShotSpread(_minShotSpread), out RaycastHit hit, _raycastDistance, _layerMask);
-      DrawSquare(hit.point, 0.1f, Color.blue, durationSeconds);
+      DrawCube(hit.point, 1, Color.blue, durationSeconds);
     }
   }
-  private void DrawSquare(Vector3 center, float size, Color color, float durationSeconds) {
-    Vector3 topLeft = center + new Vector3(-size, 0, size);
-    Vector3 topRight = center + new Vector3(size, 0, size);
-    Vector3 bottomLeft = center + new Vector3(-size, 0, -size);
-    Vector3 bottomRight = center + new Vector3(size, 0, -size);
-    Debug.DrawLine(topLeft, topRight, color, durationSeconds);
-    Debug.DrawLine(topRight, bottomRight, color, durationSeconds);
-    Debug.DrawLine(bottomRight, bottomLeft, color, durationSeconds);
-    Debug.DrawLine(bottomLeft, topLeft, color, durationSeconds);
+  private void DrawCube(Vector3 center, float size, Color color, float durationSeconds) {
+    // genereated by Github Copilot so i don't have to write it myself
+    // thanks github
+    Vector3 halfSize = new Vector3(size, size, size) * 0.5f;
+    Debug.DrawLine(center + halfSize, center + new Vector3(-halfSize.x, halfSize.y, halfSize.z), color, durationSeconds);
+    Debug.DrawLine(center + halfSize, center + new Vector3(halfSize.x, -halfSize.y, halfSize.z), color, durationSeconds);
+    Debug.DrawLine(center + halfSize, center + new Vector3(halfSize.x, halfSize.y, -halfSize.z), color, durationSeconds);
+    Debug.DrawLine(center - halfSize, center + new Vector3(-halfSize.x, -halfSize.y, -halfSize.z), color, durationSeconds);
+    Debug.DrawLine(center - halfSize, center + new Vector3(-halfSize.x, -halfSize.y, halfSize.z), color, durationSeconds);
+    Debug.DrawLine(center - halfSize, center + new Vector3(-halfSize.x, halfSize.y, -halfSize.z), color, durationSeconds);
+    Debug.DrawLine(center - halfSize, center + new Vector3(halfSize.x, -halfSize.y, -halfSize.z), color, durationSeconds);
+    Debug.DrawLine(center - halfSize, center + new Vector3(halfSize.x, -halfSize.y, halfSize.z), color, durationSeconds);
+    Debug.DrawLine(center - halfSize, center + new Vector3(halfSize.x, halfSize.y, -halfSize.z), color, durationSeconds);
   }
 }

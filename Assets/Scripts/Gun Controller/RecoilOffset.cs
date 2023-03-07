@@ -26,7 +26,6 @@ public class RecoilOffset : MonoBehaviour
     _upRecoil = weaponItem.verticalRecoilDegrees;
     _backRecoil = weaponItem.backRecoil;
     _recoilRecovery = weaponItem.verticalRecoilRecovery;
-    _shotSpread = weaponItem.minShotSpreadDegrees;
   }
 
   public void OnFire() {

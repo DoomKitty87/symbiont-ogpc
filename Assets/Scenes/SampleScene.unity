@@ -1385,7 +1385,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentWeapon: {fileID: 0}
-  _equippedWeapons: []
+  _equippedWeapons:
+  - {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
+  - {fileID: 11400000, guid: f0fe6355a8782f0479b0600462bbe47c, type: 2}
   _onNewCurrentWeapon:
     m_PersistentCalls:
       m_Calls:
@@ -1418,8 +1420,9 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 2147483647
-  _weaponFireType: 1
-  _maxShotDamage: 5
+  _weaponFireType: 0
+  _currentShotDamage: 0
+  _maxShotDamage: 200
   _fireDelay: 0.1
   _currentShotSpread: 0.1
   _minShotSpread: 0
@@ -1431,12 +1434,9 @@ MonoBehaviour:
   _reloadTime: 1
   _shotsPerBurst: 3
   _secondsBetweenBurstShots: 0.1
-  _minShotDamage: 0
-  _chargeTime: 0
+  _minShotDamage: 2
+  _chargeTime: 7
   _debug: 1
-  _OnFire:
-    m_PersistentCalls:
-      m_Calls: []
   _OnReloadStart:
     m_PersistentCalls:
       m_Calls: []

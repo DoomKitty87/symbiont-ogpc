@@ -19,13 +19,21 @@ MonoBehaviour:
   manufacturer: ElectroArms
   modelName: ZAP29
   nickName: Bugzapper
-  fireRate: 0.5
-  shotDamage: 3
-  magSize: 10
-  reloadTime: 1
-  upRecoil: 0.2
+  fireType: 0
+  maxShotDamage: 5
+  fireDelaySeconds: 0.1
+  magSize: 12
+  reloadTimeSeconds: 1.2
+  verticalRecoilDegrees: 0.8
+  verticalRecoilRecovery: 1.2
   backRecoil: 0.3
-  recoilRecovery: 0.4
-  shotSpread: 3
+  minShotSpreadDegrees: 0.01
+  maxShotSpreadDegrees: 0.5
+  shotSpreadFireInaccuracyDegrees: 0.15
+  shotSpreadRecovery: 0.2
+  shotsPerBurst: 0
+  secondsBetweenBurstShots: 0
+  minShotDamage: 0
+  chargeTimeSeconds: 0
   upRecoilAnim: 0
-  shotColor: 2
+  shotColor: {r: 0, g: 0, b: 0, a: 0}
