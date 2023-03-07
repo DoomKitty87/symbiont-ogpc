@@ -1101,6 +1101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84568771}
   - component: {fileID: 84568774}
+  - component: {fileID: 84568781}
   - component: {fileID: 84568779}
   - component: {fileID: 84568773}
   - component: {fileID: 84568780}
@@ -1384,7 +1385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7717a41959dd7418ee386010210814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentWeapon: {fileID: 0}
+  _currentWeapon: {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
   _equippedWeapons:
   - {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
   - {fileID: 11400000, guid: f0fe6355a8782f0479b0600462bbe47c, type: 2}
@@ -1449,6 +1450,69 @@ MonoBehaviour:
   _OnChargeEnd:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &84568781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84568770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b814ff1f45ec1464f890e22b4f050b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputAxes:
+  - _inputAxisName: Weapon1
+    _inventoryIndexReference: 0
+    _validInput: 0
+    _OnInputDown:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 84568779}
+          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
+          m_MethodName: SetCurrentWeaponByIndex
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _OnInputHeld:
+      m_PersistentCalls:
+        m_Calls: []
+    _OnInputUp:
+      m_PersistentCalls:
+        m_Calls: []
+    _hadInputLastFrame: 0
+  - _inputAxisName: Weapon2
+    _inventoryIndexReference: 1
+    _validInput: 0
+    _OnInputDown:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 84568779}
+          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
+          m_MethodName: SetCurrentWeaponByIndex
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _OnInputHeld:
+      m_PersistentCalls:
+        m_Calls: []
+    _OnInputUp:
+      m_PersistentCalls:
+        m_Calls: []
+    _hadInputLastFrame: 0
 --- !u!1001 &86345614
 PrefabInstance:
   m_ObjectHideFlags: 0
