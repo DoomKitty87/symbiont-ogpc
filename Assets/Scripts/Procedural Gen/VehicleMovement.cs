@@ -51,6 +51,10 @@ public class VehicleMovement : MonoBehaviour
     return genRange;
   }
 
+  public float GetDistance() {
+    return generatedDistance;
+  }
+
   void Update() {
     if (transform.position.x - generatedDistance > tileWidth) UpdateTerrain();
     transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.SmoothStep(goingFrom, goingTo, (transform.position.x % 10) / 10));
