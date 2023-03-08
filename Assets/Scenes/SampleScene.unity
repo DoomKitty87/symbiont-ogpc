@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1101,8 +1101,8 @@ GameObject:
   m_Component:
   - component: {fileID: 84568771}
   - component: {fileID: 84568774}
-  - component: {fileID: 84568781}
   - component: {fileID: 84568779}
+  - component: {fileID: 84568781}
   - component: {fileID: 84568773}
   - component: {fileID: 84568780}
   - component: {fileID: 84568775}
@@ -1427,8 +1427,8 @@ MonoBehaviour:
   _fireDelay: 0.1
   _currentShotSpread: 0.1
   _minShotSpread: 0
-  _maxShotSpread: 0.1
-  _spreadIncreasePerShot: 0.01
+  _maxShotSpread: 0.5
+  _spreadIncreasePerShot: 0.05
   _shotSpreadRecovery: 0.05
   _currentAmmo: 30
   _magSize: 30
