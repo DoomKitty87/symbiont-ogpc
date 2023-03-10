@@ -19,8 +19,7 @@ public class WeaponInventory : MonoBehaviour
   // What input should be used to switch weapons? Should it be a button, or a scroll wheel?
   // Whats the most scaleable way to implement that input in the UI?
 
-  // TODO: Change this to be an index of _equippedWeapons, and have _equippedWeapons also contain the amount of ammo left in
-  // each weapon.
+  // TODO: Change this to be an index of _equippedWeapons, and have _equippedWeapons also contain the amount of ammo left in each weapon.
   public WeaponItem _currentWeapon;
   public List<WeaponItem> _equippedWeapons = new();
 
