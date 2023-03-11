@@ -23,8 +23,12 @@ using UnityEngine.Events;
 
 // NOTE: This can also be used by Enemy AI scripts to fire at the player.
 // Just call the Fire() function from the EnemyAI script.
-
+[System.Serializable]
 public class OnFireEvent : UnityEvent<float> {}
+[System.Serializable]
+public class OnBroadcastEvent : UnityEvent<float> {}
+[System.Serializable]
+public class OnReloadEvent : UnityEvent<float> {}
 public class FireGunLogic : MonoBehaviour
 {
 
@@ -67,11 +71,13 @@ public class FireGunLogic : MonoBehaviour
   [Header("Debug")]
   [SerializeField] private bool _debug;
   
-  [Header("Events")]
-  [Tooltip("Broadcasts OnFire(currentAmmo)")] public OnFireEvent _OnFire;
-  public UnityEvent _OnReloadStart;
+  [Header("Fire Events")]
+  [Tooltip("OnFire(ammoCount)")]public OnFireEvent _OnFire;
+  [Header("Broadcast Events")]
+  [Tooltip("OnBroadcastShotSpread(currentShotSpread)")] public OnBroadcastEvent _OnBroadcastShotSpread;
+  [Header("Reload Events")]
+  [Tooltip("OnReloadStart(reloadTime)")] public OnReloadEvent _OnReloadStart;
   public UnityEvent _OnReloadEnd;
-  
   [Header("Charge Events")]
   public UnityEvent _OnChargeStart;
   public UnityEvent _OnChargeEnd;
@@ -112,6 +118,8 @@ public class FireGunLogic : MonoBehaviour
     _minShotSpread = weaponItem.minShotSpreadDegrees;
     _maxShotSpread = weaponItem.maxShotSpreadDegrees;
     _currentShotSpread = _minShotSpread;
+    // Needed to reset crosshair spread
+    _OnBroadcastShotSpread.Invoke(_currentShotSpread);
     _spreadIncreasePerShot = weaponItem.shotSpreadFireInaccuracyDegrees;
     _shotSpreadRecovery = weaponItem.shotSpreadRecovery;
 
@@ -127,6 +135,7 @@ public class FireGunLogic : MonoBehaviour
   private void Update() {
     _secondsSinceLastFire += Time.deltaTime;
     _currentShotSpread = Mathf.Clamp(_currentShotSpread -= _shotSpreadRecovery * Time.deltaTime, _minShotSpread, _maxShotSpread);
+    _OnBroadcastShotSpread.Invoke(_currentShotSpread);
   }
 
   // ======================== Firing Functions ========================
@@ -220,7 +229,6 @@ public class FireGunLogic : MonoBehaviour
   // ---------------------------------
 
   public void Fire() {
-    _OnFire?.Invoke(_currentAmmo);
     DrawFireLine(Color.green, 1f);
     if (Physics.Raycast(_raycastOrigin.position, CalculateDirectionWithShotSpread(_minShotSpread), out RaycastHit hit, _raycastDistance, _layerMask)) {
       GameObject hitGameObject = hit.collider.gameObject;
@@ -274,7 +282,7 @@ public class FireGunLogic : MonoBehaviour
   }
   private IEnumerator ReloadCoroutine() {
     _isReloading = true;
-    _OnReloadStart?.Invoke();
+    _OnReloadStart?.Invoke(_reloadTime);
     float timeSinceReloadStart = 0f;
     while (timeSinceReloadStart <= _reloadTime) {
       yield return null;
