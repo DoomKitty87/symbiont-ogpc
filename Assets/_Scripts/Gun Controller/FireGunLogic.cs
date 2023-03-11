@@ -72,7 +72,7 @@ public class FireGunLogic : MonoBehaviour
   [SerializeField] private bool _debug;
   
   [Header("Fire Events")]
-  [Tooltip("OnFire(ammoCount)")]public OnFireEvent _OnFire;
+  [Tooltip("OnFire(ammoCount)")] public OnFireEvent _OnFireAmmo;
   [Header("Broadcast Events")]
   [Tooltip("OnBroadcastShotSpread(currentShotSpread)")] public OnBroadcastEvent _OnBroadcastShotSpread;
   [Header("Reload Events")]
