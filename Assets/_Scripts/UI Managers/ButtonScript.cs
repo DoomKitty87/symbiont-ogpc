@@ -35,7 +35,6 @@ public class ButtonScript : MonoBehaviour
 	}
 
 	public void ButtonChangeMenuScreen(string targetScreen){
-		Debug.Log(menuScreenAnimations);
 		if (targetScreen == "") {
 			GameObject.FindWithTag("Handler").GetComponent<PauseHandler>().UnPause();
 		} else {
