@@ -19,13 +19,21 @@ MonoBehaviour:
   manufacturer: Krieslauf AG
   modelName: OHM100
   nickName: Resistor
-  fireRate: 0.5
-  shotDamage: 7
+  fireType: 0
+  maxShotDamage: 0
+  fireDelaySeconds: 0
   magSize: 8
-  reloadTime: 2
-  upRecoil: 0.05
+  reloadTimeSeconds: 0
+  verticalRecoilDegrees: 0.5
+  verticalRecoilRecovery: 1
   backRecoil: 0.25
-  recoilRecovery: 0.4
-  shotSpread: 2.5
+  minShotSpreadDegrees: 0
+  maxShotSpreadDegrees: 0
+  shotSpreadFireInaccuracyDegrees: 0
+  shotSpreadRecovery: 0
+  shotsPerBurst: 0
+  secondsBetweenBurstShots: 0
+  minShotDamage: 0
+  chargeTimeSeconds: 0
   upRecoilAnim: 0
-  shotColor: 1
+  shotColor: {r: 0, g: 0, b: 0, a: 0}

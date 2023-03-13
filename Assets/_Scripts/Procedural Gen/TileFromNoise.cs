@@ -39,6 +39,7 @@ public class TileFromNoise : MonoBehaviour
   [SerializeField] private int buildingSpawnOffset;
   [SerializeField] private int buildingCycles;
 
+  private DifficultyScaling diffScaleScript;
   private Transform playerVehicle;
   private float tileSize;
   private float distanceFromPlayer;
@@ -48,6 +49,7 @@ public class TileFromNoise : MonoBehaviour
   private float[] offsets = {-0.5f, 0, 0.5f};
 
   void Awake() {
+    diffScaleScript = GameObject.FindGameObjectWithTag("Manager").GetComponent<DifficultyScaling>();
     targetSpawnMask = spawnedLayer | groundLayer;
     playerVehicle = GameObject.FindGameObjectWithTag("Player").transform;
     distanceFromPlayer = Mathf.Abs(playerVehicle.position.z - transform.position.z);
@@ -142,7 +144,7 @@ public class TileFromNoise : MonoBehaviour
       Vector3 vertex = meshVertices[Random.Range(0, meshVertices.Length)];
       Transform tmp = Instantiate(Random.value < ((transform.position.x % terrainInterval - (terrainInterval * 0.75f)) / (terrainInterval * 0.25f)) ? options[1].structureType : options[0].structureType, transform.position + vertex, Quaternion.identity, transform).transform;
       tmp.rotation = Quaternion.Euler(new Vector3(-90, Random.Range(0, 360), 0));
-      tmp.localScale *= buildingScale;
+      tmp.localScale *= Random.Range(buildingScale * 0.6f, buildingScale * 1.4f);
     }
   }
 
@@ -161,7 +163,7 @@ public class TileFromNoise : MonoBehaviour
       }
       Collider[] collidersOverlapped = new Collider[1];
       if (Physics.OverlapBoxNonAlloc(instPos, targetPrefab.GetComponent<Renderer>().bounds.size / 2, collidersOverlapped, Quaternion.identity, targetSpawnMask) == 0) {
-        Instantiate(targetPrefab, instPos, Quaternion.identity, transform);
+        Instantiate(targetPrefab, instPos, Quaternion.identity, transform).GetComponent<HealthManager>()._maxHealth *= Mathf.Pow(1.05f, diffScaleScript.difficultyScale);
       }
     }
   }

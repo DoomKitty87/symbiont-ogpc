@@ -7,13 +7,14 @@ public class DifficultyScaling : MonoBehaviour
 
     private VehicleMovement vehicleScript;
 
-    public float difficultyScale = 0;
+    public float difficultyScale;
 
     void Start() {
         vehicleScript = GameObject.FindGameObjectWithTag("Player").GetComponent<VehicleMovement>();
     }
 
     void Update() {
-        difficultyScale = vehicleScript.GetDistance();
+        difficultyScale = vehicleScript.GetDistance() / 1000 + 1;
+        print(difficultyScale);
     }
 }
