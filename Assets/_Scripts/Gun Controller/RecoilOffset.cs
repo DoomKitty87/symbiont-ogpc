@@ -21,7 +21,7 @@ public class RecoilOffset : MonoBehaviour
       _cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
       Debug.LogWarning("RecoilOffset: No Cinemachine Virtual Camera found on recoil offset script, attempting to find one. Did you forget to assign it?");
     }
-    _cameraPov = _cinemachineVirtualCamera.m_LookAt.GetComponent<CinemachinePOV>();
+    _cameraPov = _cinemachineVirtualCamera.GetComponent<CinemachinePOV>();
     if (_cameraPov == null) {
       Debug.LogError("RecoilOffset: No Cinemachine POV found on recoil offset script, please assign one!");
     }
@@ -32,7 +32,8 @@ public class RecoilOffset : MonoBehaviour
 
   }
 
-  public void UpdateForNewValues(WeaponItem weaponItem) {
+  // Ammo count isn't actually used here, but i think its necessary for the function to show up in the events. 
+  public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
     _verticalRecoil = weaponItem.verticalRecoilDegrees;
     _backRecoil = weaponItem.backRecoil;
     _recoilRecovery = weaponItem.verticalRecoilRecovery;

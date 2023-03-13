@@ -8,11 +8,17 @@ public class MissileBehavior : MonoBehaviour
   [SerializeField] private GameObject _missileExplodeParticlePrefab;
   [SerializeField] private float _damage;
   [SerializeField] private float _movementSpeed;
+  private GameObject _player;
   private Transform _playerTransform;
+  private Vector3 _lastPlayerPosition;
+
   private Rigidbody _rigidBody;
+
+
   void Start() {
-    // We gotta find a better way to do this 
-    _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    _player = GameObject.FindGameObjectWithTag("Player");
+    _playerTransform = _player.transform;
+    _lastPlayerPosition = _playerTransform.position;
     _rigidBody = gameObject.GetComponent<Rigidbody>();
     if (_playerTransform == null){
       Debug.LogError("MissileBehavior: Player Transform is null!");
@@ -23,14 +29,18 @@ public class MissileBehavior : MonoBehaviour
       Destroy(gameObject);
     }
     Physics.IgnoreCollision(gameObject.GetComponent<MeshCollider>(), transform.parent.gameObject.GetComponent<MeshCollider>());
-    transform.LookAt(_playerTransform);
+    transform.LookAt(_playerTransform.position + (_playerTransform.position - _lastPlayerPosition));
   }
+
   void Update() {
-    transform.LookAt(_playerTransform);
+    transform.LookAt(_playerTransform.position + (_playerTransform.position - _lastPlayerPosition));
+    _lastPlayerPosition = _playerTransform.position;
   }
+
   void FixedUpdate() {
     _rigidBody.AddForce(transform.forward * _movementSpeed);
   }
+
   void OnCollisionEnter(Collision collider) {
     if (!collider.gameObject.CompareTag("Player")) {
       return;

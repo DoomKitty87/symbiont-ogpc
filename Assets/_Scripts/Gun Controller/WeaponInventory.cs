@@ -15,7 +15,8 @@ using UnityEngine.Events;
 // Whats the most scaleable way to implement that input in the UI?
 
 [System.Serializable]
-public class OnNewCurrentWeapon : UnityEvent<WeaponItem, float> {}
+public class OnNewCurrentWeapon : UnityEvent<WeaponItem, int> {}
+
 [System.Serializable]
 public class EquippedWeapon {
   public WeaponItem _weaponItem;
@@ -38,6 +39,10 @@ public class WeaponInventory : MonoBehaviour
     if (_equippedWeapons.Count >= 1) {
       _currentWeapon = _equippedWeapons[0];
     }
+    foreach (EquippedWeapon equippedWeapon in _equippedWeapons) {
+      equippedWeapon._ammoLeft = equippedWeapon._weaponItem.magSize;
+    }
+    _onNewCurrentWeapon?.Invoke(_currentWeapon._weaponItem, _currentWeapon._ammoLeft);
   }
   public void AddWeapon(WeaponItem weapon) {
     _equippedWeapons.Add(new EquippedWeapon(weapon, weapon.magSize));

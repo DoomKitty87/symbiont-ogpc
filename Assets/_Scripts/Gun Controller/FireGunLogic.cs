@@ -24,11 +24,9 @@ using UnityEngine.Events;
 // NOTE: This can also be used by Enemy AI scripts to fire at the player.
 // Just call the Fire() function from the EnemyAI script.
 [System.Serializable]
-public class OnFireEvent : UnityEvent<float> {}
+public class FloatUnityEvent : UnityEvent<float> {}
 [System.Serializable]
-public class OnBroadcastEvent : UnityEvent<float> {}
-[System.Serializable]
-public class OnReloadEvent : UnityEvent<float> {}
+public class IntUnityEvent : UnityEvent<int> {}
 public class FireGunLogic : MonoBehaviour
 {
 
@@ -72,12 +70,12 @@ public class FireGunLogic : MonoBehaviour
   [SerializeField] private bool _debug;
   
   [Header("Fire Events")]
-  [Tooltip("OnFire(ammoCount)")] public OnFireEvent _OnFireAmmo;
+  [Tooltip("OnFire(ammoCount)")] public FloatUnityEvent _OnFireAmmo;
   [Header("Broadcast Events")]
-  [Tooltip("OnBroadcastShotSpread(currentShotSpread)")] public OnBroadcastEvent _OnBroadcastShotSpread;
+  [Tooltip("OnBroadcastShotSpread(currentShotSpread)")] public FloatUnityEvent _OnBroadcastShotSpread;
   [Header("Reload Events")]
-  [Tooltip("OnReloadStart(reloadTime)")] public OnReloadEvent _OnReloadStart;
-  public UnityEvent _OnReloadEnd;
+  [Tooltip("OnReloadStart(reloadTime)")] public FloatUnityEvent _OnReloadStart;
+  [Tooltip("OnReloadEnd(magSize)")] public IntUnityEvent _OnReloadEnd;
   [Header("Charge Events")]
   public UnityEvent _OnChargeStart;
   public UnityEvent _OnChargeEnd;
@@ -101,6 +99,7 @@ public class FireGunLogic : MonoBehaviour
 
   // A little messy looking, but that's the price of having a lot of different fire types.
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
+    print("FireGunLogic: UpdateForNewValues");
     // Type
     _weaponFireType = weaponItem.fireType;
     
@@ -248,6 +247,7 @@ public class FireGunLogic : MonoBehaviour
     }
     IncreaseShotSpread();
     _currentAmmo -= 1;
+    print("_currentAmmo -= 1");
   }
 
   // ==================== Supporting Functions ====================
@@ -297,7 +297,7 @@ public class FireGunLogic : MonoBehaviour
       timeSinceReloadStart += Time.deltaTime;
     }
     _currentAmmo = _magSize;
-    _OnReloadEnd?.Invoke();
+    _OnReloadEnd?.Invoke(_magSize);
     _isReloading = false;
   }
 
