@@ -1487,10 +1487,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7717a41959dd7418ee386010210814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentWeapon: {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
+  _currentWeapon:
+    _weaponItem: {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
+    _ammoLeft: 0
   _equippedWeapons:
-  - {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
-  - {fileID: 11400000, guid: f0fe6355a8782f0479b0600462bbe47c, type: 2}
+  - _weaponItem: {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
+    _ammoLeft: 0
+  - _weaponItem: {fileID: 11400000, guid: f0fe6355a8782f0479b0600462bbe47c, type: 2}
+    _ammoLeft: 0
   _onNewCurrentWeapon:
     m_PersistentCalls:
       m_Calls:
@@ -80400,7 +80404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useCenterDot: 1
   _centerDotElement: {fileID: 2004666250}
-  _centerDotType: 1
+  _centerDotType: 0
   _centerDotCircleSprite: {fileID: 0}
   _centerDotSquareSprite: {fileID: 0}
   _centerDotColor: {r: 1, g: 1, b: 1, a: 1}
