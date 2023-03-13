@@ -100,7 +100,7 @@ public class FireGunLogic : MonoBehaviour
   }
 
   // A little messy looking, but that's the price of having a lot of different fire types.
-  public void UpdateForNewValues(WeaponItem weaponItem) {
+  public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
     // Type
     _weaponFireType = weaponItem.fireType;
     
@@ -109,7 +109,14 @@ public class FireGunLogic : MonoBehaviour
     _currentShotDamage = _maxShotDamage;
     _fireDelay = weaponItem.fireDelaySeconds;
     _magSize = weaponItem.magSize;
-    _currentAmmo = _magSize;
+    if (ammoCount < 0 || ammoCount > _magSize) {
+      Debug.LogError("FireGunLogic: AmmoCount is out of range. Setting currentAmmo to 0.");
+      _currentAmmo = 0;
+    }
+    else {
+      _currentAmmo = ammoCount;
+    }
+
     _reloadTime = weaponItem.reloadTimeSeconds;
     
     // Vertical Recoil is handled by RecoilOffset
@@ -230,6 +237,7 @@ public class FireGunLogic : MonoBehaviour
 
   public void Fire() {
     DrawFireLine(Color.green, 1f);
+    _OnFireAmmo?.Invoke(_currentAmmo);
     if (Physics.Raycast(_raycastOrigin.position, CalculateDirectionWithShotSpread(_minShotSpread), out RaycastHit hit, _raycastDistance, _layerMask)) {
       GameObject hitGameObject = hit.collider.gameObject;
       HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();

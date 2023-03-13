@@ -14,10 +14,8 @@ using UnityEngine.Events;
 // What input should be used to switch weapons? Should it be a button, or a scroll wheel?
 // Whats the most scaleable way to implement that input in the UI?
 
-// TODO: Now that _equippedWeapons contains a class that contains ammoLeft, create a way for it to be updated. 
-
 [System.Serializable]
-public class OnNewCurrentWeapon : UnityEvent<WeaponItem> {}
+public class OnNewCurrentWeapon : UnityEvent<WeaponItem, float> {}
 [System.Serializable]
 public class EquippedWeapon {
   public WeaponItem _weaponItem;
@@ -59,7 +57,7 @@ public class WeaponInventory : MonoBehaviour
     foreach (EquippedWeapon equippedWeapon in _equippedWeapons) {
       if (equippedWeapon._weaponItem == weapon) {
         _currentWeapon = equippedWeapon;
-        _onNewCurrentWeapon.Invoke(_currentWeapon._weaponItem);
+        _onNewCurrentWeapon.Invoke(_currentWeapon._weaponItem, _currentWeapon._ammoLeft);
         return;
       }
     }
@@ -69,11 +67,17 @@ public class WeaponInventory : MonoBehaviour
     try {
       if (_currentWeapon == _equippedWeapons[index]) return;
       _currentWeapon = _equippedWeapons[index];
-      _onNewCurrentWeapon.Invoke(_currentWeapon._weaponItem);
+      _onNewCurrentWeapon.Invoke(_currentWeapon._weaponItem, _currentWeapon._ammoLeft);
       return;
     } catch (System.IndexOutOfRangeException) {
       Debug.Log($"WeaponInventory: No weapon equipped at index: {index}");
       return;
     }
+  }
+  public void DecrementAmmoLeft(int amount) {
+    _currentWeapon._ammoLeft -= amount;
+  }
+  public void IncrementAmmoLeft(int amount) {
+    _currentWeapon._ammoLeft += amount;
   }
 }
