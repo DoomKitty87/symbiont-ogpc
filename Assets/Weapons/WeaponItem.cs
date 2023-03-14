@@ -31,10 +31,12 @@ public class WeaponItem : ScriptableObject
   // just switch weapons to get more ammo.
   public int magSize;
   public float reloadTimeSeconds;
-  [Header("Vertical Recoil")]
-  public float verticalRecoilDegrees;
-  public float verticalRecoilRecovery;
-  public float backRecoil;
+  [Header("Camera Recoil")]
+  public float verticalRecoil;
+  public float horizontalRecoilDeviation;
+  public float recoilSnapiness;
+  public float recoilRecoverySpeed;
+  public float zCameraShake;
   [Header("Shot Spread")]
   public float minShotSpreadDegrees;
   public float maxShotSpreadDegrees;
@@ -46,8 +48,14 @@ public class WeaponItem : ScriptableObject
   [Header("Charge Stats")]
   public float minShotDamage;
   public float chargeTimeSeconds;
-  [Header("Effects")]
-  public bool upRecoilAnim;
+  [Header("Sounds")]
+  public AudioClip shotSound;
+  public AudioClip shotSoundNearEmpty;
+  public AudioClip emptyFireSound;
+  public AudioClip reloadStartSound;
+  public AudioClip reloadEndSound;
+  public AudioClip equipSound;
+  [Header("Effects & Particles")]
   [ColorUsage(true, true)] public Color shotColor;
   [SerializeField] public List<Attachment> attachments;
 }

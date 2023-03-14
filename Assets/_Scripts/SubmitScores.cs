@@ -7,19 +7,19 @@ using Cinemachine;
 public class SubmitScores : MonoBehaviour
 {
   [Header("This requires a GameObject with tag 'Handler' containing ScoreTracker")]
-  private CinemachineTrackedDolly dolly;
+  private CinemachineDollyCart dolly;
   private LeaderboardConnect leaderboardConnectionManager;
   private LoginConnect accountConnectionManager;
   private bool triggered;
 
   void Start() {
-    dolly = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+    dolly = GameObject.FindGameObjectWithTag("DollyFollower").GetComponent<CinemachineDollyCart>();
     leaderboardConnectionManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>();
     accountConnectionManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
   }
 
   void Update() {
-    if (dolly.m_PathPosition >= dolly.m_Path.PathLength && triggered == false) {
+    if (dolly.m_Position >= dolly.m_Path.PathLength && triggered == false) {
       triggered = true;
       EndLevel();
     }

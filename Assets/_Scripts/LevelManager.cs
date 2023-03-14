@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
   [SerializeField] public float moveRate;
   
   private CinemachineVirtualCamera vcam;
-  private CinemachineTrackedDolly dolly;
+  private CinemachineDollyCart dolly;
 
   
 
@@ -19,10 +19,10 @@ public class LevelManager : MonoBehaviour
       _scoreTracker = GameObject.FindGameObjectWithTag("Handler").GetComponent<ScoreTracker>();
     }
     vcam = GameObject.FindGameObjectWithTag("VCam").GetComponent<CinemachineVirtualCamera>();
-    dolly = vcam.GetCinemachineComponent<CinemachineTrackedDolly>();
+    dolly = GameObject.FindGameObjectWithTag("DollyFollower").GetComponent<CinemachineDollyCart>();
   }
 
   private void Update() {
-    dolly.m_PathPosition += 5f * Time.deltaTime * (_scoreTracker.GetCombo() / 4 + 1);
+    dolly.m_Position += 5f * Time.deltaTime * (_scoreTracker.GetCombo() / 4 + 1);
   }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class FollowObject : MonoBehaviour
 {
     [SerializeField] private Transform _transformToFollow;
+    [SerializeField] private Vector3 _followOffset;
     [SerializeField] private bool _followX;
     [SerializeField] private bool _followY;
     [SerializeField] private bool _followZ;
@@ -34,5 +35,6 @@ public class FollowObject : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, _transformToFollow.position.z);
         }
+        transform.position += _followOffset;
     }
 }

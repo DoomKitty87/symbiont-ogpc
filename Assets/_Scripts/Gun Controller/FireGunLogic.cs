@@ -99,7 +99,6 @@ public class FireGunLogic : MonoBehaviour
 
   // A little messy looking, but that's the price of having a lot of different fire types.
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
-    print("FireGunLogic: UpdateForNewValues");
     // Type
     _weaponFireType = weaponItem.fireType;
     
@@ -247,7 +246,6 @@ public class FireGunLogic : MonoBehaviour
     }
     IncreaseShotSpread();
     _currentAmmo -= 1;
-    print("_currentAmmo -= 1");
   }
 
   // ==================== Supporting Functions ====================

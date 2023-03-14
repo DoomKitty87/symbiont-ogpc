@@ -24,9 +24,11 @@ MonoBehaviour:
   fireDelaySeconds: 0.1
   magSize: 12
   reloadTimeSeconds: 1.2
-  verticalRecoilDegrees: 0.8
-  verticalRecoilRecovery: 1.2
-  backRecoil: 0.3
+  verticalRecoil: 5
+  horizontalRecoilDeviation: 4
+  recoilSnapiness: 10
+  recoilRecoverySpeed: 10
+  zCameraShake: 1
   minShotSpreadDegrees: 0.01
   maxShotSpreadDegrees: 0.5
   shotSpreadFireInaccuracyDegrees: 0.15
@@ -35,5 +37,10 @@ MonoBehaviour:
   secondsBetweenBurstShots: 0
   minShotDamage: 0
   chargeTimeSeconds: 0
-  upRecoilAnim: 0
+  shotSound: {fileID: 0}
+  shotSoundNearEmpty: {fileID: 0}
+  emptyFireSound: {fileID: 0}
+  reloadStartSound: {fileID: 0}
+  reloadEndSound: {fileID: 0}
+  equipSound: {fileID: 0}
   shotColor: {r: 0, g: 0, b: 0, a: 0}

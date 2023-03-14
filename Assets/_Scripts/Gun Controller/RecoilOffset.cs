@@ -1,45 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public class RecoilOffset : MonoBehaviour
 {
-  [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
-  private CinemachinePOV _cameraPov; 
-  [SerializeField] private float _cameraRecoilOffset;
-  private float _verticalRecoil;
-  private float _backRecoil;
-  private float _recoilRecovery;
+  private Vector3 _currentRotation;
+  private Vector3 _targetRotation;
 
-  // If the recoil has not already been reset, start resetting it to the 
+  [Header("Recoil Values")]
+  [SerializeField] private float _verticalRecoil;
+  [SerializeField] private float _horizontalRecoil;
+  [SerializeField] private float _recoilRecoverySpeed;
+  [SerializeField] private float _toTargetCameraRotationSpeed;
 
-  // Start is called before the first frame update
-  void Start()
-  {
-    if (_cinemachineVirtualCamera == null) {
-      _cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
-      Debug.LogWarning("RecoilOffset: No Cinemachine Virtual Camera found on recoil offset script, attempting to find one. Did you forget to assign it?");
-    }
-    _cameraPov = _cinemachineVirtualCamera.GetComponent<CinemachinePOV>();
-    if (_cameraPov == null) {
-      Debug.LogError("RecoilOffset: No Cinemachine POV found on recoil offset script, please assign one!");
-    }
+  [Header("Effects")]
+  [SerializeField] private float _zCameraShake;
+
+  private void Start() {
+    _currentRotation = transform.rotation.eulerAngles;
+    _targetRotation = transform.rotation.eulerAngles;    
   }
 
-  // Update is called once per frame
-  void Update() {
-
+  // Current ammo isn't used in this script, but it's used in the WeaponInventory script, so
+  // I think it has to be for it to show up in the UnityEvent in the WeaponInventory script.
+  public void UpdateForNewValues(WeaponItem weaponItem, int currentAmmo) {
+    _verticalRecoil = weaponItem.verticalRecoil;
+    _horizontalRecoil = weaponItem.horizontalRecoilDeviation;
+    _recoilRecoverySpeed = weaponItem.recoilRecoverySpeed;
+    _toTargetCameraRotationSpeed = weaponItem.recoilSnapiness;
+    _zCameraShake = weaponItem.zCameraShake;
   }
 
-  // Ammo count isn't actually used here, but i think its necessary for the function to show up in the events. 
-  public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
-    _verticalRecoil = weaponItem.verticalRecoilDegrees;
-    _backRecoil = weaponItem.backRecoil;
-    _recoilRecovery = weaponItem.verticalRecoilRecovery;
+  private void Update() {
+    // _targetRotation is always lerped towards 0, 0, 0, since thats when theres no recoil offset. 
+    _targetRotation = Vector3.Lerp(_targetRotation, new Vector3(0, 0, 0), _recoilRecoverySpeed * Time.deltaTime);
+    // Uses slerp because apparently it's "better" for rotations. No idea why.
+    _currentRotation = Vector3.Slerp(_currentRotation, _targetRotation, _toTargetCameraRotationSpeed * Time.deltaTime);
+
+    transform.localRotation = Quaternion.Euler(_currentRotation);
   }
 
   public void OnFire() {
-    _cameraRecoilOffset = Mathf.Clamp(_cameraRecoilOffset + _verticalRecoil, _cameraPov.m_VerticalAxis.m_MinValue, _cameraPov.m_VerticalAxis.m_MaxValue);
+    // Adds a random value to the horizontal recoil, so that the recoil isn't always the same.
+    _targetRotation -= new Vector3(_verticalRecoil, Random.Range(-_horizontalRecoil, _horizontalRecoil), Random.Range(-_zCameraShake, _zCameraShake));
   }
 }
