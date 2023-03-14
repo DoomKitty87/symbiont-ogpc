@@ -26,6 +26,7 @@ public class WeaponInventoryInputContainer
   public bool _hadInputLastFrame;
 }
 
+[RequireComponent(typeof(WeaponInventory))]
 public class WeaponInventoryInput : MonoBehaviour
 {
   [SerializeField] private List<WeaponInventoryInputContainer> _inputAxes;

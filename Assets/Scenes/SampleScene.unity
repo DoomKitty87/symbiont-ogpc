@@ -864,7 +864,7 @@ RectTransform:
   m_Children:
   - {fileID: 1834705402}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1203,10 +1203,6 @@ GameObject:
   m_Component:
   - component: {fileID: 84568771}
   - component: {fileID: 84568774}
-  - component: {fileID: 84568779}
-  - component: {fileID: 84568781}
-  - component: {fileID: 84568773}
-  - component: {fileID: 84568780}
   - component: {fileID: 84568775}
   - component: {fileID: 84568778}
   - component: {fileID: 84568777}
@@ -1232,106 +1228,8 @@ Transform:
   m_Children:
   - {fileID: 1921856591}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &84568773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84568770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9833156f5ba043569ad740058cf14c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fireInputAxis: Fire1
-  _OnFireInputDown:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 84568780}
-        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
-        m_MethodName: FireSemiAuto
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 84568780}
-        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
-        m_MethodName: FireBurst
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 84568780}
-        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
-        m_MethodName: ChargeWeapon
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _OnFireInputHeld:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 84568780}
-        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
-        m_MethodName: FireFullAuto
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _OnFireInputUp:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 84568780}
-        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
-        m_MethodName: ReleaseCharge
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _reloadInputAxis: Reload
-  _OnReloadInputDown:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 84568780}
-        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
-        m_MethodName: Reload
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!136 &84568774
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1475,228 +1373,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &84568779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84568770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e7717a41959dd7418ee386010210814, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentWeapon:
-    _weaponItem: {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
-    _ammoLeft: 30
-  _equippedWeapons:
-  - _weaponItem: {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
-    _ammoLeft: 30
-  - _weaponItem: {fileID: 11400000, guid: f0fe6355a8782f0479b0600462bbe47c, type: 2}
-    _ammoLeft: 12
-  _onNewCurrentWeapon:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 84568780}
-        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
-        m_MethodName: UpdateForNewValues
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 352975086}
-        m_TargetAssemblyTypeName: RecoilOffset, Assembly-CSharp
-        m_MethodName: UpdateForNewValues
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &84568780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84568770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 989816e2138ab4239a47d687fb0caa35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _raycastOrigin: {fileID: 330585546}
-  _raycastDistance: 50
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 2147483647
-  _weaponFireType: 0
-  _currentShotDamage: 0
-  _maxShotDamage: 200
-  _fireDelay: 0.1
-  _currentShotSpread: 0.1
-  _minShotSpread: 0
-  _maxShotSpread: 0.5
-  _spreadIncreasePerShot: 0.05
-  _shotSpreadRecovery: 0.05
-  _currentAmmo: 30
-  _magSize: 30
-  _reloadTime: 1
-  _shotsPerBurst: 3
-  _secondsBetweenBurstShots: 0.1
-  _minShotDamage: 2
-  _chargeTime: 7
-  _debug: 1
-  _OnFireAmmo:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 84568779}
-        m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
-        m_MethodName: DecrementAmmoLeft
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: RecoilOffset, Assembly-CSharp
-        m_MethodName: OnFire
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 352975086}
-        m_TargetAssemblyTypeName: RecoilOffset, Assembly-CSharp
-        m_MethodName: OnFire
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _OnBroadcastShotSpread:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1834705403}
-        m_TargetAssemblyTypeName: CrosshairConfig, Assembly-CSharp
-        m_MethodName: SetDynamicOffset
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _OnReloadStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _OnReloadEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 84568779}
-        m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
-        m_MethodName: IncrementAmmoLeft
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _OnChargeStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _OnChargeEnd:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &84568781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84568770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b814ff1f45ec1464f890e22b4f050b72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputAxes:
-  - _inputAxisName: Weapon1
-    _inventoryIndexReference: 0
-    _validInput: 0
-    _OnInputDown:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 84568779}
-          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
-          m_MethodName: SetCurrentWeaponByIndex
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    _OnInputHeld:
-      m_PersistentCalls:
-        m_Calls: []
-    _OnInputUp:
-      m_PersistentCalls:
-        m_Calls: []
-    _hadInputLastFrame: 0
-  - _inputAxisName: Weapon2
-    _inventoryIndexReference: 1
-    _validInput: 0
-    _OnInputDown:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 84568779}
-          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
-          m_MethodName: SetCurrentWeaponByIndex
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    _OnInputHeld:
-      m_PersistentCalls:
-        m_Calls: []
-    _OnInputUp:
-      m_PersistentCalls:
-        m_Calls: []
-    _hadInputLastFrame: 0
 --- !u!1001 &86345614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7200,7 +6876,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &112080543 stripped
 GameObject:
@@ -23369,7 +23045,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &253499797
 GameObject:
@@ -24781,8 +24457,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.14478788, y: 0, z: 0, w: 0.98946273}
-  m_LocalPosition: {x: 0, y: 0.71980894, z: 0.55970985}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24790,7 +24466,7 @@ Transform:
   - {fileID: 8840876582385992740}
   - {fileID: 1788193322}
   - {fileID: 1476147850}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 352975085}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -32.687, y: 0, z: 0}
 --- !u!114 &330585547
@@ -25270,6 +24946,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 330585546}
   - {fileID: 1596954355}
   m_Father: {fileID: 1921856591}
   m_RootOrder: 0
@@ -25449,7 +25126,7 @@ Transform:
   - {fileID: 232741222}
   - {fileID: 819772177}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &371664697
 GameObject:
@@ -25881,7 +25558,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &404616436
 PrefabInstance:
@@ -26718,7 +26395,7 @@ RectTransform:
   - {fileID: 1869520238}
   - {fileID: 1217344387}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -27508,7 +27185,7 @@ Transform:
   - {fileID: 1743579310}
   - {fileID: 1624288058}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1001 &510218220
 PrefabInstance:
@@ -27889,7 +27566,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &523089000
 MonoBehaviour:
@@ -27975,7 +27652,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &531659235
 MonoBehaviour:
@@ -29397,7 +29074,7 @@ Transform:
   - {fileID: 1978156705}
   - {fileID: 2085011082}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &653460309
 PrefabInstance:
@@ -42306,7 +41983,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &834366466
 PrefabInstance:
@@ -50508,7 +50185,7 @@ Transform:
   - {fileID: 838065957}
   - {fileID: 315722524}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1074508076
 PrefabInstance:
@@ -66565,7 +66242,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1477266471
 MonoBehaviour:
@@ -67200,7 +66877,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1525700380
 GameObject:
@@ -72680,7 +72357,7 @@ Transform:
   m_Children:
   - {fileID: 213762024}
   m_Father: {fileID: 352975085}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1617010202
 PrefabInstance:
@@ -80205,7 +79882,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1815080458
 PrefabInstance:
@@ -86313,6 +85990,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1921856591}
   - component: {fileID: 1921856592}
+  - component: {fileID: 1921856596}
+  - component: {fileID: 1921856595}
+  - component: {fileID: 1921856594}
+  - component: {fileID: 1921856593}
   m_Layer: 0
   m_Name: CameraRotation
   m_TagString: LookController
@@ -86327,7 +86008,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921856590}
-  m_LocalRotation: {x: 0.14478788, y: 0, z: 0, w: 0.98946273}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -86335,7 +86016,7 @@ Transform:
   - {fileID: 352975085}
   m_Father: {fileID: 84568771}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 16.65, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1921856592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86358,6 +86039,314 @@ MonoBehaviour:
   _constrainY: 0
   _minY: -180
   _maxY: 180
+--- !u!114 &1921856593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921856590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 989816e2138ab4239a47d687fb0caa35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _raycastOrigin: {fileID: 330585546}
+  _raycastDistance: 50
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  _weaponFireType: 0
+  _currentShotDamage: 0
+  _maxShotDamage: 200
+  _fireDelay: 0.1
+  _currentShotSpread: 0.1
+  _minShotSpread: 0
+  _maxShotSpread: 0.5
+  _spreadIncreasePerShot: 0.05
+  _shotSpreadRecovery: 0.05
+  _currentAmmo: 30
+  _magSize: 30
+  _reloadTime: 1
+  _shotsPerBurst: 3
+  _secondsBetweenBurstShots: 0.1
+  _minShotDamage: 2
+  _chargeTime: 7
+  _debug: 1
+  _OnFireAmmo:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921856596}
+        m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
+        m_MethodName: DecrementAmmoLeft
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 352975086}
+        m_TargetAssemblyTypeName: RecoilOffset, Assembly-CSharp
+        m_MethodName: OnFire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _OnBroadcastShotSpread:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1834705403}
+        m_TargetAssemblyTypeName: CrosshairConfig, Assembly-CSharp
+        m_MethodName: SetDynamicOffset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _OnReloadStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _OnReloadEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921856596}
+        m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
+        m_MethodName: IncrementAmmoLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _OnChargeStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _OnChargeEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1921856594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921856590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9833156f5ba043569ad740058cf14c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireInputAxis: Fire1
+  _OnFireInputDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921856593}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: FireBurst
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1921856593}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: FireSemiAuto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1921856593}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: ChargeWeapon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _OnFireInputHeld:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921856593}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: FireFullAuto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _OnFireInputUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921856593}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: ReleaseCharge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _reloadInputAxis: Reload
+  _OnReloadInputDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921856593}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: Reload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1921856595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921856590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b814ff1f45ec1464f890e22b4f050b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputAxes:
+  - _inputAxisName: Weapon1
+    _inventoryIndexReference: 0
+    _validInput: 0
+    _OnInputDown:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1921856596}
+          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
+          m_MethodName: SetCurrentWeaponByIndex
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _OnInputHeld:
+      m_PersistentCalls:
+        m_Calls: []
+    _OnInputUp:
+      m_PersistentCalls:
+        m_Calls: []
+    _hadInputLastFrame: 0
+  - _inputAxisName: Weapon2
+    _inventoryIndexReference: 1
+    _validInput: 0
+    _OnInputDown:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1921856596}
+          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
+          m_MethodName: SetCurrentWeaponByIndex
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _OnInputHeld:
+      m_PersistentCalls:
+        m_Calls: []
+    _OnInputUp:
+      m_PersistentCalls:
+        m_Calls: []
+    _hadInputLastFrame: 0
+--- !u!114 &1921856596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921856590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7717a41959dd7418ee386010210814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentWeapon:
+    _weaponItem: {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
+    _ammoLeft: 30
+  _equippedWeapons:
+  - _weaponItem: {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
+    _ammoLeft: 30
+  - _weaponItem: {fileID: 11400000, guid: f0fe6355a8782f0479b0600462bbe47c, type: 2}
+    _ammoLeft: 12
+  _onNewCurrentWeapon:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 352975086}
+        m_TargetAssemblyTypeName: RecoilOffset, Assembly-CSharp
+        m_MethodName: UpdateForNewValues
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1921856593}
+        m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: UpdateForNewValues
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1926082371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90642,7 +90631,7 @@ Transform:
   - {fileID: 1317009284}
   - {fileID: 777853784}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
 --- !u!1 &1153362699039226285
 GameObject:
