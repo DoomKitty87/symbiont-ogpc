@@ -32,12 +32,12 @@ public class TileFromNoise : MonoBehaviour
   [SerializeField] private float buildingDensity;
   [SerializeField] private float bonusDensity;
   [SerializeField] private AnimationCurve heightCurve;
-  [SerializeField] private GameObject targetPrefab;
   [SerializeField] private LayerMask spawnedLayer;
   [SerializeField] private LayerMask groundLayer;
   [SerializeField] private int targetSpawnOffset;
   [SerializeField] private int buildingSpawnOffset;
   [SerializeField] private int buildingCycles;
+  [SerializeField] private GameObject[] targets;
 
   private DifficultyScaling diffScaleScript;
   private Transform playerVehicle;
@@ -162,8 +162,8 @@ public class TileFromNoise : MonoBehaviour
         }
       }
       Collider[] collidersOverlapped = new Collider[1];
-      if (Physics.OverlapBoxNonAlloc(instPos, targetPrefab.GetComponent<Renderer>().bounds.size / 2, collidersOverlapped, Quaternion.identity, targetSpawnMask) == 0) {
-        Instantiate(targetPrefab, instPos, Quaternion.identity, transform).GetComponent<HealthManager>()._maxHealth *= Mathf.Pow(1.05f, diffScaleScript.difficultyScale);
+      if (Physics.OverlapBoxNonAlloc(instPos, targets[0].GetComponent<Renderer>().bounds.size / 2, collidersOverlapped, Quaternion.identity, targetSpawnMask) == 0) {
+        Instantiate(targets[(int)(Random.value * Mathf.Min(diffScaleScript.difficultyScale, targets.Length - 1))], instPos, Quaternion.identity, transform).GetComponent<HealthManager>()._maxHealth *= Mathf.Pow(1.05f, diffScaleScript.difficultyScale);
       }
     }
   }
