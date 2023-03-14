@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2208,6 +2208,7 @@ GameObject:
   - component: {fileID: 1502965896}
   - component: {fileID: 1502965894}
   - component: {fileID: 1502965895}
+  - component: {fileID: 1502965897}
   m_Layer: 0
   m_Name: Game Handler
   m_TagString: Handler
@@ -2227,7 +2228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88b10a61ddac4723a0da38ec0bd7463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentActiveElement: {fileID: 0}
 --- !u!114 &1502965895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2258,6 +2258,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1502965897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502965893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8536d6994e45acf4a988d060000caf9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToBeShown: []
+  objectsToBeHidden: []
+  currentActiveElement: {fileID: 0}
+  buttonScript: {fileID: 0}
 --- !u!1001 &1535950366
 PrefabInstance:
   m_ObjectHideFlags: 0
