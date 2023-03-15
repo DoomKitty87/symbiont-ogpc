@@ -7,10 +7,8 @@ public class ButtonScript : MonoBehaviour
 
 	public IDictionary<string, GameObject> menuScreens;
 
-	[HideInInspector] public GameObject currentActiveElement;
-
-	// private PauseHandler pauseHandler;
 	private MenuScreenAnimations menuScreenAnimations;
+	private PauseHandler pauseHandler;
 
 	private void Awake() {
 
@@ -27,19 +25,25 @@ public class ButtonScript : MonoBehaviour
 		};
 
 		menuScreenAnimations = GetComponent<MenuScreenAnimations>();
+		pauseHandler = GameObject.FindWithTag("Handler").GetComponent<PauseHandler>();
 	}
 
 	public void ButtonHideScreen() {
-		currentActiveElement = null;
+		// pauseHandler.currentActiveElement = null;
 		StartCoroutine(menuScreenAnimations.ChangeMenuScreen(null));
 	}
 
 	public void ButtonChangeMenuScreen(string targetScreen){
 		if (targetScreen == "") {
-			GameObject.FindWithTag("Handler").GetComponent<PauseHandler>().UnPause();
+			// GameObject.FindWithTag("Handler").GetComponent<PauseHandler>().UnPause();
 		} else {
-			StartCoroutine(menuScreenAnimations.ChangeMenuScreen(menuScreens[targetScreen]));
-			currentActiveElement = menuScreens[targetScreen];
+			try {
+				StartCoroutine(menuScreenAnimations.ChangeMenuScreen(menuScreens[targetScreen]));
+			} catch (System.Exception ex) {
+				menuScreens[targetScreen].SetActive(true);
+			}
+			// pauseHandler.currentActiveElement = menuScreens[targetScreen];
+			// Debug.Log(pauseHandler.currentActiveElement);
 		}
 	}
 

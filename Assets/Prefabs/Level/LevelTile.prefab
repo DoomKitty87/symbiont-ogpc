@@ -156,7 +156,7 @@ MonoBehaviour:
   frequency: 1.5
   waves: 2
   seed: 2567
-  targetDensity: 1
+  targetDensity: 0.25
   buildingDensity: 1
   bonusDensity: 0
   heightCurve:
@@ -183,8 +183,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  targetPrefab: {fileID: 826319800707979801, guid: 2424c17a1caae8541b5ca54341d9d373,
-    type: 3}
   spawnedLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -194,3 +192,15 @@ MonoBehaviour:
   targetSpawnOffset: 2
   buildingSpawnOffset: 4
   buildingCycles: 3
+  targets:
+  - {fileID: 826319800707979801, guid: 2424c17a1caae8541b5ca54341d9d373, type: 3}
+  - {fileID: 7010630943652083356, guid: 2416a248fe4267943955bf2a87f000f2, type: 3}
+  - {fileID: 8718334778838524007, guid: 32df75d3a532c3e41bafdf40227991a7, type: 3}
+  shootingTargets:
+  - {fileID: 6897148839368095385, guid: 74d84eee5a2244f908bf6b3cab73e75a, type: 3}
+  - {fileID: 8633186636979683072, guid: 980e2918616c34334b6fd3cabfdc1ff0, type: 3}
+  - {fileID: 5690332452353972241, guid: 86df91796dc8341ab8577af1eb18da69, type: 3}
+  runningTargets:
+  - {fileID: 51336848969344962, guid: 6e20d7ebf45444b4b992d3f3a559909e, type: 3}
+  - {fileID: 6705369564543735075, guid: f52f4f86802f94157bf907d167584d27, type: 3}
+  - {fileID: 7827390928063983058, guid: 6aa85f5a0c63c4dffb0ad5a220627c11, type: 3}

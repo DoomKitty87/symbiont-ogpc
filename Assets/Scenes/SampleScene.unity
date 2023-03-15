@@ -23039,7 +23039,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 251218006}
-  m_LocalRotation: {x: 0, y: -0.0112772435, z: 0, w: 0.9999364}
+  m_LocalRotation: {x: 0, y: -0.011277251, z: 0, w: 0.9999364}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -27529,6 +27529,7 @@ GameObject:
   - component: {fileID: 523088998}
   - component: {fileID: 523089000}
   - component: {fileID: 523089001}
+  - component: {fileID: 523089002}
   m_Layer: 0
   m_Name: Game Handler
   m_TagString: Handler
@@ -27548,13 +27549,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8536d6994e45acf4a988d060000caf9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToBeShown:
-  - {fileID: 6738320271291457448}
   objectsToBeHidden:
   - {fileID: 1834705401}
   - {fileID: 1256045570}
   - {fileID: 1869520237}
   - {fileID: 1217344386}
+  currentActiveElements: []
+  defaultCurrentActiveElement: 
+  buttonScript: {fileID: 0}
 --- !u!4 &523088999
 Transform:
   m_ObjectHideFlags: 0
@@ -27608,6 +27610,18 @@ MonoBehaviour:
   HUD: {fileID: 463293369}
   WorldSpaceHUD: {fileID: 1476147846}
   score: {fileID: 1845125702}
+--- !u!114 &523089002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523088996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88b10a61ddac4723a0da38ec0bd7463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &531659231
 GameObject:
   m_ObjectHideFlags: 0
@@ -90243,7 +90257,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: Pause Menu
+      value: Settings Menu
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -93389,7 +93403,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: Pause Menu
+      value: Settings Menu
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -95456,7 +95470,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: Pause Menu
+      value: Settings Menu
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
