@@ -5,37 +5,49 @@ using UnityEngine.SceneManagement;
 public class MenuScreenAnimations : MonoBehaviour
 {
 
+  private GameObject parentObject;
   private Animator animator;
-
-  [SerializeField] GameObject parentObject;
+  private PauseHandler pauseHandler;
+  private ButtonScript buttonScript;
 
   private void Awake() {
+    parentObject = TryGetParentObject();
+    buttonScript = GetComponent<ButtonScript>();
+
+  }
+
+  private void Start() {
     animator = parentObject.GetComponent<Animator>();
+    
+    pauseHandler = GameObject.FindWithTag("Handler").GetComponent<PauseHandler>();
   }
 
 	private void OnEnable() {
-    animator.SetBool("closing", false);
+    // animator.SetBool("closing", false);
 	}
 
-  // At some point I'll learn animation events but for now this is fine
-	public IEnumerator ChangeMenuScreen(GameObject targetScene) {
-
-    if (targetScene == null) {
-      parentObject.SetActive(false);
-    } else {
-
-      animator.SetBool("closing", true);
-
-      float timeToWait = 0.5f;
-      yield return new WaitForSecondsRealtime(timeToWait);
-      targetScene.SetActive(true);
-      parentObject.SetActive(false);
+  private GameObject TryGetParentObject() {
+    GameObject tempObject = gameObject;
+    while (tempObject != null) {
+      if (tempObject.CompareTag("MenuScreen")) return tempObject;
+      else tempObject = tempObject.transform.parent.gameObject;
     }
-   }
+    Debug.LogError("Script MenuScreenAnimations contains no GameObject tagged 'MenuScreen' above it");
+    return null;
+  }
+
+  public IEnumerator CloseScreen(GameObject objectThatIsClosing) {
+    animator.SetBool("closing", true);
+
+    float timeToWait = 0.6f;
+    yield return new WaitForSecondsRealtime(timeToWait);
+    objectThatIsClosing.SetActive(false);
+    pauseHandler.ChangeScreen();
+  }
 
   public IEnumerator ChangeScene(string targetScreen) {
 		animator.SetBool("closing", true);
-    float timeToWait = 0.5f;
+    float timeToWait = 0.6f;
     yield return new WaitForSecondsRealtime(timeToWait);
 
     Time.timeScale = 1f;

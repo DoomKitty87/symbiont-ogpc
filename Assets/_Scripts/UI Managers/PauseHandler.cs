@@ -5,25 +5,44 @@ public class PauseHandler : MonoBehaviour
 {
 	[SerializeField] private GameObject[] objectsToBeHidden;
 
-	public List<string> currentActiveElements;
+	public List<GameObject> currentActiveElements;
+
+	public IDictionary<string, GameObject> menuScreens;
 
 	public string defaultCurrentActiveElement;
+	public string stringToShowOnPause;
 
-	public ButtonScript buttonScript;
-	private bool isPaused = false;
+	private ButtonScript buttonScript;
 
 	private void Awake() {
-		buttonScript = GetComponent<ButtonScript>();
+		menuScreens = new Dictionary<string, GameObject>() {
+			{ "Main Menu", FindObjectOfName("Main Menu") },
+			{ "Pause Menu", FindObjectOfName("Pause Menu") },
+			{ "Settings Menu", FindObjectOfName("Settings Menu") },
+			{ "Check Menu", FindObjectOfName("Check Menu") },
+			{ "Controls Menu", FindObjectOfName("Controls Menu") },
+			{ "Audio Menu", FindObjectOfName("Audio Menu") },
+			{ "Video Menu", FindObjectOfName("Video Menu") },
+			{ "Gun Menu", FindObjectOfName("Gun Menu") },
+			{ "Armor Menu", FindObjectOfName("Armor Menu") },
+			{ "", null}
+		};
+
+		 if (stringToShowOnPause == null) stringToShowOnPause = "Pause Menu";
 	}
 
 	private void Start() {
-		currentActiveElements.Add(defaultCurrentActiveElement);
+		currentActiveElements.Add(menuScreens[defaultCurrentActiveElement]);
 		// UnPause();
 	}
 
 	private void Update() {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			if (currentActiveElements.Count == 1) InitPause(); else if (currentActiveElements.Count == 2) Unpause(); else RemovePause();
+			if (currentActiveElements[0] == null) {
+				if (currentActiveElements.Count == 1) InitPause(); else if (currentActiveElements.Count == 2) Unpause(); else RemovePause();
+			} else {
+				if (currentActiveElements.Count > 1) RemovePause();
+			}
 		}
 	}
 
@@ -35,54 +54,51 @@ public class PauseHandler : MonoBehaviour
 
 		foreach (GameObject thing in objectsToBeHidden) thing.SetActive(false);
 
-		buttonScript.ButtonChangeMenuScreen("Pause Menu");
-
-		currentActiveElements.Add("Pause Menu");
+		currentActiveElements.Add(menuScreens[stringToShowOnPause]);
+	
+		currentActiveElements[currentActiveElements.Count - 1].SetActive(true);
 
 		Time.timeScale = 0.0f;
 	}
 
 	// Adds an object to pause array
-	public void AddPause() {
-
+	public void AddPause(string s) {
+		StartCoroutine(currentActiveElements[currentActiveElements.Count - 1].GetComponent<MenuScreenAnimations>().CloseScreen(currentActiveElements[currentActiveElements.Count - 1]));
+		currentActiveElements.Add(menuScreens[s]);
 	}
 
 	// Removes an object from pause array
+	
 	public void RemovePause() {
-
+		StartCoroutine(currentActiveElements[currentActiveElements.Count - 1].GetComponent<MenuScreenAnimations>().CloseScreen(currentActiveElements[currentActiveElements.Count - 1]));
+		currentActiveElements.RemoveAt(currentActiveElements.Count - 1);
 	}
 
-	// Hanldes when pause fully unpauses menu
-	public void Unpause() {
-
-		isPaused = false;
+	// Handles when pause fully unpauses menu
+	private void Unpause() {
 
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;		
 
-		// currentActiveElement.SetActive(false);
+		RemovePause();
 
 		foreach (GameObject thing in objectsToBeHidden) thing.SetActive(true);
 		Time.timeScale = 1.0f;
 	}
 
-	// Glorified switch statement
-	private void HandleNestedMenus() {
-		/*switch(currentActiveElement.name) {
-			case "Pause Menu":
-				UnPause();
-				break;
-			case "Settings Menu":
-				buttonScript.ButtonChangeMenuScreen("Pause Menu");
-				break;
-			case null:
-				Debug.LogError("currentActiveElement null error");
-				break;
-			default:
-				buttonScript.ButtonChangeMenuScreen("Settings Menu");
-				break;
+	public void ChangeScreen() {
+		if (currentActiveElements.Count != 1) currentActiveElements[currentActiveElements.Count - 1].SetActive(true);
+	}
 
+	private GameObject FindObjectOfName(string name) {
+		GameObject[] list = FindObjectsOfType<GameObject>(true);
+
+		for (var i = 0; i < list.Length; i++) {
+			if (list[i].name == name) {
+				return list[i];
+			}
 		}
-		*/
+		// Debug.LogError("Unable to find GameObject " + name);
+		return null;
 	}
 }

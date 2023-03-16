@@ -23039,7 +23039,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 251218006}
-  m_LocalRotation: {x: 0, y: -0.011277251, z: 0, w: 0.9999364}
+  m_LocalRotation: {x: 0, y: -0.0112772435, z: 0, w: 0.9999364}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -27529,7 +27529,6 @@ GameObject:
   - component: {fileID: 523088998}
   - component: {fileID: 523089000}
   - component: {fileID: 523089001}
-  - component: {fileID: 523089002}
   m_Layer: 0
   m_Name: Game Handler
   m_TagString: Handler
@@ -27556,7 +27555,7 @@ MonoBehaviour:
   - {fileID: 1217344386}
   currentActiveElements: []
   defaultCurrentActiveElement: 
-  buttonScript: {fileID: 0}
+  stringToShowOnPause: Pause Menu
 --- !u!4 &523088999
 Transform:
   m_ObjectHideFlags: 0
@@ -27610,18 +27609,6 @@ MonoBehaviour:
   HUD: {fileID: 463293369}
   WorldSpaceHUD: {fileID: 1476147846}
   score: {fileID: 1845125702}
---- !u!114 &523089002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523088996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88b10a61ddac4723a0da38ec0bd7463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &531659231
 GameObject:
   m_ObjectHideFlags: 0
@@ -90250,7 +90237,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -90260,7 +90247,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonChangeMenuScreen
+      value: ButtonRemovePause
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -90670,7 +90657,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonChangeMenuScreen
+      value: ButtonAddPause
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -92798,13 +92785,26 @@ GameObject:
   - component: {fileID: 2229918517199354980}
   - component: {fileID: 2229918517199354983}
   - component: {fileID: 62448848}
+  - component: {fileID: 2229918517199355002}
   m_Layer: 5
   m_Name: Settings Menu
-  m_TagString: Untagged
+  m_TagString: MenuScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &2229918517199355002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2229918517199355001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09c6a25573604dab92a9bfe37bbb5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2229918518076779400
 GameObject:
   m_ObjectHideFlags: 0
@@ -93396,7 +93396,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -93406,7 +93406,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonChangeMenuScreen
+      value: ButtonRemovePause
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -93709,9 +93709,10 @@ GameObject:
   - component: {fileID: 5371067879762237206}
   - component: {fileID: 2150025531022509668}
   - component: {fileID: 1732760525}
+  - component: {fileID: 7684705044303692890}
   m_Layer: 5
   m_Name: Video Menu
-  m_TagString: Untagged
+  m_TagString: MenuScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94917,7 +94918,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonChangeMenuScreen
+      value: ButtonAddPause
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -95463,7 +95464,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -95473,7 +95474,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonChangeMenuScreen
+      value: ButtonRemovePause
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -101981,9 +101982,10 @@ GameObject:
   - component: {fileID: 4986050070419021087}
   - component: {fileID: 4986050070419021084}
   - component: {fileID: 1731931847}
+  - component: {fileID: 4986050070419021088}
   m_Layer: 5
   m_Name: Audio Menu
-  m_TagString: Untagged
+  m_TagString: MenuScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102051,6 +102053,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4986050070419021058}
   m_CullTransparentMesh: 1
+--- !u!114 &4986050070419021088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4986050070419021058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09c6a25573604dab92a9bfe37bbb5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4986050071030172402
 RectTransform:
   m_ObjectHideFlags: 0
@@ -102453,7 +102467,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonChangeMenuScreen
+      value: ButtonAddPause
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -103200,9 +103214,10 @@ GameObject:
   - component: {fileID: 8872845021522141999}
   - component: {fileID: 7879752500941819259}
   - component: {fileID: 1319201340}
+  - component: {fileID: 8872845021522142000}
   m_Layer: 5
   m_Name: Controls Menu
-  m_TagString: Untagged
+  m_TagString: MenuScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103896,7 +103911,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -103906,7 +103921,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonChangeMenuScreen
+      value: ButtonRemovePause
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -104152,9 +104167,10 @@ GameObject:
   - component: {fileID: 6738320271291457461}
   - component: {fileID: 6738320271291457462}
   - component: {fileID: 253968820}
+  - component: {fileID: 6738320271291457464}
   m_Layer: 5
   m_Name: Pause Menu
-  m_TagString: Untagged
+  m_TagString: MenuScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104222,6 +104238,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6738320271291457464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6738320271291457448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09c6a25573604dab92a9bfe37bbb5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &6790461380530430082
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -104556,7 +104584,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonChangeMenuScreen
+      value: ButtonAddPause
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -105268,6 +105296,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7684705044303692890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2355289182777752077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09c6a25573604dab92a9bfe37bbb5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7758046427533253306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -105423,7 +105463,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -105433,7 +105473,7 @@ PrefabInstance:
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonChangeMenuScreen
+      value: ButtonRemovePause
       objectReference: {fileID: 0}
     - target: {fileID: 7227854701743637171, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -106327,6 +106367,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6125622990459241051}
   m_CullTransparentMesh: 1
+--- !u!114 &8872845021522142000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6125622990459241051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09c6a25573604dab92a9bfe37bbb5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8887106359884443382
 GameObject:
   m_ObjectHideFlags: 0
