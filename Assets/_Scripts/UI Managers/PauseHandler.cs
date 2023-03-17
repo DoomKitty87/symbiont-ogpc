@@ -75,7 +75,7 @@ public class PauseHandler : MonoBehaviour
 	// Handles when pause fully unpauses menu
 	public void Unpause() {
 		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;		
+		Cursor.visible = false;
 
 		foreach (GameObject thing in _objectsToBeHidden) thing.SetActive(true);
 

@@ -34,7 +34,7 @@ public class GunController : MonoBehaviour
   private CinemachineVirtualCamera vcam;
   private CinemachinePOV pov;
   private int rounds;
-  private bool reloading;
+  // private bool reloading; // I'm mad at the constant warnings
   private bool shells = false;
   private TextMeshProUGUI magtext;
   private TextMeshProUGUI ammoText;
@@ -217,7 +217,7 @@ public class GunController : MonoBehaviour
   public void Reload() {
     if (rounds < activeGun.magSize) {
       rounds = activeGun.magSize;
-      reloading = true;
+      // reloading = true;
       StartCoroutine(ReloadAnim());
     }
   }
@@ -331,7 +331,7 @@ public class GunController : MonoBehaviour
     magazine.transform.localPosition = init;
     ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
     ammoScript.currAmmo = rounds;
-    reloading = false;
+    // reloading = false;
   }
 
   //Animates crosshair during recoil
