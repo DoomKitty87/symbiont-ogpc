@@ -3,19 +3,17 @@ using UnityEngine;
 
 public class PauseHandler : MonoBehaviour 
 {
-	[SerializeField] private GameObject[] objectsToBeHidden;
+	[SerializeField] private GameObject[] _objectsToBeHidden;
 
-	public List<GameObject> currentActiveElements;
+	[SerializeField] private List<GameObject> _currentActiveElements;
 
-	public IDictionary<string, GameObject> menuScreens;
+	[SerializeField] private IDictionary<string, GameObject> _menuScreens;
 
-	public string defaultCurrentActiveElement;
-	public string stringToShowOnPause;
-
-	private ButtonScript buttonScript;
+	[SerializeField] private string _defaultCurrentActiveElement;
+	[SerializeField] private string _stringToShowOnPause;
 
 	private void Awake() {
-		menuScreens = new Dictionary<string, GameObject>() {
+		_menuScreens = new Dictionary<string, GameObject>() {
 			{ "Main Menu", FindObjectOfName("Main Menu") },
 			{ "Pause Menu", FindObjectOfName("Pause Menu") },
 			{ "Settings Menu", FindObjectOfName("Settings Menu") },
@@ -28,68 +26,72 @@ public class PauseHandler : MonoBehaviour
 			{ "", null}
 		};
 
-		 if (stringToShowOnPause == null) stringToShowOnPause = "Pause Menu";
+		 _stringToShowOnPause ??= "Pause Menu";
 	}
 
 	private void Start() {
-		currentActiveElements.Add(menuScreens[defaultCurrentActiveElement]);
+		_currentActiveElements.Add(_menuScreens[_defaultCurrentActiveElement]);
 		// UnPause();
 	}
 
 	private void Update() {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			if (currentActiveElements[0] == null) {
-				if (currentActiveElements.Count == 1) InitPause(); else if (currentActiveElements.Count == 2) Unpause(); else RemovePause();
+			
+			// Handles what pressing escape does depending on the active scene
+			if (_currentActiveElements[0] == null) {
+				if (_currentActiveElements.Count == 1) InitPause(); else if (_currentActiveElements.Count == 2) Unpause(); else RemovePause();
 			} else {
-				if (currentActiveElements.Count > 1) RemovePause();
+				if (_currentActiveElements.Count > 1) RemovePause();
 			}
 		}
 	}
 
 	// Handles when pause key is first pressed
 	public void InitPause() {
-
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
 
-		foreach (GameObject thing in objectsToBeHidden) thing.SetActive(false);
+		foreach (GameObject thing in _objectsToBeHidden) thing.SetActive(false);
 
-		currentActiveElements.Add(menuScreens[stringToShowOnPause]);
+		_currentActiveElements.Add(_menuScreens[_stringToShowOnPause]);
 	
-		currentActiveElements[currentActiveElements.Count - 1].SetActive(true);
+		_currentActiveElements[^1].SetActive(true);
 
 		Time.timeScale = 0.0f;
 	}
 
 	// Adds an object to pause array
 	public void AddPause(string s) {
-		StartCoroutine(currentActiveElements[currentActiveElements.Count - 1].GetComponent<MenuScreenAnimations>().CloseScreen(currentActiveElements[currentActiveElements.Count - 1]));
-		currentActiveElements.Add(menuScreens[s]);
+		StartCoroutine(_currentActiveElements[^1].GetComponent<MenuScreenAnimations>().CloseScreen(_currentActiveElements[^1]));
+		_currentActiveElements.Add(_menuScreens[s]);
 	}
 
 	// Removes an object from pause array
-	
 	public void RemovePause() {
-		StartCoroutine(currentActiveElements[currentActiveElements.Count - 1].GetComponent<MenuScreenAnimations>().CloseScreen(currentActiveElements[currentActiveElements.Count - 1]));
-		currentActiveElements.RemoveAt(currentActiveElements.Count - 1);
+		StartCoroutine(_currentActiveElements[^1].GetComponent<MenuScreenAnimations>().CloseScreen(_currentActiveElements[^1]));
+		_currentActiveElements.RemoveAt(_currentActiveElements.Count - 1);
 	}
 
 	// Handles when pause fully unpauses menu
-	private void Unpause() {
-
+	public void Unpause() {
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;		
 
-		RemovePause();
+		foreach (GameObject thing in _objectsToBeHidden) thing.SetActive(true);
 
-		foreach (GameObject thing in objectsToBeHidden) thing.SetActive(true);
+		_currentActiveElements[^1].SetActive(false);
+		_currentActiveElements.RemoveAt(_currentActiveElements.Count - 1);
+
 		Time.timeScale = 1.0f;
 	}
 
+	// Script called by MenuScreenAnimations after coroutine
 	public void ChangeScreen() {
-		if (currentActiveElements.Count != 1) currentActiveElements[currentActiveElements.Count - 1].SetActive(true);
+		if (_currentActiveElements.Count != 1 && _currentActiveElements[0] == null) _currentActiveElements[^1].SetActive(true); else _currentActiveElements[^1].SetActive(true);
 	}
 
+	// Returns GameObject in scene with name
+	// Used because GameObject.Find doesn't work with GameObjects that are inactive
 	private GameObject FindObjectOfName(string name) {
 		GameObject[] list = FindObjectsOfType<GameObject>(true);
 

@@ -8,12 +8,9 @@ public class MenuScreenAnimations : MonoBehaviour
   private GameObject parentObject;
   private Animator animator;
   private PauseHandler pauseHandler;
-  private ButtonScript buttonScript;
 
   private void Awake() {
     parentObject = TryGetParentObject();
-    buttonScript = GetComponent<ButtonScript>();
-
   }
 
   private void Start() {
@@ -21,10 +18,6 @@ public class MenuScreenAnimations : MonoBehaviour
     
     pauseHandler = GameObject.FindWithTag("Handler").GetComponent<PauseHandler>();
   }
-
-	private void OnEnable() {
-    // animator.SetBool("closing", false);
-	}
 
   private GameObject TryGetParentObject() {
     GameObject tempObject = gameObject;

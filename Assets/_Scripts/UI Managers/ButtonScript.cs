@@ -29,5 +29,8 @@ public class ButtonScript : MonoBehaviour
 		pauseHandler.RemovePause();
 	}
 
+	public void ButtonUnPause() {
+		pauseHandler.Unpause();
+	}
 
 }

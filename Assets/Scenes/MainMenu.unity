@@ -21312,11 +21312,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8536d6994e45acf4a988d060000caf9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToBeHidden:
-  - {fileID: 966289172}
-  currentActiveElements: []
-  defaultCurrentActiveElement: Main Menu
-  stringToShowOnPause: Settings Menu
+  _objectsToBeHidden: []
+  _currentActiveElements: []
+  _defaultCurrentActiveElement: Main Menu
+  _stringToShowOnPause: 
 --- !u!1 &2105048134
 GameObject:
   m_ObjectHideFlags: 0
