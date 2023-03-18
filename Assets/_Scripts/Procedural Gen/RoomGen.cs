@@ -16,6 +16,7 @@ public class RoomGen : MonoBehaviour
 
   [SerializeField] private float roomNumber;
   [SerializeField] private Room[] genRooms;
+  [SerializeField] private GameObject doorFiller;
 
   private void Start() {
     GenerateDungeon();
@@ -40,8 +41,12 @@ public class RoomGen : MonoBehaviour
       int tryingDoor = Random.Range(0, lastRoom.doorways.Length);
       while (tryingDoor == -1 || tryingDoor == lastRoom.connectedEntrance) tryingDoor = Random.Range(0, lastRoom.doorways.Length);
       instantiatedRoom.transform.position = lastRoom.doorways[tryingDoor] + lastPos + roomChoice.doorways[(Random.value < 0.5f) ? 0 : 1];
+      roomChoice.connectedEntrance = tryingDoor;
       lastRoom = roomChoice;
       lastPos = instantiatedRoom.transform.position;
+      for (int n = 0; n < lastRoom.doorways.Length; n++) {
+        if (n != lastRoom.connectedEntrance && n != tryingDoor) Instantiate(doorFiller, lastPos + lastRoom.doorways[n], Quaternion.identity);
+      }
     }
   }
 }
