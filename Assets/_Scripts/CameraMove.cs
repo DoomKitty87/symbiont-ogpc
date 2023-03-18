@@ -10,14 +10,13 @@ public class CameraMove : MonoBehaviour
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
             CheckForTarget();
-            Debug.Log("Click");
         }
 
         FollowTarget();
     }
 
     private void FollowTarget() {
-        transform.position = _currActiveTarget.transform.position;
+        if (_currActiveTarget != null) transform.position = _currActiveTarget.transform.position;
     }
 
     private void CheckForTarget() {
