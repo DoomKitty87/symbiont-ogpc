@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 public class TargetMovement : MonoBehaviour
 {
 
@@ -46,4 +47,13 @@ public class TargetMovement : MonoBehaviour
     yield return null;
     running = false;
   }
+}
+*/
+
+public class TargetMovement : MonoBehaviour{
+
+  [SerializeField] private float health;
+  [SerializeField] private float defense;
+  [SerializeField] private float movementSpeed;
+
 }

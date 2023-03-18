@@ -172,7 +172,7 @@ public class TileFromNoise : MonoBehaviour
         else if (randVal < 0.2f * diffScaleScript.difficultyScale) {
           GameObject tmp = Instantiate(runningTargets[(int)(Random.value * Mathf.Min(diffScaleScript.difficultyScale, targets.Length - 1))], instPos, Quaternion.identity, transform);
           tmp.GetComponent<HealthManager>()._maxHealth *= Mathf.Pow(1.05f, diffScaleScript.difficultyScale);
-          tmp.GetComponent<TargetMovement>().intelligence = Random.Range(5f, 10f);
+          // tmp.GetComponent<TargetMovement>().intelligence = Random.Range(5f, 10f);
         }
         else {
           Instantiate(targets[(int)(Random.value * Mathf.Min(diffScaleScript.difficultyScale, targets.Length - 1))], instPos, Quaternion.identity, transform).GetComponent<HealthManager>()._maxHealth *= Mathf.Pow(1.05f, diffScaleScript.difficultyScale);
