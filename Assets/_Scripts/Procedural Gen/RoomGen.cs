@@ -8,6 +8,7 @@ public struct Room
   public GameObject prefab;
   public Vector3 roomSize;
   public Vector3[] doorways;
+  public Vector3[] doorRotations;
   public int connectedEntrance;
 }
 
@@ -28,12 +29,14 @@ public class RoomGen : MonoBehaviour
 
   private void GenerateDungeon() {
     Room lastRoom;
-    Vector3 lastPos = new Vector3(0, 0, 0);
+    Vector3 lastPos;
+    Quaternion lastRot;
 
     Room _roomChoice = genRooms[Random.Range(0, genRooms.Length - 1)];
     GameObject _instantiatedRoom = Instantiate(_roomChoice.prefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
     lastRoom = _roomChoice;
-    lastPos = _instantiatedRoom.transform.position;
+    lastPos = _instantiatedRoom.transform.position; 
+    lastRot = _instantiatedRoom.transform.rotation;
 
     for (int i = 0; i < roomNumber - 1; i++) {
       Room roomChoice = genRooms[Random.Range(0, genRooms.Length - 1)];
@@ -44,8 +47,9 @@ public class RoomGen : MonoBehaviour
       roomChoice.connectedEntrance = tryingDoor;
       lastRoom = roomChoice;
       lastPos = instantiatedRoom.transform.position;
+      lastRot = instantiatedRoom.transform.rotation;
       for (int n = 0; n < lastRoom.doorways.Length; n++) {
-        if (n != lastRoom.connectedEntrance && n != tryingDoor) Instantiate(doorFiller, lastPos + lastRoom.doorways[n], Quaternion.identity);
+        if (n != lastRoom.connectedEntrance && n != tryingDoor) Instantiate(doorFiller, lastPos + lastRoom.doorways[n], lastRot * lastRoom.doorRotations[n]);
       }
     }
   }
