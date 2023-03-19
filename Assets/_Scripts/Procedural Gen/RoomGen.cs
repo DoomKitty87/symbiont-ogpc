@@ -49,7 +49,7 @@ public class RoomGen : MonoBehaviour
       lastPos = instantiatedRoom.transform.position;
       lastRot = instantiatedRoom.transform.rotation;
       for (int n = 0; n < lastRoom.doorways.Length; n++) {
-        if (n != lastRoom.connectedEntrance && n != tryingDoor) Instantiate(doorFiller, lastPos + lastRoom.doorways[n], lastRot * lastRoom.doorRotations[n]);
+        // if (n != lastRoom.connectedEntrance && n != tryingDoor) Instantiate(doorFiller, lastPos + lastRoom.doorways[n], lastRot * lastRoom.doorRotations[n]);
       }
     }
   }
