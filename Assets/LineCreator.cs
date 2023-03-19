@@ -11,7 +11,8 @@ public class LineCreator : MonoBehaviour {
 		Linear_Bounce,
 		Linear_Loop,
 		Bezier_Bounce,
-		Bezier_Loop
+		Bezier_Loop,
+		Stationary
 	}
 
 	// Variables realated to Editor Script
@@ -46,6 +47,8 @@ public class LineCreator : MonoBehaviour {
 				break;
 			case LineType.Bezier_Loop:
 				CreateBezierLoopPoints();
+				break;
+			case LineType.Stationary:
 				break;
 		}
 	}

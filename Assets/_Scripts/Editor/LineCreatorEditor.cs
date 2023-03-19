@@ -20,6 +20,9 @@ public class LineCreatorEditor : Editor
 
 	// Creates all point and line handles shown in inspector
 	public void OnSceneGUI() {
+
+		EditorGUI.BeginChangeCheck();
+
 		_lineCreator.CreatePoints();
 
 		switch (_lineCreator.lineType) {
@@ -40,11 +43,18 @@ public class LineCreatorEditor : Editor
 				DrawBezierLoop();
 				break;
 		}
+
+		if (EditorGUI.EndChangeCheck()) {
+			Undo.RecordObject(target, "Update location");
+			PrefabUtility.RecordPrefabInstancePropertyModifications(_lineCreator);
+		}
 	}
 
 	// The function that causes custom text to show in inspector
 	public override void OnInspectorGUI() {
 		serializedObject.Update();
+
+		EditorGUI.BeginChangeCheck();
 
 		LineCreator lineCreator = (LineCreator)target;
 		EditorGUILayout.Space();
@@ -64,6 +74,7 @@ public class LineCreatorEditor : Editor
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("lineWidth"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("travelLineColor"));
 				EditorGUILayout.Space();
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("lockYMovement"));
 				break;
 
 			case LineCreator.LineType.Linear_Loop:
@@ -78,6 +89,7 @@ public class LineCreatorEditor : Editor
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("lineWidth"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("travelLineColor"));
 				EditorGUILayout.Space();
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("lockYMovement"));
 				break;
 
 			case LineCreator.LineType.Bezier_Bounce:
@@ -95,6 +107,7 @@ public class LineCreatorEditor : Editor
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("travelLineColor"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("swingLineColor"));
 				EditorGUILayout.Space();
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("lockYMovement"));
 				break;
 			case LineCreator.LineType.Bezier_Loop:
 				lineCreator.numberOfBezierAnchorPoints = EditorGUILayout.DelayedIntField("Number of Points", lineCreator.numberOfBezierAnchorPoints);
@@ -111,10 +124,18 @@ public class LineCreatorEditor : Editor
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("travelLineColor"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("swingLineColor"));
 				EditorGUILayout.Space();
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("lockYMovement"));
 				break;
+			case LineCreator.LineType.Stationary:
+				EditorGUILayout.Space();
+				break;
+
 		}
 
-		EditorGUILayout.PropertyField(serializedObject.FindProperty("lockYMovement"));
+		if (EditorGUI.EndChangeCheck()) {
+			Undo.RecordObject(target, "Update location");
+			PrefabUtility.RecordPrefabInstancePropertyModifications(_lineCreator);
+		}
 
 		serializedObject.ApplyModifiedProperties();
 	}
@@ -126,16 +147,12 @@ public class LineCreatorEditor : Editor
 
 		for (int i = 0; i < lineCreator.numberOfLinearPoints; ++i) {
 
-			EditorGUI.BeginChangeCheck();
-
 			Handles.color = lineCreator.anchorHandleColor;
 			Vector3 newLocation = Handles.FreeMoveHandle(lineCreator.linearPoints[i], Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
 
-			if (EditorGUI.EndChangeCheck()) {
-				Undo.RecordObject(lineCreator, "Update location");
 				if (lineCreator.lockYMovement) lineCreator.linearPoints[i] = new Vector3(newLocation.x, lineCreator.linearPoints[i].y, newLocation.z);
 				else lineCreator.linearPoints[i] = newLocation;
-			}
+
 		}
 	}
 
@@ -147,31 +164,22 @@ public class LineCreatorEditor : Editor
 		// Draws Bezier Anchor Points
 		for (int i = 0; i < lineCreator.numberOfBezierAnchorPoints; ++i) {
 
-			EditorGUI.BeginChangeCheck();
-
 			Handles.color = lineCreator.anchorHandleColor;
 			Vector3 newLocation = Handles.FreeMoveHandle(lineCreator.bezierAnchorPoints[i], Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
 
-			if (EditorGUI.EndChangeCheck()) {
-				Undo.RecordObject(lineCreator, "Update location");
-				if (lineCreator.lockYMovement) lineCreator.bezierAnchorPoints[i] = new Vector3(newLocation.x, lineCreator.bezierAnchorPoints[i].y, newLocation.z);
-				else lineCreator.bezierAnchorPoints[i] = newLocation;
-			}
+			if (lineCreator.lockYMovement) lineCreator.bezierAnchorPoints[i] = new Vector3(newLocation.x, lineCreator.bezierAnchorPoints[i].y, newLocation.z);
+			else lineCreator.bezierAnchorPoints[i] = newLocation;
+
 		}
 
 		// Draws Bezier Swing Points
 		Handles.color = lineCreator.swingHandleColor;
 		for (int i = 0; i < lineCreator.bezierSwingPoints.Count; ++i) {
 
-			EditorGUI.BeginChangeCheck();
-
 			Vector3 newLocation = Handles.FreeMoveHandle(lineCreator.bezierSwingPoints[i], Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
 
-			if (EditorGUI.EndChangeCheck()) {
-				Undo.RecordObject(lineCreator, "Update location");
-				if (lineCreator.lockYMovement) lineCreator.bezierSwingPoints[i] = new Vector3(newLocation.x, lineCreator.bezierSwingPoints[i].y, newLocation.z);
-				else lineCreator.bezierSwingPoints[i] = newLocation;
-			}
+			if (lineCreator.lockYMovement) lineCreator.bezierSwingPoints[i] = new Vector3(newLocation.x, lineCreator.bezierSwingPoints[i].y, newLocation.z);
+			else lineCreator.bezierSwingPoints[i] = newLocation;
 		}
 	}
 
@@ -187,7 +195,7 @@ public class LineCreatorEditor : Editor
 		}
 	}
 
-	// Connects each element in linearPOints with a line INCLUDING first and last element
+	// Connects each element in linearPoints with a line INCLUDING first and last element
 	private void DrawLinearLoop() {
 		LineCreator lineCreator = (LineCreator)target;
 

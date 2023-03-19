@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 2330875448090017516}
   - component: {fileID: 4296545274288017514}
   - component: {fileID: 7292775775217719457}
+  - component: {fileID: 8100202305822474446}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Target
@@ -271,9 +272,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4812accece1de42888cf3a93efc24fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementType: 0
-  numberOfPoints: 0
-  points:
-  - {x: -4.89891e+33, y: 7.5e-43}
-  - {x: 1.3089518e+22, y: 0.000042487303}
-  maxSpeed: 0
+  targetSpeed: 1
+  indexOfStartingPoint: 0
+  timeToStop: 0.5
+--- !u!114 &8100202305822474446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574294629217724869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf17fd84d4def9a4c8f7741a0504faf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineType: 0
+  lockYMovement: 0
+  travelLineColor: {r: 0, g: 1, b: 0, a: 1}
+  swingLineColor: {r: 0, g: 0, b: 0, a: 1}
+  anchorHandleColor: {r: 0, g: 1, b: 0, a: 1}
+  swingHandleColor: {r: 0, g: 0, b: 0, a: 1}
+  handleSize: 0.5
+  lineWidth: 5
+  numberOfLinearPoints: 0
+  linearPoints: []
+  numberOfBezierAnchorPoints: 0
+  bezierAnchorPoints: []
+  bezierSwingPoints: []

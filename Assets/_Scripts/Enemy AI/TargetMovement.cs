@@ -37,10 +37,11 @@ public class TargetMovement : MonoBehaviour {
 
 	private void MoveTarget() {
 		switch (lineCreator.lineType) {
-			case LineCreator.LineType.Linear_Bounce: UpdateTargetPosition(1, true); StartCoroutine(LinearMoveBounce(1)); break; 
-			case LineCreator.LineType.Linear_Loop: UpdateTargetPosition(1, true); StartCoroutine(LinearMoveLoop(1)); break;
-			case LineCreator.LineType.Bezier_Bounce: UpdateTargetPosition(1, false); StartCoroutine(BezierMoveBounce(1)); break;
-			case LineCreator.LineType.Bezier_Loop: UpdateTargetPosition(1, false); StartCoroutine(BezierMoveLoop(1)); break;
+			case LineCreator.LineType.Linear_Bounce: StartupCheck(true);  UpdateTargetPosition(1, true); StartCoroutine(LinearMoveBounce(1)); break; 
+			case LineCreator.LineType.Linear_Loop: StartupCheck(true);  UpdateTargetPosition(1, true); StartCoroutine(LinearMoveLoop(1)); break;
+			case LineCreator.LineType.Bezier_Bounce: StartupCheck(false); UpdateTargetPosition(1, false); StartCoroutine(BezierMoveBounce(1)); break;
+			case LineCreator.LineType.Bezier_Loop: StartupCheck(false); UpdateTargetPosition(1, false); StartCoroutine(BezierMoveLoop(1)); break;
+			case LineCreator.LineType.Stationary: break;
 		}
 	}
 
@@ -163,8 +164,8 @@ public class TargetMovement : MonoBehaviour {
 
 		// Points from lineCreator script
 		Vector3 a = _previousPosition;
-		Vector3 b = lineCreator.bezierSwingPoints[_targetPositionIndex * 2 - moveDirection];
-		Vector3 c = lineCreator.bezierSwingPoints[_targetPositionIndex * 2];
+		Vector3 b = lineCreator.bezierSwingPoints[_previousPositionIndex * 2];
+		Vector3 c = lineCreator.bezierSwingPoints[_previousPositionIndex * 2 + moveDirection];
 		Vector3 d = _targetPosition;
 
 		// Continue until reach next _targetLocation
@@ -220,6 +221,22 @@ public class TargetMovement : MonoBehaviour {
 
 			_targetPosition = lineCreator.bezierAnchorPoints[_targetPositionIndex];
 			_previousPosition = lineCreator.bezierAnchorPoints[_previousPositionIndex];
+		}
+	}
+
+	private void StartupCheck(bool isLinear) {
+		if (isLinear) {
+			if (lineCreator.linearPoints.Count <= 0) {
+
+				Debug.LogError("Enemy " + gameObject.name + " LineCreator contains no accessable points. If you wish to have a stationary target, pick Stationary as Line Type."); ;
+				this.enabled = false;
+
+			}
+		} else {
+			if (lineCreator.bezierAnchorPoints.Count <= 0) {
+				Debug.LogError("Enemy " + gameObject.name + " LineCreator contains no accessable points. If you wish to have a stationary target, pick Stationary as Line Type."); ;
+				this.enabled = false;
+			}
 		}
 	}
 }
