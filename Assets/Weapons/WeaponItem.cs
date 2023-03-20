@@ -48,6 +48,9 @@ public class WeaponItem : ScriptableObject
   [Header("Charge Stats")]
   public float minShotDamage;
   public float chargeTimeSeconds;
+  [Header("Animation")]
+  [Header("Place the new animations in the AnimatiorOverride; \na template is provided in the Weapons/Animations folder.")]
+  public AnimatorOverrideController animatorOverride;
   [Header("Sounds")]
   public AudioClip shotSound;
   public AudioClip shotSoundNearEmpty;

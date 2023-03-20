@@ -6591,7 +6591,6 @@ GameObject:
   - component: {fileID: 721835274}
   - component: {fileID: 721835273}
   - component: {fileID: 721835272}
-  - component: {fileID: 721835271}
   - component: {fileID: 721835276}
   m_Layer: 0
   m_Name: Player
@@ -6616,18 +6615,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &721835271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721835269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888f7a231427d435085834c7ac98a322, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &721835272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6701,7 +6688,7 @@ MonoBehaviour:
   _onHealthZero:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 721835271}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SubmitScores, Assembly-CSharp
         m_MethodName: EndLevel
         m_Mode: 1
@@ -9185,6 +9172,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2018279027}
+        m_TargetAssemblyTypeName: WeaponAnimation, Assembly-CSharp
+        m_MethodName: StartFireAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _OnBroadcastShotSpread:
     m_PersistentCalls:
       m_Calls:
@@ -9202,7 +9201,19 @@ MonoBehaviour:
         m_CallState: 2
   _OnReloadStart:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2018279027}
+        m_TargetAssemblyTypeName: WeaponAnimation, Assembly-CSharp
+        m_MethodName: StartReloadAnimation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _OnReloadEnd:
     m_PersistentCalls:
       m_Calls:
@@ -9422,6 +9433,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1197400278}
         m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
+        m_MethodName: UpdateForNewValues
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2018279027}
+        m_TargetAssemblyTypeName: WeaponAnimation, Assembly-CSharp
         m_MethodName: UpdateForNewValues
         m_Mode: 0
         m_Arguments:
@@ -12415,10 +12438,7 @@ GameObject:
   - component: {fileID: 1477725654}
   - component: {fileID: 1477725653}
   - component: {fileID: 1477725652}
-  - component: {fileID: 1477725651}
-  - component: {fileID: 1477725650}
   - component: {fileID: 1477725649}
-  - component: {fileID: 1477725648}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12426,22 +12446,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1477725648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1477725647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8829cce3edbb474f9df69560b090095, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notifContainer: {fileID: 440959909}
-  HUD: {fileID: 270400176}
-  itemNotification: {fileID: 1213046955324088136, guid: 7a5837ab8619c4e2b86c799dd057b24f,
-    type: 3}
 --- !u!114 &1477725649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12454,45 +12458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13cd18579ac43f24da15a1ef5e45e7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1477725650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1477725647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0d37a3dd2e9bf840aafc87029fbc019, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scoreTracker: {fileID: 1847024070}
-  moveRate: 5
---- !u!114 &1477725651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1477725647}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bce1c74ba50f341789dc24594b875b89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameHandler: {fileID: 1847024069}
-  HUDCanvas: {fileID: 270400176}
-  shell: {fileID: 4951129425761058106, guid: 920dea722f6120f4d9d4f16065234f75, type: 3}
-  ammoInfo: {fileID: 1206839191}
-  crosshairObject: {fileID: 1029652994}
-  laserBeamPrefab: {fileID: 1362095038030980878, guid: edfe8dd26ae289c448cee08622b726b8,
-    type: 3}
-  explosionAudioPrefab: {fileID: 8462855681465125567, guid: 5335dd00ed0ad47e288fd6d4afa9b022,
-    type: 3}
-  colors:
-  - {r: 85.780106, g: 0, b: 76.79789, a: 1}
-  - {r: 0, g: 3.482202, b: 0.2867696, a: 1}
-  - {r: 0, g: 4.594794, b: 4.594794, a: 1}
 --- !u!114 &1477725652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19557,7 +19522,6 @@ GameObject:
   - component: {fileID: 1847024074}
   - component: {fileID: 1847024073}
   - component: {fileID: 1847024072}
-  - component: {fileID: 1847024070}
   - component: {fileID: 1847024071}
   m_Layer: 0
   m_Name: Game Handler
@@ -19566,22 +19530,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1847024070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1847024069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cedec690c187677478c9830b3d220934, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboTime: 2
-  HUD: {fileID: 270400176}
-  WorldSpaceHUD: {fileID: 112860571}
-  score: {fileID: 680061027}
 --- !u!114 &1847024071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20316,6 +20264,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44e1fa9d87f14e8cb9db5124362edb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 1431016552}
+  _baseAnimatorController: {fileID: 9100000, guid: da029b1024c1dab499f78c63d82f9142,
+    type: 2}
+  _unarmedAnimatorOverride: {fileID: 22100000, guid: 7f9756ae4bbb0ca4092de06ef256f025,
+    type: 2}
+  _IsArmed: 1
 --- !u!114 &2018279028
 MonoBehaviour:
   m_ObjectHideFlags: 0
