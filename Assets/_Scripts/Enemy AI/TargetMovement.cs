@@ -112,8 +112,8 @@ public class TargetMovement : MonoBehaviour {
 			b = lineCreator.bezierSwingPoints[_previousPositionIndex * 2];
 			c = lineCreator.bezierSwingPoints[_previousPositionIndex * 2 + moveDirection];
 		} else {
-			b = lineCreator.bezierSwingPoints[_previousPositionIndex * 2 - 1];
-			c = lineCreator.bezierSwingPoints[_previousPositionIndex * 2 - 2];
+			b = lineCreator.bezierSwingPoints[_previousPositionIndex * 2 - moveDirection];
+			c = lineCreator.bezierSwingPoints[_previousPositionIndex * 2 - 2 * moveDirection];
 		}
 
 		// Continue until reaching next _targetPosition

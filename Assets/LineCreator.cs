@@ -117,7 +117,6 @@ public class LineCreator : MonoBehaviour {
 			}
 		}
 
-		// 
 		if (numberOfBezierAnchorPoints == 0 || numberOfBezierAnchorPoints == 1) {
 			bezierSwingPoints.Clear();
 			return;
