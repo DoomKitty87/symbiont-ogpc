@@ -9172,7 +9172,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2018279027}
+      - m_Target: {fileID: 1431016554}
         m_TargetAssemblyTypeName: WeaponAnimation, Assembly-CSharp
         m_MethodName: StartFireAnimation
         m_Mode: 1
@@ -9202,10 +9202,10 @@ MonoBehaviour:
   _OnReloadStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2018279027}
+      - m_Target: {fileID: 1431016554}
         m_TargetAssemblyTypeName: WeaponAnimation, Assembly-CSharp
         m_MethodName: StartReloadAnimation
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9443,8 +9443,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2018279027}
-        m_TargetAssemblyTypeName: WeaponAnimation, Assembly-CSharp
+      - m_Target: {fileID: 1431016553}
+        m_TargetAssemblyTypeName: WeaponAnimationOverride, Assembly-CSharp
         m_MethodName: UpdateForNewValues
         m_Mode: 0
         m_Arguments:
@@ -11613,6 +11613,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1431016551}
   - component: {fileID: 1431016552}
+  - component: {fileID: 1431016553}
+  - component: {fileID: 1431016554}
   m_Layer: 8
   m_Name: fpsArms
   m_TagString: Untagged
@@ -11628,7 +11630,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431016550}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.066, z: 1.59}
+  m_LocalPosition: {x: 0, y: -0.066, z: 1.36}
   m_LocalScale: {x: 0.59, y: 0.59, z: 0.59}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -11645,7 +11647,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431016550}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 029a09f97f6241f47baaf38a21eff272, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 4cfb8e67906c47e409fd7d4a9a1c585e, type: 3}
   m_Controller: {fileID: 9100000, guid: da029b1024c1dab499f78c63d82f9142, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -11656,6 +11658,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1431016553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431016550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d6528f273bf42db83d0664bdd25169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animatorToOverride: {fileID: 1431016552}
+  _currentWeaponItemAnimated: {fileID: 0}
+  _defaultOverride: {fileID: 22100000, guid: 7f9756ae4bbb0ca4092de06ef256f025, type: 2}
+  _animationOverrideIsReady:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1431016554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431016550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e44e1fa9d87f14e8cb9db5124362edb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1431016552}
+  _CanReload: 1
 --- !u!1001 &1434440834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20201,7 +20235,6 @@ GameObject:
   - component: {fileID: 2018279029}
   - component: {fileID: 2018279026}
   - component: {fileID: 2018279028}
-  - component: {fileID: 2018279027}
   m_Layer: 0
   m_Name: Weapon Camera
   m_TagString: Untagged
@@ -20252,24 +20285,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &2018279027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018279025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e44e1fa9d87f14e8cb9db5124362edb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 1431016552}
-  _baseAnimatorController: {fileID: 9100000, guid: da029b1024c1dab499f78c63d82f9142,
-    type: 2}
-  _unarmedAnimatorOverride: {fileID: 22100000, guid: 7f9756ae4bbb0ca4092de06ef256f025,
-    type: 2}
-  _IsArmed: 1
 --- !u!114 &2018279028
 MonoBehaviour:
   m_ObjectHideFlags: 0
