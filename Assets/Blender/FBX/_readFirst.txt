@@ -1,0 +1,23 @@
+These files are only used for animation importing, and copy their avatar definition from the base 
+fpsArms.blend file.
+
+DO NOT DELETE OR CHANGE THE FPSARMS.BLEND FILE! THAT WILL CAUSE ISSUES AND I DO NOT WANT TO SOLVE THEM
+
+To make new animations:
+
+1: Open up the fpsArms.blend file and add the gun mesh you're animating to it,
+then save it as a copy.
+
+2: Make your animations, then export them as an FBX file with only Armatures and Meshes selected,
+and make sure all of the options under "Bake Animation" are checked.
+
+3: Export the FBX file to the FBX folder under the Blender folder, and set the import settings to
+copy the avatar definition of the base fpsArms.blend file.
+
+4: Copy the animations included in the FBX file to the Animations/Player in a new folder.
+
+5: Copy the _template animation override in the Weapons/Animations and fill in the animations as needed.
+
+6: Assign the animation override to a weapon item 
+
+7: Done!
