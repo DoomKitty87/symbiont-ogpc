@@ -18993,6 +18993,7 @@ GameObject:
   - component: {fileID: 1739819030}
   - component: {fileID: 1739819029}
   - component: {fileID: 1739819028}
+  - component: {fileID: 1739819032}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -19079,6 +19080,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1739819032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739819027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d25c52d9383415ca32c5bb9d29455e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomNumber: 23
+  genRooms:
+  - prefab: {fileID: 919132149155446097, guid: 48c6dce51f2d6134281ed390aeeace05, type: 3}
+    roomSize: {x: 5, y: 5, z: 5}
+    doorways:
+    - {x: -5, y: 0, z: 2}
+    - {x: 5, y: 0, z: 4}
+    doorRotations:
+    - {x: 0, y: 0, z: 90}
+    - {x: 0, y: 0, z: 90}
+    connectedEntrance: 0
+  doorFiller: {fileID: 0}
 --- !u!1 &1751754132
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public struct Room
 {
 
@@ -21,10 +22,6 @@ public class RoomGen : MonoBehaviour
 
   private void Start() {
     GenerateDungeon();
-  }
-
-  private void Update() {
-
   }
 
   private void GenerateDungeon() {
