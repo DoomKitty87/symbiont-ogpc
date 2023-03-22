@@ -82,7 +82,7 @@ public class WeaponInventory : MonoBehaviour
   public void DecrementAmmoLeft(int amount) {
     _currentWeapon._ammoLeft -= amount;
   }
-  public void IncrementAmmoLeft(int amount) {
-    _currentWeapon._ammoLeft += amount;
+  public void ResetAmmoToMax() {
+    _currentWeapon._ammoLeft = _currentWeapon._weaponItem.magSize;
   }
 }

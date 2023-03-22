@@ -38,6 +38,6 @@ public class WeaponAnimationOverride : MonoBehaviour
     return float.NaN;
   }
   private void SetReloadTimeScale(float reloadLength, float reloadAnimationLength) {
-    _animatorToOverride.SetFloat("ReloadAnimationSpeed", reloadLength / reloadAnimationLength);
+    _animatorToOverride.SetFloat("ReloadAnimationSpeed", reloadAnimationLength / reloadLength);
   }
 }
