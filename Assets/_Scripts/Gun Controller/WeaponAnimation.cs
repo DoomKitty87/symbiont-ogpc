@@ -31,6 +31,7 @@ public class WeaponAnimation : MonoBehaviour
   public void StartReloadAnimation() {
     if (_CanReload == false) return;
     _animator.SetTrigger("OnReload");
+    _animator.SetBool("OnFire", false);
   }
 
   public void StartDrawAnimation() {

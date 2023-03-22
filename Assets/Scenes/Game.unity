@@ -4076,7 +4076,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &415522825
 Transform:
   m_ObjectHideFlags: 0
@@ -9219,8 +9219,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1197400281}
         m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
-        m_MethodName: IncrementAmmoLeft
-        m_Mode: 0
+        m_MethodName: ResetAmmoToMax
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11672,7 +11672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animatorToOverride: {fileID: 1431016552}
   _currentWeaponItemAnimated: {fileID: 0}
-  _defaultOverride: {fileID: 22100000, guid: 7f9756ae4bbb0ca4092de06ef256f025, type: 2}
+  _defaultOverride: {fileID: 22100000, guid: f95b3c6b60185b94e8fc8014a6414352, type: 2}
   _animationOverrideIsReady:
     m_PersistentCalls:
       m_Calls: []
