@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class SpawnedWeapon
 {
-  // Reference to the spawned gun and its respective weapon item
+  public GameObject instantiatedWeapon;
+  public WeaponItem weaponItem;
+
+  public SpawnedWeapon(GameObject instantiatedWeapon, WeaponItem weaponItem) {
+    this.instantiatedWeapon = instantiatedWeapon;
+    this.weaponItem = weaponItem;
+  }
 }
 
 public class WeaponRenderer : MonoBehaviour
@@ -12,7 +18,7 @@ public class WeaponRenderer : MonoBehaviour
   [SerializeField] private Transform _weaponContainer;
   [SerializeField] private GameObject _currentlyViewedWeapon;
 
-  private List<GameObject> _spawnedWeapons = new();
+  private List<SpawnedWeapon> _spawnedWeapons = new();
 
   // Start is called before the first frame update
   void Start() {
@@ -22,22 +28,43 @@ public class WeaponRenderer : MonoBehaviour
   public void InstantiateEquippedWeapons(WeaponItem[] equippedWeapons) {
     foreach (WeaponItem weaponItem in equippedWeapons)
     {
-      GameObject spawnedWeapon = Instantiate(weaponItem.gunPrefab, _weaponContainer.position + weaponItem.gunOffset, Quaternion.identity, _weaponContainer);
-      _spawnedWeapons.Add(spawnedWeapon);
+      InstantiateWeapon(weaponItem);
     }
+  }
+  private void InstantiateWeapon(WeaponItem weaponItem) {
+    SpawnedWeapon spawningWeapon = new SpawnedWeapon(Instantiate(weaponItem.gunPrefab, _weaponContainer.position + weaponItem.gunOffset, Quaternion.identity, _weaponContainer), weaponItem);
+    _spawnedWeapons.Add(spawningWeapon);
   }
 
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
-    // Show the weapon being updated
+    ShowNewWeapon(weaponItem);
   }
-
-  public void ShowNewWeapon() {
-    // If the weapon is in the list, show it. Otherwise, instantiate and add it to the list,
-    // and show.
+  private void ShowNewWeapon(WeaponItem weaponItem) {
+    bool weaponItemInList = false;
+    if (weaponItem == null) return;
+    foreach (SpawnedWeapon spawnedWeapon in _spawnedWeapons) {
+      if (spawnedWeapon.weaponItem == weaponItem) {
+        spawnedWeapon.instantiatedWeapon.SetActive(true);
+        _currentlyViewedWeapon = spawnedWeapon.instantiatedWeapon;
+        weaponItemInList = true;
+      } 
+      else {
+        spawnedWeapon.instantiatedWeapon.SetActive(false);
+      }
+    }
+    // If the weaponItem is not in the list of spawned weapons, instantiate it
+    if (weaponItemInList == false) {
+      InstantiateWeapon(weaponItem); 
+      foreach (SpawnedWeapon spawnedWeapon in _spawnedWeapons) {
+        if (spawnedWeapon.weaponItem == weaponItem) {
+          spawnedWeapon.instantiatedWeapon.SetActive(true);
+          _currentlyViewedWeapon = spawnedWeapon.instantiatedWeapon;
+        } 
+        else {
+          spawnedWeapon.instantiatedWeapon.SetActive(false);
+        }
+      } 
+    }
   }
-
-  // Update is called once per frame
-  void Update() {
-        
-  }
+  // private void iterateSpawnedWeapons() {
 }
