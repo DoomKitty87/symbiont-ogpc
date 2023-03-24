@@ -6,6 +6,23 @@ using UnityEngine;
 
 public class LineCreator : MonoBehaviour {
 
+	// Locks points to parent transform when enemy is in a prefab
+	private void Awake() {
+		if (transform.parent != null) {
+			for (int i = 0; i < linearPoints.Count; i++) {
+				linearPoints[i] += SumOfParentTransform();
+			}
+
+			for (int i = 0; i < bezierAnchorPoints.Count; i++) {
+				bezierAnchorPoints[i] += SumOfParentTransform();
+			}
+
+			for (int i = 0; i < bezierSwingPoints.Count; i++) {
+				bezierSwingPoints[i] += SumOfParentTransform();
+			}
+		}
+	}
+
 	public LineType lineType;
 	public enum LineType {
 		Linear_Bounce,
@@ -32,6 +49,14 @@ public class LineCreator : MonoBehaviour {
 	public int numberOfBezierAnchorPoints;
 	public List<Vector3> bezierAnchorPoints;
 	public List<Vector3> bezierSwingPoints;
+
+	private Vector3 SumOfParentTransform() {
+		Vector3 targetVector3 = Vector3.zero;
+		targetVector3 += transform.parent.transform.position;
+		targetVector3 += transform.parent.transform.position;
+
+		return targetVector3;
+	}
 
 	// Switches on which LineType currently selected
 	public void CreatePoints() {
