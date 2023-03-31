@@ -95,7 +95,7 @@ public class LineCreator : MonoBehaviour {
 		if (linearPoints.Count < numberOfLinearPoints) {
 			while (linearPoints.Count < numberOfLinearPoints) {
 				if (linearPoints.Count != 0) linearPoints.Add(linearPoints[^1]);
-				else linearPoints.Add(gameObject.transform.localPosition);
+				else linearPoints.Add(Vector3.zero);
 			}
 		} else if (linearPoints.Count > numberOfLinearPoints) {
 			while (linearPoints.Count > numberOfLinearPoints) {
@@ -111,7 +111,7 @@ public class LineCreator : MonoBehaviour {
 		if (bezierAnchorPoints.Count < numberOfBezierAnchorPoints) {
 			while (bezierAnchorPoints.Count < numberOfBezierAnchorPoints) {
 				if (bezierAnchorPoints.Count != 0) bezierAnchorPoints.Add(bezierAnchorPoints[^1]);
-				else bezierAnchorPoints.Add(gameObject.transform.localPosition);
+				else bezierAnchorPoints.Add(Vector3.zero);
 			}
 		} else if (bezierAnchorPoints.Count > numberOfBezierAnchorPoints) {
 			while (bezierAnchorPoints.Count > numberOfBezierAnchorPoints) {
@@ -130,7 +130,7 @@ public class LineCreator : MonoBehaviour {
 		if (bezierSwingPoints.Count < numberOfSwingPoints) {
 			while (bezierSwingPoints.Count < numberOfSwingPoints) {
 				if (bezierSwingPoints.Count != 0) bezierSwingPoints.Add(bezierAnchorPoints[(int)Mathf.Ceil(bezierSwingPoints.Count / 2)]);
-				else bezierSwingPoints.Add(gameObject.transform.position);
+				else bezierSwingPoints.Add(Vector3.zero);
 			}
 		} else if (bezierSwingPoints.Count > numberOfSwingPoints) {
 			while (bezierSwingPoints.Count > numberOfSwingPoints) {
@@ -146,7 +146,7 @@ public class LineCreator : MonoBehaviour {
 		if (bezierAnchorPoints.Count < numberOfBezierAnchorPoints) {
 			while (bezierAnchorPoints.Count < numberOfBezierAnchorPoints) {
 				if (bezierAnchorPoints.Count != 0) bezierAnchorPoints.Add(bezierAnchorPoints[^1]);
-				else bezierAnchorPoints.Add(gameObject.transform.position);
+				else bezierAnchorPoints.Add(Vector3.zero);
 			}
 		} else if (bezierAnchorPoints.Count > numberOfBezierAnchorPoints) {
 			while (bezierAnchorPoints.Count > numberOfBezierAnchorPoints) {
@@ -165,7 +165,7 @@ public class LineCreator : MonoBehaviour {
 		if (bezierSwingPoints.Count < numberOfSwingPoints) {
 			while (bezierSwingPoints.Count < numberOfSwingPoints) {
 				if (bezierSwingPoints.Count != 0) bezierSwingPoints.Add(bezierAnchorPoints[(int)Mathf.Ceil(bezierSwingPoints.Count / 2)]);
-				else bezierSwingPoints.Add(gameObject.transform.position);
+				else bezierSwingPoints.Add(Vector3.zero);
 			}
 		} else if (bezierSwingPoints.Count > numberOfSwingPoints) {
 			while (bezierSwingPoints.Count > numberOfSwingPoints) {

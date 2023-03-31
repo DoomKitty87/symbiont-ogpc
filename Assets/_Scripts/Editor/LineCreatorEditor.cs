@@ -16,6 +16,8 @@ public class LineCreatorEditor : Editor
 			if (_lineCreator != null) {
 				_lineCreator.CreatePoints();
 			}
+
+			if (_lineCreator.referenceTransform == null) _lineCreator.referenceTransform = _lineCreator.gameObject;
 	 }
 
 	// Creates all point and line handles shown in inspector
@@ -55,6 +57,8 @@ public class LineCreatorEditor : Editor
 		serializedObject.Update();
 
 		EditorGUI.BeginChangeCheck();
+
+		if (_lineCreator.referenceTransform == null) _lineCreator.referenceTransform = _lineCreator.gameObject;
 
 		LineCreator lineCreator = (LineCreator)target;
 		EditorGUILayout.Space();
