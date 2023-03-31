@@ -61,6 +61,8 @@ public class LineCreatorEditor : Editor
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("lineType"));
 		EditorGUILayout.Space();
 
+		EditorGUILayout.PropertyField(serializedObject.FindProperty("referenceTransform"));
+
 		switch (lineCreator.lineType) {
 			case LineCreator.LineType.Linear_Bounce:
 				lineCreator.numberOfLinearPoints = EditorGUILayout.DelayedIntField("Number of Points", lineCreator.numberOfLinearPoints);
@@ -74,7 +76,7 @@ public class LineCreatorEditor : Editor
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("lineWidth"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("travelLineColor"));
 				EditorGUILayout.Space();
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("lockYMovement"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("unlockYMovement"));
 				break;
 
 			case LineCreator.LineType.Linear_Loop:
@@ -148,11 +150,11 @@ public class LineCreatorEditor : Editor
 		for (int i = 0; i < lineCreator.numberOfLinearPoints; ++i) {
 
 			Handles.color = lineCreator.anchorHandleColor;
-			Vector3 newLocation = Handles.FreeMoveHandle(lineCreator.linearPoints[i], Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
+			Vector3 handlesVisuals = Handles.FreeMoveHandle(lineCreator.linearPoints[i] + lineCreator.referenceTransform.transform.position, Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
+			Vector3 newLocation = handlesVisuals - lineCreator.referenceTransform.transform.position;
 
-				if (lineCreator.lockYMovement) lineCreator.linearPoints[i] = new Vector3(newLocation.x, lineCreator.linearPoints[i].y, newLocation.z);
+				if (!lineCreator.unlockYMovement) lineCreator.linearPoints[i] = new Vector3(newLocation.x, lineCreator.linearPoints[i].y, newLocation.z);
 				else lineCreator.linearPoints[i] = newLocation;
-
 		}
 	}
 
@@ -165,9 +167,10 @@ public class LineCreatorEditor : Editor
 		for (int i = 0; i < lineCreator.numberOfBezierAnchorPoints; ++i) {
 
 			Handles.color = lineCreator.anchorHandleColor;
-			Vector3 newLocation = Handles.FreeMoveHandle(lineCreator.bezierAnchorPoints[i], Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
+			Vector3 handlesVisuals = Handles.FreeMoveHandle(lineCreator.bezierAnchorPoints[i] + lineCreator.referenceTransform.transform.position, Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
+			Vector3 newLocation = handlesVisuals - lineCreator.referenceTransform.transform.position;
 
-			if (lineCreator.lockYMovement) lineCreator.bezierAnchorPoints[i] = new Vector3(newLocation.x, lineCreator.bezierAnchorPoints[i].y, newLocation.z);
+			if (!lineCreator.unlockYMovement) lineCreator.bezierAnchorPoints[i] = new Vector3(newLocation.x, lineCreator.bezierAnchorPoints[i].y, newLocation.z);
 			else lineCreator.bezierAnchorPoints[i] = newLocation;
 
 		}
@@ -176,9 +179,10 @@ public class LineCreatorEditor : Editor
 		Handles.color = lineCreator.swingHandleColor;
 		for (int i = 0; i < lineCreator.bezierSwingPoints.Count; ++i) {
 
-			Vector3 newLocation = Handles.FreeMoveHandle(lineCreator.bezierSwingPoints[i], Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
+			Vector3 handlesVisuals = Handles.FreeMoveHandle(lineCreator.bezierSwingPoints[i] + lineCreator.referenceTransform.transform.position, Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
+			Vector3 newLocation = handlesVisuals - lineCreator.referenceTransform.transform.position;
 
-			if (lineCreator.lockYMovement) lineCreator.bezierSwingPoints[i] = new Vector3(newLocation.x, lineCreator.bezierSwingPoints[i].y, newLocation.z);
+			if (!lineCreator.unlockYMovement) lineCreator.bezierSwingPoints[i] = new Vector3(newLocation.x, lineCreator.bezierSwingPoints[i].y, newLocation.z);
 			else lineCreator.bezierSwingPoints[i] = newLocation;
 		}
 	}
@@ -190,7 +194,7 @@ public class LineCreatorEditor : Editor
 		Handles.color = lineCreator.travelLineColor;
 		for (int i = 0; i < lineCreator.numberOfLinearPoints; ++i) {
 			if (i != 0) {
-				Handles.DrawLine(lineCreator.linearPoints[i], lineCreator.linearPoints[i - 1], lineCreator.lineWidth);
+				Handles.DrawLine(lineCreator.linearPoints[i] + lineCreator.referenceTransform.transform.position, lineCreator.linearPoints[i - 1] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
 			}
 		}
 	}
@@ -202,9 +206,9 @@ public class LineCreatorEditor : Editor
 		Handles.color = lineCreator.travelLineColor;
 		for (int i = 0; i < lineCreator.numberOfLinearPoints; ++i) {
 			if (i != 0) {
-				Handles.DrawLine(lineCreator.linearPoints[i], lineCreator.linearPoints[i - 1], lineCreator.lineWidth);
+				Handles.DrawLine(lineCreator.linearPoints[i] + lineCreator.referenceTransform.transform.position, lineCreator.linearPoints[i - 1] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
 			} else {
-				Handles.DrawLine(lineCreator.linearPoints[i], lineCreator.linearPoints[^1], lineCreator.lineWidth);
+				Handles.DrawLine(lineCreator.linearPoints[i] + lineCreator.referenceTransform.transform.position, lineCreator.linearPoints[^1] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
 			}
 		}
 	}
@@ -216,15 +220,15 @@ public class LineCreatorEditor : Editor
 		// Draws straight lines indicating order
 		Handles.color = lineCreator.swingLineColor;
 		for (int i = 1; i < lineCreator.numberOfBezierAnchorPoints; i++) {
-			Handles.DrawLine(lineCreator.bezierAnchorPoints[i], lineCreator.bezierSwingPoints[(i * 2) - 1], lineCreator.lineWidth);
-			Handles.DrawLine(lineCreator.bezierSwingPoints[(i * 2) - 1], lineCreator.bezierSwingPoints[(i * 2) - 2], lineCreator.lineWidth);
-			Handles.DrawLine(lineCreator.bezierSwingPoints[(i * 2) - 2], lineCreator.bezierAnchorPoints[i - 1], lineCreator.lineWidth);
+			Handles.DrawLine(lineCreator.bezierAnchorPoints[i] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[(i * 2) - 1] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
+			Handles.DrawLine(lineCreator.bezierSwingPoints[(i * 2) - 1] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[(i * 2) - 2] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
+			Handles.DrawLine(lineCreator.bezierSwingPoints[(i * 2) - 2] + lineCreator.referenceTransform.transform.position, lineCreator.bezierAnchorPoints[i - 1] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
 		}
 
 		// Draws bezier lines from each anchor point in respect to swing points
 		Handles.color = lineCreator.travelLineColor;
 		for (int i = 1; i < lineCreator.numberOfBezierAnchorPoints; i++) {
-			Handles.DrawBezier(lineCreator.bezierAnchorPoints[i], lineCreator.bezierAnchorPoints[i - 1], lineCreator.bezierSwingPoints[(i * 2) - 1], lineCreator.bezierSwingPoints[(i * 2) - 2], lineCreator.travelLineColor, null, lineCreator.lineWidth);
+			Handles.DrawBezier(lineCreator.bezierAnchorPoints[i] + lineCreator.referenceTransform.transform.position, lineCreator.bezierAnchorPoints[i - 1] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[(i * 2) - 1] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[(i * 2) - 2] + lineCreator.referenceTransform.transform.position, lineCreator.travelLineColor, null, lineCreator.lineWidth);
 		}
 	}
 
@@ -237,20 +241,20 @@ public class LineCreatorEditor : Editor
 		for (int i = 0; i < lineCreator.numberOfBezierAnchorPoints; i++) {
 			if (lineCreator.numberOfBezierAnchorPoints == 0 || lineCreator.numberOfBezierAnchorPoints == 1) return;
 			if (i == 0) {
-				Handles.DrawLine(lineCreator.bezierAnchorPoints[i], lineCreator.bezierSwingPoints[^1], lineCreator.lineWidth);
-				Handles.DrawLine(lineCreator.bezierSwingPoints[^1], lineCreator.bezierSwingPoints[^2], lineCreator.lineWidth);
-				Handles.DrawLine(lineCreator.bezierSwingPoints[^2], lineCreator.bezierAnchorPoints[^1], lineCreator.lineWidth);
+				Handles.DrawLine(lineCreator.bezierAnchorPoints[i] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[^1] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
+				Handles.DrawLine(lineCreator.bezierSwingPoints[^1] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[^2] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
+				Handles.DrawLine(lineCreator.bezierSwingPoints[^2] + lineCreator.referenceTransform.transform.position, lineCreator.bezierAnchorPoints[^1] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
 			} else {
-				Handles.DrawLine(lineCreator.bezierAnchorPoints[i], lineCreator.bezierSwingPoints[(i * 2) - 1], lineCreator.lineWidth);
-				Handles.DrawLine(lineCreator.bezierSwingPoints[(i * 2) - 1], lineCreator.bezierSwingPoints[(i * 2) - 2], lineCreator.lineWidth);
-				Handles.DrawLine(lineCreator.bezierSwingPoints[(i * 2) - 2], lineCreator.bezierAnchorPoints[i - 1], lineCreator.lineWidth);
+				Handles.DrawLine(lineCreator.bezierAnchorPoints[i] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[(i * 2) - 1] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
+				Handles.DrawLine(lineCreator.bezierSwingPoints[(i * 2) - 1] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[(i * 2) - 2] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
+				Handles.DrawLine(lineCreator.bezierSwingPoints[(i * 2) - 2] + lineCreator.referenceTransform.transform.position, lineCreator.bezierAnchorPoints[i - 1] + lineCreator.referenceTransform.transform.position, lineCreator.lineWidth);
 			}
 		}
 
 		// Draws bezier lines from each anchor point in respect to swing points
 		for (int i = 0; i < lineCreator.numberOfBezierAnchorPoints; i++) {
-			if (i == 0) Handles.DrawBezier(lineCreator.bezierAnchorPoints[i], lineCreator.bezierAnchorPoints[^1], lineCreator.bezierSwingPoints[^1], lineCreator.bezierSwingPoints[^2], lineCreator.travelLineColor, null, lineCreator.lineWidth);
-			else Handles.DrawBezier(lineCreator.bezierAnchorPoints[i], lineCreator.bezierAnchorPoints[i - 1], lineCreator.bezierSwingPoints[(i * 2) - 1], lineCreator.bezierSwingPoints[(i * 2) - 2], lineCreator.travelLineColor, null, lineCreator.lineWidth);
+			if (i == 0) Handles.DrawBezier(lineCreator.bezierAnchorPoints[i] + lineCreator.referenceTransform.transform.position, lineCreator.bezierAnchorPoints[^1] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[^1] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[^2] + lineCreator.referenceTransform.transform.position, lineCreator.travelLineColor, null, lineCreator.lineWidth);
+			else Handles.DrawBezier(lineCreator.bezierAnchorPoints[i] + lineCreator.referenceTransform.transform.position, lineCreator.bezierAnchorPoints[i - 1] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[(i * 2) - 1] + lineCreator.referenceTransform.transform.position, lineCreator.bezierSwingPoints[(i * 2) - 2] + lineCreator.referenceTransform.transform.position, lineCreator.travelLineColor, null, lineCreator.lineWidth);
 		}
 	}
 }

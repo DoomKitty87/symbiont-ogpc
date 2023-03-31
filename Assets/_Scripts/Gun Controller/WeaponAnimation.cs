@@ -17,7 +17,7 @@ public class WeaponAnimation : MonoBehaviour
       Debug.LogError("WeaponAnimation: Animator is null!");
     }
     StartDrawAnimation();
-  }
+  } 
    
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
     if (weaponItem.animatorOverride == null) {

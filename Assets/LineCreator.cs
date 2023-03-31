@@ -6,23 +6,6 @@ using UnityEngine;
 
 public class LineCreator : MonoBehaviour {
 
-	// Locks points to parent transform when enemy is in a prefab
-	private void Awake() {
-		if (transform.parent != null) {
-			for (int i = 0; i < linearPoints.Count; i++) {
-				linearPoints[i] += SumOfParentTransform();
-			}
-
-			for (int i = 0; i < bezierAnchorPoints.Count; i++) {
-				bezierAnchorPoints[i] += SumOfParentTransform();
-			}
-
-			for (int i = 0; i < bezierSwingPoints.Count; i++) {
-				bezierSwingPoints[i] += SumOfParentTransform();
-			}
-		}
-	}
-
 	public LineType lineType;
 	public enum LineType {
 		Linear_Bounce,
@@ -33,7 +16,10 @@ public class LineCreator : MonoBehaviour {
 	}
 
 	// Variables realated to Editor Script
-	public bool lockYMovement;
+	// Must be public in order for custom inspector to work
+	public GameObject referenceTransform;
+
+	public bool unlockYMovement;
 
 	public Color travelLineColor = Color.green;
 	public Color swingLineColor = Color.black;
@@ -50,12 +36,38 @@ public class LineCreator : MonoBehaviour {
 	public List<Vector3> bezierAnchorPoints;
 	public List<Vector3> bezierSwingPoints;
 
-	private Vector3 SumOfParentTransform() {
-		Vector3 targetVector3 = Vector3.zero;
-		targetVector3 += transform.parent.transform.position;
-		targetVector3 += transform.parent.transform.position;
-
-		return targetVector3;
+	// Moves each point proportional to the Enemy's localPosition
+	private void CheckPointsRelativePosition(LineType lineType) {
+		switch (lineType) {
+			case LineType.Linear_Bounce:
+				for (int i = 0; i < linearPoints.Count; i++) {
+					linearPoints[i] += transform.localPosition;
+				}
+				break;
+			case LineType.Linear_Loop:
+				for (int i = 0; i < linearPoints.Count; i++) {
+					linearPoints[i] += transform.localPosition;
+				}
+				break;
+			case LineType.Bezier_Bounce:
+			for (int i = 0; i < bezierAnchorPoints.Count; i++) {
+				bezierAnchorPoints[i] += transform.localPosition;
+			}
+			for (int i = 0; i < bezierSwingPoints.Count; i++) {
+				bezierSwingPoints[i] += transform.localPosition;
+			}
+				break;
+			case LineType.Bezier_Loop:
+			for (int i = 0; i < bezierAnchorPoints.Count; i++) {
+				bezierAnchorPoints[i] += transform.localPosition;
+			}
+			for (int i = 0; i < bezierSwingPoints.Count; i++) {
+				bezierSwingPoints[i] += transform.localPosition;
+			}
+				break;
+			case LineType.Stationary:
+				break;
+		}
 	}
 
 	// Switches on which LineType currently selected
@@ -83,7 +95,7 @@ public class LineCreator : MonoBehaviour {
 		if (linearPoints.Count < numberOfLinearPoints) {
 			while (linearPoints.Count < numberOfLinearPoints) {
 				if (linearPoints.Count != 0) linearPoints.Add(linearPoints[^1]);
-				else linearPoints.Add(gameObject.transform.position);
+				else linearPoints.Add(gameObject.transform.localPosition);
 			}
 		} else if (linearPoints.Count > numberOfLinearPoints) {
 			while (linearPoints.Count > numberOfLinearPoints) {
@@ -99,7 +111,7 @@ public class LineCreator : MonoBehaviour {
 		if (bezierAnchorPoints.Count < numberOfBezierAnchorPoints) {
 			while (bezierAnchorPoints.Count < numberOfBezierAnchorPoints) {
 				if (bezierAnchorPoints.Count != 0) bezierAnchorPoints.Add(bezierAnchorPoints[^1]);
-				else bezierAnchorPoints.Add(gameObject.transform.position);
+				else bezierAnchorPoints.Add(gameObject.transform.localPosition);
 			}
 		} else if (bezierAnchorPoints.Count > numberOfBezierAnchorPoints) {
 			while (bezierAnchorPoints.Count > numberOfBezierAnchorPoints) {
