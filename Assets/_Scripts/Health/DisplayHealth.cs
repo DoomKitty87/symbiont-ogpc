@@ -34,6 +34,7 @@ public class DisplayHealth : MonoBehaviour
     }
   }
   public void OnHealthChanged(float initHealth, float currentHealth, float maxHealth) {
+    if (this.enabled == false) return;
     if (_textElement != null) {
       StartCoroutine(TweenTextValue(_textElement, initHealth, currentHealth, _easeDuration, _healthTextDecimalPlaces));
     }
