@@ -9,8 +9,9 @@ public class WeaponItem : ScriptableObject
   public new string name; // Throws error: 'WeaponItem.name' hides inherited member 'Object.name'. Use the new keyword if hiding was intended.
   public int id;
   [Header("Model")]
-  [SerializeField] public GameObject gunPrefab;
-  [SerializeField] public Vector3 gunOffset;
+  public GameObject gunPrefab;
+  public Vector3 gunOffset;
+  public Vector3 gunRotationOffset;
   [Header("Description")]
   public string manufacturer;
   public string modelName;

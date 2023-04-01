@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class SpawnedWeapon
 {
   public GameObject instantiatedWeapon;
@@ -18,7 +19,7 @@ public class WeaponRenderer : MonoBehaviour
   [SerializeField] private Transform _weaponContainer;
   [SerializeField] private GameObject _currentlyViewedWeapon;
 
-  private List<SpawnedWeapon> _spawnedWeapons = new();
+  [SerializeField] private List<SpawnedWeapon> _spawnedWeapons = new();
 
   // Start is called before the first frame update
   void Start() {
@@ -32,6 +33,10 @@ public class WeaponRenderer : MonoBehaviour
     }
   }
   private void InstantiateWeapon(WeaponItem weaponItem) {
+    if (weaponItem.gunPrefab == null) {
+      Debug.LogError($"WeaponRenderer: WeaponItem '{weaponItem.name}' doesn't contain a gun prefab to instantiate!");
+      return;
+    }
     SpawnedWeapon spawningWeapon = new SpawnedWeapon(Instantiate(weaponItem.gunPrefab, _weaponContainer.position + weaponItem.gunOffset, Quaternion.identity, _weaponContainer), weaponItem);
     _spawnedWeapons.Add(spawningWeapon);
   }
@@ -40,31 +45,31 @@ public class WeaponRenderer : MonoBehaviour
     ShowNewWeapon(weaponItem);
   }
   private void ShowNewWeapon(WeaponItem weaponItem) {
-    bool weaponItemInList = false;
-    if (weaponItem == null) return;
-    foreach (SpawnedWeapon spawnedWeapon in _spawnedWeapons) {
-      if (spawnedWeapon.weaponItem == weaponItem) {
-        spawnedWeapon.instantiatedWeapon.SetActive(true);
-        _currentlyViewedWeapon = spawnedWeapon.instantiatedWeapon;
-        weaponItemInList = true;
-      } 
-      else {
-        spawnedWeapon.instantiatedWeapon.SetActive(false);
-      }
+    (bool inList, int index) results = WeaponItemIsInList(weaponItem);
+    if (results.inList) {
+      ViewSpawnedWeaponAtIndex(results.index);
     }
-    // If the weaponItem is not in the list of spawned weapons, instantiate it
-    if (weaponItemInList == false) {
-      InstantiateWeapon(weaponItem); 
-      foreach (SpawnedWeapon spawnedWeapon in _spawnedWeapons) {
-        if (spawnedWeapon.weaponItem == weaponItem) {
-          spawnedWeapon.instantiatedWeapon.SetActive(true);
-          _currentlyViewedWeapon = spawnedWeapon.instantiatedWeapon;
-        } 
-        else {
-          spawnedWeapon.instantiatedWeapon.SetActive(false);
-        }
-      } 
+    else {
+      InstantiateWeapon(weaponItem);
+      // The spawnedWeapon has just been added to the list, so it's index would be -1 from the list.Count
+      ViewSpawnedWeaponAtIndex(-1);
     }
   }
-  // private void iterateSpawnedWeapons() {
+
+
+  private void ViewSpawnedWeaponAtIndex(int spawnedWeaponListIndex) {
+    foreach (SpawnedWeapon spawnedWeapon in _spawnedWeapons) {
+      spawnedWeapon.instantiatedWeapon.SetActive(false);
+    }
+    _spawnedWeapons[spawnedWeaponListIndex].instantiatedWeapon.SetActive(true);
+    _currentlyViewedWeapon = _spawnedWeapons[spawnedWeaponListIndex].instantiatedWeapon;
+  }
+  private (bool inList, int index) WeaponItemIsInList(WeaponItem weaponItem) {
+    for (int i = 0; i < _spawnedWeapons.Count; i++) {
+      if (_spawnedWeapons[i].weaponItem == weaponItem) {
+        return (true, i);
+      } 
+    }
+    return (false, -1);
+  }
 }

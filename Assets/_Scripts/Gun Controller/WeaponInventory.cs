@@ -16,6 +16,8 @@ using UnityEngine.Events;
 
 [System.Serializable]
 public class OnNewCurrentWeapon : UnityEvent<WeaponItem, int> {}
+[System.Serializable]
+public class OnInventoryInitalize : UnityEvent<WeaponItem[]> {}
 
 [System.Serializable]
 public class EquippedWeapon {
@@ -34,14 +36,18 @@ public class WeaponInventory : MonoBehaviour
   public List<EquippedWeapon> _equippedWeapons = new();
 
   public OnNewCurrentWeapon _onNewCurrentWeapon;
+  public OnInventoryInitalize _onInventoryInitialize;
 
   private void Start() {
     if (_equippedWeapons.Count >= 1) {
       _currentWeapon = _equippedWeapons[0];
     }
-    foreach (EquippedWeapon equippedWeapon in _equippedWeapons) {
-      equippedWeapon._ammoLeft = equippedWeapon._weaponItem.magSize;
+    WeaponItem[] weaponItems = new WeaponItem[_equippedWeapons.Count];
+    for (int i = 0; i < _equippedWeapons.Count; i++) {
+      _equippedWeapons[i]._ammoLeft = _equippedWeapons[i]._weaponItem.magSize;
+      weaponItems[i] = _equippedWeapons[i]._weaponItem;
     }
+    _onInventoryInitialize?.Invoke(weaponItems);
     _onNewCurrentWeapon?.Invoke(_currentWeapon._weaponItem, _currentWeapon._ammoLeft);
   }
   public void AddWeapon(WeaponItem weapon) {
