@@ -46,6 +46,7 @@ public class ViewSwitcher : MonoBehaviour
   [Header("Switching Effect")]
   [SerializeField] private AnimationCurve _effectInCurve;
   [SerializeField] private AnimationCurve _effectOutCurve;
+  [Range(0, 1)][SerializeField] private float _switchPoint;
   [SerializeField] private float _endFov;
   [SerializeField] private float _effectDuration;
   [SerializeField] private bool _playingEffect;
