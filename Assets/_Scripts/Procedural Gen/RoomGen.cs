@@ -2,52 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct Room
-{
-
-  public GameObject prefab;
-  public Vector3 roomSize;
-  public Vector3[] doorways;
-  public Vector3[] doorRotations;
-  public int connectedEntrance;
-}
-
 public class RoomGen : MonoBehaviour
 {
 
   [SerializeField] private float roomNumber;
-  [SerializeField] private Room[] genRooms;
+  [SerializeField] private GameObject[] genRooms;
   [SerializeField] private GameObject doorFiller;
+
+  private List<GameObject> generatedRooms = new List<GameObject>();
 
   private void Start() {
     GenerateDungeon();
   }
 
   private void GenerateDungeon() {
-    Room lastRoom;
-    Vector3 lastPos;
-    Quaternion lastRot;
+    GameObject lastRoom;
 
-    Room _roomChoice = genRooms[Random.Range(0, genRooms.Length)];
-    GameObject _instantiatedRoom = Instantiate(_roomChoice.prefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
-    lastRoom = _roomChoice;
-    lastPos = _instantiatedRoom.transform.position; 
-    lastRot = _instantiatedRoom.transform.rotation;
+    GameObject _roomChoice = genRooms[Random.Range(0, genRooms.Length)];
+    GameObject _instantiatedRoom = Instantiate(_roomChoice, new Vector3(0, 0, 0), Quaternion.identity, transform);
+    lastRoom = _instantiatedRoom;
 
     for (int i = 0; i < roomNumber - 1; i++) {
-      Room roomChoice = genRooms[Random.Range(0, genRooms.Length)];
-      GameObject instantiatedRoom = Instantiate(roomChoice.prefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
-      int tryingDoor = Random.Range(0, lastRoom.doorways.Length);
-      while (tryingDoor == -1 || tryingDoor == lastRoom.connectedEntrance) tryingDoor = Random.Range(0, lastRoom.doorways.Length - 1);
-      instantiatedRoom.transform.position = lastRoom.doorways[tryingDoor] + lastPos + roomChoice.doorways[(Random.value < 0.5f) ? 0 : 1];
-      roomChoice.connectedEntrance = tryingDoor;
-      lastRoom = roomChoice;
-      lastPos = instantiatedRoom.transform.position;
-      lastRot = instantiatedRoom.transform.rotation;
-      //for (int n = 0; n < lastRoom.doorways.Length; n++) {
-        // if (n != lastRoom.connectedEntrance && n != tryingDoor) Instantiate(doorFiller, lastPos + lastRoom.doorways[n], lastRot * lastRoom.doorRotations[n]);
-      //}
+      GameObject roomChoice = genRooms[Random.Range(0, genRooms.Length)];
+      GameObject instantiatedRoom = Instantiate(roomChoice, new Vector3(0, 0, 0), Quaternion.identity, transform);
+
+      int chosenDoor = Random.Range(0, lastRoom.transform.GetChild(1).childCount);
+      int connectingDoor = Random.Range(0, instantiatedRoom.transform.GetChild(1).childCount);
+      
+      instantiatedRoom.transform.position = lastRoom.transform.GetChild(1).GetChild(chosenDoor).position - instantiatedRoom.transform.GetChild(1).GetChild(connectingDoor).position;
+      while (Mathf.Abs((lastRoom.transform.position - instantiatedRoom.transform.position).magnitude) < 1) {
+        instantiatedRoom.transform.RotateAround(lastRoom.transform.GetChild(1).GetChild(chosenDoor).position, Vector3.up, 180);
+      }
+
+      loop:
+        foreach (GameObject room in generatedRooms) {
+          if (Mathf.Abs(Vector3.Distance(room.transform.position, instantiatedRoom.transform.position)) < 1) {
+            chosenDoor = Random.Range(0, lastRoom.transform.GetChild(1).childCount);
+            connectingDoor = Random.Range(0, instantiatedRoom.transform.GetChild(1).childCount);
+      
+            instantiatedRoom.transform.position = lastRoom.transform.GetChild(1).GetChild(chosenDoor).position - instantiatedRoom.transform.GetChild(1).GetChild(connectingDoor).position;
+            while (Mathf.Abs(Vector3.Distance(lastRoom.transform.position, instantiatedRoom.transform.position)) < 1) {
+              instantiatedRoom.transform.RotateAround(lastRoom.transform.GetChild(1).GetChild(chosenDoor).position, Vector3.up, 180);
+            }
+            goto loop;
+          }
+        }
+
+      Destroy(instantiatedRoom.transform.GetChild(1).GetChild(connectingDoor).gameObject);
+      generatedRooms.Add(lastRoom);
+      lastRoom = instantiatedRoom;
     }
   }
 }
