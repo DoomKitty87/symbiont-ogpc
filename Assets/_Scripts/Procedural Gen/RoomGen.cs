@@ -29,16 +29,16 @@ public class RoomGen : MonoBehaviour
     Vector3 lastPos;
     Quaternion lastRot;
 
-    Room _roomChoice = genRooms[Random.Range(0, genRooms.Length - 1)];
+    Room _roomChoice = genRooms[Random.Range(0, genRooms.Length)];
     GameObject _instantiatedRoom = Instantiate(_roomChoice.prefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
     lastRoom = _roomChoice;
     lastPos = _instantiatedRoom.transform.position; 
     lastRot = _instantiatedRoom.transform.rotation;
 
     for (int i = 0; i < roomNumber - 1; i++) {
-      Room roomChoice = genRooms[Random.Range(0, genRooms.Length - 1)];
+      Room roomChoice = genRooms[Random.Range(0, genRooms.Length)];
       GameObject instantiatedRoom = Instantiate(roomChoice.prefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
-      int tryingDoor = Random.Range(0, lastRoom.doorways.Length - 1);
+      int tryingDoor = Random.Range(0, lastRoom.doorways.Length);
       while (tryingDoor == -1 || tryingDoor == lastRoom.connectedEntrance) tryingDoor = Random.Range(0, lastRoom.doorways.Length - 1);
       instantiatedRoom.transform.position = lastRoom.doorways[tryingDoor] + lastPos + roomChoice.doorways[(Random.value < 0.5f) ? 0 : 1];
       roomChoice.connectedEntrance = tryingDoor;
