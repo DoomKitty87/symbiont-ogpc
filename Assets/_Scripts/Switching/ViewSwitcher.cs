@@ -56,7 +56,6 @@ public class ViewSwitcher : MonoBehaviour
       Debug.LogError("ViewSwitcher: SwitchAxis is invalid! Please set it to a valid input axis in the Input Manager.");
     }
     _currentObjectInhabiting.SwitchTo();
-    
   }
 
   private void Update() {

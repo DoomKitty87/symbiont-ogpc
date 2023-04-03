@@ -29,11 +29,10 @@ public class SwitchableObject : MonoBehaviour
   public UnityEvent _OnSelected;
   public UnityEvent _OnUnselected;
 
-  private void OnValidate() {
+  private void Awake() {
     gameObject.tag = "SwitchableObject";
-  }
-  private void Start() {
     ChangeStateOfAllCamerasTo(false);
+    print($"changed cameras to false for '{gameObject.name}'");
     _objectAudioListener.enabled = false;
     _OnSwitchedAway?.Invoke();
   }
@@ -48,6 +47,7 @@ public class SwitchableObject : MonoBehaviour
   public void SwitchTo() {
     _OnSwitchedTo?.Invoke();
     ChangeStateOfAllCamerasTo(true);
+    print($"changed cameras to true for '{gameObject.name}'");
     _objectAudioListener.enabled = true;
   }
   public void SwitchAway() {

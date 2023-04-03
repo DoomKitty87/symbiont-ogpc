@@ -27,6 +27,7 @@ public class WeaponRenderer : MonoBehaviour
   }
 
   public void InstantiateEquippedWeapons(WeaponItem[] equippedWeapons) {
+    if (this.enabled == false) return;
     foreach (WeaponItem weaponItem in equippedWeapons)
     {
       InstantiateWeapon(weaponItem);
@@ -42,6 +43,7 @@ public class WeaponRenderer : MonoBehaviour
   }
 
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
+    if (this.enabled == false) return;
     ShowNewWeapon(weaponItem);
   }
   private void ShowNewWeapon(WeaponItem weaponItem) {
