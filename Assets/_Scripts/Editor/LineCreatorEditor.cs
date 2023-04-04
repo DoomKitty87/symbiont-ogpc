@@ -67,6 +67,7 @@ public class LineCreatorEditor : Editor
 
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("referenceTransform"));
 
+		/*
 		switch (lineCreator.lineType) {
 			case LineCreator.LineType.Linear_Bounce:
 				lineCreator.numberOfLinearPoints = EditorGUILayout.DelayedIntField("Number of Points", lineCreator.numberOfLinearPoints);
@@ -135,9 +136,8 @@ public class LineCreatorEditor : Editor
 			case LineCreator.LineType.Stationary:
 				EditorGUILayout.Space();
 				break;
-
 		}
-
+		*/
 		if (EditorGUI.EndChangeCheck()) {
 			Undo.RecordObject(target, "Update location");
 			PrefabUtility.RecordPrefabInstancePropertyModifications(_lineCreator);

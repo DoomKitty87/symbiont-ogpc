@@ -123,7 +123,6 @@ public class ViewSwitcher : MonoBehaviour
       _currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectInCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
       yield return null;
       timeElapsed += Time.deltaTime;
-      print(timeElapsed);
     }
     _currentObjectInhabiting._objectCameras[0].fieldOfView = _endFov;
     SwitchToSelected(selectedObject);
@@ -132,7 +131,6 @@ public class ViewSwitcher : MonoBehaviour
       _currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectOutCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
       yield return null;
       timeElapsed += Time.deltaTime;
-      print(timeElapsed);
     }
     _currentObjectInhabiting._objectCameras[0].fieldOfView = startFov;
     _playingEffect = false;

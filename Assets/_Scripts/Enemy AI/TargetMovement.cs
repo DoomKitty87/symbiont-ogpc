@@ -13,6 +13,7 @@ public class TargetMovement : MonoBehaviour {
 	[SerializeField] int indexOfStartingPoint;
 	[SerializeField] private float timeToStop;
 
+	public GameObject thingToMove;
 
 	// Useful variables for finding next object in list
 	private int _targetPositionIndex;
@@ -32,7 +33,7 @@ public class TargetMovement : MonoBehaviour {
 
 		MoveTarget();
 
-		transform.position = _previousPosition;
+		thingToMove.transform.localPosition = _previousPosition;
 	}
 
 	private void MoveTarget() {
@@ -51,17 +52,17 @@ public class TargetMovement : MonoBehaviour {
 		float _localTime = 0;
 		
 		// Continue until reaching next _targetPosition
-		while (Vector3.Distance(transform.position, _targetPosition) > 0.01f) {
+		while (Vector3.Distance(thingToMove.transform.localPosition, _targetPosition) > 0.01f) {
 
 			_localTime += Time.deltaTime * targetSpeed;
 
 			Vector3 targetPosition = Vector3.Lerp(_previousPosition, _targetPosition, _localTime / Vector3.Distance(_previousPosition, _targetPosition));
 
-			transform.position = targetPosition;
+			thingToMove.transform.localPosition = targetPosition;
 			
 			yield return null;
 		}
-		transform.position = _targetPosition; // For small corrections
+		thingToMove.transform.localPosition = _targetPosition; // For small corrections
 
 		// If first or last index, wait for time, then reverse
 		if (_targetPositionIndex == lineCreator.linearPoints.Count - 1 || _targetPositionIndex == 0) {
@@ -81,17 +82,17 @@ public class TargetMovement : MonoBehaviour {
 		float _localTime = 0;
 
 		// Continue until reaching next _targetPosition
-		while (Vector3.Distance(transform.position, _targetPosition) > 0.1f) {
+		while (Vector3.Distance(thingToMove.transform.localPosition, _targetPosition) > 0.1f) {
 			_localTime += Time.deltaTime * targetSpeed;
 
 			Vector3 targetPosition = Vector3.Lerp(_previousPosition, _targetPosition, _localTime / Vector3.Distance(_previousPosition, _targetPosition));
 
-			transform.position = targetPosition;
+			thingToMove.transform.localPosition = targetPosition;
 
 			yield return null;
 		}
 
-		transform.position = _targetPosition; // For small corrections
+		thingToMove.transform.localPosition = _targetPosition; // For small corrections
 
 		UpdateTargetPosition(moveDirection, true);
 		StartCoroutine(LinearMoveLoop(moveDirection));
@@ -117,7 +118,7 @@ public class TargetMovement : MonoBehaviour {
 		}
 
 		// Continue until reaching next _targetPosition
-		while (Vector3.Distance(transform.position, _targetPosition) > 0.01f) {
+		while (Vector3.Distance(thingToMove.transform.localPosition, _targetPosition) > 0.01f) {
 			_localTime += Time.deltaTime * targetSpeed;
 
 			float t = _localTime / Vector3.Distance(_previousPosition, _targetPosition);
@@ -140,11 +141,12 @@ public class TargetMovement : MonoBehaviour {
 
 			Vector3 targetPosition = abcd;
 
-			transform.position = targetPosition;
+			Debug.Log(targetPosition);
+			thingToMove.transform.localPosition = targetPosition;
 
 			yield return null;
 		}
-		transform.position = _targetPosition; // Small corrections
+		thingToMove.transform.localPosition = _targetPosition; // Small corrections
 
 		// If If first or last index, wait for time, the flip
 		if (_targetPositionIndex == lineCreator.bezierAnchorPoints.Count - 1 || _targetPositionIndex == 0) {
@@ -169,7 +171,7 @@ public class TargetMovement : MonoBehaviour {
 		Vector3 d = _targetPosition;
 
 		// Continue until reach next _targetLocation
-		while (Vector3.Distance(transform.position, _targetPosition) > 0.01f) {
+		while (Vector3.Distance(thingToMove.transform.localPosition, _targetPosition) > 0.01f) {
 			_localTime += Time.deltaTime * targetSpeed;
 
 			float t = _localTime / Vector3.Distance(_previousPosition, _targetPosition);
@@ -192,11 +194,12 @@ public class TargetMovement : MonoBehaviour {
 
 			Vector3 targetPosition = abcd;
 
-			transform.position = targetPosition;
+			Debug.Log(targetPosition);
+			thingToMove.transform.localPosition = targetPosition;
 
 			yield return null;
 		}
-		transform.position = _targetPosition; // Small correction
+		thingToMove.transform.localPosition = _targetPosition; // Small correction
 
 		UpdateTargetPosition(moveDirection, false);
 		StartCoroutine(BezierMoveLoop(moveDirection));

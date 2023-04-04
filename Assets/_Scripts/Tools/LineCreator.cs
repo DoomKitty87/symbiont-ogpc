@@ -36,6 +36,10 @@ public class LineCreator : MonoBehaviour {
 	public List<Vector3> bezierAnchorPoints;
 	public List<Vector3> bezierSwingPoints;
 
+	private void Start() {
+		
+	}
+
 	// Moves each point proportional to the Enemy's localPosition
 	private void CheckPointsRelativePosition(LineType lineType) {
 		switch (lineType) {
@@ -50,20 +54,20 @@ public class LineCreator : MonoBehaviour {
 				}
 				break;
 			case LineType.Bezier_Bounce:
-			for (int i = 0; i < bezierAnchorPoints.Count; i++) {
-				bezierAnchorPoints[i] += transform.localPosition;
-			}
-			for (int i = 0; i < bezierSwingPoints.Count; i++) {
-				bezierSwingPoints[i] += transform.localPosition;
-			}
+				for (int i = 0; i < bezierAnchorPoints.Count; i++) {
+					bezierAnchorPoints[i] += transform.localPosition;
+				}
+				for (int i = 0; i < bezierSwingPoints.Count; i++) {
+					bezierSwingPoints[i] += transform.localPosition;
+				}
 				break;
 			case LineType.Bezier_Loop:
-			for (int i = 0; i < bezierAnchorPoints.Count; i++) {
-				bezierAnchorPoints[i] += transform.localPosition;
-			}
-			for (int i = 0; i < bezierSwingPoints.Count; i++) {
-				bezierSwingPoints[i] += transform.localPosition;
-			}
+				for (int i = 0; i < bezierAnchorPoints.Count; i++) {
+					bezierAnchorPoints[i] += transform.localPosition;
+				}
+				for (int i = 0; i < bezierSwingPoints.Count; i++) {
+					bezierSwingPoints[i] += transform.localPosition;
+				}
 				break;
 			case LineType.Stationary:
 				break;
