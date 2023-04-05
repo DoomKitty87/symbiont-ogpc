@@ -16,6 +16,7 @@ public class SpawnedWeapon
 
 public class WeaponRenderer : MonoBehaviour
 {
+  [Header("The WeaponItem Gun Offset moves this container to that position.")]
   [SerializeField] private Transform _weaponContainer;
   [SerializeField] private GameObject _currentlyViewedWeapon;
 
@@ -26,19 +27,22 @@ public class WeaponRenderer : MonoBehaviour
     _spawnedWeapons.Clear();
   }
 
-  public void InstantiateEquippedWeapons(WeaponItem[] equippedWeapons) {
+  public void InstantiateEquippedWeapons(WeaponItem[] equippedWeapons, WeaponItem weaponItemToShow) {
     if (this.enabled == false) return;
     foreach (WeaponItem weaponItem in equippedWeapons)
     {
       InstantiateWeapon(weaponItem);
     }
+    ShowNewWeapon(weaponItemToShow);
   }
   private void InstantiateWeapon(WeaponItem weaponItem) {
     if (weaponItem.gunPrefab == null) {
       Debug.LogError($"WeaponRenderer: WeaponItem '{weaponItem.name}' doesn't contain a gun prefab to instantiate!");
       return;
     }
-    SpawnedWeapon spawningWeapon = new SpawnedWeapon(Instantiate(weaponItem.gunPrefab, _weaponContainer.position + weaponItem.gunOffset, Quaternion.identity, _weaponContainer), weaponItem);
+    SpawnedWeapon spawningWeapon = new SpawnedWeapon(Instantiate(weaponItem.gunPrefab, _weaponContainer.position, Quaternion.identity, _weaponContainer), weaponItem);
+    spawningWeapon.instantiatedWeapon.transform.localEulerAngles = spawningWeapon.weaponItem.gunRotationOffset;
+
     _spawnedWeapons.Add(spawningWeapon);
   }
 
@@ -46,6 +50,7 @@ public class WeaponRenderer : MonoBehaviour
     if (this.enabled == false) return;
     ShowNewWeapon(weaponItem);
   }
+
   private void ShowNewWeapon(WeaponItem weaponItem) {
     (bool inList, int index) results = WeaponItemIsInList(weaponItem);
     if (results.inList) {
@@ -58,14 +63,15 @@ public class WeaponRenderer : MonoBehaviour
     }
   }
 
-
   private void ViewSpawnedWeaponAtIndex(int spawnedWeaponListIndex) {
     foreach (SpawnedWeapon spawnedWeapon in _spawnedWeapons) {
       spawnedWeapon.instantiatedWeapon.SetActive(false);
     }
     _spawnedWeapons[spawnedWeaponListIndex].instantiatedWeapon.SetActive(true);
+    _weaponContainer.transform.localPosition = _spawnedWeapons[spawnedWeaponListIndex].weaponItem.gunOffset;
     _currentlyViewedWeapon = _spawnedWeapons[spawnedWeaponListIndex].instantiatedWeapon;
   }
+
   private (bool inList, int index) WeaponItemIsInList(WeaponItem weaponItem) {
     for (int i = 0; i < _spawnedWeapons.Count; i++) {
       if (_spawnedWeapons[i].weaponItem == weaponItem) {

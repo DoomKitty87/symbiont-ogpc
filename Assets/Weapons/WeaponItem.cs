@@ -10,6 +10,7 @@ public class WeaponItem : ScriptableObject
   public int id;
   [Header("Model")]
   public GameObject gunPrefab;
+  [Header("This moves the WeaponContainer in WeaponRenderer. \nUse the WeaponContainer to help set this offset.")]
   public Vector3 gunOffset;
   public Vector3 gunRotationOffset;
   [Header("Description")]
