@@ -28,9 +28,6 @@ public class WeaponItem : ScriptableObject
   [Header("Global Stats")]
   public float maxShotDamage;
   public float fireDelaySeconds;
-  // Since we're implementing weapon switching, there will need to be a way to 
-  // get the current ammoCount from the equipped guns, otherwise players will
-  // just switch weapons to get more ammo.
   public int magSize;
   public float reloadTimeSeconds;
   [Header("Camera Recoil")]
@@ -62,5 +59,5 @@ public class WeaponItem : ScriptableObject
   public AudioClip equipSound;
   [Header("Effects & Particles")]
   [ColorUsage(true, true)] public Color shotColor;
-  [SerializeField] public List<Attachment> attachments;
+  public List<Effect> effects;
 }
