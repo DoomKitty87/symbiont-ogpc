@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class WeaponAnimationOverride : MonoBehaviour
+public class WeaponArmsAnimatorOverride : MonoBehaviour
 {
   [Header("References")]
   [SerializeField] private Animator _animatorToOverride;

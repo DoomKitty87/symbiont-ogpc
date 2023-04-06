@@ -4194,7 +4194,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9162077593066150743}
   - component: {fileID: 9162077593066150746}
-  - component: {fileID: 9162077593066150747}
   - component: {fileID: 9162077593066150744}
   - component: {fileID: 9162077593066150745}
   - component: {fileID: 9162077593066150749}
@@ -4241,23 +4240,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9162077593066150747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9162077593066150740}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b33625ffe967f548a3201aaaec53e1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transformToFollow: {fileID: 0}
-  _followOffset: {x: 0, y: 0, z: 0}
-  _followX: 1
-  _followY: 1
-  _followZ: 1
 --- !u!114 &9162077593066150744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11556,8 +11538,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9162077593498540598}
   - component: {fileID: 9162077593498540601}
-  - component: {fileID: 9162077593498540600}
-  - component: {fileID: 9162077593498540603}
+  - component: {fileID: 1137589099}
+  - component: {fileID: 1137589101}
   m_Layer: 8
   m_Name: fpsArms
   m_TagString: Untagged
@@ -11601,7 +11583,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9162077593498540600
+--- !u!114 &1137589099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11610,7 +11592,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9162077593498540599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d6528f273bf42db83d0664bdd25169, type: 3}
+  m_Script: {fileID: 11500000, guid: 3913c24a61f386343bcb2a4072e6c0f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animatorToOverride: {fileID: 9162077593498540601}
@@ -11618,8 +11600,20 @@ MonoBehaviour:
   _defaultOverride: {fileID: 22100000, guid: 7f9756ae4bbb0ca4092de06ef256f025, type: 2}
   _animationOverrideIsReady:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &9162077593498540603
+      m_Calls:
+      - m_Target: {fileID: 1137589101}
+        m_TargetAssemblyTypeName: WeaponArmsAnimation, Assembly-CSharp
+        m_MethodName: StartDrawAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1137589101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11628,7 +11622,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9162077593498540599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e44e1fa9d87f14e8cb9db5124362edb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cc024707d0a0ce428071094c64d1016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 9162077593498540601}
@@ -12805,8 +12799,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 9162077593498540600}
-        m_TargetAssemblyTypeName: WeaponAnimationOverride, Assembly-CSharp
+      - m_Target: {fileID: 1137589101}
+        m_TargetAssemblyTypeName: WeaponArmsAnimation, Assembly-CSharp
         m_MethodName: UpdateForNewValues
         m_Mode: 0
         m_Arguments:
@@ -12817,8 +12811,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 9162077593498540603}
-        m_TargetAssemblyTypeName: WeaponAnimation, Assembly-CSharp
+      - m_Target: {fileID: 1137589099}
+        m_TargetAssemblyTypeName: WeaponArmsAnimatorOverride, Assembly-CSharp
+        m_MethodName: UpdateForNewValues
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6698997043297523651}
+        m_TargetAssemblyTypeName: WeaponEffects, Assembly-CSharp
         m_MethodName: UpdateForNewValues
         m_Mode: 0
         m_Arguments:
@@ -13066,8 +13072,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 9162077593498540603}
-        m_TargetAssemblyTypeName: WeaponAnimation, Assembly-CSharp
+      - m_Target: {fileID: 1137589101}
+        m_TargetAssemblyTypeName: WeaponArmsAnimation, Assembly-CSharp
         m_MethodName: StartFireAnimation
         m_Mode: 1
         m_Arguments:
@@ -13096,8 +13102,8 @@ MonoBehaviour:
   _OnReloadStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9162077593498540603}
-        m_TargetAssemblyTypeName: WeaponAnimation, Assembly-CSharp
+      - m_Target: {fileID: 1137589101}
+        m_TargetAssemblyTypeName: WeaponArmsAnimation, Assembly-CSharp
         m_MethodName: StartReloadAnimation
         m_Mode: 1
         m_Arguments:
@@ -13174,6 +13180,7 @@ GameObject:
   - component: {fileID: 9162077593817329699}
   - component: {fileID: 9162077593817329701}
   - component: {fileID: 3337891878790479512}
+  - component: {fileID: 6698997043297523651}
   m_Layer: 0
   m_Name: Weapon Camera
   m_TagString: Untagged
@@ -13288,6 +13295,23 @@ MonoBehaviour:
   _weaponContainer: {fileID: 8748111392299097639}
   _currentlyViewedWeapon: {fileID: 0}
   _spawnedWeapons: []
+--- !u!114 &6698997043297523651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9162077593817329696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e7015216c88b84baa558a589a4845e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentWeaponItem: {fileID: 0}
+  _laserBeamPrefab: {fileID: 1362095038030980878, guid: edfe8dd26ae289c448cee08622b726b8,
+    type: 3}
+  _shotColor: {r: 0, g: 0, b: 0, a: 0}
+  _muzzleFlashPrefab: {fileID: 0}
 --- !u!1 &9162077593825797212
 GameObject:
   m_ObjectHideFlags: 0

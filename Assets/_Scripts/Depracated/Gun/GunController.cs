@@ -7,7 +7,6 @@ using static GunData;
 
 public class GunController : MonoBehaviour
 {
-  // TODO: Remove ExplodeTarget from this script and it's dependancies: It'll be handled in the target prefabs through ExplodeEffect + HealthManager.OnHealthZero
   [SerializeField] private GameObject gameHandler;
 
   [SerializeField] private GameObject HUDCanvas;
@@ -275,7 +274,6 @@ public class GunController : MonoBehaviour
     pov.m_VerticalAxis.Value -= 20f * activeGun.upRecoil;
   }
 
-  // TODO: Move score logic to targets, turn ScoreManager into singleton?
   public void HitTarget(RaycastHit hit) {
     hit.collider.gameObject.GetComponent<HealthManager>().Damage(activeGun.shotDamage);
     if (hit.collider.gameObject.GetComponent<HealthManager>()._currentHealth >= 0) {
