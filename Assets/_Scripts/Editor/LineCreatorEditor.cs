@@ -67,7 +67,6 @@ public class LineCreatorEditor : Editor
 
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("referenceTransform"));
 
-		/*
 		switch (lineCreator.lineType) {
 			case LineCreator.LineType.Linear_Bounce:
 				lineCreator.numberOfLinearPoints = EditorGUILayout.DelayedIntField("Number of Points", lineCreator.numberOfLinearPoints);
@@ -96,7 +95,7 @@ public class LineCreatorEditor : Editor
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("lineWidth"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("travelLineColor"));
 				EditorGUILayout.Space();
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("lockYMovement"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("unlockYMovement"));
 				break;
 
 			case LineCreator.LineType.Bezier_Bounce:
@@ -114,7 +113,7 @@ public class LineCreatorEditor : Editor
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("travelLineColor"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("swingLineColor"));
 				EditorGUILayout.Space();
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("lockYMovement"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("unlockYMovement"));
 				break;
 			case LineCreator.LineType.Bezier_Loop:
 				lineCreator.numberOfBezierAnchorPoints = EditorGUILayout.DelayedIntField("Number of Points", lineCreator.numberOfBezierAnchorPoints);
@@ -131,13 +130,13 @@ public class LineCreatorEditor : Editor
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("travelLineColor"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("swingLineColor"));
 				EditorGUILayout.Space();
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("lockYMovement"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("unlockYMovement"));
 				break;
 			case LineCreator.LineType.Stationary:
 				EditorGUILayout.Space();
 				break;
 		}
-		*/
+		
 		if (EditorGUI.EndChangeCheck()) {
 			Undo.RecordObject(target, "Update location");
 			PrefabUtility.RecordPrefabInstancePropertyModifications(_lineCreator);

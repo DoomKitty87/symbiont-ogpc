@@ -47,7 +47,7 @@ public class SwitchableObject : MonoBehaviour
   public void SwitchTo() {
     _OnSwitchedTo?.Invoke();
     ChangeStateOfAllCamerasTo(true);
-    print($"changed cameras to true for '{gameObject.name}'");
+    // print($"changed cameras to true for '{gameObject.name}'");
     _objectAudioListener.enabled = true;
   }
   public void SwitchAway() {

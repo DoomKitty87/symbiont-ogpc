@@ -37,7 +37,7 @@ public class WeaponRenderer : MonoBehaviour
   }
   private void InstantiateWeapon(WeaponItem weaponItem) {
     if (weaponItem.gunPrefab == null) {
-      Debug.LogError($"WeaponRenderer: WeaponItem '{weaponItem.name}' doesn't contain a gun prefab to instantiate!");
+      Debug.LogWarning($"WeaponRenderer: WeaponItem '{weaponItem.name}' doesn't contain a gun prefab to instantiate!");
       return;
     }
     SpawnedWeapon spawningWeapon = new SpawnedWeapon(Instantiate(weaponItem.gunPrefab, _weaponContainer.position, Quaternion.identity, _weaponContainer), weaponItem);

@@ -36,37 +36,33 @@ public class LineCreator : MonoBehaviour {
 	public List<Vector3> bezierAnchorPoints;
 	public List<Vector3> bezierSwingPoints;
 
-	private void Start() {
-		
-	}
-
 	// Moves each point proportional to the Enemy's localPosition
 	private void CheckPointsRelativePosition(LineType lineType) {
 		switch (lineType) {
 			case LineType.Linear_Bounce:
 				for (int i = 0; i < linearPoints.Count; i++) {
-					linearPoints[i] += transform.localPosition;
+					linearPoints[i] += referenceTransform.transform.localPosition;
 				}
 				break;
 			case LineType.Linear_Loop:
 				for (int i = 0; i < linearPoints.Count; i++) {
-					linearPoints[i] += transform.localPosition;
+					linearPoints[i] += referenceTransform.transform.localPosition;
 				}
 				break;
 			case LineType.Bezier_Bounce:
 				for (int i = 0; i < bezierAnchorPoints.Count; i++) {
-					bezierAnchorPoints[i] += transform.localPosition;
+					bezierAnchorPoints[i] += referenceTransform.transform.localPosition;
 				}
 				for (int i = 0; i < bezierSwingPoints.Count; i++) {
-					bezierSwingPoints[i] += transform.localPosition;
+					bezierSwingPoints[i] += referenceTransform.transform.localPosition;
 				}
 				break;
 			case LineType.Bezier_Loop:
 				for (int i = 0; i < bezierAnchorPoints.Count; i++) {
-					bezierAnchorPoints[i] += transform.localPosition;
+					bezierAnchorPoints[i] += referenceTransform.transform.localPosition;
 				}
 				for (int i = 0; i < bezierSwingPoints.Count; i++) {
-					bezierSwingPoints[i] += transform.localPosition;
+					bezierSwingPoints[i] += referenceTransform.transform.localPosition;
 				}
 				break;
 			case LineType.Stationary:
