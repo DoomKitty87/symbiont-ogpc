@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.Animations;
 
-public class WeaponAnimation : MonoBehaviour
+public class WeaponArmsAnimation : MonoBehaviour
 {
   // This requires WeaponAnimationOverride to function properly
   

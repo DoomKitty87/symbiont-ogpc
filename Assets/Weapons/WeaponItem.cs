@@ -59,5 +59,5 @@ public class WeaponItem : ScriptableObject
   public AudioClip equipSound;
   [Header("Effects & Particles")]
   [ColorUsage(true, true)] public Color shotColor;
-  public List<Effect> effects;
+  public GameObject muzzleFlashEffectPrefab;
 }

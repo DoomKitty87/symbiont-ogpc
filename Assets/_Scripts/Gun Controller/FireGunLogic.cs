@@ -21,12 +21,16 @@ using UnityEngine.Events;
 
 // UpdateForNewValues can be called with a new WeaponItem to set different weapon values.
 
-// NOTE: This can also be used by Enemy AI scripts to fire at the player.
-// Just call the Fire() function from the EnemyAI script.
+// Event Classes
 [System.Serializable]
 public class FloatUnityEvent : UnityEvent<float> {}
 [System.Serializable]
 public class IntUnityEvent : UnityEvent<int> {}
+[System.Serializable]
+public class StartEndPosUnityEvent : UnityEvent<Vector3, Vector3> {}
+
+// NOTE: This can also be used by Enemy AI scripts to fire at the player.
+// Just call the Fire() function from the EnemyAI script.
 public class FireGunLogic : MonoBehaviour
 {
 
@@ -70,12 +74,17 @@ public class FireGunLogic : MonoBehaviour
   [SerializeField] private bool _debug;
   
   [Header("Fire Events")]
-  [Tooltip("OnFire(ammoCount)")] public FloatUnityEvent _OnFireAmmo;
+  [Tooltip("OnFireAmmo(ammoCount)")] public FloatUnityEvent _OnFireAmmo;
+  // TODO: Change this to only broadcast the hit position
+  [Tooltip("OnFireStartEndPos(startPos, endPos)")] public StartEndPosUnityEvent _OnFireStartEndPos;
+
   [Header("Broadcast Events")]
   [Tooltip("OnBroadcastShotSpread(currentShotSpread)")] public FloatUnityEvent _OnBroadcastShotSpread;
+
   [Header("Reload Events")]
   [Tooltip("OnReloadStart(reloadTime)")] public FloatUnityEvent _OnReloadStart;
   [Tooltip("OnReloadEnd(magSize)")] public IntUnityEvent _OnReloadEnd;
+
   [Header("Charge Events")]
   public UnityEvent _OnChargeStart;
   public UnityEvent _OnChargeEnd;
