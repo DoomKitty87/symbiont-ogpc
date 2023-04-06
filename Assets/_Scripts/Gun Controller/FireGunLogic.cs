@@ -27,7 +27,7 @@ public class FloatUnityEvent : UnityEvent<float> {}
 [System.Serializable]
 public class IntUnityEvent : UnityEvent<int> {}
 [System.Serializable]
-public class StartEndPosUnityEvent : UnityEvent<Vector3, Vector3> {}
+public class Vector3UnityEvent : UnityEvent<Vector3> {}
 
 // NOTE: This can also be used by Enemy AI scripts to fire at the player.
 // Just call the Fire() function from the EnemyAI script.
@@ -75,8 +75,7 @@ public class FireGunLogic : MonoBehaviour
   
   [Header("Fire Events")]
   [Tooltip("OnFireAmmo(ammoCount)")] public FloatUnityEvent _OnFireAmmo;
-  // TODO: Change this to only broadcast the hit position
-  [Tooltip("OnFireStartEndPos(startPos, endPos)")] public StartEndPosUnityEvent _OnFireStartEndPos;
+  [Tooltip("OnFireStartEndPos(hitPosition)")] public Vector3UnityEvent _OnFireHitPosition;
 
   [Header("Broadcast Events")]
   [Tooltip("OnBroadcastShotSpread(currentShotSpread)")] public FloatUnityEvent _OnBroadcastShotSpread;
@@ -245,13 +244,18 @@ public class FireGunLogic : MonoBehaviour
   public void Fire() {
     DrawFireLine(Color.green, 1f);
     _OnFireAmmo?.Invoke(_currentAmmo);
-    if (Physics.Raycast(_raycastOrigin.position, CalculateDirectionWithShotSpread(_minShotSpread), out RaycastHit hit, _raycastDistance, _layerMask)) {
+    Vector3 raycastDirection = CalculateDirectionWithShotSpread(_minShotDamage);
+    if (Physics.Raycast(_raycastOrigin.position, raycastDirection, out RaycastHit hit, _raycastDistance, _layerMask)) {
+      _OnFireHitPosition?.Invoke(hit.point);
       GameObject hitGameObject = hit.collider.gameObject;
       HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
       if (healthManager != null) {
         healthManager.Damage(_currentShotDamage);
         DrawFireLine(Color.yellow, 1f);
       }
+    }
+    else {
+      _OnFireHitPosition?.Invoke((raycastDirection * _raycastDistance) + _raycastOrigin.position);
     }
     IncreaseShotSpread();
     _currentAmmo -= 1;

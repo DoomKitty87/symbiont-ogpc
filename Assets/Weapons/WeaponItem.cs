@@ -9,8 +9,9 @@ public class WeaponItem : ScriptableObject
   public new string name; // Throws error: 'WeaponItem.name' hides inherited member 'Object.name'. Use the new keyword if hiding was intended.
   public int id;
   [Header("Model")]
+  [Header("WeaponEffects requires a empty GameObject named 'MuzzlePosition'\nin this prefab's heirarchy.")]
   public GameObject gunPrefab;
-  [Header("This moves the WeaponContainer in WeaponRenderer. \nUse the WeaponContainer to help set this offset.")]
+  [Header("This moves the WeaponContainer in WeaponRenderer. \nMove the WeaponContainer to help set this offset.")]
   public Vector3 gunOffset;
   public Vector3 gunRotationOffset;
   [Header("Description")]

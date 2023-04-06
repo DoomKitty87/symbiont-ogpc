@@ -17,7 +17,7 @@ public class SpawnedWeapon
 public class WeaponRenderer : MonoBehaviour
 {
   [Header("The WeaponItem Gun Offset moves this container to that position.")]
-  [SerializeField] private Transform _weaponContainer;
+  public Transform _weaponContainer;
   [SerializeField] private GameObject _currentlyViewedWeapon;
 
   [SerializeField] private List<SpawnedWeapon> _spawnedWeapons = new();
@@ -49,6 +49,14 @@ public class WeaponRenderer : MonoBehaviour
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
     if (this.enabled == false) return;
     ShowNewWeapon(weaponItem);
+  }
+  public GameObject GetWeaponInstance(WeaponItem weaponItem) {
+    foreach (SpawnedWeapon spawnedWeapon in _spawnedWeapons) {
+      if (spawnedWeapon.weaponItem == weaponItem) {
+        return spawnedWeapon.instantiatedWeapon;
+      }
+    }
+    return null;
   }
 
   private void ShowNewWeapon(WeaponItem weaponItem) {
