@@ -20,7 +20,7 @@ public class WeaponArmsAnimatorOverride : MonoBehaviour
 
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
     if (weaponItem.animatorOverride == null) {
-      Debug.LogError("AnimationOverride: WeaponItem does not contain an override to use!");
+      Debug.LogError("WeaponArmsAnimatorOverride: WeaponItem does not contain an override to use!");
       return;
     }
     _animatorToOverride.runtimeAnimatorController = weaponItem.animatorOverride;

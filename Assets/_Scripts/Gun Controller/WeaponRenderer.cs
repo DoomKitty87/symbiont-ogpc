@@ -58,7 +58,7 @@ public class WeaponRenderer : MonoBehaviour
     }
     return null;
   }
-
+  
   private void ShowNewWeapon(WeaponItem weaponItem) {
     (bool inList, int index) results = WeaponItemIsInList(weaponItem);
     if (results.inList) {
