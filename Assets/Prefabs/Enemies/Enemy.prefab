@@ -362,11 +362,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4314a95c33a4013b21bcc43e10fc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetColor:
+  _currentWeaponItem: {fileID: 0}
+  _imageToChangeColor: {fileID: 0}
+  _currentAmmoText: {fileID: 0}
+  _maxAmmoText: {fileID: 0}
+  _defaultColor:
     serializedVersion: 2
-    rgba: 4278190217
-  maxAmmo: 0
-  currAmmo: 0
+    rgba: 0
+  _lowAmmoColor:
+    serializedVersion: 2
+    rgba: 0
+  _maxAmmo: 0
+  _currAmmo: 0
+  _easeDuration: 0
+  _easeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1250961092
 GameObject:
   m_ObjectHideFlags: 0
