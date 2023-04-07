@@ -154,7 +154,7 @@ public class LineCreatorEditor : Editor
 
 			if (i == lineCreator.gameObject.GetComponent<TargetMovement>().indexOfStartingPoint) {
 				Handles.color = Color.black;
-				Handles.CapFunction capFunction = Handles.;
+				Handles.CapFunction capFunction = Handles.CircleHandleCap;
 			} else {
 				Handles.color = lineCreator.anchorHandleColor;
 				Handles.CapFunction capFunction = Handles.CircleHandleCap;
