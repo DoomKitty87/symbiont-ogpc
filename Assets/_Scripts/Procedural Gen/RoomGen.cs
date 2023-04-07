@@ -9,6 +9,9 @@ public class RoomGen : MonoBehaviour
   [SerializeField] private GameObject[] genRooms;
   [SerializeField] private GameObject doorFiller;
 
+  // fix for ansels bad code, delete this later
+  [SerializeField] private GameObject lastRoom;
+
   private List<GameObject> generatedRooms = new List<GameObject>();
 
   private void Start() {
