@@ -10,8 +10,8 @@ public class TargetMovement : MonoBehaviour {
 	LineCreator lineCreator;
 
 	[SerializeField] private float targetSpeed;		
-	[SerializeField] int indexOfStartingPoint;
 	[SerializeField] private float timeToStop;
+	public int indexOfStartingPoint;
 
 	public GameObject thingToMove;
 
