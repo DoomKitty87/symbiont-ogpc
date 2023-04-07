@@ -59,6 +59,11 @@ public class WeaponItem : ScriptableObject
   public AudioClip reloadEndSound;
   public AudioClip equipSound;
   [Header("Effects & Particles")]
-  [ColorUsage(true, true)] public Color shotColor;
+  public Vector3 effectPositionOffset;
+  [ColorUsage(true, true)] public Color laserScaleUpColor; 
+  [ColorUsage(true, true)] public Color laserScaleDownColor; 
+  public float durationLaserScaleUp = 0.08f;
+  public float durationLaserScaleDown = 0.1f;
+  [ColorUsage(true, true)] public Color laserEmissionColor;
   public GameObject muzzleFlashEffectPrefab;
 }

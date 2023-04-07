@@ -27,6 +27,8 @@ public class PlayerAim : MonoBehaviour
     Cursor.lockState = CursorLockMode.Locked;
     if (_objectToAimX == null) _objectToAimX = transform;
     if (_objectToAimY == null) _objectToAimY = transform;
+    _objectToAimX.rotation = Quaternion.Euler(0f, 0f, 0f);
+    _objectToAimY.rotation = Quaternion.Euler(0f, 0f, 0f);
   }
 
   void Update() {
