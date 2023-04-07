@@ -31,16 +31,13 @@ public class AmmoScript : MonoBehaviour
   private void Start() {
     _imageToChangeColor = GetComponent<Image>();
     _defaultColor = _imageToChangeColor.color;
-    _currAmmo = 0;
-    _maxAmmo = 0;
   }
 
-  // TODO: FIX THIS
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
     _currentWeaponItem = weaponItem;
     StartCoroutine(TweenTextValue(_maxAmmoText, _maxAmmo, weaponItem.magSize, _easeDuration, 0));
-    _maxAmmo = weaponItem.magSize;
     StartCoroutine(TweenTextValue(_currentAmmoText, _currAmmo, ammoCount, _easeDuration, 0));
+    _maxAmmo = weaponItem.magSize;
     _currAmmo = ammoCount;
   }
 
@@ -63,10 +60,6 @@ public class AmmoScript : MonoBehaviour
 			colorCoefficient = ((_maxAmmo/_currAmmo) * (255 / _maxAmmo));
     }
     _imageToChangeColor.color = Color.Lerp(_defaultColor, _lowAmmoColor, colorCoefficient / 255);
-  }
-
-  private void UpdateText() {
-    
   }
 
   private IEnumerator TweenTextValue(TextMeshProUGUI text, float startValue, float targetValue, float duration, int decimalPlaces)
