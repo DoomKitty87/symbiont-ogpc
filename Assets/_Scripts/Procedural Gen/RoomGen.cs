@@ -38,7 +38,7 @@ public class RoomGen : MonoBehaviour
           connectingDoor = Random.Range(0, instantiatedRoom.transform.GetChild(1).childCount);
           instantiatedRoom.transform.position = lastRoom.transform.GetChild(1).GetChild(chosenDoor).position - instantiatedRoom.transform.GetChild(1).GetChild(connectingDoor).position;
           while (Mathf.Abs(Vector3.Distance(lastRoom.transform.position, instantiatedRoom.transform.position)) < 2) {
-          instantiatedRoom.transform.RotateAround(lastRoom.transform.GetChild(1).GetChild(chosenDoor).position, Vector3.up, 180);
+            instantiatedRoom.transform.RotateAround(lastRoom.transform.GetChild(1).GetChild(chosenDoor).position, Vector3.up, 180);
           }
           goto loop;
         }
