@@ -152,12 +152,19 @@ public class LineCreatorEditor : Editor
 
 		for (int i = 0; i < lineCreator.numberOfLinearPoints; ++i) {
 
-			Handles.color = lineCreator.anchorHandleColor;
+			if (i == lineCreator.gameObject.GetComponent<TargetMovement>().indexOfStartingPoint) {
+				Handles.color = Color.black;
+				Handles.CapFunction capFunction = Handles.CircleHandleCap;
+			} else {
+				Handles.color = lineCreator.anchorHandleColor;
+				Handles.CapFunction capFunction = Handles.CircleHandleCap;
+			}
+
 			Vector3 handlesVisuals = Handles.FreeMoveHandle(lineCreator.linearPoints[i] + lineCreator.referenceTransform.transform.position, Quaternion.identity, lineCreator.handleSize, Vector3.zero, Handles.CircleHandleCap);
 			Vector3 newLocation = handlesVisuals - lineCreator.referenceTransform.transform.position;
 
-				if (!lineCreator.unlockYMovement) lineCreator.linearPoints[i] = new Vector3(newLocation.x, lineCreator.linearPoints[i].y, newLocation.z);
-				else lineCreator.linearPoints[i] = newLocation;
+			if (!lineCreator.unlockYMovement) lineCreator.linearPoints[i] = new Vector3(newLocation.x, lineCreator.linearPoints[i].y, newLocation.z);
+			else lineCreator.linearPoints[i] = newLocation;
 		}
 	}
 

@@ -174,8 +174,8 @@ public class GunController : MonoBehaviour
   private void ReloadGunValues() {
     rounds = activeGun.magSize;
     ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
-    ammoScript.maxAmmo = activeGun.magSize;
-    ammoScript.currAmmo = rounds;
+    ammoScript._maxAmmo = activeGun.magSize;
+    ammoScript._currAmmo = rounds;
   }
 
   //Gives activeGun value to other scripts
@@ -235,7 +235,7 @@ public class GunController : MonoBehaviour
     StopFX();
     rounds -= 1;
     ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
-    ammoScript.currAmmo = rounds;
+    ammoScript._currAmmo = rounds;
     canFireTime = Time.time + activeGun.fireRate;
     Vector3 origin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
     RaycastHit hit;
@@ -328,7 +328,7 @@ public class GunController : MonoBehaviour
     gun.localRotation = Quaternion.Euler(0, -90f, 0);
     magazine.transform.localPosition = init;
     ammoText.text = rounds.ToString() + " | " + activeGun.magSize.ToString();
-    ammoScript.currAmmo = rounds;
+    ammoScript._currAmmo = rounds;
     // reloading = false;
   }
 
