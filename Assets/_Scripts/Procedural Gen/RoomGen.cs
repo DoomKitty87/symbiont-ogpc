@@ -11,6 +11,8 @@ public class RoomGen : MonoBehaviour
 
   private List<GameObject> generatedRooms = new List<GameObject>();
 
+  private GameObject lastRoom;
+
   private void Start() {
     GenerateDungeon(3);
   }
@@ -58,7 +60,6 @@ public class RoomGen : MonoBehaviour
   }
 
   private void GenerateDungeon(int rooms) {
-    GameObject lastRoom;
 
     GameObject _roomChoice = genRooms[Random.Range(0, genRooms.Length)];
     GameObject _instantiatedRoom = Instantiate(_roomChoice, new Vector3(0, 0, 0), Quaternion.identity, transform);
