@@ -19,7 +19,7 @@ public class ExplodeEffect : MonoBehaviour
   [SerializeField] private float _scalingDuration = 0.12f;
   [SerializeField] private float _initialParticleSizeMultiplier = 0.25f;
   
-  public UnityEvent _OnEffectComplete;
+  [SerializeField] private List<GameObject> _DestroyOnEffectComplete;
 
   private void Start()
   {
@@ -68,6 +68,8 @@ public class ExplodeEffect : MonoBehaviour
     Destroy(explodeFXInstance);
     Destroy(fragmentFXInstance);
     Destroy(audioPrefabInstance);
-    Destroy(gameObject);
+    for (int i = 0; i < _DestroyOnEffectComplete.Count; i++) {
+      Destroy(_DestroyOnEffectComplete[i]);
+    }
   }
 }

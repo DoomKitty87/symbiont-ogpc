@@ -1669,6 +1669,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7384218134253497419, guid: 676790f03d634214ab64fe4b1bd3c874,
+        type: 3}
+      propertyPath: _OnEffectComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384218134253497419, guid: 676790f03d634214ab64fe4b1bd3c874,
+        type: 3}
+      propertyPath: _OnEffectComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384218134253497419, guid: 676790f03d634214ab64fe4b1bd3c874,
+        type: 3}
+      propertyPath: _OnEffectComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1931367058}
+    - target: {fileID: 7384218134253497419, guid: 676790f03d634214ab64fe4b1bd3c874,
+        type: 3}
+      propertyPath: _OnEffectComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7384218134606678416, guid: 676790f03d634214ab64fe4b1bd3c874,
         type: 3}
       propertyPath: m_RootOrder
@@ -6175,6 +6195,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1931367058 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7384218134606678419, guid: 676790f03d634214ab64fe4b1bd3c874,
+    type: 3}
+  m_PrefabInstance: {fileID: 422179032}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2045607582
 PrefabInstance:
   m_ObjectHideFlags: 0

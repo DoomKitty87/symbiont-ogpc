@@ -1348,9 +1348,8 @@ MonoBehaviour:
     type: 3}
   _scalingDuration: 0.12
   _initialParticleSizeMultiplier: 0.25
-  _OnEffectComplete:
-    m_PersistentCalls:
-      m_Calls: []
+  _DestroyOnEffectComplete:
+  - {fileID: 7384218134606678419}
 --- !u!114 &7384218134253497412
 MonoBehaviour:
   m_ObjectHideFlags: 0
