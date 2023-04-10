@@ -2806,7 +2806,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9afb3442f6b0104ba4ce1dadec590db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: []
+  points:
+  - {x: -0.2919333, y: 0, z: -10}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 10}
 --- !u!114 &7384218134606678418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2819,9 +2822,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508009f41b444fc48a06e1cfd2581b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
-  _loop: 1
-  _startingIndex: 1
+  _speed: 3
+  _loop: 0
+  _startingIndex: 0
   pauseTime: 1
 --- !u!1 &7384218134640759101
 GameObject:
@@ -8090,6 +8093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989816e2138ab4239a47d687fb0caa35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponItem: {fileID: 0}
   _raycastOrigin: {fileID: 7384218135317066878}
   _raycastDistance: 50
   _layerMask:

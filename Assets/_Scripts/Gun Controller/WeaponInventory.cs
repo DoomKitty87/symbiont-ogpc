@@ -48,7 +48,7 @@ public class WeaponInventory : MonoBehaviour
       weaponItems[i] = _equippedWeapons[i]._weaponItem;
     }
     _onInventoryInitialize?.Invoke(weaponItems, _currentWeapon._weaponItem);
-    // _onNewCurrentWeapon?.Invoke(_currentWeapon._weaponItem, _currentWeapon._ammoLeft);
+    _onNewCurrentWeapon?.Invoke(_currentWeapon._weaponItem, _currentWeapon._ammoLeft);
   }
   public void AddWeapon(WeaponItem weapon) {
     _equippedWeapons.Add(new EquippedWeapon(weapon, weapon.magSize));

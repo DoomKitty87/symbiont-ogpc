@@ -33,6 +33,8 @@ public class Vector3UnityEvent : UnityEvent<Vector3> {}
 // Just call the Fire() function from the EnemyAI script.
 public class FireGunLogic : MonoBehaviour
 {
+  [Header("Weapon Item")]
+  [SerializeField] private WeaponItem _weaponItem;
 
   [Header("Raycast Settings")]
   [SerializeField] private Transform _raycastOrigin;
@@ -107,6 +109,9 @@ public class FireGunLogic : MonoBehaviour
 
   // A little messy looking, but that's the price of having a lot of different fire types.
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
+    // Weapon Item
+    _weaponItem = weaponItem;
+    
     // Type
     _weaponFireType = weaponItem.fireType;
     
