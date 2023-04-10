@@ -5,7 +5,7 @@ using UnityEngine;
 // Requires lineCreator Component
 
 [RequireComponent(typeof(LineCreator))]
-public class TargetMovement : MonoBehaviour {
+public class TargetMovement2 : MonoBehaviour {
 	
 	LineCreator lineCreator;
 

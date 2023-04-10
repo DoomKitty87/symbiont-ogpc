@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEditor;
-using NUnit.Framework;
 
 // Stolen gratefully from https://www.youtube.com/watch?v=MV4dMYhoV8c
 
@@ -10,6 +9,7 @@ namespace Enemy.Editor {
 		#region Fields
 		private readonly float _dashSize = 4f;
 		private Waypoints _waypoints;
+		private TargetMovement _targetMovement;
 
 		private int[] _segmentIndices;
 		private Vector3[] _lines;
@@ -28,6 +28,8 @@ namespace Enemy.Editor {
 			_waypoints = (Waypoints)target;
 			_pointsProperty = serializedObject.FindProperty("points");
 
+			_targetMovement = _waypoints.GetComponent<TargetMovement>();
+
 			CreateSegments();
 			CreateLines();
 		}
@@ -37,6 +39,10 @@ namespace Enemy.Editor {
 		}
 
 		public override void OnInspectorGUI() {
+			Event currentEvent = Event.current;
+
+			GUILayout.Space(10f);
+
 			if (_waypoints.Length == 0) {
 				if (GUILayout.Button(EditorGUIUtility.IconContent("d_Toolbar Plus"), GUILayout.ExpandWidth(true))) {
 					_pointsProperty.InsertArrayElementAtIndex(0);
@@ -71,6 +77,9 @@ namespace Enemy.Editor {
 					if (_waypoints.Length >= 2 && i + 1 > _waypoints.Length - 1) {
 						Vector3 direction = (_waypoints[i] - _waypoints[i - 1]).normalized;
 						midPoint = _waypoints[i] + direction;
+					} else if (i + 1 >= _waypoints.Length - 1 && i != 0) {
+						Vector3 previousPointDifference = _waypoints[i] - _waypoints[i - 1];
+						midPoint = _waypoints[i] + previousPointDifference.normalized;
 					} else if (i + 1 >= _waypoints.Length - 1) {
 						midPoint = _waypoints[i] + Vector3.right;
 					} else {
@@ -89,6 +98,31 @@ namespace Enemy.Editor {
 					i--;
 				}
 				EditorGUILayout.EndHorizontal();
+			}
+
+			GUILayout.Space(10f);
+
+			if (_waypoints.Length >= 2) {
+				if (_waypoints.Length >= 2) {
+					GUILayout.Label("Hold Ctrl to add intermediate points");
+				}
+				GUILayout.Space(10f);
+			}
+
+
+			if (_waypoints.Length > 0) {
+				if (currentEvent.modifiers != EventModifiers.Shift) {
+					GUILayout.Label("Hold Shift to clear points");
+				} else {
+					if (GUILayout.Button("Clear Points", GUILayout.ExpandWidth(true))) {
+							for (int i = 0; i < _waypoints.Length; i++) {
+							_pointsProperty.DeleteArrayElementAtIndex(0);
+						}
+						serializedObject.ApplyModifiedProperties();
+						CreateSegments();
+						CreateLines();
+					}
+				}
 			}
 		}
 
@@ -137,8 +171,10 @@ namespace Enemy.Editor {
 				index++;
 				_segmentIndices[start + 1] = index;
 			}
-			_segmentIndices[^2] = _waypoints.Length - 1;
-			_segmentIndices[^1] = 0;
+			if (_targetMovement.ShouldLoop) {
+				_segmentIndices[^2] = _waypoints.Length - 1;
+				_segmentIndices[^1] = 0;
+			}
 		}
 
 		private void CreateLines() {
@@ -149,7 +185,7 @@ namespace Enemy.Editor {
 
 		private void DrawClosestPointOnLines() {
 			Event currentEvent = Event.current;
-			if (currentEvent.modifiers == EventModifiers.Control) {
+			if (currentEvent.modifiers == EventModifiers.Control && _waypoints.Length >= 2) {
 				Vector3 pointPosition = HandleUtility.ClosestPointToPolyLine(_lines);
 				Color previousColor = Handles.color;
 				Handles.color = _pointOnLineColor;

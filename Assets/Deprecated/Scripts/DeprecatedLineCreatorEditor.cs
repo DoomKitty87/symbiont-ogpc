@@ -152,7 +152,7 @@ public class LineCreatorEditor : Editor
 
 		for (int i = 0; i < lineCreator.numberOfLinearPoints; ++i) {
 
-			if (i == lineCreator.gameObject.GetComponent<TargetMovement>().indexOfStartingPoint) {
+			if (i == lineCreator.gameObject.GetComponent<TargetMovement2>().indexOfStartingPoint) {
 				Handles.color = Color.black;
 				Handles.CapFunction capFunction = Handles.CircleHandleCap;
 			} else {
