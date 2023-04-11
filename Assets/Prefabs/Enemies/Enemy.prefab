@@ -3371,6 +3371,9 @@ MonoBehaviour:
   _durationScaleDown: 0
   _muzzleFlashPrefab: {fileID: 0}
   _hitEffectPrefab: {fileID: 0}
+  _OnEffectStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!82 &7384218134806197392
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4808,12 +4811,12 @@ MonoBehaviour:
   _maxAmmoText: {fileID: 7384218134546911904}
   _defaultColor:
     serializedVersion: 2
-    rgba: 4284697415
+    rgba: 2369526272
   _lowAmmoColor:
     serializedVersion: 2
-    rgba: 4279769269
+    rgba: 3424131253
   _maxAmmo: 0
-  _currAmmo: 0
+  _currentAmmo: 0
   _easeDuration: 0.3
   _easeCurve:
     serializedVersion: 2
@@ -7905,6 +7908,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7384218134806197398}
+        m_TargetAssemblyTypeName: WeaponRenderer, Assembly-CSharp
+        m_MethodName: UpdateForNewValues
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onInventoryInitialize:
     m_PersistentCalls:
       m_Calls:
@@ -8845,7 +8860,7 @@ MonoBehaviour:
   _crosshairOutlineThickness: 1
   _useDynamicOffset: 1
   _dynamicOffset: 0
-  _dynamicOffsetMultiplier: 500
+  _dynamicOffsetMultiplier: 100
   _dynamicOffsetMax: 1000
 --- !u!1 &7384218136025033430
 GameObject:

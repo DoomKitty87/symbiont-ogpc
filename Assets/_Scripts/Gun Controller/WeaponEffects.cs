@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(WeaponRenderer))]
 public class WeaponEffects : MonoBehaviour
@@ -30,6 +31,9 @@ public class WeaponEffects : MonoBehaviour
 
   [Header("Hit Effect")]
   [SerializeField] private GameObject _hitEffectPrefab;
+
+  [Header("Other Effects")]
+  public UnityEvent _OnEffectStart;
 
   private bool _hadFirstUpdateForNewValues = false;
 
@@ -72,8 +76,12 @@ public class WeaponEffects : MonoBehaviour
     // if (activeGun == heavyRifle) StartCoroutine(ReactorGlow());
     // if (activeGun == assaultRifle) StartCoroutine(ChamberCharge());
     StartCoroutine(LaserFX(_weaponInstanceMuzzlePosition, hitPosition));
-    if (_muzzleFlashPrefab == null) return;
-    StartCoroutine(MuzzleFlashFX(_weaponInstanceMuzzlePosition));
+    if (_muzzleFlashPrefab != null) {
+      StartCoroutine(MuzzleFlashFX(_weaponInstanceMuzzlePosition));
+    };
+    if (_hitEffectPrefab != null) {
+      StartCoroutine(HitEffectFX(hitPosition));
+    };
   }
   private IEnumerator MuzzleFlashFX(Vector3 muzzlePosition) {
     GameObject muzzleFlashInstance = Instantiate(_muzzleFlashPrefab, _weaponInstanceMuzzleObject.transform, false);
@@ -82,7 +90,13 @@ public class WeaponEffects : MonoBehaviour
     yield return new WaitForSeconds(muzzleFlashParticleSystem.main.duration);
     Destroy(muzzleFlashInstance);
   }
-
+  private IEnumerator HitEffectFX(Vector3 hitPosition) {
+    GameObject hitEffectInstance = Instantiate(_hitEffectPrefab, hitPosition, Quaternion.identity);
+    ParticleSystem hitEffectParticleSystem = hitEffectInstance.GetComponent<ParticleSystem>();
+    hitEffectParticleSystem.Play();
+    yield return new WaitForSeconds(hitEffectParticleSystem.main.duration);
+    Destroy(hitEffectInstance);
+  }
   // Changed to code to spawn the laser inside of the muzzle position gameobject
   private IEnumerator LaserFX(Vector3 startPoint, Vector3 endPoint) {
     float timer = 0f;

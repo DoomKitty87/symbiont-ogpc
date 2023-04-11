@@ -21,12 +21,11 @@ public class AmmoScript : MonoBehaviour
   [Header("Values")]
   // Needs to be public because GunController depends
   [SerializeField] public int _maxAmmo;
-  [SerializeField] public int _currAmmo;
+  [SerializeField] public int _currentAmmo;
   [Header("Easing")]
   [SerializeField] private float _easeDuration;
+  private float _reloadDuration;
   [SerializeField] private AnimationCurve _easeCurve;
-  private float colorCoefficient;
-  
 
   private void Start() {
     _imageToChangeColor = GetComponent<Image>();
@@ -36,30 +35,35 @@ public class AmmoScript : MonoBehaviour
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
     _currentWeaponItem = weaponItem;
     StartCoroutine(TweenTextValue(_maxAmmoText, _maxAmmo, weaponItem.magSize, _easeDuration, 0));
-    StartCoroutine(TweenTextValue(_currentAmmoText, _currAmmo, ammoCount, _easeDuration, 0));
+    StartCoroutine(TweenTextValue(_currentAmmoText, _currentAmmo, ammoCount, _easeDuration, 0));
     _maxAmmo = weaponItem.magSize;
-    _currAmmo = ammoCount;
+    _currentAmmo = ammoCount;
+    _reloadDuration = weaponItem.reloadTimeSeconds;
+    UpdateColor();
   }
 
   public void DecrementAmmo() {
-    _currAmmo--;
+    _currentAmmo--;
     UpdateColor();
-    _currentAmmoText.text = _currAmmo.ToString();
+    _currentAmmoText.text = _currentAmmo.ToString();
   }
 
+  // Despite ResetAmmo being called OnReloadStart, we still want to wait until the reload is 85% done before starting the easing 
   public void ResetAmmo() {
-    StartCoroutine(TweenTextValue(_currentAmmoText, _currAmmo, _maxAmmo, _easeDuration, 0));
-    _currAmmo = _maxAmmo;
+    Invoke("ResetAmmoDelay", _reloadDuration * 0.85f);
+  }
+  private void ResetAmmoDelay() {
+    StartCoroutine(TweenTextValue(_currentAmmoText, _currentAmmo, _maxAmmo, _easeDuration, 0));
+    _currentAmmo = _maxAmmo;
     UpdateColor();
   }
-
 
   private void UpdateColor() {
-    if (_currAmmo != 0 && _maxAmmo != 0) {
+    if (_currentAmmo != 0 && _maxAmmo != 0) {
 			// If you aren't dividing by zero, exponentially raise colorCoefficient based on how small currAmmo is in respect to maxAmmo
-			colorCoefficient = ((_maxAmmo/_currAmmo) * (255 / _maxAmmo));
+			float colorCoefficient = ((_maxAmmo / _currentAmmo) * (255 / _maxAmmo));
+      _imageToChangeColor.color = Color.Lerp(_defaultColor, _lowAmmoColor, colorCoefficient / 255);
     }
-    _imageToChangeColor.color = Color.Lerp(_defaultColor, _lowAmmoColor, colorCoefficient / 255);
   }
 
   private IEnumerator TweenTextValue(TextMeshProUGUI text, float startValue, float targetValue, float duration, int decimalPlaces)
