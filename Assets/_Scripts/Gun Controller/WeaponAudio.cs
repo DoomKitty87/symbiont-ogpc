@@ -5,9 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class WeaponAudio : MonoBehaviour
 {
+  [Header("Weapon Item")]
   [SerializeField] private WeaponItem _currentWeaponItem;
   [SerializeField] private int _ammoCount;
 
+  [Header("Audio Clips")]
   [SerializeField] private AudioSource _audioSource;
   [SerializeField] private AudioClip _shotSound;
   [SerializeField] private AudioClip _shotSoundNearEmpty;

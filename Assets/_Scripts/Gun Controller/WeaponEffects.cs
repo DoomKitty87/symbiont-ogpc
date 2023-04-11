@@ -25,8 +25,11 @@ public class WeaponEffects : MonoBehaviour
   [SerializeField] private float _durationScaleUp;
   [SerializeField] private float _durationScaleDown;
 
-  [Header("Other Effects")]
-  [SerializeField] GameObject _muzzleFlashPrefab;
+  [Header("Muzzle Effect")]
+  [SerializeField] private GameObject _muzzleFlashPrefab;
+
+  [Header("Hit Effect")]
+  [SerializeField] private GameObject _hitEffectPrefab;
 
   private bool _hadFirstUpdateForNewValues = false;
 
@@ -60,7 +63,7 @@ public class WeaponEffects : MonoBehaviour
     
     if (_weaponInstanceMuzzleObject != null) { _weaponInstanceMuzzlePosition = _weaponInstance.transform.Find("MuzzlePosition").position; }
     else { Debug.LogError($"WeaponEffects: MuzzlePosition object not found in weaponItemPrefab for '{weaponItem.name}'"); }
-    if (_muzzleFlashPrefab != null) { _muzzleFlashPrefab = weaponItem.muzzleFlashEffectPrefab; }
+    if (weaponItem.muzzleFlashEffectPrefab != null) { _muzzleFlashPrefab = weaponItem.muzzleFlashEffectPrefab; }
     else { Debug.LogWarning($"WeaponEffects: WeaponItem: '{weaponItem.name}' doesn't contain MuzzleFlashPrefab!"); }
   }
 
@@ -73,7 +76,7 @@ public class WeaponEffects : MonoBehaviour
     StartCoroutine(MuzzleFlashFX(_weaponInstanceMuzzlePosition));
   }
   private IEnumerator MuzzleFlashFX(Vector3 muzzlePosition) {
-    GameObject muzzleFlashInstance = Instantiate(_muzzleFlashPrefab, _effectPositionOffset, Quaternion.identity, _weaponInstanceMuzzleObject.transform);
+    GameObject muzzleFlashInstance = Instantiate(_muzzleFlashPrefab, _weaponInstanceMuzzleObject.transform, false);
     ParticleSystem muzzleFlashParticleSystem = muzzleFlashInstance.GetComponent<ParticleSystem>();
     muzzleFlashParticleSystem.Play();
     yield return new WaitForSeconds(muzzleFlashParticleSystem.main.duration);
@@ -86,7 +89,7 @@ public class WeaponEffects : MonoBehaviour
     _laserScaleDownColor = Color.white;
     _laserScaleUpColor = Color.clear;
 
-    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _effectPositionOffset, Quaternion.identity, _weaponInstanceMuzzleObject.transform).GetComponent<LineRenderer>();
+    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _weaponInstanceMuzzleObject.transform.position + _effectPositionOffset,  _weaponInstanceMuzzleObject.transform.rotation, _weaponInstanceMuzzleObject.transform).GetComponent<LineRenderer>();
     Renderer laserRenderer = laserLineRenderer.gameObject.GetComponent<Renderer>();
     laserLineRenderer.SetPosition(0, startPoint + _effectPositionOffset);
     laserLineRenderer.SetPosition(1, endPoint + _effectPositionOffset);

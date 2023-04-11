@@ -18,7 +18,7 @@ public class WeaponItem : ScriptableObject
   public string manufacturer;
   public string modelName;
   public string nickName;
-  [Header("Type")]
+  [Header("Fire Type")]
   public FireType fireType;
   public enum FireType {
     SemiAuto,
@@ -42,6 +42,7 @@ public class WeaponItem : ScriptableObject
   public float maxShotSpreadDegrees;
   public float shotSpreadFireInaccuracyDegrees;
   public float shotSpreadRecovery;
+  [Header("[Optional]")]
   [Header("Burst Stats")]
   public int shotsPerBurst;
   public float secondsBetweenBurstShots;
@@ -59,11 +60,14 @@ public class WeaponItem : ScriptableObject
   public AudioClip reloadEndSound;
   public AudioClip equipSound;
   [Header("Effects & Particles")]
+  [Header("Laser Effect")]
   public Vector3 effectPositionOffset;
   [ColorUsage(true, true)] public Color laserScaleUpColor; 
   [ColorUsage(true, true)] public Color laserScaleDownColor; 
   public float durationLaserScaleUp = 0.08f;
   public float durationLaserScaleDown = 0.1f;
   [ColorUsage(true, true)] public Color laserEmissionColor;
+  [Header("Other Effects")]
   public GameObject muzzleFlashEffectPrefab;
+  public GameObject hitEffectPrefab;
 }
