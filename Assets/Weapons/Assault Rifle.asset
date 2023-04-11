@@ -32,7 +32,7 @@ MonoBehaviour:
   recoilRecoverySpeed: 4
   zCameraShake: 1
   minShotSpreadDegrees: 0.02
-  maxShotSpreadDegrees: 0.1
+  maxShotSpreadDegrees: 0.3
   shotSpreadFireInaccuracyDegrees: 0.08
   shotSpreadRecovery: 0.1
   shotsPerBurst: 0
@@ -54,3 +54,4 @@ MonoBehaviour:
   laserEmissionColor: {r: 0.6784314, g: 0.0627451, b: 0.7490196, a: 0}
   muzzleFlashEffectPrefab: {fileID: 1681060557054156774, guid: f922669cfb7651546a43e0fa800f4ddd,
     type: 3}
+  hitEffectPrefab: {fileID: 0}

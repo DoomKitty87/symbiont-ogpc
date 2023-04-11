@@ -4655,12 +4655,17 @@ PrefabInstance:
     - target: {fileID: 7384218134606678418, guid: 676790f03d634214ab64fe4b1bd3c874,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7384218134606678419, guid: 676790f03d634214ab64fe4b1bd3c874,
         type: 3}
       propertyPath: m_Name
       value: Example Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384218135097247311, guid: 676790f03d634214ab64fe4b1bd3c874,
+        type: 3}
+      propertyPath: _lowAmmoColor.rgba
+      value: 4279769269
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676790f03d634214ab64fe4b1bd3c874, type: 3}
