@@ -5,6 +5,8 @@ namespace Enemy {
 	public class Waypoints : MonoBehaviour {
 		public Vector3[] points;
 
+		private GameObject parentObject;
+
 		public Vector3 this[int index] {
 			get { return points[index]; }
 			set { points[index] = value; }
@@ -24,9 +26,18 @@ namespace Enemy {
 			} else { 
 				return 0;
 			}
+		}
 
-			// TODO:
-			// Code for detecting and dealing with collisions
+		private void Start() {
+			if (transform.parent.tag == "Room") parentObject = transform.parent.gameObject;
+
+			MovePoints();
+		}
+
+		private void MovePoints() {
+			for (int i = 0; i < points.Length; i++) {
+				points[i] += parentObject.transform.position;
+			}
 		}
 	}
 
