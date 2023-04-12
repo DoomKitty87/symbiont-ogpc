@@ -16,7 +16,7 @@ MonoBehaviour:
   id: 0
   gunPrefab: {fileID: 2267548190515640350, guid: 84a1df00d52967d40be75d1018ddf4bf,
     type: 3}
-  gunOffset: {x: 0.000118, y: 0.001621, z: 0.000029}
+  gunOffset: {x: 0.000301, y: 0.001963, z: 0.000093}
   gunRotationOffset: {x: 0, y: 90, z: 90}
   manufacturer: ElectroArms
   modelName: ZAP29
@@ -25,7 +25,7 @@ MonoBehaviour:
   maxShotDamage: 5
   fireDelaySeconds: 0.1
   magSize: 12
-  reloadTimeSeconds: 1.2
+  reloadTimeSeconds: 0.7
   verticalRecoil: 5
   horizontalRecoilDeviation: 4
   recoilSnapiness: 10
@@ -39,7 +39,7 @@ MonoBehaviour:
   secondsBetweenBurstShots: 0
   minShotDamage: 0
   chargeTimeSeconds: 0
-  animatorOverride: {fileID: 22100000, guid: f95b3c6b60185b94e8fc8014a6414352, type: 2}
+  animatorOverride: {fileID: 22100000, guid: eec956f7f87535f4e94c644f59816ff9, type: 2}
   shotSound: {fileID: 0}
   shotSoundNearEmpty: {fileID: 0}
   emptyFireSound: {fileID: 0}
