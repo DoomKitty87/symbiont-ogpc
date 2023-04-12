@@ -8,6 +8,7 @@ public class RoomGen : MonoBehaviour
   [SerializeField] private float roomNumber;
   [SerializeField] private GameObject[] genRooms;
   [SerializeField] private GameObject doorFiller;
+  [SerializeField] private float roomSize;
 
   private List<GameObject> generatedRooms = new List<GameObject>();
 
@@ -29,17 +30,17 @@ public class RoomGen : MonoBehaviour
     int connectingDoor = Random.Range(0, instantiatedRoom.transform.GetChild(1).childCount);
       
     instantiatedRoom.transform.position = lastRoom.transform.GetChild(1).GetChild(chosenDoor).position - instantiatedRoom.transform.GetChild(1).GetChild(connectingDoor).position;
-    while (Mathf.Abs((lastRoom.transform.position - instantiatedRoom.transform.position).magnitude) < 2) {
+    while (Mathf.Abs((lastRoom.transform.position - instantiatedRoom.transform.position).magnitude) < roomSize) {
       instantiatedRoom.transform.RotateAround(lastRoom.transform.GetChild(1).GetChild(chosenDoor).position, Vector3.up, 180);
     }
 
     loop:
       foreach (GameObject room in generatedRooms) {
-        if (Mathf.Abs(Vector3.Distance(room.transform.position, instantiatedRoom.transform.position)) < 2) {
+        if (Mathf.Abs(Vector3.Distance(room.transform.position, instantiatedRoom.transform.position)) < roomSize) {
           chosenDoor = Random.Range(0, lastRoom.transform.GetChild(1).childCount);
           connectingDoor = Random.Range(0, instantiatedRoom.transform.GetChild(1).childCount);
           instantiatedRoom.transform.position = lastRoom.transform.GetChild(1).GetChild(chosenDoor).position - instantiatedRoom.transform.GetChild(1).GetChild(connectingDoor).position;
-          while (Mathf.Abs(Vector3.Distance(lastRoom.transform.position, instantiatedRoom.transform.position)) < 2) {
+          while (Mathf.Abs(Vector3.Distance(lastRoom.transform.position, instantiatedRoom.transform.position)) < roomSize) {
             instantiatedRoom.transform.RotateAround(lastRoom.transform.GetChild(1).GetChild(chosenDoor).position, Vector3.up, 180);
           }
           goto loop;
@@ -73,18 +74,18 @@ public class RoomGen : MonoBehaviour
     int connectingDoor = Random.Range(0, instantiatedRoom.transform.GetChild(1).childCount);
       
     instantiatedRoom.transform.position = lastRoom.transform.GetChild(1).GetChild(chosenDoor).position - instantiatedRoom.transform.GetChild(1).GetChild(connectingDoor).position;
-    while (Mathf.Abs((lastRoom.transform.position - instantiatedRoom.transform.position).magnitude) < 2) {
+    while (Mathf.Abs((lastRoom.transform.position - instantiatedRoom.transform.position).magnitude) < roomSize) {
       instantiatedRoom.transform.RotateAround(lastRoom.transform.GetChild(1).GetChild(chosenDoor).position, Vector3.up, 180);
     }
 
     loop:
       foreach (GameObject room in generatedRooms) {
-        if (Mathf.Abs(Vector3.Distance(room.transform.position, instantiatedRoom.transform.position)) < 2) {
+        if (Mathf.Abs(Vector3.Distance(room.transform.position, instantiatedRoom.transform.position)) < roomSize) {
           chosenDoor = Random.Range(0, lastRoom.transform.GetChild(1).childCount);
           connectingDoor = Random.Range(0, instantiatedRoom.transform.GetChild(1).childCount);
 
           instantiatedRoom.transform.position = lastRoom.transform.GetChild(1).GetChild(chosenDoor).position - instantiatedRoom.transform.GetChild(1).GetChild(connectingDoor).position;
-          while (Mathf.Abs(Vector3.Distance(lastRoom.transform.position, instantiatedRoom.transform.position)) < 2) {
+          while (Mathf.Abs(Vector3.Distance(lastRoom.transform.position, instantiatedRoom.transform.position)) < roomSize) {
             instantiatedRoom.transform.RotateAround(lastRoom.transform.GetChild(1).GetChild(chosenDoor).position, Vector3.up, 180);
           }
           goto loop;
