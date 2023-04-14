@@ -17,6 +17,17 @@ public class PathRenderer : MonoBehaviour
     InvokeRepeating("ReloadPaths", 0, 0.5f);
   }
 
+  public void StopOverlay() {
+    CancelInvoke("ReloadPaths");
+    for (int i = transform.childCount - 1; i >= 0; --i) {
+      Destroy(transform.GetChild(i).gameObject);
+    }
+  }
+
+  public void StartOverlay() {
+    pass;
+  }
+
   private void ReloadPaths() {
     for (int i = transform.childCount - 1; i >= 0; --i) {
       Destroy(transform.GetChild(i).gameObject);
