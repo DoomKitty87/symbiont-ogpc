@@ -9,13 +9,24 @@
    viewBox="0 0 2560 1440"
    sodipodi:docname="Enemy Robot Shooting UI Mockup.svg"
    inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   inkscape:export-filename="Enemy Robot Shooting UI Mockup.png"
+   inkscape:export-xdpi="72"
+   inkscape:export-ydpi="72"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs110" />
+     id="defs110">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 720 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="2560 : 720 : 1"
+       inkscape:persp3d-origin="1280 : 480 : 1"
+       id="perspective3734" />
+  </defs>
   <sodipodi:namedview
      id="namedview108"
      pagecolor="#505050"
@@ -26,15 +37,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      showgrid="false"
-     inkscape:zoom="5.6568542"
-     inkscape:cx="2305.0797"
-     inkscape:cy="245.71961"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="1165.312"
+     inkscape:cy="743.87634"
      inkscape:window-width="1366"
      inkscape:window-height="745"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer3">
+     inkscape:current-layer="layer6">
     <inkscape:grid
        type="xygrid"
        id="grid283" />
@@ -53,6 +64,121 @@
        id="image114"
        x="0"
        y="0" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="World">
+    <g
+       sodipodi:type="inkscape:box3d"
+       id="g3797"
+       style="fill:#ffffff;stroke:#343434;stroke-width:9.059;stroke-linecap:round;stroke-dasharray:none"
+       inkscape:perspectiveID="#perspective3734"
+       inkscape:corner0="2.0304124 : -0.28517088 : 0 : 1"
+       inkscape:corner7="0.74705119 : -0.3590181 : 1.1554345 : 1"
+       inkscape:label="Floor">
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3809"
+         style="fill:#e9e9ff;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="11"
+         d="m 1012.4384,845.46347 447.6592,55.47485 v 25.44275 l -447.6592,-63.27548 z"
+         points="1460.0976,900.93832 1460.0976,926.38107 1012.4384,863.10559 1012.4384,845.46347 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3799"
+         style="fill:#353564;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="6"
+         d="m 422.38476,893.30014 v 24.3687 l 590.05364,-54.56325 v -17.64212 z"
+         points="422.38476,917.66884 1012.4384,863.10559 1012.4384,845.46347 422.38476,893.30014 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3807"
+         style="fill:#afafde;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="13"
+         d="M 422.38476,917.66884 732.66313,1062.8738 1460.0976,926.38107 1012.4384,863.10559 Z"
+         points="732.66313,1062.8738 1460.0976,926.38107 1012.4384,863.10559 422.38476,917.66884 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3801"
+         style="fill:#4d4d9f;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="5"
+         d="M 422.38476,893.30014 732.66313,1020.6042 1460.0976,900.93832 1012.4384,845.46347 Z"
+         points="732.66313,1020.6042 1460.0976,900.93832 1012.4384,845.46347 422.38476,893.30014 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3805"
+         style="fill:#d7d7ff;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="14"
+         d="m 732.66313,1020.6042 v 42.2696 L 1460.0976,926.38107 v -25.44275 z"
+         points="732.66313,1062.8738 1460.0976,926.38107 1460.0976,900.93832 732.66313,1020.6042 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3803"
+         style="fill:#8686bf;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="3"
+         d="m 422.38476,893.30014 310.27837,127.30406 v 42.2696 L 422.38476,917.66884 Z"
+         points="732.66313,1020.6042 732.66313,1062.8738 422.38476,917.66884 422.38476,893.30014 " />
+    </g>
+    <g
+       sodipodi:type="inkscape:box3d"
+       id="g3853"
+       style="fill:#ffffff;stroke:#343434;stroke-width:9.059;stroke-linecap:round;stroke-dasharray:none"
+       inkscape:perspectiveID="#perspective3734"
+       inkscape:corner0="0.16006013 : 0.47807481 : 0 : 1"
+       inkscape:corner7="0.089071003 : 0.0079910413 : 0.08182321 : 1"
+       inkscape:label="Enemy">
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3865"
+         style="fill:#e9e9ff;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="11"
+         d="m 1199.3618,528.29535 72.715,-11.62269 v 401.47415 l -72.715,-11.32656 z"
+         points="1272.0768,516.67266 1272.0768,918.14681 1199.3618,906.82025 1199.3618,528.29535 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3855"
+         style="fill:#353564;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="6"
+         d="m 1103.3911,514.77373 v 405.22363 l 95.9707,-13.17711 v -378.5249 z"
+         points="1103.3911,919.99736 1199.3618,906.82025 1199.3618,528.29535 1103.3911,514.77373 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3863"
+         style="fill:#afafde;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="13"
+         d="m 1103.3911,919.99736 71.9225,13.03646 96.7632,-14.88701 -72.715,-11.32656 z"
+         points="1175.3136,933.03382 1272.0768,918.14681 1199.3618,906.82025 1103.3911,919.99736 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3857"
+         style="fill:#4d4d9f;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="5"
+         d="m 1103.3911,514.77373 71.9225,-13.3773 96.7632,15.27623 -72.715,11.62269 z"
+         points="1175.3136,501.39643 1272.0768,516.67266 1199.3618,528.29535 1103.3911,514.77373 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3861"
+         style="fill:#d7d7ff;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="14"
+         d="m 1175.3136,501.39643 v 431.63739 l 96.7632,-14.88701 V 516.67266 Z"
+         points="1175.3136,933.03382 1272.0768,918.14681 1272.0768,516.67266 1175.3136,501.39643 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path3859"
+         style="fill:#8686bf;fill-rule:evenodd;stroke:none;stroke-linejoin:round"
+         inkscape:box3dsidetype="3"
+         d="m 1103.3911,514.77373 71.9225,-13.3773 v 431.63739 l -71.9225,-13.03646 z"
+         points="1175.3136,501.39643 1175.3136,933.03382 1103.3911,919.99736 1103.3911,514.77373 " />
+    </g>
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:0.0898877;stroke:none;stroke-width:2.33232;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:55.9756, 2.33232;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3926"
+       width="2560"
+       height="1440"
+       x="9.9475983e-14"
+       y="-4.2632564e-14"
+       inkscape:label="world dimming" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -221,7 +347,8 @@
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
        x="2265.085"
        y="377.12296"
-       id="text1747"><tspan
+       id="text1747"
+       inkscape:label="Ammo Full"><tspan
          sodipodi:role="line"
          id="tspan1745"
          x="2265.085"
@@ -232,7 +359,8 @@
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
        x="2236.7471"
        y="723.6012"
-       id="text1747-3"><tspan
+       id="text1747-3"
+       inkscape:label="Ammo Half"><tspan
          sodipodi:role="line"
          id="tspan1745-9"
          x="2236.7471"
@@ -241,12 +369,58 @@
     <text
        xml:space="preserve"
        style="font-family:Raleway;-inkscape-font-specification:Raleway;fill:#ffffff"
-       x="2274.5049"
+       x="2272.5049"
        y="1094"
-       id="text1000"><tspan
+       id="text1000"
+       inkscape:label="Ammo 0"><tspan
          sodipodi:role="line"
          id="tspan998"
-         x="2274.5049"
+         x="2272.5049"
+         y="1094">0</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Health Bar">
+    <text
+       xml:space="preserve"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       x="281.27094"
+       y="377.12296"
+       id="text1747-0"
+       inkscape:label="Health Full"><tspan
+         sodipodi:role="line"
+         id="tspan1745-6"
+         x="281.27094"
+         y="377.12296"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:Raleway">100</tspan></text>
+    <text
+       xml:space="preserve"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       x="311.06448"
+       y="723.6012"
+       id="text1747-3-2"
+       inkscape:label="Health Half"><tspan
+         sodipodi:role="line"
+         id="tspan1745-9-9"
+         x="311.06448"
+         y="723.6012"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:Raleway">50</tspan><tspan
+         sodipodi:role="line"
+         x="311.06448"
+         y="738.6012"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:Raleway"
+         id="tspan3644" /></text>
+    <text
+       xml:space="preserve"
+       style="font-family:Raleway;-inkscape-font-specification:Raleway;fill:#ffffff"
+       x="279.72476"
+       y="1094"
+       id="text1000-3"
+       inkscape:label="Health 0"><tspan
+         sodipodi:role="line"
+         id="tspan998-1"
+         x="279.72476"
          y="1094">0</tspan></text>
   </g>
   <g
@@ -254,7 +428,7 @@
      id="layer1"
      inkscape:label="Crosshair">
     <rect
-       style="fill:#ffffff;stroke:#99ff55;stroke-width:0.201763"
+       style="fill:#ffffff;stroke:none;stroke-width:0.201763"
        id="rect287"
        width="2.7651625"
        height="33.897198"
@@ -265,7 +439,7 @@
        transform="scale(-1,1)"
        inkscape:label="Bottom Leg" />
     <rect
-       style="fill:#ffffff;stroke:#99ff55;stroke-width:0.201763"
+       style="fill:#ffffff;stroke:none;stroke-width:0.201763"
        id="rect287-9"
        width="2.7651625"
        height="33.897198"
@@ -276,7 +450,7 @@
        transform="scale(-1,1)"
        inkscape:label="Top Leg" />
     <rect
-       style="fill:#ffffff;stroke:#99ff55;stroke-width:0.201763"
+       style="fill:#ffffff;stroke:none;stroke-width:0.201763"
        id="rect287-9-6"
        width="2.7651625"
        height="33.897198"
@@ -287,7 +461,7 @@
        transform="matrix(0,-1,-1,0,0,0)"
        inkscape:label="Right Leg" />
     <rect
-       style="fill:#ffffff;stroke:#99ff55;stroke-width:0.201763"
+       style="fill:#ffffff;stroke:none;stroke-width:0.201763"
        id="rect287-9-6-9"
        width="2.7651625"
        height="33.897198"
