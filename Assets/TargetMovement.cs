@@ -8,7 +8,7 @@ namespace Enemy {
   public class TargetMovement : MonoBehaviour {
 
     [SerializeField][Range(0.0f, 10.0f)] private float _speed = 1.0f;
-		[SerializeField] bool _loop;
+		[SerializeField] public bool _loop;
 		[SerializeField] private int _startingIndex;
 		[SerializeField] private float pauseTime;
 
