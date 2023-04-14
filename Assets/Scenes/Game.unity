@@ -1863,7 +1863,7 @@ GameObject:
   - component: {fileID: 599724394}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: PlayerHolder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5076,6 +5076,7 @@ GameObject:
   - component: {fileID: 1847024073}
   - component: {fileID: 1847024072}
   - component: {fileID: 1847024071}
+  - component: {fileID: 1847024075}
   m_Layer: 0
   m_Name: Game Handler
   m_TagString: Handler
@@ -5144,6 +5145,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1847024075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847024069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d7af4e0ee3a4fe7893c5b36f7d17e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherCamera: {fileID: 0}
+  cameraMat: {fileID: 2100000, guid: 2759c7deadb4b47cdbb7050312018f50, type: 2}
 --- !u!1 &1873726297
 GameObject:
   m_ObjectHideFlags: 0
@@ -5173,14 +5188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d25c52d9383415ca32c5bb9d29455e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomNumber: 0
-  genRooms:
-  - {fileID: 3094610094260475189, guid: 78dbc92cc79ab4d9b8f4df1c9909877a, type: 3}
-  - {fileID: 3547609266374656892, guid: bd75893f9e5694948a2e64db1a875c83, type: 3}
-  - {fileID: 2258238911156167016, guid: e4d668e9ef89e45a3b313d9ede111100, type: 3}
-  - {fileID: 1711500096773468637, guid: 3aec926f2de1a458493a3574902fe5ad, type: 3}
-  doorFiller: {fileID: 0}
-  roomSize: 10
 --- !u!4 &1873726299
 Transform:
   m_ObjectHideFlags: 0
