@@ -33,13 +33,13 @@ public class RoomGenNew : MonoBehaviour
       traveled += 200;
 
       if (instantiatedRoom.transform.GetChild(2).childCount > 2) {
-        for (int i = instantiatedRoom.transform.GetChild(2).childCount - 2, i > 0, --i) {
-          if (instantiatedRoom.transform.GetChild(2).GetChild(i - 1).gameObject.activeSelf) {
-            instantiatedRoom.transform.GetChild(1).GetChild(i - 1).gameObject.SetActive(false);
-            instantiatedRoom.transform.GetChild(2).GetChild(i - 1).gameObject.SetActive(false);
-            instantiatedRoom.transform.GetChild(3).GetChild(i - 1).gameObject.SetActive(true);
+        for (int x = instantiatedRoom.transform.GetChild(2).childCount - 2; x > 0; --x) {
+          if (instantiatedRoom.transform.GetChild(2).GetChild(x - 1).gameObject.activeSelf) {
+            instantiatedRoom.transform.GetChild(1).GetChild(x - 1).gameObject.SetActive(false);
+            instantiatedRoom.transform.GetChild(2).GetChild(x - 1).gameObject.SetActive(false);
+            instantiatedRoom.transform.GetChild(3).GetChild(x - 1).gameObject.SetActive(true);
           }
-          else ++i;
+          else ++x;
         }
       }
     }
