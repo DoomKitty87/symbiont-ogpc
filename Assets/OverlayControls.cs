@@ -6,10 +6,6 @@ public class OverlayControls : MonoBehaviour
 {
 
   //Uses the old input system - migrate
-  void Start()
-  {
-        
-  }
 
   void Update()
   {
@@ -19,7 +15,12 @@ public class OverlayControls : MonoBehaviour
   }
 
   private void TogglePathOverlay() {
-
+    if (GetComponent<PathRenderer>().active) {
+      GetComponent<PathRenderer>().StopOverlay();
+    }
+    else {
+      GetComponent<PathRenderer>().StartOverlay();
+    }
   }
 
   public void ForceOffOverlays() {

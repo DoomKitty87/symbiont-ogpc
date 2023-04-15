@@ -14,6 +14,6 @@ public class CreateCameraPrefab : MonoBehaviour
 		doorCameraFollow = camera.GetComponent<DoorCameraFollow>();
 
 		doorCameraFollow.door = this.gameObject.transform;
-		doorCameraFollow.playerCamera = 
+		//doorCameraFollow.playerCamera = 
 	}
 }

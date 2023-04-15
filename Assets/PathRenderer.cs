@@ -9,23 +9,19 @@ public class PathRenderer : MonoBehaviour
   [SerializeField] private GameObject linePrefab;
   [SerializeField] private LayerMask enemyLayer;
 
-  private int startChildren;
-
-  private void Start()
-  {
-    startChildren = transform.childCount;
-    InvokeRepeating("ReloadPaths", 0, 0.5f);
-  }
+  public bool active = false;
 
   public void StopOverlay() {
     CancelInvoke("ReloadPaths");
     for (int i = transform.childCount - 1; i >= 0; --i) {
       Destroy(transform.GetChild(i).gameObject);
     }
+    active = false;
   }
 
   public void StartOverlay() {
-    pass;
+    InvokeRepeating("ReloadPaths", 0, 0.5f);
+    active = true;
   }
 
   private void ReloadPaths() {
