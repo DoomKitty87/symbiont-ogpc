@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class DoorCameraFollow : MonoBehaviour
 {
-    public Transform playerCamera;
-    public Transform door;
-    public Transform otherDoor;
+    [HideInInspector] public Transform door;
+    [HideInInspector] public Transform otherDoor;
+
+    private Transform playerCamera;
+
+    private void Awake() {
+        playerCamera = Camera.main.transform;
+    }
 
     private void Update() {
         Vector3 playeroOffsetFromDoor = playerCamera.position - otherDoor.position;
