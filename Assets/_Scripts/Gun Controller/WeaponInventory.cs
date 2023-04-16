@@ -48,6 +48,10 @@ public class WeaponInventory : MonoBehaviour
       weaponItems[i] = _equippedWeapons[i]._weaponItem;
     }
     _onInventoryInitialize?.Invoke(weaponItems, _currentWeapon._weaponItem);
+    StartCoroutine(StartAfterFrame());
+  }
+  private IEnumerator StartAfterFrame() {
+    yield return null;
     _onNewCurrentWeapon?.Invoke(_currentWeapon._weaponItem, _currentWeapon._ammoLeft);
   }
   public void AddWeapon(WeaponItem weapon) {

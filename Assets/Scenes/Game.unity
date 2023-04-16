@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1895,6 +1895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa52e80b54bf14c4f9eb35c14c0cf871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startWithRandomObject: 1
   _currentObjectInhabiting: {fileID: 0}
   _selectedSwitchableObject: {fileID: 0}
   _switchAxis: Fire2
@@ -5168,7 +5169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1873726299}
-  - component: {fileID: 1873726298}
+  - component: {fileID: 1873726300}
   m_Layer: 0
   m_Name: Room Generator
   m_TagString: Untagged
@@ -5176,18 +5177,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1873726298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873726297}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40d25c52d9383415ca32c5bb9d29455e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1873726299
 Transform:
   m_ObjectHideFlags: 0
@@ -5203,6 +5192,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1873726300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873726297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cdb3d6c33acb4fc7a0ed56d04b95172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genRooms:
+  - {fileID: 3643378933084436087, guid: 90f35164a6a584dd99af2ade3a16418b, type: 3}
+  floorRooms: 1
 --- !u!1 &1897778665
 GameObject:
   m_ObjectHideFlags: 0

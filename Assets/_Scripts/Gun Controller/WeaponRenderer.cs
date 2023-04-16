@@ -28,7 +28,7 @@ public class WeaponRenderer : MonoBehaviour
   }
 
   public void InstantiateEquippedWeapons(WeaponItem[] equippedWeapons, WeaponItem weaponItemToShow) {
-    if (this.enabled == false) return;
+    print("WeaponRenderer: Instantiating equipped weapons.");
     foreach (WeaponItem weaponItem in equippedWeapons)
     {
       InstantiateWeapon(weaponItem);
@@ -47,7 +47,7 @@ public class WeaponRenderer : MonoBehaviour
   }
 
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
-    if (this.enabled == false) return;
+    print("WeaponRenderer: Updating for new values.");
     ShowNewWeapon(weaponItem);
   }
   public GameObject GetWeaponInstance(WeaponItem weaponItem) {
