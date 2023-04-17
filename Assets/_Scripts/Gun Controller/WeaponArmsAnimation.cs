@@ -18,15 +18,6 @@ public class WeaponArmsAnimation : MonoBehaviour
     }
     StartDrawAnimation();
   } 
-   
-  public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
-    if (weaponItem.animatorOverride == null) {
-      Debug.LogError("WeaponArmsAnimation: WeaponItem does not contain an override to use!");
-      return;
-    }
-    StartDrawAnimation();
-    print("WeaponArmsAnimation: UpdateForNewValues called");
-  }
 
   public void StartReloadAnimation() {
     if (_CanReload == false) return;

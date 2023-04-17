@@ -23091,7 +23091,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 251218006}
-  m_LocalRotation: {x: 0, y: -0.0112772435, z: 0, w: 0.9999364}
+  m_LocalRotation: {x: 0, y: -0.011277251, z: 0, w: 0.9999364}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -24539,7 +24539,7 @@ MonoBehaviour:
   m_CameraType: 0
   m_Cameras:
   - {fileID: 970426172}
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -53105,11 +53105,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4314a95c33a4013b21bcc43e10fc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetColor:
+  _currentWeaponItem: {fileID: 0}
+  _imageToChangeColor: {fileID: 0}
+  _currentAmmoText: {fileID: 0}
+  _maxAmmoText: {fileID: 0}
+  _defaultColor:
     serializedVersion: 2
-    rgba: 4278190217
-  maxAmmo: 0
-  currAmmo: 0
+    rgba: 0
+  _lowAmmoColor:
+    serializedVersion: 2
+    rgba: 0
+  _maxAmmo: 0
+  _currentAmmo: 0
+  _easeDuration: 0
+  _easeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1256045572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86440,6 +86454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989816e2138ab4239a47d687fb0caa35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponItem: {fileID: 0}
   _raycastOrigin: {fileID: 330585546}
   _raycastDistance: 50
   _layerMask:
@@ -86489,6 +86504,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _OnFireHitPosition:
+    m_PersistentCalls:
+      m_Calls: []
   _OnBroadcastShotSpread:
     m_PersistentCalls:
       m_Calls:
@@ -86736,6 +86754,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onInventoryInitialize:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1926082371
 PrefabInstance:
   m_ObjectHideFlags: 0
