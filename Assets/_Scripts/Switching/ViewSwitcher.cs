@@ -34,7 +34,7 @@ public class ViewSwitcher : MonoBehaviour
   [Header("Objects")]
   [Header("If this is not checked, you'll need to assign \nan object in Current Object to start off with when the game loads.")]
   [SerializeField] private bool _startWithRandomObject;
-  [SerializeField] private SwitchableObject _currentObjectInhabiting;
+  public SwitchableObject _currentObjectInhabiting;
   [SerializeField] private SwitchableObject _selectedSwitchableObject;
   [Header("Note: Configurations for selection raycasts are on each object")]
   [Header("Input")]

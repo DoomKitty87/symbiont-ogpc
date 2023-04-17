@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class DoorCameraFollow : MonoBehaviour
 {
-    [HideInInspector] public Transform door;
-    [HideInInspector] public Transform otherDoor;
+  public Transform door;
+  public Transform otherDoor;
 
-    private Transform playerCamera;
+  public Transform playerCamera;
 
-    private void Awake() {
-        playerCamera = Camera.main.transform;
+  private void Awake() {
+    playerCamera = Camera.main.transform;
+    door = transform.parent;
+  }
+
+  private void Update() {
+    if (otherDoor) {
+      Vector3 playerOffsetFromDoor = playerCamera.position - otherDoor.position;
+      transform.position = door.position + playerOffsetFromDoor;
+
+      float angularDifferenceBetweenTwoDoors = Quaternion.Angle(door.rotation, otherDoor.rotation);
+      Quaternion doorRotationDifference = Quaternion.AngleAxis(angularDifferenceBetweenTwoDoors, Vector3.up);
+      Vector3 newCameraDirection = doorRotationDifference * -playerCamera.forward;
+      transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
     }
-
-    private void Update() {
-        Vector3 playeroOffsetFromDoor = playerCamera.position - otherDoor.position;
-        transform.position = door.position + playeroOffsetFromDoor;
-
-        float angularDifferenceBetweenTwoDoors = Quaternion.Angle(door.rotation, otherDoor.rotation);
-        Quaternion doorRotationDifference = Quaternion.AngleAxis(angularDifferenceBetweenTwoDoors, Vector3.up);
-        Vector3 newCameraDirection = doorRotationDifference * playerCamera.forward;
-        transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
-	}
+  }
 }
