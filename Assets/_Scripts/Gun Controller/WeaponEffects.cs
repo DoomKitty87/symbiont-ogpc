@@ -43,7 +43,7 @@ public class WeaponEffects : MonoBehaviour
 
   private void Update() {
     if (!_hadFirstUpdateForNewValues) return;
-    _weaponInstanceMuzzlePosition = _weaponInstanceMuzzleObject.transform.position;
+    // _weaponInstanceMuzzlePosition = _weaponInstanceMuzzleObject.transform.position;
   }
 
   // ammoCount isn't used, but is needed to show up in inspector
