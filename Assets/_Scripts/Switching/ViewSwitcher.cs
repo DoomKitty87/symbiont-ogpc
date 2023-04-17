@@ -32,7 +32,8 @@ public class ViewSwitcher : MonoBehaviour
   // This should probably also switch off the player input for the current target.
   
   [Header("Objects")]
-  [Header("Assign an object here to start off with when the game loads.")]
+  [Header("If this is not checked, you'll need to assign \nan object in Current Object to start off with when the game loads.")]
+  [SerializeField] private bool _startWithRandomObject;
   [SerializeField] private SwitchableObject _currentObjectInhabiting;
   [SerializeField] private SwitchableObject _selectedSwitchableObject;
   [Header("Note: Configurations for selection raycasts are on each object")]
@@ -55,6 +56,28 @@ public class ViewSwitcher : MonoBehaviour
     if (!IsInputAxisValid(_switchAxis)) {
       Debug.LogError("ViewSwitcher: SwitchAxis is invalid! Please set it to a valid input axis in the Input Manager.");
     }
+    if (_startWithRandomObject) {
+      StartCoroutine(FindSwitchableObject());
+    }
+    else {
+      if (_currentObjectInhabiting == null) {
+        Debug.LogError("ViewSwitcher: Current Object is null! Please assign an object to start off with when the game loads.");
+      }
+      else {
+        _currentObjectInhabiting.SwitchTo();
+      }
+    }
+  }
+  private IEnumerator FindSwitchableObject() {
+    SwitchableObject switchableObject;
+    while (true) {
+      switchableObject = GameObject.FindGameObjectWithTag("SwitchableObject").GetComponent<SwitchableObject>();
+      if (switchableObject != null) {
+        break;
+      }
+      yield return null;
+    }
+    _currentObjectInhabiting = switchableObject;
     _currentObjectInhabiting.SwitchTo();
   }
 

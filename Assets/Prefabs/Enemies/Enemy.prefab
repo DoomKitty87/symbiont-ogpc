@@ -129,6 +129,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  active: 0
 --- !u!114 &123376593164641765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1315,7 +1316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c94c67d5b10dc44f90770e873f2eb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 0
+  _currentHealth: 200
   _maxHealth: 200
   _onHealthInitialize:
     m_PersistentCalls:
@@ -2984,6 +2985,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  active: 0
 --- !u!1 &7384218134640759101
 GameObject:
   m_ObjectHideFlags: 0
@@ -7999,18 +8001,6 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 7384218135843328813}
         m_TargetAssemblyTypeName: FireGunLogic, Assembly-CSharp
-        m_MethodName: UpdateForNewValues
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7384218135016173906}
-        m_TargetAssemblyTypeName: WeaponArmsAnimation, Assembly-CSharp
         m_MethodName: UpdateForNewValues
         m_Mode: 0
         m_Arguments:

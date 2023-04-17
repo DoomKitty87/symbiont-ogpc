@@ -32,7 +32,6 @@ public class SwitchableObject : MonoBehaviour
   private void Awake() {
     gameObject.tag = "SwitchableObject";
     ChangeStateOfAllCamerasTo(false);
-    print($"changed cameras to false for '{gameObject.name}'");
     _objectAudioListener.enabled = false;
     _OnSwitchedAway?.Invoke();
   }
@@ -47,7 +46,6 @@ public class SwitchableObject : MonoBehaviour
   public void SwitchTo() {
     _OnSwitchedTo?.Invoke();
     ChangeStateOfAllCamerasTo(true);
-    // print($"changed cameras to true for '{gameObject.name}'");
     _objectAudioListener.enabled = true;
   }
   public void SwitchAway() {

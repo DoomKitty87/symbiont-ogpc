@@ -28,6 +28,7 @@ public class WeaponArmsAnimatorOverride : MonoBehaviour
 
     float reloadAnimationLength = GetReloadAnimationLength();
     SetReloadTimeScale(weaponItem.reloadTimeSeconds, reloadAnimationLength);
+    _animationOverrideIsReady?.Invoke();
   }
   private float GetReloadAnimationLength() {
     foreach (AnimationClip animationClip in _animatorToOverride.runtimeAnimatorController.animationClips) {
