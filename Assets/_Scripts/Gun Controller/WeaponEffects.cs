@@ -86,6 +86,7 @@ public class WeaponEffects : MonoBehaviour
   private IEnumerator MuzzleFlashFX(Vector3 muzzlePosition) {
     GameObject muzzleFlashInstance = Instantiate(_muzzleFlashPrefab, _weaponInstanceMuzzleObject.transform, false);
     ParticleSystem muzzleFlashParticleSystem = muzzleFlashInstance.GetComponent<ParticleSystem>();
+    muzzleFlashInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_EmissionColor", _laserEmissionColor);
     muzzleFlashParticleSystem.Play();
     yield return new WaitForSeconds(muzzleFlashParticleSystem.main.duration);
     Destroy(muzzleFlashInstance);
