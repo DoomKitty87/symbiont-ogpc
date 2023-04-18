@@ -14,7 +14,7 @@ public class DoorCameraFollow : MonoBehaviour
 
   private void Update() {
     if (otherDoor) {
-      Vector3 playerOffsetFromDoor = otherDoor.position - playerCamera.position;
+      Vector3 playerOffsetFromDoor = playerCamera.position - otherDoor.position;
       transform.localPosition = playerOffsetFromDoor;
 
       // Quaternion fixedRotation = Quaternion.Euler(door.eulerAngles.x, door.eulerAngles.y, door.eulerAngles.z);
@@ -23,7 +23,7 @@ public class DoorCameraFollow : MonoBehaviour
       //Quaternion doorRotationDifference = Quaternion.AngleAxis(angularDifferenceBetweenTwoDoors, Vector3.forward);
       //Vector3 newCameraDirection = doorRotationDifference * -playerCamera.forward;
       //transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
-      Debug.Log(playerCamera.transform.position);
+      // Debug.Log(playerCamera.transform.position);
 
       transform.rotation = playerCamera.transform.rotation * 
         Quaternion.Euler(door.rotation.eulerAngles.x, door.rotation.eulerAngles.y + 180, door.rotation.eulerAngles.z);
