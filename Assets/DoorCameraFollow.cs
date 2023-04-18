@@ -24,7 +24,7 @@ public class DoorCameraFollow : MonoBehaviour
 
       transform.localPosition = playerOffsetFromDoor;
 
-      transform.rotation = Quaternion.Euler(door.rotation.eulerAngles.x, door.rotation.eulerAngles.y + 180, door.rotation.eulerAngles.z) * Quaternion.Euler(new Vector3(-playerCamera.transform.rotation.eulerAngles.x, playerCamera.transform.rotation.eulerAngles.y, playerCamera.transform.rotation.eulerAngles.z));
+      transform.rotation = Quaternion.Euler(door.rotation.eulerAngles.x, door.rotation.eulerAngles.y + 180, door.rotation.eulerAngles.z) * Quaternion.Euler(new Vector3(playerCamera.transform.rotation.eulerAngles.x, playerCamera.transform.rotation.eulerAngles.y, playerCamera.transform.rotation.eulerAngles.z));
     }
   }
 }
