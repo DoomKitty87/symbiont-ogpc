@@ -75,7 +75,7 @@ public class WeaponEffects : MonoBehaviour
     // Will do custom effects like these through a WeaponAnimator + animations
     // if (activeGun == heavyRifle) StartCoroutine(ReactorGlow());
     // if (activeGun == assaultRifle) StartCoroutine(ChamberCharge());
-    StartCoroutine(LaserFX(_weaponInstanceMuzzlePosition, hitPosition));
+    StartCoroutine(LaserFX(hitPosition));
     if (_muzzleFlashPrefab != null) {
       StartCoroutine(MuzzleFlashFX(_weaponInstanceMuzzlePosition));
     };
@@ -99,7 +99,7 @@ public class WeaponEffects : MonoBehaviour
     Destroy(hitEffectInstance);
   }
   // Changed to code to spawn the laser inside of the muzzle position gameobject
-  private IEnumerator LaserFX(Vector3 startPoint, Vector3 endPoint) {
+  private IEnumerator LaserFX(Vector3 endPoint) {
     float timer = 0f;
     _laserScaleDownColor = Color.clear;
     _laserScaleUpColor = Color.white;
@@ -123,6 +123,7 @@ public class WeaponEffects : MonoBehaviour
       laserLineRenderer.startWidth = Mathf.Lerp(0f, widthVal, timer / _durationScaleUp);
       laserLineRenderer.endWidth = laserLineRenderer.startWidth;
       laserRenderer.material.color = Color.Lerp(_laserScaleDownColor, _laserScaleUpColor, timer / _durationScaleUp);
+      laserLineRenderer.SetPosition(0, _weaponInstanceMuzzleObject.transform.position);
       timer += Time.deltaTime;
       yield return null;
     }
