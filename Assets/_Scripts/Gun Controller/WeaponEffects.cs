@@ -114,11 +114,13 @@ public class WeaponEffects : MonoBehaviour
 
     laserRenderer.material.color = _laserScaleUpColor;
 
+    float widthVal = laserLineRenderer.startWidth;
+
     laserLineRenderer.startWidth = 0f;
     laserLineRenderer.endWidth = laserLineRenderer.startWidth;
 
     while (timer < _durationScaleUp) {
-      laserLineRenderer.startWidth = Mathf.Lerp(0f, 0.25f, timer / _durationScaleUp);
+      laserLineRenderer.startWidth = Mathf.Lerp(0f, widthVal, timer / _durationScaleUp);
       laserLineRenderer.endWidth = laserLineRenderer.startWidth;
       laserRenderer.material.color = Color.Lerp(_laserScaleDownColor, _laserScaleUpColor, timer / _durationScaleUp);
       timer += Time.deltaTime;
@@ -127,11 +129,11 @@ public class WeaponEffects : MonoBehaviour
 
     timer = 0f;
     laserRenderer.material.color = _laserScaleUpColor;
-    laserLineRenderer.startWidth = 0.25f;
+    laserLineRenderer.startWidth = widthVal;
     laserLineRenderer.endWidth = laserLineRenderer.startWidth;
 
     while (timer < _durationScaleDown) {
-      laserLineRenderer.startWidth = Mathf.Lerp(0.25f, 0f, timer / _durationScaleDown);
+      laserLineRenderer.startWidth = Mathf.Lerp(widthVal, 0f, timer / _durationScaleDown);
       laserLineRenderer.endWidth = laserLineRenderer.startWidth;
       laserRenderer.material.color = Color.Lerp(_laserScaleUpColor, _laserScaleDownColor, timer / _durationScaleDown);
       timer += Time.deltaTime;
