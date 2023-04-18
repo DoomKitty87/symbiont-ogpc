@@ -100,13 +100,14 @@ public class WeaponEffects : MonoBehaviour
   // Changed to code to spawn the laser inside of the muzzle position gameobject
   private IEnumerator LaserFX(Vector3 startPoint, Vector3 endPoint) {
     float timer = 0f;
-    _laserScaleDownColor = Color.white;
-    _laserScaleUpColor = Color.clear;
+    _laserScaleDownColor = Color.clear;
+    _laserScaleUpColor = Color.white;
+    print(_weaponInstance.name);
 
-    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _weaponInstanceMuzzleObject.transform.position + _effectPositionOffset,  _weaponInstanceMuzzleObject.transform.rotation, _weaponInstanceMuzzleObject.transform).GetComponent<LineRenderer>();
+    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _weaponInstanceMuzzleObject.transform.position,  _weaponInstanceMuzzleObject.transform.rotation, _weaponInstanceMuzzleObject.transform).GetComponent<LineRenderer>();
     Renderer laserRenderer = laserLineRenderer.gameObject.GetComponent<Renderer>();
-    laserLineRenderer.SetPosition(0, startPoint + _effectPositionOffset);
-    laserLineRenderer.SetPosition(1, endPoint + _effectPositionOffset);
+    laserLineRenderer.SetPosition(0, _weaponInstanceMuzzleObject.transform.position);
+    laserLineRenderer.SetPosition(1, endPoint);
     laserLineRenderer.material.SetColor("_EmissionColor", _laserEmissionColor);
     laserLineRenderer.enabled = true;
 
