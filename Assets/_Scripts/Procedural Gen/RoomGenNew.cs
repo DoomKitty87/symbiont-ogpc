@@ -35,7 +35,6 @@ public class RoomGenNew : MonoBehaviour
   public void CreateNewRoom() {
     // Creates new room
     _previousRoom = _currentRoom;
-    Debug.Log(_nextCoordinates);
     _currentRoom = Instantiate(randomRooms[0], _nextCoordinates, Quaternion.identity, transform);
     //_currentRoom = Instantiate(randomRooms[Random.Range(0, randomRooms.Length)], _nextCoordinates, Quaternion.identity);
 
