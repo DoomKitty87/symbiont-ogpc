@@ -14,19 +14,17 @@ public class DoorCameraFollow : MonoBehaviour
 
   private void Update() {
     if (otherDoor) {
-      Vector3 playerOffsetFromDoor = playerCamera.position - otherDoor.position;
+        Vector3 playerOffsetFromDoor = otherDoor.position - playerCamera.position;
+            playerOffsetFromDoor = Quaternion.AngleAxis(Quaternion.Angle(door.rotation, otherDoor.rotation), otherDoor.position) * playerOffsetFromDoor;
+        playerOffsetFromDoor = new Vector3(playerOffsetFromDoor.x,
+            -playerOffsetFromDoor.y * (float)(1 / 0.4),
+            playerOffsetFromDoor.z * (float)(1 / 0.4));
+
+
+
       transform.localPosition = playerOffsetFromDoor;
 
-      // Quaternion fixedRotation = Quaternion.Euler(door.eulerAngles.x, door.eulerAngles.y, door.eulerAngles.z);
-
-      //float angularDifferenceBetweenTwoDoors = Quaternion.Angle(fixedRotation, otherDoor.rotation);
-      //Quaternion doorRotationDifference = Quaternion.AngleAxis(angularDifferenceBetweenTwoDoors, Vector3.forward);
-      //Vector3 newCameraDirection = doorRotationDifference * -playerCamera.forward;
-      //transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
-      // Debug.Log(playerCamera.transform.position);
-
-      transform.rotation = playerCamera.transform.rotation * 
-        Quaternion.Euler(door.rotation.eulerAngles.x, door.rotation.eulerAngles.y + 180, door.rotation.eulerAngles.z);
+      transform.rotation = Quaternion.Euler(door.rotation.eulerAngles.x, door.rotation.eulerAngles.y + 180, door.rotation.eulerAngles.z) * Quaternion.Euler(new Vector3(-playerCamera.transform.rotation.eulerAngles.x, playerCamera.transform.rotation.eulerAngles.y, playerCamera.transform.rotation.eulerAngles.z));
     }
   }
 }
