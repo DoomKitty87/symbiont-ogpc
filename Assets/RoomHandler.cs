@@ -6,16 +6,16 @@ using UnityEngine.Rendering.Universal;
 public class RoomHandler : MonoBehaviour
 {
 
-	public bool _playerIsInRoom = false;
+	[HideInInspector] public bool _playerIsInRoom = false;
 	private bool _hasEnteredRoom = false;
 
 	[HideInInspector] public int numberOfDoors;
 
-	public List<GameObject> doors;
+	[HideInInspector] public List<GameObject> doors;
 	private GameObject entryDoor;
-	public GameObject nextDoor;
+	[HideInInspector] public GameObject nextDoor;
 
-	private Camera instantiatedCamera;
+	public Camera instantiatedCamera;
 
 	private void Awake() {
 		numberOfDoors = transform.GetChild(1).transform.childCount; // Requires doors to be the second child of the room gameObject
@@ -56,7 +56,6 @@ public class RoomHandler : MonoBehaviour
 	}
 
 	private void InitiateDoorStartup() {
-		Debug.Log("Initiating door startup");
 
 		// Instantiates cameras for each door
 		GameObject prefab = Resources.Load<GameObject>("Prefabs/DoorCameraPrefab");
@@ -72,6 +71,9 @@ public class RoomHandler : MonoBehaviour
 		instantiatedCamera.targetTexture?.Release();
 		instantiatedCamera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
 		cameraMat.mainTexture = instantiatedCamera.targetTexture;
+
+		entryDoor.transform.GetChild(0).GetComponent<MeshRenderer>().material = cameraMat;
+		Debug.Log("AddedTexture");
 	}
 
 	IEnumerator LateStart() {

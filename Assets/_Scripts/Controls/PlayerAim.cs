@@ -20,8 +20,8 @@ public class PlayerAim : MonoBehaviour
   public float _minY = -180f;
   public float _maxY = 180f;
 
-  private float _rotX;
-  private float _rotY;
+  [HideInInspector] public float _rotX;
+  [HideInInspector] public float _rotY;
 
   void Start() {
     Cursor.lockState = CursorLockMode.Locked;

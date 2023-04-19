@@ -75,7 +75,7 @@ public class WeaponEffects : MonoBehaviour
     // Will do custom effects like these through a WeaponAnimator + animations
     // if (activeGun == heavyRifle) StartCoroutine(ReactorGlow());
     // if (activeGun == assaultRifle) StartCoroutine(ChamberCharge());
-    StartCoroutine(LaserFX(_weaponInstanceMuzzlePosition, hitPosition));
+    StartCoroutine(LaserFX(hitPosition));
     if (_muzzleFlashPrefab != null) {
       StartCoroutine(MuzzleFlashFX(_weaponInstanceMuzzlePosition));
     };
@@ -86,6 +86,7 @@ public class WeaponEffects : MonoBehaviour
   private IEnumerator MuzzleFlashFX(Vector3 muzzlePosition) {
     GameObject muzzleFlashInstance = Instantiate(_muzzleFlashPrefab, _weaponInstanceMuzzleObject.transform, false);
     ParticleSystem muzzleFlashParticleSystem = muzzleFlashInstance.GetComponent<ParticleSystem>();
+    muzzleFlashInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_EmissionColor", _laserEmissionColor);
     muzzleFlashParticleSystem.Play();
     yield return new WaitForSeconds(muzzleFlashParticleSystem.main.duration);
     Destroy(muzzleFlashInstance);
@@ -98,38 +99,42 @@ public class WeaponEffects : MonoBehaviour
     Destroy(hitEffectInstance);
   }
   // Changed to code to spawn the laser inside of the muzzle position gameobject
-  private IEnumerator LaserFX(Vector3 startPoint, Vector3 endPoint) {
+  private IEnumerator LaserFX(Vector3 endPoint) {
     float timer = 0f;
-    _laserScaleDownColor = Color.white;
-    _laserScaleUpColor = Color.clear;
+    _laserScaleDownColor = Color.clear;
+    _laserScaleUpColor = Color.white;
+    print(_weaponInstance.name);
 
-    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _weaponInstanceMuzzleObject.transform.position + _effectPositionOffset,  _weaponInstanceMuzzleObject.transform.rotation, _weaponInstanceMuzzleObject.transform).GetComponent<LineRenderer>();
+    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _weaponInstanceMuzzleObject.transform.position,  _weaponInstanceMuzzleObject.transform.rotation, _weaponInstanceMuzzleObject.transform).GetComponent<LineRenderer>();
     Renderer laserRenderer = laserLineRenderer.gameObject.GetComponent<Renderer>();
-    laserLineRenderer.SetPosition(0, startPoint + _effectPositionOffset);
-    laserLineRenderer.SetPosition(1, endPoint + _effectPositionOffset);
+    laserLineRenderer.SetPosition(0, _weaponInstanceMuzzleObject.transform.position);
+    laserLineRenderer.SetPosition(1, endPoint);
     laserLineRenderer.material.SetColor("_EmissionColor", _laserEmissionColor);
     laserLineRenderer.enabled = true;
 
     laserRenderer.material.color = _laserScaleUpColor;
 
+    float widthVal = laserLineRenderer.startWidth;
+
     laserLineRenderer.startWidth = 0f;
     laserLineRenderer.endWidth = laserLineRenderer.startWidth;
 
     while (timer < _durationScaleUp) {
-      laserLineRenderer.startWidth = Mathf.Lerp(0f, 0.25f, timer / _durationScaleUp);
+      laserLineRenderer.startWidth = Mathf.Lerp(0f, widthVal, timer / _durationScaleUp);
       laserLineRenderer.endWidth = laserLineRenderer.startWidth;
       laserRenderer.material.color = Color.Lerp(_laserScaleDownColor, _laserScaleUpColor, timer / _durationScaleUp);
+      laserLineRenderer.SetPosition(0, _weaponInstanceMuzzleObject.transform.position);
       timer += Time.deltaTime;
       yield return null;
     }
 
     timer = 0f;
     laserRenderer.material.color = _laserScaleUpColor;
-    laserLineRenderer.startWidth = 0.25f;
+    laserLineRenderer.startWidth = widthVal;
     laserLineRenderer.endWidth = laserLineRenderer.startWidth;
 
     while (timer < _durationScaleDown) {
-      laserLineRenderer.startWidth = Mathf.Lerp(0.25f, 0f, timer / _durationScaleDown);
+      laserLineRenderer.startWidth = Mathf.Lerp(widthVal, 0f, timer / _durationScaleDown);
       laserLineRenderer.endWidth = laserLineRenderer.startWidth;
       laserRenderer.material.color = Color.Lerp(_laserScaleUpColor, _laserScaleDownColor, timer / _durationScaleDown);
       timer += Time.deltaTime;

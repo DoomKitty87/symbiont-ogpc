@@ -184,6 +184,9 @@ public class ViewSwitcher : MonoBehaviour
     if (showRaycast) {
       DrawDebugRaycast(raycastOrigin.position + raycastOriginOffset, raycastOrigin.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
     }
+    if (hit.collider.gameObject.name == "DoorGraphic") {
+      didHitCollider = Physics.Raycast(hit.point + hit.collider.gameObject.transform.parent.parent.parent.gameObject.GetComponent<RoomHandler>().instantiatedCamera.transform.position, raycastOrigin.forward, out hit, raycastDistance, layerMask);
+    }
     if (hit.collider == null) return null;
     else return hit.collider.GetComponent<SwitchableObject>();
   }
