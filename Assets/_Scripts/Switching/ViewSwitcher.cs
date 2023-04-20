@@ -185,10 +185,15 @@ public class ViewSwitcher : MonoBehaviour
       DrawDebugRaycast(raycastOrigin.position + raycastOriginOffset, raycastOrigin.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
     }
     if (hit.collider.gameObject.name == "DoorGraphic") {
-      didHitCollider = Physics.Raycast(hit.point + hit.collider.gameObject.transform.parent.parent.parent.gameObject.GetComponent<RoomHandler>().instantiatedCamera.transform.position, raycastOrigin.forward, out hit, raycastDistance, layerMask);
+      didHitCollider = Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.rotation * Quaternion.Euler(0, 90, 0) * raycastOrigin.forward, out hit, raycastDistance, layerMask);
+      DrawDebugRaycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.rotation * Quaternion.Euler(0, 90, 0) * raycastOrigin.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
     }
     if (hit.collider == null) return null;
-    else return hit.collider.GetComponent<SwitchableObject>();
+    else if (hit.collider.GetComponent<SwitchableObject>() != null) {
+      print("can switch");
+      return hit.collider.GetComponent<SwitchableObject>();
+    }
+    else return null;
   }
   private bool IsInputAxisValid(string axisName) {
     try {
