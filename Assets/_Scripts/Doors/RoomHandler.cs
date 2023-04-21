@@ -15,7 +15,7 @@ public class RoomHandler : MonoBehaviour
 	private GameObject entryDoor;
 	[HideInInspector] public GameObject nextDoor;
 
-	public Camera instantiatedCamera;
+	[HideInInspector] public Camera instantiatedCamera;
 
 	private void Awake() {
 		numberOfDoors = transform.GetChild(1).transform.childCount; // Requires doors to be the second child of the room gameObject
