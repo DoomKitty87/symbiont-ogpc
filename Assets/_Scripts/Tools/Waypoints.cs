@@ -30,6 +30,7 @@ namespace Enemy {
 
 		private void Start() {
 			if (transform.parent.tag == "Room") parentObject = transform.parent.gameObject;
+			else if (transform.parent.parent.tag == "Room") parentObject = transform.parent.parent.gameObject;
 
 			MovePoints();
 		}

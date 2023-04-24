@@ -5,8 +5,6 @@ using UnityEngine;
 public class EnemySwitchedTo : MonoBehaviour
 {
 	public void OnSwitch() {
-		Debug.Log("Switch");
-
 		// Finds parent object with tag 'Room'
 		Transform parent = gameObject.transform;
 		while (true) {
@@ -18,9 +16,6 @@ public class EnemySwitchedTo : MonoBehaviour
 				break;
 			}
 		}
-
-		// GameObject.FindWithTag("Handler").GetComponent<RoomGenNew>().CreateNewRoom();
-
 		parent.GetComponent<RoomHandler>()._playerIsInRoom = true;
 	}
 }

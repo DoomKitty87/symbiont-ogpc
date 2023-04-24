@@ -22,16 +22,18 @@ public class PathRenderer : MonoBehaviour
   public void StartOverlay() {
     InvokeRepeating("ReloadPaths", 0, 0.5f);
     active = true;
+    print("overlya started");
   }
 
   private void ReloadPaths() {
+    print("reloading paths");
     for (int i = transform.childCount - 1; i >= 0; --i) {
       Destroy(transform.GetChild(i).gameObject);
     }
     Collider[] cols = Physics.OverlapSphere(transform.position, 50f, enemyLayer);
     foreach (Collider col in cols) {
       GameObject lineRend = Instantiate(linePrefab, col.gameObject.transform.parent.position, Quaternion.identity, transform);
-      if (col.gameObject.GetComponent<TargetMovement>()._loop) {
+      if (col.gameObject.transform.parent.gameObject.GetComponent<TargetMovement>()._loop) {
         lineRend.GetComponent<LineRenderer>().positionCount = col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points.Length + 1;
         lineRend.GetComponent<LineRenderer>().SetPositions(col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points.Concat(new Vector3[] {col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points[0]}).ToArray());
       }

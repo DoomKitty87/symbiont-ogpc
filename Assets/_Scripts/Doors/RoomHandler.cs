@@ -7,35 +7,24 @@ public class RoomHandler : MonoBehaviour
 {
 
 	[HideInInspector] public bool _playerIsInRoom = false;
-	private bool _hasEnteredRoom = false;
 
 	[HideInInspector] public int numberOfDoors;
 
 	[HideInInspector] public List<GameObject> doors;
-	private GameObject entryDoor;
+	public GameObject entryDoor;
 	[HideInInspector] public GameObject nextDoor;
 
-	public Camera instantiatedCamera;
+	[HideInInspector] public Camera instantiatedCamera;
 
 	private void Awake() {
 		numberOfDoors = transform.GetChild(1).transform.childCount; // Requires doors to be the second child of the room gameObject
 		FillDoorsList();
 	}
 
-	private void Update() {
-		if (transform.GetChild(0).childCount <= 1) {
-			// OpenNextDoor();
-		}
-
-		if (_playerIsInRoom && !_hasEnteredRoom) {
-			_hasEnteredRoom = true;
-		}
-	}
-
-	public void CloseDoor(GameObject door) {
-		// TODO: Close doors
-	}
-
+	/// <summary>
+	/// First step in finding the next door to open
+	/// Should be called when one player is alive
+	/// </summary>
 	private void FillDoorsList() {
 		// Get all doors in the gameobject
 		for (int i = 0; i < numberOfDoors; i++) {
@@ -55,8 +44,10 @@ public class RoomHandler : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Instantiates the camera and sets the material of the next door
+	/// </summary>
 	private void InitiateDoorStartup() {
-
 		// Instantiates cameras for each door
 		GameObject prefab = Resources.Load<GameObject>("Prefabs/DoorCameraPrefab");
 
@@ -72,10 +63,12 @@ public class RoomHandler : MonoBehaviour
 		instantiatedCamera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
 		cameraMat.mainTexture = instantiatedCamera.targetTexture;
 
-		entryDoor.transform.GetChild(0).GetComponent<MeshRenderer>().material = cameraMat;
-		Debug.Log("AddedTexture");
+		nextDoor.transform.GetChild(0).GetComponent<MeshRenderer>().material = cameraMat;
 	}
 
+	/// <summary>
+	/// Used for first frame to select next door
+	/// </summary>
 	IEnumerator LateStart() {
 		yield return null;
 		instantiatedCamera.GetComponent<DoorCameraFollow>().otherDoor = GameObject.FindWithTag("Handler").GetComponent<RoomGenNew>()
