@@ -18998,11 +18998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0379acc7678a5554d914029cb0236909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerIsInRoom: 0
-  numberOfDoors: 0
-  doors: []
-  entryDoor: {fileID: 0}
-  nextDoor: {fileID: 0}
+  previousDoor: {fileID: 0}
   instantiatedCamera: {fileID: 0}
 --- !u!1 &7038148159415112479
 GameObject:

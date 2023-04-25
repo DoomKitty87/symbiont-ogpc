@@ -36,12 +36,7 @@ public class RoomGenNew : MonoBehaviour
     // Creates new room
     _previousRoom = _currentRoom;
     _currentRoom = Instantiate(randomRooms[0], _nextCoordinates, Quaternion.identity, transform);
-    //_currentRoom = Instantiate(randomRooms[Random.Range(0, randomRooms.Length)], _nextCoordinates, Quaternion.identity);
-
-    // Assignes variables for doors
-    // nextRoom.GetComponent<RoomHandler>().AssignOtherDoor();
-
-    // Changes the coordinates of the next room
+    
     if (_parody) {
       _parody ^= true;
       _nextCoordinates.x *= -1;

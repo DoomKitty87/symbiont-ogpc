@@ -16,6 +16,6 @@ public class EnemySwitchedTo : MonoBehaviour
 				break;
 			}
 		}
-		parent.GetComponent<RoomHandler>()._playerIsInRoom = true;
+		// parent.GetComponent<RoomHandler>()._playerIsInRoom = true;
 	}
 }

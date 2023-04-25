@@ -28,7 +28,7 @@ public class WeaponRenderer : MonoBehaviour
   }
 
   public void InstantiateEquippedWeapons(WeaponItem[] equippedWeapons, WeaponItem weaponItemToShow) {
-    print("WeaponRenderer: Instantiating equipped weapons.");
+    // print("WeaponRenderer: Instantiating equipped weapons.");
     foreach (WeaponItem weaponItem in equippedWeapons)
     {
       InstantiateWeapon(weaponItem);
