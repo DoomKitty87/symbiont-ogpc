@@ -185,12 +185,12 @@ public class ViewSwitcher : MonoBehaviour
       DrawDebugRaycast(raycastOrigin.position + raycastOriginOffset, raycastOrigin.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
     }
     if (hit.collider.gameObject.name == "DoorGraphic") {
-      didHitCollider = Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.rotation * Quaternion.Euler(0, 90, 0) * raycastOrigin.forward, out hit, raycastDistance, layerMask);
-      DrawDebugRaycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.rotation * Quaternion.Euler(0, 90, 0) * raycastOrigin.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
+      didHitCollider = Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.forward, out hit, raycastDistance, layerMask);
+      DrawDebugRaycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>().instantiatedCamera.transform.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
     }
     if (hit.collider == null) return null;
     else if (hit.collider.GetComponent<SwitchableObject>() != null) {
-      print("can switch");
+      //print("can switch");
       return hit.collider.GetComponent<SwitchableObject>();
     }
     else return null;
