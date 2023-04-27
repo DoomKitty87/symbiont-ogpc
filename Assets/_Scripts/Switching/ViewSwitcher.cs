@@ -56,16 +56,16 @@ public class ViewSwitcher : MonoBehaviour
     if (!IsInputAxisValid(_switchAxis)) {
       Debug.LogError("ViewSwitcher: SwitchAxis is invalid! Please set it to a valid input axis in the Input Manager.");
     }
-    if (_startWithRandomObject) {
-      StartCoroutine(FindSwitchableObject());
-    }
-    else {
-      if (_currentObjectInhabiting == null) {
-        Debug.LogError("ViewSwitcher: Current Object is null! Please assign an object to start off with when the game loads.");
+    if (_currentObjectInhabiting == null) {
+      if (_startWithRandomObject) {
+        StartCoroutine(FindSwitchableObject());
       }
       else {
-        _currentObjectInhabiting.SwitchTo();
+        Debug.LogError("ViewSwitcher: Current Object is null! Please assign an object to start off with when the game loads.");
       }
+    }
+    else {
+      _currentObjectInhabiting.SwitchTo();
     }
   }
   private IEnumerator FindSwitchableObject() {
@@ -184,16 +184,21 @@ public class ViewSwitcher : MonoBehaviour
     if (showRaycast) {
       DrawDebugRaycast(raycastOrigin.position + raycastOriginOffset, raycastOrigin.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
     }
-    if (hit.collider.gameObject.name == "DoorGraphic") {
-      didHitCollider = Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward, out hit, raycastDistance, layerMask);
-      DrawDebugRaycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
-    }
+    // Nothing hit
     if (hit.collider == null) return null;
-    else if (hit.collider.GetComponent<SwitchableObject>() != null) {
-      //print("can switch");
+    // Switchable Object hit
+    if (hit.collider.GetComponent<SwitchableObject>() != null) {
       return hit.collider.GetComponent<SwitchableObject>();
     }
-    else return null;
+    // Door hit
+    if (hit.collider.gameObject.name == "DoorGraphic") {
+      Debug.LogWarning("ViewSwitcher: Raycast through doors is currently disabled.");
+      // This should be a recursive call. It currently breaks when the first raycast doesn't hit anything, throwing a null error.
+      // didHitCollider = Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward, out hit, raycastDistance, layerMask);
+      // DrawDebugRaycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
+    }
+    // Something else hit
+    return null;
   }
   private bool IsInputAxisValid(string axisName) {
     try {
