@@ -28,7 +28,8 @@ public class DoorCameraFollow : MonoBehaviour
     }
   }
 
-  private Transform GetCurrentActivePlayer() {
-    return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.parent.transform;
+    private Transform GetCurrentActivePlayer() {
+    return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject
+            .transform.GetChild(2).GetChild(0).GetChild(0).transform;
   }
 }
