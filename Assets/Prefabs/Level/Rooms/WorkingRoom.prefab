@@ -939,7 +939,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473949918263958424}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.96, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18976,7 +18976,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6983338878213702651}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.773082, y: -0.4999981, z: -30.879059}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18998,8 +18998,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0379acc7678a5554d914029cb0236909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousDoor: {fileID: 0}
-  instantiatedCamera: {fileID: 0}
+  _arrayOfDoors: []
+  _previousDoor: {fileID: 0}
+  _instantiatedCamera: {fileID: 0}
+  _nextDoor: {fileID: 0}
 --- !u!1 &7038148159415112479
 GameObject:
   m_ObjectHideFlags: 0

@@ -2514,8 +2514,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0379acc7678a5554d914029cb0236909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousDoor: {fileID: 0}
-  instantiatedCamera: {fileID: 0}
+  _arrayOfDoors: []
+  _previousDoor: {fileID: 0}
+  _instantiatedCamera: {fileID: 0}
+  _nextDoor: {fileID: 0}
 --- !u!1 &7465684698119994856
 GameObject:
   m_ObjectHideFlags: 0
