@@ -47,7 +47,7 @@ public class WeaponRenderer : MonoBehaviour
   }
 
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
-    print("WeaponRenderer: Updating for new values.");
+    // print("WeaponRenderer: Updating for new values.");
     ShowNewWeapon(weaponItem);
   }
   public GameObject GetWeaponInstance(WeaponItem weaponItem) {

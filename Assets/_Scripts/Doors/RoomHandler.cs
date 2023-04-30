@@ -78,7 +78,6 @@ public class RoomHandler : MonoBehaviour
 		instantiatedCamera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
 		cameraMat.mainTexture = instantiatedCamera.targetTexture;
 
-		Debug.Log(_instantiatedCamera);
 		_instantiatedCamera.GetComponent<DoorCameraFollow>().otherDoor = GameObject.FindWithTag("Handler").
 			GetComponent<RoomGenNew>()._previousRoom.GetComponent<RoomHandler>()._nextDoor.transform;
 	}
