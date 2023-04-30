@@ -22,11 +22,11 @@ public class PathRenderer : MonoBehaviour
   public void StartOverlay() {
     InvokeRepeating("ReloadPaths", 0, 0.5f);
     active = true;
-    print("overlya started");
+    // print("overlya started");
   }
 
   private void ReloadPaths() {
-    print("reloading paths");
+    // print("reloading paths");
     for (int i = transform.childCount - 1; i >= 0; --i) {
       Destroy(transform.GetChild(i).gameObject);
     }
