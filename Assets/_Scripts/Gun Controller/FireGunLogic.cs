@@ -249,14 +249,27 @@ public class FireGunLogic : MonoBehaviour
   public void Fire() {
     DrawFireLine(Color.green, 1f);
     _OnFireAmmo?.Invoke(_currentAmmo);
-    Vector3 raycastDirection = CalculateDirectionWithShotSpread(_minShotDamage);
+    Vector3 raycastDirection = _raycastOrigin.forward + CalculateDirectionWithShotSpread(_minShotDamage);
     if (Physics.Raycast(_raycastOrigin.position, raycastDirection, out RaycastHit hit, _raycastDistance, _layerMask)) {
-      _OnFireHitPosition?.Invoke(hit.point);
-      GameObject hitGameObject = hit.collider.gameObject;
-      HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
-      if (healthManager != null) {
-        healthManager.Damage(_currentShotDamage);
-        DrawFireLine(Color.yellow, 1f);
+      if (hit.collider.gameObject.name == "DoorGraphic") {
+        _OnFireHitPosition?.Invoke(hit.point);
+        if (Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward + raycastDirection, out hit, _raycastDistance, _layerMask)) {
+          GameObject hitGameObject = hit.collider.gameObject;
+          HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
+          if (healthManager != null) {
+            healthManager.Damage(_currentShotDamage);
+            DrawFireLine(Color.yellow, 1f);
+          }
+        }
+      }
+      else {
+        _OnFireHitPosition?.Invoke(hit.point);
+        GameObject hitGameObject = hit.collider.gameObject;
+        HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
+        if (healthManager != null) {
+          healthManager.Damage(_currentShotDamage);
+          DrawFireLine(Color.yellow, 1f);
+        }
       }
     }
     else {
@@ -270,7 +283,7 @@ public class FireGunLogic : MonoBehaviour
 
   // Needed for Fire method and managers; Obvious by name
   private Vector3 CalculateDirectionWithShotSpread(float shotSpreadDegrees) {
-    return _raycastOrigin.forward + new Vector3(Random.Range(-shotSpreadDegrees, shotSpreadDegrees), Random.Range(-_minShotSpread, _minShotSpread));
+    return new Vector3(Random.Range(-shotSpreadDegrees, shotSpreadDegrees), Random.Range(-_minShotSpread, _minShotSpread));
   }
   private void IncreaseShotSpread() {
     _currentShotSpread += _spreadIncreasePerShot;
