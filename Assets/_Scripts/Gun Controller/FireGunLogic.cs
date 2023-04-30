@@ -251,7 +251,7 @@ public class FireGunLogic : MonoBehaviour
     _OnFireAmmo?.Invoke(_currentAmmo);
     Vector3 raycastDirection = _raycastOrigin.forward + CalculateDirectionWithShotSpread(_minShotDamage);
     if (Physics.Raycast(_raycastOrigin.position, raycastDirection, out RaycastHit hit, _raycastDistance, _layerMask)) {
-      if (hit.collider.gameObject.name == "DoorGraphic") {
+      if (hit.collider.gameObject.CompareTag("DoorGraphic")) {
         _OnFireHitPosition?.Invoke(hit.point);
         if (Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward + raycastDirection, out hit, _raycastDistance, _layerMask)) {
           GameObject hitGameObject = hit.collider.gameObject;

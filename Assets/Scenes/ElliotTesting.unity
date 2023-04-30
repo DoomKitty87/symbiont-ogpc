@@ -124,6 +124,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &296096167 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4329525688915048004, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+    type: 3}
+  m_PrefabInstance: {fileID: 1227927118435333315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4314a95c33a4013b21bcc43e10fc7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &501448963
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +350,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1422023720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4329525688128455834, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+    type: 3}
+  m_PrefabInstance: {fileID: 1227927118435333315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c719883fa7a897246838406c0e55a72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1422023722 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4329525688128455836, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+    type: 3}
+  m_PrefabInstance: {fileID: 1227927118435333315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e7015216c88b84baa558a589a4845e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1422023723 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4329525688128455837, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+    type: 3}
+  m_PrefabInstance: {fileID: 1227927118435333315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddacb70d99fc548dd869a61a2c64d5ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1434627540
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +587,46 @@ PrefabInstance:
         type: 3}
       propertyPath: _OnFireHitPosition.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: WeaponEffects, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329525689108521945, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _onNewCurrentWeapon.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 1422023723}
+    - target: {fileID: 4329525689108521945, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _onNewCurrentWeapon.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 1422023722}
+    - target: {fileID: 4329525689108521945, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _onNewCurrentWeapon.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 1422023720}
+    - target: {fileID: 4329525689108521945, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _onNewCurrentWeapon.m_PersistentCalls.m_Calls.Array.data[6].m_Target
+      value: 
+      objectReference: {fileID: 296096167}
+    - target: {fileID: 4329525689108521945, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _onNewCurrentWeapon.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: WeaponRenderer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329525689108521945, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _onNewCurrentWeapon.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: WeaponEffects, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329525689108521945, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _onNewCurrentWeapon.m_PersistentCalls.m_Calls.Array.data[5].m_TargetAssemblyTypeName
+      value: WeaponAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329525689108521945, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _onNewCurrentWeapon.m_PersistentCalls.m_Calls.Array.data[6].m_TargetAssemblyTypeName
+      value: AmmoScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7300650168590474718, guid: fcd43a6ac7975b54788c60a1f3bbda24,
         type: 3}
