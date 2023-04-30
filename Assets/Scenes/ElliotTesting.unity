@@ -520,6 +520,26 @@ PrefabInstance:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4329525689108521766, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _OnFireHitPosition.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329525689108521766, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _OnFireHitPosition.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329525689108521766, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _OnFireHitPosition.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329525689108521766, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+        type: 3}
+      propertyPath: _OnFireHitPosition.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: WeaponEffects, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7300650168590474718, guid: fcd43a6ac7975b54788c60a1f3bbda24,
         type: 3}
       propertyPath: m_Name
