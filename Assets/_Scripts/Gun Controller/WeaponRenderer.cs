@@ -49,7 +49,6 @@ public class WeaponRenderer : MonoBehaviour
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
     // print("WeaponRenderer: Updating for new values.");
     ShowNewWeapon(weaponItem);
-    print("trying to create weapon");
     gameObject.GetComponent<WeaponEffects>().UpdateForNewValues(weaponItem, ammoCount);
   }
   public GameObject GetWeaponInstance(WeaponItem weaponItem) {
@@ -68,7 +67,6 @@ public class WeaponRenderer : MonoBehaviour
     }
     else {
       InstantiateWeapon(weaponItem);
-      print("instantiated weapon");
       // The spawnedWeapon has just been added to the list, so it's index would be -1 from the list.Count
       ViewSpawnedWeaponAtIndex(_spawnedWeapons.Count - 1);
     }
