@@ -26,7 +26,7 @@ public class RoomHandler : MonoBehaviour
 		}
 
 		if (_numberOfDoors > 1) { // If there is more than one door in the room
-			int randomIndex = Random.Range(0, _arrayOfDoors.Count -1);
+			int randomIndex = Random.Range(0, _arrayOfDoors.Count);
 			_previousDoor = _arrayOfDoors[randomIndex];
 			_arrayOfDoors.Remove(_previousDoor);
 		}

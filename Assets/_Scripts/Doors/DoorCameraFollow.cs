@@ -21,10 +21,10 @@ public class DoorCameraFollow : MonoBehaviour
     }
 
     if (otherDoor) {
-      Vector3 distanceBetweenObject = playerCamera.position - otherDoor.position;
+      Vector3 distanceBetweenObject = otherDoor.position - playerCamera.position;
 
-      transform.position = door.position + (otherDoor.rotation * door.rotation * distanceBetweenObject);
-      transform.rotation = (door.rotation * playerCamera.rotation) * otherDoor.rotation;
+      transform.position = door.position + (door.rotation * Quaternion.Inverse(otherDoor.rotation) * new Vector3(distanceBetweenObject.x, -distanceBetweenObject.y, distanceBetweenObject.z)); // Other door position + Offset between player camera and door * Rotation offset
+      transform.rotation = Quaternion.Euler(0, 180f, 0) * (door.rotation * Quaternion.Inverse(otherDoor.rotation)) * playerCamera.rotation; // Initial offset of 180 degrees on Y axis * Difference between two door rotations + Main camera rotaiton
     }
   }
 
