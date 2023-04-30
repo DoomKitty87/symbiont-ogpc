@@ -191,12 +191,11 @@ public class ViewSwitcher : MonoBehaviour
       return hit.collider.GetComponent<SwitchableObject>();
     }
     // Door hit
-    if (hit.collider.gameObject.name == "DoorGraphic") {
-      // Debug.LogWarning("ViewSwitcher: Raycast through doors is currently disabled.");
-      // This should be a recursive call. It currently breaks when the first raycast doesn't hit anything, throwing a null error.
+    if (hit.collider.gameObject.CompareTag("DoorGraphic")) {
       didHitCollider = Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward, out hit, raycastDistance, layerMask);
+      
       DrawDebugRaycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
-      return hit.collider.GetComponent<SwitchableObject>();
+      if (hit.collider) return hit.collider.GetComponent<SwitchableObject>();
     }
     // Something else hit
     return null;

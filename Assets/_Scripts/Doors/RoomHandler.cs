@@ -56,6 +56,7 @@ public class RoomHandler : MonoBehaviour
 	private void InitiateSetUp(GameObject _nextDoor) {
 		Material doorMaterial = Resources.Load<Material>("Materials/DoorMaterial");
 		_nextDoor.transform.GetChild(0).GetComponent<MeshRenderer>().material = doorMaterial;
+		_nextDoor.transform.GetChild(0).tag = "DoorGraphic";
 	}
 
 	// Should be called by previous RoomHandler
@@ -81,77 +82,4 @@ public class RoomHandler : MonoBehaviour
 		_instantiatedCamera.GetComponent<DoorCameraFollow>().otherDoor = GameObject.FindWithTag("Handler").
 			GetComponent<RoomGenNew>()._previousRoom.GetComponent<RoomHandler>()._nextDoor.transform;
 	}
-	/*
-
-	[HideInInspector] public bool _playerIsInRoom = false;
-
-	[HideInInspector] public int _numberOfDoors;
-
-	[HideInInspector] public List<GameObject> doors;
-	public GameObject entryDoor;
-	[HideInInspector] public GameObject _nextDoor;
-
-	[HideInInspector] public Camera _instantiatedCamera;
-
-	private void Awake() {
-		_numberOfDoors = transform.GetChild(1).transform.childCount; // Requires doors to be the second child of the room gameObject
-		FillDoorsList();
-	}
-
-	/// <summary>
-	/// First step in finding the next door to open
-	/// Should be called when one player is alive
-	/// </summary>
-	private void FillDoorsList() {
-		// Get all doors in the gameobject
-		for (int i = 0; i < _numberOfDoors; i++) {
-			doors.Add(transform.GetChild(1).transform.GetChild(i).gameObject);
-		}
-
-		// Chooses a random door to be the previous door
-		if (_numberOfDoors == 1) {
-			_nextDoor = doors[0];
-		} else {
-
-			int randomIndex = Random.Range(0, doors.Count);
-			entryDoor = doors[randomIndex];
-			doors.Remove(entryDoor);
-
-			InitiateDoorStartup();
-		}
-	}
-
-	/// <summary>
-	/// Instantiates the camera and sets the material of the next door
-	/// </summary>
-	private void InitiateDoorStartup() {
-		// Instantiates cameras for each door
-		GameObject prefab = Resources.Load<GameObject>("Prefabs/DoorCameraPrefab");
-
-		// Instantiates the camera for the current active door
-		GameObject instantiatedObject = Instantiate(prefab, entryDoor.transform.position, entryDoor.transform.rotation, entryDoor.transform);
-
-		_instantiatedCamera = instantiatedObject.GetComponent<Camera>();
-		StartCoroutine(LateStart());
-
-		Material cameraMat = Resources.Load<Material>("Materials/DoorMaterial");
-
-		_instantiatedCamera.targetTexture?.Release();
-		_instantiatedCamera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
-		cameraMat.mainTexture = _instantiatedCamera.targetTexture;
-
-		_nextDoor.transform.GetChild(0).GetComponent<MeshRenderer>().material = cameraMat;
-	}
-
-	/// <summary>
-	/// Used for first frame to select next door
-	/// </summary>
-	IEnumerator LateStart() {
-		yield return null;
-		_instantiatedCamera.GetComponent<DoorCameraFollow>().otherDoor = GameObject.FindWithTag("Handler").GetComponent<_roomGenNew>()
-	._previousRoom.GetComponent<RoomHandler>()._nextDoor.transform;
-	}
-
-	*/
-
 }
