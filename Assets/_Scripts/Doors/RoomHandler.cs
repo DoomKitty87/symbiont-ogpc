@@ -8,9 +8,9 @@ public class RoomHandler : MonoBehaviour
 	public List<GameObject> _arrayOfDoors;
 	private int _numberOfDoors;
 
-	public GameObject _previousDoor;
-	public GameObject _instantiatedCamera;
-	public GameObject _nextDoor;
+	[HideInInspector] public GameObject _previousDoor;
+	[HideInInspector] public GameObject _instantiatedCamera;
+	[HideInInspector] public GameObject _nextDoor;
 
 	private int _numberOfEnemies;
 	private bool _instantiatedNewRoom;
