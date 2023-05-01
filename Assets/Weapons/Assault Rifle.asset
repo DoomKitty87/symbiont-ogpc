@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51dfbe5df0024eb41b8dea943b82e833, type: 3}
+  m_Name: Assault Rifle
+  m_EditorClassIdentifier: 
+  name: Assault Rifle
+  id: 1
+  gunPrefab: {fileID: 5395082277230600263, guid: 83d172fb960904dceae43a09bae02028,
+    type: 3}
+  gunOffset: {x: 0.0003, y: 0.00052, z: 0.00083}
+  gunRotationOffset: {x: 0, y: -90, z: -90}
+  manufacturer: PJSC Molnii Ruki
+  modelName: TOK35
+  nickName: Liberator
+  fireType: 2
+  maxShotDamage: 10
+  fireDelaySeconds: 0.1
+  magSize: 30
+  reloadTimeSeconds: 2
+  verticalRecoil: 14
+  horizontalRecoilDeviation: 1
+  recoilSnapiness: 5
+  recoilRecoverySpeed: 4
+  zCameraShake: 1
+  minShotSpreadDegrees: 0.02
+  maxShotSpreadDegrees: 0.3
+  shotSpreadFireInaccuracyDegrees: 0.08
+  shotSpreadRecovery: 0.1
+  shotsPerBurst: 0
+  secondsBetweenBurstShots: 0
+  minShotDamage: 0
+  chargeTimeSeconds: 0
+  animatorOverride: {fileID: 22100000, guid: f95b3c6b60185b94e8fc8014a6414352, type: 2}
+  shotSound: {fileID: 0}
+  shotSoundNearEmpty: {fileID: 0}
+  emptyFireSound: {fileID: 0}
+  reloadStartSound: {fileID: 0}
+  reloadEndSound: {fileID: 0}
+  equipSound: {fileID: 0}
+  effectPositionOffset: {x: 0, y: 0, z: 0}
+  laserScaleUpColor: {r: 1, g: 0, b: 0.49843216, a: 1}
+  laserScaleDownColor: {r: 1, g: 1, b: 1, a: 0}
+  durationLaserScaleUp: 0.04
+  durationLaserScaleDown: 0.05
+  laserEmissionColor: {r: 5.063991, g: 0.46834603, b: 5.5908804, a: 0}
+  muzzleFlashEffectPrefab: {fileID: 1681060557054156774, guid: f922669cfb7651546a43e0fa800f4ddd,
+    type: 3}
+  hitEffectPrefab: {fileID: 0}

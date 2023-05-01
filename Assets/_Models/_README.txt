@@ -1,0 +1,1 @@
+We should probably start exporting blender files to FBX when importing them into the scene
