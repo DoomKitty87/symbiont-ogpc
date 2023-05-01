@@ -251,27 +251,28 @@ public class FireGunLogic : MonoBehaviour
     _OnFireAmmo?.Invoke(_currentAmmo);
     Vector3 raycastDirection = _raycastOrigin.forward + CalculateDirectionWithShotSpread(_minShotDamage);
     if (Physics.Raycast(_raycastOrigin.position, raycastDirection, out RaycastHit hit, _raycastDistance, _layerMask)) {
-      if (hit.collider.gameObject.CompareTag("DoorGraphic")) {
-        _OnFireHitPosition?.Invoke(hit.point);
-        if (Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward + raycastDirection, out hit, _raycastDistance, _layerMask)) {
-          GameObject hitGameObject = hit.collider.gameObject;
-          HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
-          if (healthManager != null) {
-            healthManager.Damage(_currentShotDamage);
-            DrawFireLine(Color.yellow, 1f);
-          }
-        }
+      //if (hit.collider.gameObject.CompareTag("DoorGraphic")) {
+      //  _OnFireHitPosition?.Invoke(hit.point);
+      //  if (Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward + raycastDirection, out hit, _raycastDistance, _layerMask)) {
+      //    GameObject hitGameObject = hit.collider.gameObject;
+      //    HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
+      //    if (healthManager != null) {
+      //      healthManager.Damage(_currentShotDamage);
+      //      DrawFireLine(Color.yellow, 1f);
+      //    }
+      //  }
+      //}
+      //else {
+      //Above manages shooting through doors, disabled due to problems and unnecessary
+      _OnFireHitPosition?.Invoke(hit.point);
+      GameObject hitGameObject = hit.collider.gameObject;
+      HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
+      if (healthManager != null) {
+        //Disabled on purpose, causing bug with room generation
+        healthManager.Damage(_currentShotDamage);
+        DrawFireLine(Color.yellow, 1f);
       }
-      else {
-        _OnFireHitPosition?.Invoke(hit.point);
-        GameObject hitGameObject = hit.collider.gameObject;
-        HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
-        if (healthManager != null) {
-          // Disabled on purpose, causing bug with room generation
-          // healthManager.Damage(_currentShotDamage);
-          DrawFireLine(Color.yellow, 1f);
-        }
-      }
+      //}
     }
     else {
       _OnFireHitPosition?.Invoke((raycastDirection * _raycastDistance) + _raycastOrigin.position);
