@@ -179,23 +179,23 @@ public class ViewSwitcher : MonoBehaviour
     float raycastDistance = _currentObjectInhabiting._raycastDistance;
     LayerMask layerMask = _currentObjectInhabiting._layerMask;
     bool showRaycast = _currentObjectInhabiting._showRaycast;
-
-    bool didHitCollider = Physics.Raycast(raycastOrigin.position + raycastOriginOffset, raycastOrigin.forward, out RaycastHit hit, raycastDistance, layerMask);
+    RaycastHit hit;
+    bool didHitCollider = Physics.Raycast(raycastOrigin.position + raycastOriginOffset, raycastOrigin.forward, out hit, raycastDistance, layerMask);
     if (showRaycast) {
       DrawDebugRaycast(raycastOrigin.position + raycastOriginOffset, raycastOrigin.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
     }
     // Nothing hit
     if (hit.collider == null) return null;
-    // Switchable Object hit
-    if (hit.collider.GetComponent<SwitchableObject>() != null) {
-      return hit.collider.GetComponent<SwitchableObject>();
-    }
     // Door hit
     if (hit.collider.gameObject.CompareTag("DoorGraphic")) {
       didHitCollider = Physics.Raycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward, out hit, raycastDistance, layerMask);
-      
       DrawDebugRaycast(GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.position + raycastOriginOffset, GameObject.FindGameObjectWithTag("Handler").GetComponent<RoomGenNew>()._currentRoom.GetComponent<RoomHandler>()._instantiatedCamera.transform.forward, raycastDistance, didHitCollider ? Color.yellow : Color.green);
-      if (hit.collider) return hit.collider.GetComponent<SwitchableObject>();
+    }
+    //Second null check to avoid error throws
+    if (hit.collider == null) return null;
+    // Switchable Object hit
+    if (hit.collider.GetComponent<SwitchableObject>() != null) {
+      return hit.collider.GetComponent<SwitchableObject>();
     }
     // Something else hit
     return null;

@@ -16,8 +16,8 @@ public class RoomGenNew : MonoBehaviour
 	private Vector3 _nextCoordinates = new(-100, 0, -100);
   private bool _parody; // Used for things that require odd or even (Basically don't worry about it)
 
-  public GameObject _currentRoom;
-  public GameObject _previousRoom;
+  [HideInInspector] public GameObject _currentRoom;
+  [HideInInspector] public GameObject _previousRoom;
 
 	private void Awake() {
 	  // Assigns the first room as the current object inhabited

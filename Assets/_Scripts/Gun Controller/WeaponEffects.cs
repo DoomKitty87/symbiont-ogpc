@@ -60,7 +60,7 @@ public class WeaponEffects : MonoBehaviour
     
     _weaponInstance = _weaponRenderer.GetWeaponInstance(weaponItem);
     if (_weaponInstance == null) {
-      Debug.LogError($"WeaponEffects: WeaponInstance was not found for weaponItem '{weaponItem.name}'");
+      //Debug.LogError($"WeaponEffects: WeaponInstance was not found for weaponItem '{weaponItem.name}'");
       return;
     }
     _weaponInstanceMuzzleObject = _weaponInstance.transform.Find("MuzzlePosition").gameObject;
