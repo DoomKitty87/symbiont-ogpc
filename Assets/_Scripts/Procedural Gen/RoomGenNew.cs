@@ -10,11 +10,13 @@ public class RoomGenNew : MonoBehaviour
 
   [SerializeField] private GameObject startingRoom;
   [SerializeField] private GameObject[] randomRooms;
+  [SerializeField] private GameObject[] endingRooms;
 
   [SerializeField] private int _numberOfRoomsPerFloor;
 
 	private Vector3 _nextCoordinates = new(-100, 0, -100);
   private bool _parody; // Used for things that require odd or even (Basically don't worry about it)
+  private int roomsGenerated = 0;
 
   [HideInInspector] public GameObject _currentRoom;
   [HideInInspector] public GameObject _previousRoom;
@@ -31,7 +33,11 @@ public class RoomGenNew : MonoBehaviour
     // Creates new room
     if (_previousRoom != null) Destroy(_previousRoom);
     _previousRoom = _currentRoom;
-    _currentRoom = Instantiate(randomRooms[0], _nextCoordinates, Quaternion.identity, transform);
+    if (roomsGenerated == _numberOfRoomsPerFloor) {
+      _currentRoom = Instantiate(endingRooms[Random.Range(0, endingRooms.Length)], _nextCoordinates, Quaternion.identity, transform);
+      return;
+    }
+    _currentRoom = Instantiate(randomRooms[Random.Range(0, randomRooms.Length)], _nextCoordinates, Quaternion.identity, transform);
     
     if (_parody) {
       _parody ^= true;
@@ -40,5 +46,6 @@ public class RoomGenNew : MonoBehaviour
       _parody ^= true;
       _nextCoordinates.z *= -1;
     }
+    roomsGenerated++;
   }
 }
