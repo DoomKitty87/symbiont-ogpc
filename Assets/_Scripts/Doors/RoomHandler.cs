@@ -35,8 +35,8 @@ public class RoomHandler : MonoBehaviour
 	private void Update() {
 
 		_numberOfEnemies = transform.GetChild(0).childCount;
-
-		if (_numberOfEnemies == 1 && !_instantiatedNewRoom && !gameObject.CompareTag("EndingRoom"))  {
+		// && !gameObject.CompareTag("EndingRoom")
+		if (_numberOfEnemies == 1 && !_instantiatedNewRoom)  {
 			_instantiatedNewRoom = true;
 			Pick_nextDoor();
 			_roomGenNew.CreateNewRoom();

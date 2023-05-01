@@ -20,7 +20,7 @@ public class FloorManager : MonoBehaviour
     if (GameObject.FindGameObjectsWithTag("Persistent").Length > 0) Destroy(gameObject);
     DontDestroyOnLoad(gameObject);
   }
-  
+
   public void ClearedFloor() {
     StartCoroutine(MoveFloors());
   }
@@ -48,6 +48,7 @@ public class FloorManager : MonoBehaviour
   private IEnumerator MoveFloors() {
     _chosenFloorType = Random.Range(0, _floorTypeEnemies.Length);
     //Animate switch with post processing here or something
-    SceneManager.LoadScene(SceneManager.GetActiveScene());
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    yield return null;
   }
 }
