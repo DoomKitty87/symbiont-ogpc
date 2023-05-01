@@ -5,7 +5,7 @@ public class RoomHandler : MonoBehaviour
 {
 	private RoomGenNew _roomGenNew;
 
-	public List<GameObject> _arrayOfDoors;
+	[HideInInspector] public List<GameObject> _arrayOfDoors;
 	private int _numberOfDoors;
 
 	[HideInInspector] public GameObject _previousDoor;

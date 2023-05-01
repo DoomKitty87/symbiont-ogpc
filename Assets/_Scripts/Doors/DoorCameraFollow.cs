@@ -22,14 +22,15 @@ public class DoorCameraFollow : MonoBehaviour {
     if (otherDoor) {
       Vector3 distanceBetweenObject = otherDoor.position - playerCamera.position;
 
-      transform.position = door.position + (door.rotation * Quaternion.Inverse(otherDoor.rotation) *
-        new Vector3(distanceBetweenObject.x, -distanceBetweenObject.y, distanceBetweenObject.z)); // Position of door + door rotation offset + distance offset between doors
+      transform.position = door.position + (door.rotation * Quaternion.Inverse(otherDoor.rotation) * new Vector3(distanceBetweenObject.x, -distanceBetweenObject.y, distanceBetweenObject.z)); // Position of door + door rotation offset + distance offset between doors
 
       transform.rotation = Quaternion.Euler(0, 180f, 0) * (door.rotation * Quaternion.Inverse(otherDoor.rotation)) * playerCamera.rotation; // Initial 180 degree y rotation + door rotation offset + player camera rotation
+    } else {
+      Debug.Log("Variable otherDoor isn't assigned to gameObject " + gameObject.name);
     }
 
     Transform GetCurrentActivePlayer() {
-      return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(2).GetChild(0).GetChild(0).transform;
+      return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(1).GetChild(0).GetChild(0).transform;
     }
   }
 }
