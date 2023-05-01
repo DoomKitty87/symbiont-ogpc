@@ -15,6 +15,12 @@ public class FloorManager : MonoBehaviour
   private int _chosenFloorType;
 
   //Put this script on a DDOL GameObject (needs persistence)
+
+  private void Start() {
+    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 0) Destroy(gameObject);
+    DontDestroyOnLoad(gameObject);
+  }
+  
   public void ClearedFloor() {
     StartCoroutine(MoveFloors());
   }
