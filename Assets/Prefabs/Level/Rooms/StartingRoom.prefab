@@ -3573,6 +3573,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7384218134285583288, guid: 676790f03d634214ab64fe4b1bd3c874,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7384218134606678416, guid: 676790f03d634214ab64fe4b1bd3c874,
         type: 3}
       propertyPath: m_RootOrder
@@ -3688,11 +3693,6 @@ PrefabInstance:
       propertyPath: _loop
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7384218134606678418, guid: 676790f03d634214ab64fe4b1bd3c874,
-        type: 3}
-      propertyPath: _speed
-      value: 5.03
-      objectReference: {fileID: 0}
     - target: {fileID: 7384218134606678419, guid: 676790f03d634214ab64fe4b1bd3c874,
         type: 3}
       propertyPath: m_Name
@@ -3748,7 +3748,9 @@ PrefabInstance:
       propertyPath: _onNewCurrentWeapon.m_PersistentCalls.m_Calls.Array.data[6].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7384218134253497417, guid: 676790f03d634214ab64fe4b1bd3c874, type: 3}
+    - {fileID: 7384218134253497418, guid: 676790f03d634214ab64fe4b1bd3c874, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 676790f03d634214ab64fe4b1bd3c874, type: 3}
 --- !u!114 &4329525688128455834 stripped
 MonoBehaviour:
