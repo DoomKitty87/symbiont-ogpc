@@ -38,14 +38,14 @@ public class RoomHandler : MonoBehaviour
 		// && !gameObject.CompareTag("EndingRoom")
 		if (_numberOfEnemies == 1 && !_instantiatedNewRoom)  {
 			_instantiatedNewRoom = true;
-			Pick_nextDoor();
+			PickNextDoor();
 			_roomGenNew.CreateNewRoom();
 			_roomGenNew._currentRoom.GetComponent<RoomHandler>().CreateCameraPrefab();
 		}
 	}
 
 	// Should be called when there is one enemy alives
-	private void Pick_nextDoor() {
+	private void PickNextDoor() {
 		// At this point the previous door should be removed from _arrayOfDoors
 
 		_nextDoor = _arrayOfDoors[Random.Range(0, _arrayOfDoors.Count - 1)];
@@ -81,5 +81,6 @@ public class RoomHandler : MonoBehaviour
 
 		_instantiatedCamera.GetComponent<DoorCameraFollow>().otherDoor = GameObject.FindWithTag("Handler").
 			GetComponent<RoomGenNew>()._previousRoom.GetComponent<RoomHandler>()._nextDoor.transform;
+		Debug.Log("OtherDoor assigned");
 	}
 }
