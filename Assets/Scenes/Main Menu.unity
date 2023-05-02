@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 195608461}
   - component: {fileID: 195608460}
   - component: {fileID: 195608463}
+  - component: {fileID: 195608464}
   m_Layer: 5
   m_Name: Leaderboard Button
   m_TagString: Untagged
@@ -253,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -297,7 +298,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -322,6 +323,52 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &195608464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195608458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df55a509dc419544b9cdf709d96d8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 195608460}
+  _baseColor: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
+  _hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  _easingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 0.1
+  OnHover:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHoverExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &332348282
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +381,7 @@ GameObject:
   - component: {fileID: 332348285}
   - component: {fileID: 332348284}
   - component: {fileID: 332348287}
+  - component: {fileID: 332348288}
   m_Layer: 5
   m_Name: Options Button
   m_TagString: Untagged
@@ -375,7 +423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -419,7 +467,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -442,6 +490,52 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 332348284}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &332348288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332348282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df55a509dc419544b9cdf709d96d8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 332348284}
+  _baseColor: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
+  _hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  _easingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 0.1
+  OnHover:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHoverExit:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &427732366
@@ -663,7 +757,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 450}
+  m_SizeDelta: {x: -200, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &675071120
 MonoBehaviour:
@@ -713,7 +807,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 380
+  m_fontSize: 228.5
   m_fontSizeBase: 360
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -775,6 +869,7 @@ GameObject:
   - component: {fileID: 702648234}
   - component: {fileID: 702648233}
   - component: {fileID: 702648236}
+  - component: {fileID: 702648237}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Untagged
@@ -816,7 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -860,7 +955,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -883,6 +978,52 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 702648233}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &702648237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702648231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df55a509dc419544b9cdf709d96d8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 702648233}
+  _baseColor: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
+  _hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  _easingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 0.1
+  OnHover:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHoverExit:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &894984589
@@ -1798,6 +1939,7 @@ GameObject:
   - component: {fileID: 2029093770}
   - component: {fileID: 2029093769}
   - component: {fileID: 2029093772}
+  - component: {fileID: 2029093773}
   m_Layer: 5
   m_Name: Exit Button
   m_TagString: Untagged
@@ -1839,7 +1981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1883,7 +2025,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1906,6 +2048,52 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2029093769}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2029093773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029093767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df55a509dc419544b9cdf709d96d8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 2029093769}
+  _baseColor: {r: 0.07058824, g: 0.07058824, b: 0.07058824, a: 0.8}
+  _hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  _easingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 0.1
+  OnHover:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHoverExit:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &65702495073177185
