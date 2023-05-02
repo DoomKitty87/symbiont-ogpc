@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public class DoorCameraFollow : MonoBehaviour {
-  [HideInInspector] public Transform door;
-  [HideInInspector] public Transform otherDoor;
-  [HideInInspector] public Transform playerCamera;
+   public Transform door;
+   public Transform otherDoor;
+   public Transform playerCamera;
 
   private Transform tempPlayerCamera;
 
