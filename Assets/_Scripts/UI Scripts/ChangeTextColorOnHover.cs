@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -29,7 +28,8 @@ public class ChangeTextColorOnHover : MonoBehaviour, IPointerEnterHandler
   }
   private IEnumerator CheckForNotMouseOver() {
     while (true) {
-      if (!EventSystem.current.IsPointerOverGameObject()) {
+      // All other ways to test if the pointer was over the UI Image had problems when the mouse moved too fast
+      if (!RectTransformUtility.RectangleContainsScreenPoint(_text.rectTransform, Input.mousePosition)) {
         ChangeToBaseColor();
         break;
       }
