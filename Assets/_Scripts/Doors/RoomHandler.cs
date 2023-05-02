@@ -25,7 +25,7 @@ public class RoomHandler : MonoBehaviour
 			_arrayOfDoors.Add(transform.GetChild(1).GetChild(i).gameObject);
 		}
 
-		if (_numberOfDoors > 1) { // If there is more than one door in the room
+		if (_roomGenNew.startingRoom != gameObject) { // If this gameobject is not the starting room
 			int randomIndex = Random.Range(0, _arrayOfDoors.Count);
 			_previousDoor = _arrayOfDoors[randomIndex];
 			_arrayOfDoors.Remove(_previousDoor);
@@ -35,27 +35,28 @@ public class RoomHandler : MonoBehaviour
 	private void Update() {
 
 		_numberOfEnemies = transform.GetChild(0).childCount;
-
-		if (_numberOfEnemies == 1 && !_instantiatedNewRoom && !gameObject.CompareTag("EndingRoom"))  {
+		// && !gameObject.CompareTag("EndingRoom")
+		if (_numberOfEnemies == 1 && !_instantiatedNewRoom)  {
 			_instantiatedNewRoom = true;
-			Pick_nextDoor();
+			PickNextDoor();
 			_roomGenNew.CreateNewRoom();
 			_roomGenNew._currentRoom.GetComponent<RoomHandler>().CreateCameraPrefab();
 		}
 	}
 
 	// Should be called when there is one enemy alives
-	private void Pick_nextDoor() {
+	private void PickNextDoor() {
 		// At this point the previous door should be removed from _arrayOfDoors
 
-		_nextDoor = _arrayOfDoors[Random.Range(0, _arrayOfDoors.Count - 1)];
+		if (_arrayOfDoors.Count < 1) return; // Should only trigger when there is only one door left (The final room)
+		_nextDoor = _arrayOfDoors[Random.Range(0, _arrayOfDoors.Count)];
 		InitiateSetUp(_nextDoor);
 	}
 
 
 	private void InitiateSetUp(GameObject _nextDoor) {
 		Material doorMaterial = Resources.Load<Material>("Materials/DoorMaterial");
-		_nextDoor.transform.GetChild(0).GetComponent<MeshRenderer>().material = doorMaterial;
+		_nextDoor.transform.GetChild(0).GetComponent<Renderer>().material = doorMaterial;
 		_nextDoor.transform.GetChild(0).tag = "DoorGraphic";
 	}
 
@@ -81,5 +82,5 @@ public class RoomHandler : MonoBehaviour
 
 		_instantiatedCamera.GetComponent<DoorCameraFollow>().otherDoor = GameObject.FindWithTag("Handler").
 			GetComponent<RoomGenNew>()._previousRoom.GetComponent<RoomHandler>()._nextDoor.transform;
-	}
+		}
 }
