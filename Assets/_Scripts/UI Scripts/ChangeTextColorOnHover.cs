@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class ChangeTextColorOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ChangeTextColorOnHover : MonoBehaviour, IPointerEnterHandler
 {
   [Header("References")]
   [SerializeField] private TextMeshProUGUI _text; 
@@ -24,21 +24,33 @@ public class ChangeTextColorOnHover : MonoBehaviour, IPointerEnterHandler, IPoin
     _text = GetComponent<TextMeshProUGUI>();
   }
   public void OnPointerEnter(PointerEventData pointerEventData) {
-    ChangeTextColor(_hoverColor, _duration);
-    OnHover?.Invoke();
+    ChangeToHoverColor();
+    StartCoroutine(CheckForNotMouseOver());
   }
-  
-  public void OnPointerExit(PointerEventData pointerEventData) {
-    ChangeTextColor(_baseColor, _duration);
+  private IEnumerator CheckForNotMouseOver() {
+    while (true) {
+      if (!EventSystem.current.IsPointerOverGameObject()) {
+        ChangeToBaseColor();
+        break;
+      }
+      yield return null;
+    }
+  }
+  public void ChangeToBaseColor() {
+    ChangeTextColor(_hoverColor, _baseColor, _duration);
     OnHoverExit?.Invoke();
   }
-
-  private void ChangeTextColor(Color targetColor, float duration) {
-    StartCoroutine(ChangeTextColorCoroutine(targetColor, duration));
+  public void ChangeToHoverColor() {
+    ChangeTextColor(_baseColor, _hoverColor, _duration);
+    OnHover?.Invoke();
   }
-  private IEnumerator ChangeTextColorCoroutine(Color targetColor, float duration) {
+
+  private void ChangeTextColor(Color startColor, Color targetColor, float duration) {
+    StopCoroutine(ChangeTextColorCoroutine(startColor, targetColor, duration));
+    StartCoroutine(ChangeTextColorCoroutine(startColor, targetColor, duration));
+  }
+  private IEnumerator ChangeTextColorCoroutine(Color startColor, Color targetColor, float duration) {
     float time = 0;
-    Color startColor = _text.color;
     while (time < duration)
     {
       time += Time.deltaTime;

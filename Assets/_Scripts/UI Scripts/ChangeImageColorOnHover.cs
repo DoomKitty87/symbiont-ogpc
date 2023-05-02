@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class ChangeImageColorOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ChangeImageColorOnHover : MonoBehaviour, IPointerEnterHandler
 {
   [Header("References")]
   [SerializeField] private Image _image; 
@@ -19,25 +19,43 @@ public class ChangeImageColorOnHover : MonoBehaviour, IPointerEnterHandler, IPoi
   public UnityEvent OnHover;
   public UnityEvent OnHoverExit;
 
+  private bool _mouseOffCoroutineActive = false;
+
   private void Awake() {
     _image = GetComponent<UnityEngine.UI.Image>();
   }
   public void OnPointerEnter(PointerEventData pointerEventData) {
-    ChangeImageColor(_hoverColor, _duration);
-    OnHover?.Invoke();
+    ChangeToHoverColor();
+    Debug.Log($"OnPointerEnter for {gameObject.name}, Coroutine active = {_mouseOffCoroutineActive}");
+    StartCoroutine(CheckForNotMouseOver());
   }
-  
-  public void OnPointerExit(PointerEventData pointerEventData) {
-    ChangeImageColor(_baseColor, _duration);
+  private IEnumerator CheckForNotMouseOver() {
+    _mouseOffCoroutineActive = true;
+    while (true) {
+      if (!EventSystem.current.IsPointerOverGameObject()) {
+        ChangeToBaseColor();
+        _mouseOffCoroutineActive = false;
+        Debug.Log($"OnPointerExit for {gameObject.name}, Coroutine stopped");
+        break;
+      }
+      yield return null;
+    }
+  }
+  public void ChangeToBaseColor() {
+    ChangeImageColor(_hoverColor, _baseColor, _duration);
     OnHoverExit?.Invoke();
   }
-
-  private void ChangeImageColor(Color targetColor, float duration) {
-    StartCoroutine(ChangeImageColorCoroutine(targetColor, duration));
+  public void ChangeToHoverColor() {
+    ChangeImageColor(_baseColor, _hoverColor, _duration);
+    OnHover?.Invoke();
   }
-  private IEnumerator ChangeImageColorCoroutine(Color targetColor, float duration) {
+
+  private void ChangeImageColor(Color startColor, Color targetColor, float duration) {
+    StopCoroutine(ChangeImageColorCoroutine(startColor, targetColor, duration));
+    StartCoroutine(ChangeImageColorCoroutine(startColor, targetColor, duration));
+  }
+  private IEnumerator ChangeImageColorCoroutine(Color startColor, Color targetColor, float duration) {
     float time = 0;
-    Color startColor = _image.color;
     while (time < duration)
     {
       time += Time.deltaTime;
