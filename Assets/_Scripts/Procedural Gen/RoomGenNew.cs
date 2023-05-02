@@ -24,7 +24,7 @@ public class RoomGenNew : MonoBehaviour
 	private void Awake() {
 	  // Assigns the first room as the current object inhabited
 	  GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting = 
-      startingRoom.transform.GetChild(0).transform.GetChild(0).GetComponent<SwitchableObject>();
+      startingRoom.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<SwitchableObject>();
 
     _currentRoom = startingRoom;
 	}

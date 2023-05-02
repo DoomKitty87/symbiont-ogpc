@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public class DoorCameraFollow : MonoBehaviour {
-  [HideInInspector] public Transform door;
-  [HideInInspector] public Transform otherDoor;
-  [HideInInspector] public Transform playerCamera;
+   public Transform door;
+   public Transform otherDoor;
+   public Transform playerCamera;
 
   private Transform tempPlayerCamera;
 
@@ -29,7 +29,7 @@ public class DoorCameraFollow : MonoBehaviour {
     }
 
     Transform GetCurrentActivePlayer() {
-      return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(2).GetChild(0).GetChild(0).transform;
+      return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(1).GetChild(0).GetChild(0).transform;
     }
   }
 }
