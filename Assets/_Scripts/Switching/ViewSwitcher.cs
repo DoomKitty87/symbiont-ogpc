@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 [System.Serializable]
 public class SwitchableObjectRegister 
@@ -140,23 +142,50 @@ public class ViewSwitcher : MonoBehaviour
     _playingEffect = true;
     float timeElapsed = 0f;
     float startFov = _currentObjectInhabiting._objectCameras[0].fieldOfView;
+    VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
+    Bloom bloom;
+    LensDistortion lensDistortion;
+    ColorAdjustments colorAdjustments;
+    ChromaticAberration chromaticAberration;
+
+    volumeProfile.TryGet(out bloom);
+    volumeProfile.TryGet(out lensDistortion);
+    volumeProfile.TryGet(out colorAdjustments);
+    volumeProfile.TryGet(out chromaticAberration);
+
+    float lensInit = (float)lensDistortion.intensity;
+    float bloomInit = (float)bloom.intensity;
+    float exposureInit = (float)colorAdjustments.postExposure;
+    float aberrationInit = (float)chromaticAberration.intensity;
+
     // Kept in memory in case the player looks away from object during effect
     SwitchableObject selectedObject = _selectedSwitchableObject;
     while (timeElapsed < _effectDuration / 2) {
-      _currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectInCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
+      //_currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectInCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
+      bloom.intensity.Override(Mathf.Lerp(bloomInit, bloomInit * 5, _effectInCurve.Evaluate(timeElapsed / (_effectDuration / 2))));
+      lensDistortion.intensity.Override(Mathf.Lerp(lensInit, -0.6f, _effectInCurve.Evaluate(timeElapsed / (_effectDuration / 2))));
+      colorAdjustments.postExposure.Override(Mathf.Lerp(exposureInit, 0.7f, _effectInCurve.Evaluate(timeElapsed / (_effectDuration / 2))));
+      chromaticAberration.intensity.Override(Mathf.Lerp(aberrationInit, 1, _effectInCurve.Evaluate(timeElapsed / (_effectDuration / 2))));
       yield return null;
       timeElapsed += Time.deltaTime;
     }
-    _currentObjectInhabiting._objectCameras[0].fieldOfView = _endFov;
+    //_currentObjectInhabiting._objectCameras[0].fieldOfView = _endFov;
     SwitchToSelected(selectedObject);
     timeElapsed = 0f;
     while (timeElapsed < _effectDuration / 2) {
-      _currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectOutCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
+      //_currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectOutCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
+      bloom.intensity.Override(Mathf.Lerp(bloomInit, bloomInit * 5, _effectOutCurve.Evaluate(timeElapsed / (_effectDuration / 2))));
+      lensDistortion.intensity.Override(Mathf.Lerp(lensInit, -0.6f, _effectOutCurve.Evaluate(timeElapsed / (_effectDuration / 2))));
+      colorAdjustments.postExposure.Override(Mathf.Lerp(exposureInit, 0.7f, _effectOutCurve.Evaluate(timeElapsed / (_effectDuration / 2))));
+      chromaticAberration.intensity.Override(Mathf.Lerp(aberrationInit, 1, _effectOutCurve.Evaluate(timeElapsed / (_effectDuration / 2))));
       yield return null;
       timeElapsed += Time.deltaTime;
     }
     _currentObjectInhabiting._objectCameras[0].fieldOfView = startFov;
     _playingEffect = false;
+
+    bloom.intensity.Override(bloomInit);
+    lensDistortion.intensity.Override(lensInit);
   }
   private void SwitchToSelected(SwitchableObject selectedObject) {
     _secondsSinceLastSwitch = 0f;
