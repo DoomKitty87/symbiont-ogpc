@@ -170,7 +170,11 @@ public class FireGunLogic : MonoBehaviour
 
   public void FireSemiAuto() {
     if (_weaponFireType != WeaponItem.FireType.SemiAuto) return;
-    if (!(HasAmmo() && CanFire())) return;
+    if (!HasAmmo()) {
+      Reload();
+      return;
+    }
+    if (!CanFire()) return;
     _secondsSinceLastFire = 0;
     _currentShotDamage = _maxShotDamage;
     Fire();
@@ -180,7 +184,11 @@ public class FireGunLogic : MonoBehaviour
 
   public void FireBurst() {
     if (_weaponFireType != WeaponItem.FireType.Burst) return;
-    if (!(HasAmmo() && CanFire())) return;
+    if (!HasAmmo()) {
+      Reload();
+      return;
+    }
+    if (!CanFire()) return;
     _secondsSinceLastFire = 0;
     StartCoroutine(FireBurstCoroutine());
   }
@@ -199,7 +207,11 @@ public class FireGunLogic : MonoBehaviour
 
   public void FireFullAuto() {
     if (_weaponFireType != WeaponItem.FireType.FullAuto) return;
-    if (!(HasAmmo() && CanFire())) return;
+    if (!HasAmmo()) {
+      Reload();
+      return;
+    }
+    if (!CanFire()) return;
     _secondsSinceLastFire = 0;
     _currentShotDamage = _maxShotDamage;
     Fire();
@@ -209,7 +221,11 @@ public class FireGunLogic : MonoBehaviour
 
   public void ChargeWeapon() {
     if (_weaponFireType != WeaponItem.FireType.Charge) return;
-    if (!(HasAmmo() && CanFire())) return;
+    if (!HasAmmo()) {
+      Reload();
+      return;
+    }
+    if (!CanFire()) return;
     if (_isCharging) {
       // Just in case; should never happen
       Debug.LogError("FireGunLogic: ChargeWeapon() invoked before ReleaseCharge() set _isCharging to false! This usually means the coroutine is still running, or that inputs were set up wrong.");
@@ -312,7 +328,7 @@ public class FireGunLogic : MonoBehaviour
 
   // This needs to be called by an input script
   public void Reload() {
-    if (_isReloading) {
+    if (_isReloading || _currentAmmo == _magSize) {
       return;
     }
     else {
