@@ -188,11 +188,13 @@ public class ViewSwitcher : MonoBehaviour
     lensDistortion.intensity.Override(lensInit);
   }
   private void SwitchToSelected(SwitchableObject selectedObject) {
+    Quaternion initRot = _currentObjectInhabiting.gameObject.transform.GetChild(1).rotation;
     _secondsSinceLastSwitch = 0f;
     selectedObject.SwitchTo();
     _currentObjectInhabiting.SwitchAway();
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
+    _currentObjectInhabiting.gameObject.transform.GetChild(1).rotation = initRot;
   }
   private bool CanSwitch() {
     if (_secondsSinceLastSwitch <= _effectDuration + _switchCooldown || _playingEffect) {
