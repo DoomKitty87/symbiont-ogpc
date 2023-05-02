@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startWithRandomObject: 0
-  _currentObjectInhabiting: {fileID: 1112366996}
+  _currentObjectInhabiting: {fileID: 1404596023}
   _selectedSwitchableObject: {fileID: 0}
   _switchAxis: Fire2
   _secondsSinceLastSwitch: 0
@@ -274,21 +274,12 @@ MonoBehaviour:
   startingRoom: {fileID: 8384409001606195485}
   randomRooms:
   - {fileID: 6983338878213702651, guid: b96acd35397fb3046b053efeac47b5d7, type: 3}
-  _numberOfRoomsPerFloor: 0
+  - {fileID: 6475480577444118232, guid: 63e123fa4f48f406795a25013f490772, type: 3}
+  endingRooms:
+  - {fileID: 6475480577444118232, guid: 63e123fa4f48f406795a25013f490772, type: 3}
+  _numberOfRoomsPerFloor: 5
   _currentRoom: {fileID: 0}
   _previousRoom: {fileID: 0}
---- !u!114 &1112366996 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4329525687609252943, guid: fcd43a6ac7975b54788c60a1f3bbda24,
-    type: 3}
-  m_PrefabInstance: {fileID: 1227927118435333315}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c9ff4256d282e04d8fccd7e6eaaff03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1139956980
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +329,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1404596023 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6058273725858135609, guid: fcd43a6ac7975b54788c60a1f3bbda24,
+    type: 3}
+  m_PrefabInstance: {fileID: 1227927118435333315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c9ff4256d282e04d8fccd7e6eaaff03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1227927118435333315
 PrefabInstance:
   m_ObjectHideFlags: 0

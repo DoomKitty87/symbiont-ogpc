@@ -27,6 +27,7 @@ public class DoorCameraFollow : MonoBehaviour {
       transform.rotation = Quaternion.Euler(0, 180f, 0) * (door.rotation * Quaternion.Inverse(otherDoor.rotation)) * playerCamera.rotation; // Initial 180 degree y rotation + door rotation offset + player camera rotation
     } else {
       Debug.Log("Variable otherDoor isn't assigned to gameObject " + gameObject.name);
+      Destroy(gameObject);
     }
 
     Transform GetCurrentActivePlayer() {
