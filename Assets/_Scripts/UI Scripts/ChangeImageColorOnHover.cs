@@ -19,23 +19,18 @@ public class ChangeImageColorOnHover : MonoBehaviour, IPointerEnterHandler
   public UnityEvent OnHover;
   public UnityEvent OnHoverExit;
 
-  private bool _mouseOffCoroutineActive = false;
-
   private void Awake() {
     _image = GetComponent<UnityEngine.UI.Image>();
   }
   public void OnPointerEnter(PointerEventData pointerEventData) {
     ChangeToHoverColor();
-    Debug.Log($"OnPointerEnter for {gameObject.name}, Coroutine active = {_mouseOffCoroutineActive}");
     StartCoroutine(CheckForNotMouseOver());
   }
   private IEnumerator CheckForNotMouseOver() {
-    _mouseOffCoroutineActive = true;
     while (true) {
-      if (!EventSystem.current.IsPointerOverGameObject()) {
+      // All other ways to test if the pointer was over the UI Image had problems when the mouse moved too fast
+      if (!RectTransformUtility.RectangleContainsScreenPoint(_image.rectTransform, Input.mousePosition)) {
         ChangeToBaseColor();
-        _mouseOffCoroutineActive = false;
-        Debug.Log($"OnPointerExit for {gameObject.name}, Coroutine stopped");
         break;
       }
       yield return null;
