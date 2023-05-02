@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class FloorTheme
+{
+
+  public GameObject[] floorTypeRooms;
+  public GameObject[] floorTypeStartRooms;
+  public GameObject[] floorTypeEndRooms;
+  public GameObject[] floorTypeWeapons;
+  public GameObject floorTypeEnemy;
+}
+
 public class FloorManager : MonoBehaviour
 {
 
-  [SerializeField] private GameObject[][] _floorTypeRooms;
-  [SerializeField] private GameObject[][] _floorTypeStartRooms;
-  [SerializeField] private GameObject[][] _floorTypeEndRooms;
-  [SerializeField] private GameObject[][] _floorTypeWeapons;
-  [SerializeField] private GameObject[] _floorTypeEnemies;
+  [SerializeField] private FloorTheme[] _floorThemes;
 
   private int _chosenFloorType;
 
@@ -26,27 +33,27 @@ public class FloorManager : MonoBehaviour
   }
 
   public GameObject[] GetCurrentFloorRooms() {
-    return _floorTypeRooms[_chosenFloorType];
+    return _floorThemes[_chosenFloorType].floorTypeRooms;
   }
 
   public GameObject[] GetCurrentFloorStartRooms() {
-    return _floorTypeStartRooms[_chosenFloorType];
+    return _floorThemes[_chosenFloorType].floorTypeStartRooms;
   }
 
   public GameObject[] GetCurrentFloorEndRooms() {
-    return _floorTypeEndRooms[_chosenFloorType];
+    return _floorThemes[_chosenFloorType].floorTypeEndRooms;
   }
 
   public GameObject[] GetCurrentFloorWeapon() {
-    return _floorTypeWeapons[_chosenFloorType];
+    return _floorThemes[_chosenFloorType].floorTypeWeapons;
   }
 
   public GameObject GetCurrentFloorEnemies() {
-    return _floorTypeEnemies[_chosenFloorType];
+    return _floorThemes[_chosenFloorType].floorTypeEnemy;
   }
 
   private IEnumerator MoveFloors() {
-    _chosenFloorType = Random.Range(0, _floorTypeEnemies.Length);
+    _chosenFloorType = Random.Range(0, _floorThemes.Length);
     //Animate switch with post processing here or something
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     yield return null;
