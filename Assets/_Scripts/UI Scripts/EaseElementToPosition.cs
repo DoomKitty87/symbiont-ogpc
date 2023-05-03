@@ -6,29 +6,29 @@ using UnityEngine.Events;
 
 public class EaseElementToPosition : MonoBehaviour
 {
-  [SerializeField] private Vector3 _targetPosition;
+  [Header("References")]
+  [SerializeField] private RectTransform _rectTransformToMove;
+  [Header("Settings")]
+  [SerializeField] private List<RectTransform> _positions = new();
+  [SerializeField] private AnimationCurve _easeCurve;
   [SerializeField] private float _duration;
 
   public UnityEvent OnEaseToPositionComplete;
-  public void EaseToPosition(Vector3 targetPosition, float duration)
-  {
-    // Just so we can see the values in the inspector
-    _targetPosition = targetPosition;
-    _duration = duration;
 
-    StartCoroutine(EaseElementToPositionCoroutine(targetPosition, duration));
+  public void EaseToPosition(int positionIndex)
+  {
+    StartCoroutine(EaseElementToPositionCoroutine(_positions[positionIndex], _duration));
   }
-  private IEnumerator EaseElementToPositionCoroutine(Vector3 targetPosition, float duration)
+  private IEnumerator EaseElementToPositionCoroutine(RectTransform targetPosition, float duration)
   {
     float time = 0;
-    Vector3 startPosition = transform.position;
     while (time < duration)
     {
       time += Time.deltaTime;
-      transform.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
+      _rectTransformToMove.anchoredPosition = Vector2.Lerp(_rectTransformToMove.anchoredPosition, targetPosition.anchoredPosition, _easeCurve.Evaluate(time / duration));
       yield return null;
     }
-    transform.position = targetPosition;
+    _rectTransformToMove.anchoredPosition = targetPosition.anchoredPosition;
     OnEaseToPositionComplete?.Invoke();
   }
 }
