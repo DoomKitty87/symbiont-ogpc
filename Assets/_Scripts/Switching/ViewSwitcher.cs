@@ -186,6 +186,8 @@ public class ViewSwitcher : MonoBehaviour
 
     bloom.intensity.Override(bloomInit);
     lensDistortion.intensity.Override(lensInit);
+    colorAdjustments.postExposure.Override(exposureInit);
+    chromaticAberration.intensity.Override(aberrationInit);
   }
   private void SwitchToSelected(SwitchableObject selectedObject) {
     Quaternion initRot = _currentObjectInhabiting.gameObject.transform.GetChild(1).rotation;
