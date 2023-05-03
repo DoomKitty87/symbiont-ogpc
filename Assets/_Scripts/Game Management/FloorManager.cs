@@ -23,6 +23,10 @@ public class FloorManager : MonoBehaviour
 
   //Put this script on a DDOL GameObject (needs persistence)
 
+  private void Awake() {
+    _chosenFloorType = 0;
+  }
+
   private void Start() {
     if (GameObject.FindGameObjectsWithTag("Persistent").Length > 0) Destroy(gameObject);
     DontDestroyOnLoad(gameObject);

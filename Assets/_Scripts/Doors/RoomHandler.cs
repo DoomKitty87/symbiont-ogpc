@@ -25,11 +25,12 @@ public class RoomHandler : MonoBehaviour
 			_arrayOfDoors.Add(transform.GetChild(1).GetChild(i).gameObject);
 		}
 
-		if (_roomGenNew.startingRoom != gameObject) { // If this gameobject is not the starting room
+		if (_roomGenNew.gameObject.transform.GetChild(0).gameObject != gameObject) { // If this gameobject is not the starting room
 			int randomIndex = Random.Range(0, _arrayOfDoors.Count);
 			_previousDoor = _arrayOfDoors[randomIndex];
 			_arrayOfDoors.Remove(_previousDoor);
 		}
+    print(_arrayOfDoors.Count);
 	}
 
 	private void Update() {

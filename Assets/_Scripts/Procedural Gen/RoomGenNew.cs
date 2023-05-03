@@ -8,9 +8,9 @@ public class RoomGenNew : MonoBehaviour
 	// Door Object
 	// Door fillers (for doors not in use)
 
-  public GameObject startingRoom;
-  [SerializeField] private GameObject[] randomRooms;
-  [SerializeField] private GameObject[] endingRooms;
+  private GameObject[] randomRooms;
+  private GameObject[] startingRooms;
+  private GameObject[] endingRooms;
 
   [SerializeField] private int _numberOfRoomsPerFloor;
 
@@ -20,8 +20,14 @@ public class RoomGenNew : MonoBehaviour
 
   [HideInInspector] public GameObject _currentRoom;
   [HideInInspector] public GameObject _previousRoom;
+  [HideInInspector] public GameObject startingRoom;
 
 	private void Awake() {
+    randomRooms = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetCurrentFloorRooms();
+    startingRooms = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetCurrentFloorStartRooms();
+    endingRooms = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetCurrentFloorEndRooms();
+
+    startingRoom = Instantiate(startingRooms[Random.Range(0, startingRooms.Length)], Vector3.zero, Quaternion.identity, transform);
 	  // Assigns the first room as the current object inhabited
 	  GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting = 
       startingRoom.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<SwitchableObject>();
