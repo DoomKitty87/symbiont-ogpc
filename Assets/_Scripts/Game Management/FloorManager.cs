@@ -28,7 +28,7 @@ public class FloorManager : MonoBehaviour
   }
 
   private void Start() {
-    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 0) Destroy(gameObject);
+    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1) Destroy(gameObject);
     DontDestroyOnLoad(gameObject);
   }
 

@@ -31,7 +31,7 @@ public class RoomGenNew : MonoBehaviour
 	  // Assigns the first room as the current object inhabited
 	  GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting = 
       startingRoom.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<SwitchableObject>();
-
+    roomsGenerated++;
     _currentRoom = startingRoom;
 	}
 
@@ -46,7 +46,7 @@ public class RoomGenNew : MonoBehaviour
     // Creates new room
     if (_previousRoom != null) Destroy(_previousRoom);
     _previousRoom = _currentRoom;
-    if (roomsGenerated == _numberOfRoomsPerFloor) {
+    if (roomsGenerated == _numberOfRoomsPerFloor - 1) {
       _currentRoom = Instantiate(endingRooms[Random.Range(0, endingRooms.Length)], _nextCoordinates, Quaternion.identity, transform);
       _numberOfRoomsPerFloor = -1; // Effectively ending room generation
       return;
