@@ -210,6 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 95589486}
   - component: {fileID: 95589487}
+  - component: {fileID: 95589488}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -284,13 +285,29 @@ MonoBehaviour:
   m_FillRect: {fileID: 547527622}
   m_HandleRect: {fileID: 231798202}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: 0.01
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 2.6
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &95589488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95589485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be3e0425a4731d459632d96456a5f50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 95589487}
+  valueText: {fileID: 2011699220}
+  _settingsKey: INPUT_SENSITIVITY
+  _defaultValue: 2
 --- !u!1 &195608458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,6 +1543,7 @@ GameObject:
   m_Component:
   - component: {fileID: 622010281}
   - component: {fileID: 622010282}
+  - component: {fileID: 622010283}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -1601,12 +1619,28 @@ MonoBehaviour:
   m_HandleRect: {fileID: 380130642}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0.136
+  m_Value: 80
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &622010283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622010280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be3e0425a4731d459632d96456a5f50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 622010282}
+  valueText: {fileID: 1474391455}
+  _settingsKey: SOUND_MASTER
+  _defaultValue: 80
 --- !u!1 &675071118
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,7 +2129,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2144702873}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
