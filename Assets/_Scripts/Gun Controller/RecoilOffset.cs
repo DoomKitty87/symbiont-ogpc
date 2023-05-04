@@ -29,7 +29,11 @@ public class RecoilOffset : MonoBehaviour
     _zCameraShake = weaponItem.zCameraShake;
   }
 
-  private void Update() {
+  private void LateUpdate() {
+    if (_targetRotation.x > -transform.parent.gameObject.GetComponent<PlayerAim>()._deltaX) {
+      _targetRotation = new Vector3(0, _targetRotation.y, _targetRotation.z);
+    }
+    else _targetRotation += new Vector3(transform.parent.gameObject.GetComponent<PlayerAim>()._deltaX, 0, 0);
     // _targetRotation is always lerped towards 0, 0, 0, since thats when theres no recoil offset. 
     _targetRotation = Vector3.Lerp(_targetRotation, new Vector3(0, 0, 0), _recoilRecoverySpeed * Time.deltaTime);
     // Uses slerp because apparently it's "better" for rotations. No idea why.
