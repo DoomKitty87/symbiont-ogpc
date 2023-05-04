@@ -28,11 +28,12 @@ public class FloorManager : MonoBehaviour
   }
 
   private void Start() {
-    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1) Destroy(gameObject);
+    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") Destroy(gameObject);
     DontDestroyOnLoad(gameObject);
   }
 
   public void ClearedFloor() {
+    GetComponent<PlayerTracker>().ClearedFloor();
     StartCoroutine(MoveFloors());
   }
 
