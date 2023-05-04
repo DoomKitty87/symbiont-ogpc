@@ -11,7 +11,7 @@ public class PlayerTracker : MonoBehaviour
   private int kills;
 
   private void Start() {
-    if (GameObject.FindGameObjectsWithTag("Persistent") > 1 || SceneManager.GetActiveScene().name != "Game") {
+    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") {
       Destroy(gameObject);
     }
     DontDestroyOnLoad(gameObject);
