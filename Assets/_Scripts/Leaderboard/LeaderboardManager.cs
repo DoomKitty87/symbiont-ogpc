@@ -24,7 +24,7 @@ public class LeaderboardManager : MonoBehaviour
     timer += Time.deltaTime;
     if (timer > 10) {
       timer = 0;
-      StartCoroutine(UpdateLeaderboard());
+      StartCoroutine(ReloadLeaderboard());
     }
   }
 
