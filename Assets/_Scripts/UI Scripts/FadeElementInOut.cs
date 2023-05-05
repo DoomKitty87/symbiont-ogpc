@@ -18,6 +18,7 @@ public class FadeElementInOut : MonoBehaviour
       StartCoroutine(FadeElementInOutCoroutine(_canvasGroup.alpha, 1, _inDuration));
     }
     _canvasGroup.interactable = true;
+    _canvasGroup.blocksRaycasts = true;
   }
   public void FadeOut(bool resetAlpha) {
     if (resetAlpha) {
@@ -26,6 +27,7 @@ public class FadeElementInOut : MonoBehaviour
       StartCoroutine(FadeElementInOutCoroutine(_canvasGroup.alpha, 0, _outDuration));
     }
     _canvasGroup.interactable = false;
+    _canvasGroup.blocksRaycasts = false;
   }
   private IEnumerator FadeElementInOutCoroutine(float startAlpha, float targetAlpha, float duration) {
     float time = 0;
