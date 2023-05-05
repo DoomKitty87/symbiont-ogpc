@@ -33,7 +33,7 @@ public class RecoilOffset : MonoBehaviour
 
   private void Update() {
     // _targetRotation is always lerped towards 0, 0, 0, since thats when theres no recoil offset. 
-    _targetRotation = Vector3.Lerp(_targetRotation, new Vector3(-_xCompensation, 0, 0), _recoilRecoverySpeed * Time.deltaTime);
+    _targetRotation = Vector3.Lerp(_targetRotation, new Vector3(0, 0, 0), _recoilRecoverySpeed * Time.deltaTime);
     // Uses slerp because apparently it's "better" for rotations. No idea why.
     _currentRotation = Vector3.Slerp(_currentRotation, _targetRotation, _toTargetCameraRotationSpeed * Time.deltaTime);
 
