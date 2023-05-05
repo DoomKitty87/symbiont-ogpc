@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class FloorTheme
 {
 
-  public GameObject[] floorTypeRooms;
   public GameObject[] floorTypeStartRooms;
+  public GameObject[] floorTypeRooms;
   public GameObject[] floorTypeEndRooms;
   public GameObject[] floorTypeWeapons;
   public GameObject floorTypeEnemy;

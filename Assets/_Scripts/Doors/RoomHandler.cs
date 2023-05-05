@@ -28,9 +28,7 @@ public class RoomHandler : MonoBehaviour
 		if (_roomGenNew.gameObject.transform.GetChild(0).gameObject != gameObject) { // If this gameobject is not the starting room
 			int randomIndex = Random.Range(0, _arrayOfDoors.Count);
 			_previousDoor = _arrayOfDoors[randomIndex];
-			_arrayOfDoors.Remove(_previousDoor);
 		}
-    print(_arrayOfDoors.Count);
 	}
 
 	private void Update() {
