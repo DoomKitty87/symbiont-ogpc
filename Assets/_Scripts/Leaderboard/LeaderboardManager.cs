@@ -10,18 +10,42 @@ public class LeaderboardManager : MonoBehaviour
   private TextMeshProUGUI text;
   private float timer;
 
+  [SerializeField] private GameObject leaderboardPlacePrefab;
+
   void Start() {
     leaderboardConnectionManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>();
-    text = GetComponent<TextMeshProUGUI>();
+    //text = GetComponent<TextMeshProUGUI>();
 
-    StartCoroutine(UpdateLeaderboard());
+    //StartCoroutine(UpdateLeaderboard());
+    TriggerReloadLeaderboard();
   }
 
   void Update() {
     timer += Time.deltaTime;
     if (timer > 10) {
       timer = 0;
-      StartCoroutine(UpdateLeaderboard());
+      StartCoroutine(ReloadLeaderboard());
+    }
+  }
+
+  public void TriggerReloadLeaderboard() {
+    StartCoroutine(ReloadLeaderboard());
+  }
+
+  private IEnumerator ReloadLeaderboard() {
+    List<Score> scores = leaderboardConnectionManager.RetrieveScores();
+    while (scores.Count == 0) {
+      yield return new WaitForSeconds(0.05f);
+    }
+    scores.Sort((s1, s2) => s1.score.CompareTo(s2.score));
+    int place = 1;
+    foreach (Score sc in scores) {
+      GameObject tmp = Instantiate(leaderboardPlacePrefab, Vector3.zero, Quaternion.identity, transform);
+      tmp.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = place.ToString();
+      tmp.transform.GetChild(0).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = sc.name;
+      tmp.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = sc.length.ToString();
+      tmp.transform.GetChild(0).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = sc.score.ToString();
+      place++;
     }
   }
 
