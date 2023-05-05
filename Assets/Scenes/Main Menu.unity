@@ -1183,9 +1183,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114725010}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &116307963
 GameObject:
@@ -1255,9 +1255,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116307963}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &124320305
 GameObject:
@@ -3665,10 +3665,10 @@ RectTransform:
   m_Father: {fileID: 1332425820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.00005804546}
+  m_SizeDelta: {x: 0, y: 500}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &476135200
 MonoBehaviour:
@@ -3708,7 +3708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4cbfe02f99a8f247bf609c125edb683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comment: Change the Bottom value here to increase the scrolling length
+  comment: Change the Height value here to increase the scrolling length
 --- !u!1 &507199860
 GameObject:
   m_ObjectHideFlags: 0
@@ -5553,9 +5553,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717226040}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &750377181
 GameObject:
@@ -6842,9 +6842,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 918825410}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &926157209
 GameObject:
@@ -7398,9 +7398,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001427739}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1001427741
 MonoBehaviour:
@@ -8398,8 +8398,8 @@ CanvasGroup:
   m_GameObject: {fileID: 1241388950}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &1252007410
 GameObject:
@@ -9040,9 +9040,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339134850}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1339134853
 MonoBehaviour:
@@ -14292,10 +14292,10 @@ RectTransform:
   m_Father: {fileID: 1130224771}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.00005804546}
+  m_SizeDelta: {x: 0, y: 500}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2027249571
 MonoBehaviour:
@@ -14309,7 +14309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4cbfe02f99a8f247bf609c125edb683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comment: Change the Bottom value here to increase the scrolling length
+  comment: Change the Height value here to increase the scrolling length
 --- !u!114 &2027249572
 MonoBehaviour:
   m_ObjectHideFlags: 0
