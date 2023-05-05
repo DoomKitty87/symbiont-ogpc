@@ -38,7 +38,7 @@ public class PlayerAim : MonoBehaviour
     float oldX = _rotX;
     _rotY += Input.GetAxis("Mouse X") * _horizontalSens;
     _rotX += Input.GetAxis("Mouse Y") * _verticalSens;
-
+    
     if (_constrainX) {
       _rotX = Mathf.Clamp(_rotX, _minX, _maxX);
     }

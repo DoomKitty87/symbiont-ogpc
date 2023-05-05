@@ -4,6 +4,7 @@ public class RecoilOffset : MonoBehaviour
 {
   private Vector3 _currentRotation;
   private Vector3 _targetRotation;
+  private PlayerAim _playerAim;
 
   [Header("Recoil Values")]
   [SerializeField] private float _verticalRecoil;
@@ -17,6 +18,7 @@ public class RecoilOffset : MonoBehaviour
   private void Start() {
     _currentRotation = transform.rotation.eulerAngles;
     _targetRotation = transform.rotation.eulerAngles;    
+    _playerAim = transform.parent.gameObject.GetComponent<PlayerAim>();
   }
 
   // Current ammo isn't used in this script, but it's used in the WeaponInventory script, so
@@ -29,13 +31,9 @@ public class RecoilOffset : MonoBehaviour
     _zCameraShake = weaponItem.zCameraShake;
   }
 
-  private void LateUpdate() {
-    if (_targetRotation.x > -transform.parent.gameObject.GetComponent<PlayerAim>()._deltaX) {
-      _targetRotation = new Vector3(0, _targetRotation.y, _targetRotation.z);
-    }
-    else _targetRotation += new Vector3(transform.parent.gameObject.GetComponent<PlayerAim>()._deltaX, 0, 0);
+  private void Update() {
     // _targetRotation is always lerped towards 0, 0, 0, since thats when theres no recoil offset. 
-    _targetRotation = Vector3.Lerp(_targetRotation, new Vector3(0, 0, 0), _recoilRecoverySpeed * Time.deltaTime);
+    _targetRotation = Vector3.Lerp(_targetRotation, new Vector3(-_xCompensation, 0, 0), _recoilRecoverySpeed * Time.deltaTime);
     // Uses slerp because apparently it's "better" for rotations. No idea why.
     _currentRotation = Vector3.Slerp(_currentRotation, _targetRotation, _toTargetCameraRotationSpeed * Time.deltaTime);
 
