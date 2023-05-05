@@ -22,11 +22,11 @@ public class LeaderboardConnect : MonoBehaviour
     DontDestroyOnLoad(this.gameObject);
   }
 
-  public bool PostScores(int score) {
+  public bool PostScores(int score, int length) {
     if (!GetComponent<LoginConnect>().IsLoggedIn()) return false;
     string authPassword = GetComponent<LoginConnect>().GetActiveAuthPass();
     string name = GetComponent<LoginConnect>().GetActiveAccountName();
-    StartCoroutine(DoPostScores(name, authPassword, score));
+    StartCoroutine(DoPostScores(name, authPassword, score, length));
     return true;
   }
 
@@ -50,6 +50,7 @@ public class LeaderboardConnect : MonoBehaviour
             entry.name = line;
             try {
               entry.score = Int32.Parse(reader.ReadLine());
+              entry.length = Int32.Parse(reader.ReadLine());
             }
             catch(Exception e) {
               Debug.Log("Invalid score: " + e);
@@ -63,12 +64,13 @@ public class LeaderboardConnect : MonoBehaviour
   }
 
   //Executes a leaderboard update for a player score.
-  public IEnumerator DoPostScores(string name, string password, int score) {
+  public IEnumerator DoPostScores(string name, string password, int score, int length) {
     WWWForm form = new WWWForm();
     form.AddField("post_leaderboard", "true");
     form.AddField("name", name);
     form.AddField("password", password);
     form.AddField("score", score);
+    form.AddField("length", length);
     print(name);
     print(password);
     print(score);
@@ -92,4 +94,5 @@ public class LeaderboardConnect : MonoBehaviour
 public struct Score {
   public string name;
   public int score;
+  public int length;
 }

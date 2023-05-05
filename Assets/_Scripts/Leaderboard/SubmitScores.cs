@@ -40,6 +40,7 @@ public class SubmitScores : MonoBehaviour
     }
     print("made it past first break statement");
     //int score = IMPLEMENT
+    int length = 0;
     int score = (int)GameObject.FindGameObjectWithTag("Handler").GetComponent<ScoreTracker>().GetPoints();
     List<Score> scores = leaderboardConnectionManager.RetrieveScores();
     while (scores.Count == 0) {
@@ -54,7 +55,7 @@ public class SubmitScores : MonoBehaviour
       }
     }
     print("made it past second break statement");
-    bool response = leaderboardConnectionManager.PostScores(score);
+    bool response = leaderboardConnectionManager.PostScores(score, length);
     while (!response) {
       yield return new WaitForSeconds(0.05f);
     }
