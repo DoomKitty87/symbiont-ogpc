@@ -25,10 +25,20 @@ public class AccountInterface : MonoBehaviour
   }
 
   public void OnClickLogin() {
+    StartCoroutine(DoLogin());
+  }
+
+  private IEnumerator DoLogin() {
     string name = _loginUsername.text;
     string password = _loginPassword.text;
-    StartCoroutine(_loginManager.Login(name, password));
-    if (_loginManager.IsLoggedIn()) _activeAccountDisplay.text = _loginManager.GetActiveAccountName();
+    yield return StartCoroutine(_loginManager.Login(name, password));
+    if (_loginManager.IsLoggedIn()) {
+      _activeAccountDisplay.text = _loginManager.GetActiveAccountName();
+      _loginErrorText.text = "";
+    }
+    else {
+      _loginErrorText.text = "Login failed. Username or password incorrect.";
+    }
   }
 
   public void OnClickLogout() {
