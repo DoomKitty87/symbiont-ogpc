@@ -10353,6 +10353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1566052884}
+  - component: {fileID: 1566052885}
   m_Layer: 5
   m_Name: Account Area
   m_TagString: Untagged
@@ -10382,6 +10383,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 560, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1566052885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566052883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50e6cbc6e6dc43dc81f979e60e251dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loginUser: {fileID: 1871972725}
+  loginPass: {fileID: 1840639470}
+  deleteUser: {fileID: 0}
+  deletePass: {fileID: 0}
+  deleteConfirmPass: {fileID: 0}
+  regUser: {fileID: 1860794011}
+  regEmail: {fileID: 0}
+  regPass: {fileID: 1477174181}
+  regConfirmPass: {fileID: 1990597676}
+  activeAccount: {fileID: 0}
 --- !u!1 &1587478065
 GameObject:
   m_ObjectHideFlags: 0
