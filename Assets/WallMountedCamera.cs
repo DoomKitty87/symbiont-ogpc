@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class WallMountedCamera : MonoBehaviour
 {
-    [SerializeField] private Transform playerTransform;
+  private Transform playerTransform;
+	private Transform localPlayerTransform;
 
 	private void Update() {
-		if (playerTransform) {
-			transform.LookAt(playerTransform);
-		} else {
-			playerTransform = GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform;
-		}
+		playerTransform = GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform;
+		transform.LookAt(playerTransform, Vector3.back);
 	}
 }
