@@ -17,7 +17,7 @@ public class AccountInterface : MonoBehaviour
   [SerializeField] private TextMeshProUGUI _registerErrorText;
   [SerializeField] private Button _registerButton;
   [Header("Delete")]
-  [SerializeField] private TMP_InputField _deleteUsername, deletePass, deleteConfirmPass
+  [SerializeField] private TMP_InputField _deleteUsername, deletePass, deleteConfirmPass;
   [SerializeField] private TextMeshProUGUI _activeAccountDisplay;
 
   void Start() {
