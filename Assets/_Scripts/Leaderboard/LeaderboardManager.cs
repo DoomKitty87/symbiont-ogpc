@@ -43,7 +43,7 @@ public class LeaderboardManager : MonoBehaviour
       GameObject tmp = Instantiate(leaderboardPlacePrefab, Vector3.zero, Quaternion.identity, transform);
       tmp.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = place.ToString();
       tmp.transform.GetChild(0).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = sc.name;
-      tmp.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = sc.length.ToString();
+      tmp.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = (sc.length / 60).ToString() + ":" + ((sc.length % 60 < 10) ? "0" : "") + (sc.length % 60).ToString();
       tmp.transform.GetChild(0).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = sc.score.ToString();
       place++;
     }
