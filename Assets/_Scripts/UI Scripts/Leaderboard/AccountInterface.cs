@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
 public class AccountInterface : MonoBehaviour
 {
-
+  [Header("References")]
   private LoginConnect _loginManager;
-  [SerializeField] private TMP_InputField _loginUsername, _loginPassword, _registerUsername, _registerPassword, _registerConfirmPassword;
-  //[SerializeField] private TMP_InputField deleteUser, deletePass, deleteConfirmPass, regEmail
+  [Header("Login")]
+  [SerializeField] private TMP_InputField _loginUsername, _loginPassword;
+  [SerializeField] private TextMeshProUGUI _loginErrorText;
+  [SerializeField] private Button _loginButton;
+  [Header("Register")] 
+  [SerializeField] private TMP_InputField _registerUsername, _registerPassword, _registerConfirmPassword;
+  [SerializeField] private TextMeshProUGUI _registerErrorText;
+  [SerializeField] private Button _registerButton;
+  [Header("Delete")]
+  [SerializeField] private TMP_InputField _deleteUsername, deletePass, deleteConfirmPass
   [SerializeField] private TextMeshProUGUI _activeAccountDisplay;
-
-  
 
   void Start() {
     _loginManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
