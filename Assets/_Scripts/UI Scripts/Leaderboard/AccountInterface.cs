@@ -9,8 +9,12 @@ public class AccountInterface : MonoBehaviour
   [Header("References")]
   private LoginConnect _loginManager;
   [Header("Login")]
-  [SerializeField] private TMP_InputField _loginUsername, _loginPassword;
+  [SerializeField] private TMP_InputField _loginUsername;
+  [SerializeField] private TMP_InputField _loginPassword;
+  [SerializeField] private string _passwordIncorrectError, _noCredentialsEnteredError;
+  [SerializeField] private FadeElementInOut _loginErrorFade;
   [SerializeField] private TextMeshProUGUI _loginErrorText;
+  [SerializeField] private FadeElementInOut _loginButtonFade;
   [SerializeField] private Button _loginButton;
   [Header("Register")] 
   [SerializeField] private TMP_InputField _registerUsername, _registerPassword, _registerConfirmPassword;
@@ -18,43 +22,64 @@ public class AccountInterface : MonoBehaviour
   [SerializeField] private Button _registerButton;
   [Header("Delete")]
   [SerializeField] private TMP_InputField _deleteUsername, deletePass, deleteConfirmPass;
-  [SerializeField] private TextMeshProUGUI _activeAccountDisplay;
+  [Header("Account Display")]
+  [SerializeField] private TextMeshProUGUI _activeAccountDisplayText;
+
+  [SerializeField] private bool _isWaitingForLogin = false;
 
   void Start() {
     _loginManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
+    _isWaitingForLogin = false;
+
+    _loginButton.onClick.AddListener(OnClickLogin);
   }
 
   public void OnClickLogin() {
-    StartCoroutine(DoLogin());
+    _loginButtonFade.FadeOut(false);
+    if (_isWaitingForLogin) return;
+    if (_loginUsername.text == "" || _loginPassword.text == "") {
+      DisplayLoginError(_noCredentialsEnteredError);
+      _loginButtonFade.FadeIn(false);
+      return;
+    }
+    StartCoroutine(OnClickLoginCoroutine(_loginUsername.text, _loginPassword.text));
   }
 
-  private IEnumerator DoLogin() {
-    string name = _loginUsername.text;
-    string password = _loginPassword.text;
-    yield return StartCoroutine(_loginManager.Login(name, password));
+  private IEnumerator OnClickLoginCoroutine(string username, string password) {
+    _isWaitingForLogin = true;
+    HideLoginError();
+    yield return StartCoroutine(_loginManager.Login(username, password));
     if (_loginManager.IsLoggedIn()) {
-      _activeAccountDisplay.text = _loginManager.GetActiveAccountName();
-      _loginErrorText.text = "";
+      _activeAccountDisplayText.text = _loginManager.GetActiveAccountName();
     }
     else {
-      _loginErrorText.text = "Login failed. Username or password incorrect.";
+      DisplayLoginError(_passwordIncorrectError);
+      _loginButtonFade.FadeIn(true);
     }
+    _isWaitingForLogin = false;
+  }
+
+  private void DisplayLoginError(string textToDisplay) {
+    _loginErrorText.text = textToDisplay;
+    _loginErrorFade.FadeIn(true);
+  }
+
+  private void HideLoginError() {
+    _loginErrorFade.FadeOut(false);
   }
 
   public void OnClickLogout() {
     _loginManager.Logout();
-    _activeAccountDisplay.text = "Not logged in.";
+    _activeAccountDisplayText.text = "Not logged in.";
   }
 
-  /*
   public void OnClickDelete() {
-    string name = deleteUser.text;
+    string name = _deleteUsername.text;
     string password = deletePass.text;
     string confirmpassword = deleteConfirmPass.text;
-    string result = loginManager.DeleteAccount(name, password, confirmpassword);
+    string result = _loginManager.DeleteAccount(name, password, confirmpassword);
     if (result == "Passwords did not match.") print(result);
   }
-  */
 
   public void OnClickRegister() {
     string name = _registerUsername.text;
