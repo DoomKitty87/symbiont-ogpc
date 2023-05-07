@@ -90,7 +90,7 @@ public class LoginConnect : MonoBehaviour
 
     using (UnityWebRequest www = UnityWebRequest.Post(loginURL, form)) {
       yield return www.SendWebRequest();
-      if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
+      if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError || www.responseCode == 401) {
         Debug.Log(www.error);
         callback(false);
       }
