@@ -48,6 +48,8 @@ public class LoginConnect : MonoBehaviour
     return loggedIn;
   }
 
+  // Login ---------------------------
+
   public IEnumerator Login(string name, string password) {
     string hashedPassword = GetStringHash(password);
     yield return StartCoroutine(DoLogin(name, hashedPassword, returnValue => {
@@ -59,29 +61,6 @@ public class LoginConnect : MonoBehaviour
     activeAccountUsername = name;
     activeAccountHashedPassword = hashedPassword;
   }
-
-  public void Logout() {
-    loggedIn = false;
-    activeAccountUsername = "";
-    activeAccountHashedPassword = "";
-  }
-
-  public string Register(string email, string name, string password) {
-    // Confirm check has been moved to AccountInterface
-    password = GetStringHash(password);
-    StartCoroutine(DoRegister(email, name, password));
-    return "Registered account.";
-  }
-
-  public string DeleteAccount(string name, string password) {
-    // Confirm check has been moved to AccountInterface
-    // TODO: Get rid of password and name parameters; the user is already logged in, so they aren't needed
-    password = GetStringHash(password);
-    StartCoroutine(DoDeleteAccount(name, password));
-    Logout();
-    return "Account successfully deleted.";
-  }
-
   private IEnumerator DoLogin(string name, string password, Action<bool> callback=null) {
     WWWForm form = new WWWForm();
     form.AddField("check_credentials", "true");
@@ -96,11 +75,28 @@ public class LoginConnect : MonoBehaviour
       }
       else {
         Debug.Log("Successfully authenticated!");
+        Debug.Log(www.downloadHandler.text);
         callback(true);
       }
     }
   }
 
+  // Logout --------------------------
+
+  public void Logout() {
+    loggedIn = false;
+    activeAccountUsername = "";
+    activeAccountHashedPassword = "";
+  }
+
+  // Register ------------------------
+
+  public string Register(string email, string name, string password) {
+    // Confirm check has been moved to AccountInterface
+    password = GetStringHash(password);
+    StartCoroutine(DoRegister(email, name, password));
+    return "Registered account.";
+  }
   private IEnumerator DoRegister(string email, string name, string password) {
     WWWForm form = new WWWForm();
     form.AddField("register_account", "true");
@@ -119,6 +115,16 @@ public class LoginConnect : MonoBehaviour
     }
   }
 
+  // Delete Account -------------------
+
+  public string DeleteAccount(string name, string password) {
+    // Confirm check has been moved to AccountInterface
+    // TODO: Get rid of password and name parameters; the user is already logged in, so they aren't needed
+    password = GetStringHash(password);
+    StartCoroutine(DoDeleteAccount(name, password));
+    Logout();
+    return "Account successfully deleted.";
+  }
   private IEnumerator DoDeleteAccount(string name, string password) {
     WWWForm form = new WWWForm();
     form.AddField("delete_account", "true");
