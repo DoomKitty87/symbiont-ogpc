@@ -52,6 +52,7 @@ public class LoginConnect : MonoBehaviour
 
   public IEnumerator Login(string name, string password) {
     string hashedPassword = GetStringHash(password);
+    print(hashedPassword);
     yield return StartCoroutine(DoLogin(name, hashedPassword, returnValue => {
       auth = returnValue;
     }));
@@ -75,7 +76,7 @@ public class LoginConnect : MonoBehaviour
       }
       else {
         Debug.Log("Successfully authenticated!");
-        Debug.Log(www.downloadHandler.text);
+        //Debug.Log(www.downloadHandler.text);
         callback(true);
       }
     }
@@ -110,6 +111,7 @@ public class LoginConnect : MonoBehaviour
         Debug.Log(www.error);
       }
       else {
+        Debug.Log(www.downloadHandler.text);
         Debug.Log("Successfully registered account!");
       }
     }

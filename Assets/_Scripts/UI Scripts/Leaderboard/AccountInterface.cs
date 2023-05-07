@@ -130,10 +130,6 @@ public class AccountInterface : MonoBehaviour
     string name = _registerUsername.text;
     string password = _registerPassword.text;
     _loginManager.Register(email, name, password);
-    // TODO: Add account already exists check
-
-    // This will not work if there are connection issues with the database, or if the account already exists.
-    // @Doomkitty fix this on server side
   }
 
   private void DisplayUsernameRegisterError(string textToDisplay) {

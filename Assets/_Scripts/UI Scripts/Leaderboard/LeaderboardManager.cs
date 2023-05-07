@@ -40,6 +40,9 @@ public class LeaderboardManager : MonoBehaviour
     scores.Sort((s1, s2) => s1.score.CompareTo(s2.score));
     // Need to add places to the leaderboard
     int place = 1;
+    for (int i = 0; i < transform.childCount; i++) {
+      Destroy(transform.GetChild(i).gameObject);
+    }
     foreach (Score sc in scores) {
       GameObject tmp = Instantiate(leaderboardPlacePrefab, Vector3.zero, Quaternion.identity, transform);
       tmp.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = place.ToString();
