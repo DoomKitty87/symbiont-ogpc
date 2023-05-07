@@ -66,8 +66,8 @@ public class LoginConnect : MonoBehaviour
     activeAccountHashedPassword = "";
   }
 
-  public string Register(string email, string name, string password, string confirmpassword) {
-    if (password != confirmpassword) return "Passwords did not match.";
+  public string Register(string email, string name, string password) {
+    // Confirm check has been moved to AccountInterface
     password = GetStringHash(password);
     StartCoroutine(DoRegister(email, name, password));
     return "Registered account.";
