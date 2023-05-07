@@ -9,8 +9,8 @@ public class LoginConnect : MonoBehaviour
 {
 
   private const string loginURL = "https://csprojectdatabase.000webhostapp.com/login.php";
-  private string connPassword;
-  private string activeAccount;
+  private string activeAccountUsername;
+  private string activeAccountHashedPassword;
   private bool loggedIn;
   private bool auth;
 
@@ -37,11 +37,11 @@ public class LoginConnect : MonoBehaviour
   }
 
   public string GetActiveAuthPass() {
-    return connPassword;
+    return activeAccountHashedPassword;
   }
 
   public string GetActiveAccountName() {
-    return activeAccount;
+    return activeAccountUsername;
   }
 
   public bool IsLoggedIn() {
@@ -49,21 +49,21 @@ public class LoginConnect : MonoBehaviour
   }
 
   public IEnumerator Login(string name, string password) {
-    password = GetStringHash(password);
-    yield return StartCoroutine(DoLogin(name, password, returnValue => {
+    string hashedPassword = GetStringHash(password);
+    yield return StartCoroutine(DoLogin(name, hashedPassword, returnValue => {
       auth = returnValue;
     }));
     if (!auth) yield break;
     print("Logged in successfully");
     loggedIn = true;
-    activeAccount = name;
-    connPassword = password;
+    activeAccountUsername = name;
+    activeAccountHashedPassword = hashedPassword;
   }
 
   public void Logout() {
     loggedIn = false;
-    connPassword = "";
-    activeAccount = "";
+    activeAccountUsername = "";
+    activeAccountHashedPassword = "";
   }
 
   public string Register(string email, string name, string password, string confirmpassword) {
@@ -73,8 +73,9 @@ public class LoginConnect : MonoBehaviour
     return "Registered account.";
   }
 
-  public string DeleteAccount(string name, string password, string confirmpassword) {
-    if (password != confirmpassword) return "Passwords did not match.";
+  public string DeleteAccount(string name, string password) {
+    // Confirm check has been moved to AccountInterface
+    // TODO: Get rid of password and name parameters; the user is already logged in, so they aren't needed
     password = GetStringHash(password);
     StartCoroutine(DoDeleteAccount(name, password));
     Logout();
