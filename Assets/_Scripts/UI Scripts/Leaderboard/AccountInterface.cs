@@ -13,7 +13,7 @@ public class AccountInterface : MonoBehaviour
   [Header("Login")]
   [SerializeField] private TMP_InputField _loginUsername;
   [SerializeField] private TMP_InputField _loginPassword;
-  [SerializeField] private string _loginPasswordIncorrectError, _loginNoCredentialsEnteredError;
+  [SerializeField] private string _loginInvalidError, _loginNoCredentialsEnteredError;
   [SerializeField] private FadeElementInOut _loginErrorFade;
   [SerializeField] private TextMeshProUGUI _loginErrorText;
   [SerializeField] private FadeElementInOut _loginButtonFade;
@@ -49,6 +49,7 @@ public class AccountInterface : MonoBehaviour
 
   // Coroutine multicall protection
   private bool _isWaitingForLogin = false;
+  private bool _isWaitingForRegister = false;
 
   void Start() {
     _loginManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
@@ -67,7 +68,7 @@ public class AccountInterface : MonoBehaviour
     _loginButtonFade.FadeOut(false);
     if (_isWaitingForLogin) return;
     if (_loginUsername.text == "" || _loginPassword.text == "") {
-      DisplayLoginError(_registerNoCredentialsEnteredError);
+      DisplayLoginError(_loginNoCredentialsEnteredError);
       _loginButtonFade.FadeIn(false);
       return;
     }
@@ -79,9 +80,10 @@ public class AccountInterface : MonoBehaviour
     yield return StartCoroutine(_loginManager.Login(username, password));
     if (_loginManager.IsLoggedIn()) {
       _activeAccountDisplayText.text = _loginManager.GetActiveAccountName();
+      _onLoginSuccess?.Invoke();
     }
     else {
-      DisplayLoginError(_registerPasswordIncorrectError);
+      DisplayLoginError(_loginInvalidError);
       _loginButtonFade.FadeIn(true);
     }
     _isWaitingForLogin = false;
@@ -100,15 +102,40 @@ public class AccountInterface : MonoBehaviour
 
   // Register ---------------------------------
 
-  // TODO: Implement register
+  // TODO: Finish implementing register; this will require a change to the database
 
   public void OnClickRegister() {
-    string name = _registerUsername.text;
+    _registerButtonFade.FadeOut(false);
+    if (_isWaitingForRegister) return;
+    if (_registerUsername.text == "" || _registerPassword.text == "" || _registerConfirmPassword.text == "") {
+      DisplayRegisterError(_registerNoCredentialsEnteredError);
+      _registerButtonFade.FadeIn(false);
+      return;
+    }
+    if (_registerPassword.text != _registerConfirmPassword.text) {
+      DisplayRegisterError(_registerPasswordIncorrectError);
+      _registerButtonFade.FadeIn(false);
+      return;
+    }
+    
+    // TODO: Remove email from database
     string email = "no_email";
+
+    string name = _registerUsername.text;
     string password = _registerPassword.text;
-    string confirmpassword = _registerConfirmPassword.text;
-    string result = _loginManager.Register(email, name, password, confirmpassword);
-    if (result == "Passwords did not match.") print(result);
+    _loginManager.Register(email, name, password);
+
+    // This will not work if there are connection issues with the database, or if the account already exists.
+    // @Doomkitty fix this on server side
+  }
+
+  private void DisplayRegisterError(string textToDisplay) {
+    _registerErrorText.text = textToDisplay;
+    _registerErrorFade.FadeIn(true);
+  }
+
+  private void HideRegisterError() {
+    _registerErrorFade.FadeOut(false);
   }
 
   // TODO: Implement logout
