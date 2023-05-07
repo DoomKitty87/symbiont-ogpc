@@ -24,8 +24,10 @@ public class AccountInterface : MonoBehaviour
   [SerializeField] private TMP_InputField _registerPassword;
   [SerializeField] private TMP_InputField _registerConfirmPassword;
   [SerializeField] private string _registerPasswordIncorrectError, _registerNoCredentialsEnteredError;
-  [SerializeField] private FadeElementInOut _registerErrorFade;
-  [SerializeField] private TextMeshProUGUI _registerErrorText;
+  [SerializeField] private FadeElementInOut _registerUsernameErrorFade;
+  [SerializeField] private TextMeshProUGUI _registerUsernameErrorText;
+    [SerializeField] private FadeElementInOut _registerPasswordErrorFade;
+  [SerializeField] private TextMeshProUGUI _registerPasswordErrorText;
   [SerializeField] private FadeElementInOut _registerButtonFade;
   [SerializeField] private Button _registerButton;
 
@@ -56,6 +58,7 @@ public class AccountInterface : MonoBehaviour
     _isWaitingForLogin = false;
 
     _loginButton.onClick.AddListener(OnClickLogin);
+    _registerButton.onClick.AddListener(OnClickRegister);
   }
 
   // For all account functions: OnClick will check for basics like password confirmation and empty fields.
@@ -102,40 +105,51 @@ public class AccountInterface : MonoBehaviour
 
   // Register ---------------------------------
 
-  // TODO: Finish implementing register; this will require a change to the database
+  // TODO: Finish implementing register; this will require a change to the database,
+  // and a callback coroutine from LoginConnect, just like login
 
   public void OnClickRegister() {
     _registerButtonFade.FadeOut(false);
     if (_isWaitingForRegister) return;
     if (_registerUsername.text == "" || _registerPassword.text == "" || _registerConfirmPassword.text == "") {
-      DisplayRegisterError(_registerNoCredentialsEnteredError);
+      DisplayPasswordRegisterError(_registerNoCredentialsEnteredError);
       _registerButtonFade.FadeIn(false);
       return;
     }
     if (_registerPassword.text != _registerConfirmPassword.text) {
-      DisplayRegisterError(_registerPasswordIncorrectError);
+      DisplayPasswordRegisterError(_registerPasswordIncorrectError);
       _registerButtonFade.FadeIn(false);
       return;
     }
-    
+    HideUsernameRegisterError();
+    HidePasswordRegisterError();
+
     // TODO: Remove email from database
     string email = "no_email";
 
     string name = _registerUsername.text;
     string password = _registerPassword.text;
     _loginManager.Register(email, name, password);
+    // TODO: Add account already exists check
 
     // This will not work if there are connection issues with the database, or if the account already exists.
     // @Doomkitty fix this on server side
   }
 
-  private void DisplayRegisterError(string textToDisplay) {
-    _registerErrorText.text = textToDisplay;
-    _registerErrorFade.FadeIn(true);
+  private void DisplayUsernameRegisterError(string textToDisplay) {
+    _registerUsernameErrorText.text = textToDisplay;
+    _registerUsernameErrorFade.FadeIn(true);
+  }
+  private void DisplayPasswordRegisterError(string textToDisplay) {
+    _registerPasswordErrorText.text = textToDisplay;
+    _registerPasswordErrorFade.FadeIn(true);
   }
 
-  private void HideRegisterError() {
-    _registerErrorFade.FadeOut(false);
+  private void HideUsernameRegisterError() {
+    _registerUsernameErrorFade.FadeOut(false);
+  }
+  private void HidePasswordRegisterError() {
+    _registerPasswordErrorFade.FadeOut(false);
   }
 
   // TODO: Implement logout
