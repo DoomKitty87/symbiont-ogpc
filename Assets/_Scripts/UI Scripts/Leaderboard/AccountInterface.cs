@@ -26,7 +26,7 @@ public class AccountInterface : MonoBehaviour
   [SerializeField] private string _registerPasswordIncorrectError, _registerNoCredentialsEnteredError;
   [SerializeField] private FadeElementInOut _registerUsernameErrorFade;
   [SerializeField] private TextMeshProUGUI _registerUsernameErrorText;
-    [SerializeField] private FadeElementInOut _registerPasswordErrorFade;
+  [SerializeField] private FadeElementInOut _registerPasswordErrorFade;
   [SerializeField] private TextMeshProUGUI _registerPasswordErrorText;
   [SerializeField] private FadeElementInOut _registerButtonFade;
   [SerializeField] private Button _registerButton;
@@ -36,6 +36,7 @@ public class AccountInterface : MonoBehaviour
   [Header("Delete")]
   [SerializeField] private TMP_InputField _deletePassword;
   [SerializeField] private TMP_InputField _deleteConfirmPassword;
+  [SerializeField] private string _deletePasswordsNoMatchError;
   [SerializeField] private FadeElementInOut _deleteErrorFade;
   [SerializeField] private TextMeshProUGUI _deleteErrorText;
   [SerializeField] private FadeElementInOut _deleteButtonFade;
@@ -160,11 +161,23 @@ public class AccountInterface : MonoBehaviour
   public void OnClickDelete() {
     string password = _deletePassword.text;
     string confirmpassword = _deleteConfirmPassword.text;
+    if (password != confirmpassword) {
+      DisplayPasswordDeleteError(_deletePasswordsNoMatchError);
+    }
+    string name = _loginManager.GetActiveAccountName();
     string result = _loginManager.DeleteAccount(name, password);
-    if (result == "Passwords did not match.") print(result);
+    HidePasswordDeleteError();
   }
   private void OnClickDeleteCoroutine(string username, string password) {
     StartCoroutine(_loginManager.DeleteAccount(username, password));
   }
 
+  private void DisplayPasswordDeleteError(string textToDisplay) {
+    _deleteErrorText.text = textToDisplay;
+    _deleteErrorFade.FadeIn(true);
+  }
+
+  private void HidePasswordDeleteError() {
+    _deleteErrorFade.FadeOut(false);
+  }
 }
