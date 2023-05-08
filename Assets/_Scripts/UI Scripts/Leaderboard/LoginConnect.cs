@@ -114,7 +114,7 @@ public class LoginConnect : MonoBehaviour
       _activeAccountHashedPassword = hashedPassword;
       callback(true);
     }
-  }
+  } 
   private IEnumerator DoRegister(string email, string username, string hashedPassword, Action<bool> callback=null) {
     WWWForm form = new WWWForm();
     form.AddField("register_account", "true");
@@ -137,9 +137,9 @@ public class LoginConnect : MonoBehaviour
 
   // Delete Account -------------------
 
-  public IEnumerator DeleteAccount(Action<bool> callback=null) {
+  public IEnumerator DeleteAccount(string password, Action<bool> callback=null) {
     // Confirm check has been moved to AccountInterface
-    yield return StartCoroutine(DoDeleteAccount(_activeAccountUsername, _activeAccountHashedPassword, returnValue => _deleteSuccessful = returnValue));
+    yield return StartCoroutine(DoDeleteAccount(_activeAccountUsername, GetStringHash(password), returnValue => _deleteSuccessful = returnValue));
     if (_deleteSuccessful) {
       Debug.Log("LoginConnect: Successfully deleted account!");
       Logout();

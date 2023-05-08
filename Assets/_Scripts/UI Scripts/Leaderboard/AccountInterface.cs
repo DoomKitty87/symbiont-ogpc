@@ -130,6 +130,11 @@ public class AccountInterface : MonoBehaviour
     _registerConfirmPassword.text = "";
     _loginButtonFade.FadeIn(false);
     _registerButtonFade.FadeIn(false);
+    // Clear all errors
+    HideLoginError();
+    HideUsernameRegisterError();
+    HidePasswordRegisterError();
+    HideDeleteError();
     _onLogout?.Invoke();
   }
 
@@ -205,20 +210,20 @@ public class AccountInterface : MonoBehaviour
       _deleteButtonFade.FadeIn(false);
       return;
     }
-    StartCoroutine(OnClickDeleteCoroutine());
+    StartCoroutine(OnClickDeleteCoroutine(_deletePassword.text));
   }
-  private IEnumerator OnClickDeleteCoroutine() {
+  private IEnumerator OnClickDeleteCoroutine(string password) {
     _isWaitingForDelete = true;
     HideDeleteError();
-    yield return StartCoroutine(_loginManager.DeleteAccount(returnValue => _isDeleteSuccessful = returnValue));
+    yield return StartCoroutine(_loginManager.DeleteAccount(password, returnValue => _isDeleteSuccessful = returnValue));
     if (_isDeleteSuccessful) {
       _activeAccountDisplayText.text = "Not logged in.";
       OnClickLogout();
     }
     else {
       DisplayDeleteError(_deletePasswordInvaildError);
-      _deleteButtonFade.FadeIn(true);
     }
+    _deleteButtonFade.FadeIn(true);
     // Reset coroutine callback
     _isDeleteSuccessful = false;
     _isWaitingForDelete = false;
