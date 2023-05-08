@@ -213,7 +213,7 @@ public class AccountInterface : MonoBehaviour
     yield return StartCoroutine(_loginManager.DeleteAccount(returnValue => _isDeleteSuccessful = returnValue));
     if (_isDeleteSuccessful) {
       _activeAccountDisplayText.text = "Not logged in.";
-      _onLogout?.Invoke();
+      OnClickLogout();
     }
     else {
       DisplayDeleteError(_deletePasswordInvaildError);
