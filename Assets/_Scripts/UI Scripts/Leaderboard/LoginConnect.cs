@@ -62,11 +62,11 @@ public class LoginConnect : MonoBehaviour
       yield break;
     }
     else {
-      print("Logged in successfully");
-      callback(true);
+      Debug.Log("Login Connect: Login successfully authenticated!");
       _loggedIn = true;
       _activeAccountUsername = name;
       _activeAccountHashedPassword = hashedPassword;
+      callback(true);
     }
   }
   private IEnumerator DoLogin(string name, string password, Action<bool> callback=null) {
@@ -82,7 +82,6 @@ public class LoginConnect : MonoBehaviour
         callback(false);
       }
       else {
-        Debug.Log("Successfully authenticated!");
         //Debug.Log(www.downloadHandler.text);
         callback(true);
       }

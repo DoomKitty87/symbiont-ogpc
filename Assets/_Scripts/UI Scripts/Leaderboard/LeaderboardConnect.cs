@@ -41,7 +41,7 @@ public class LeaderboardConnect : MonoBehaviour
         Debug.Log(www.error);
       }
       else {
-        Debug.Log("Successfully retrieved score!");
+        Debug.Log("Leaderboard Connect: Successfully retrieved score!");
         string contents = www.downloadHandler.text;
         using (StringReader reader = new StringReader(contents)) {
           string line;
