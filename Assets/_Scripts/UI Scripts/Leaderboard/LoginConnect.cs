@@ -15,6 +15,7 @@ public class LoginConnect : MonoBehaviour
 
   private bool _signInSuccessful;
   private bool _registerSuccessful;
+  private bool _deleteSuccessful;
 
   void Awake() {
     if (GameObject.FindGameObjectsWithTag("ConnectionManager").Length > 1) Destroy(this.gameObject);
@@ -52,9 +53,9 @@ public class LoginConnect : MonoBehaviour
 
   // Login ---------------------------
   // NOTE: Since these are both coroutines, it's possible to merge these. Same goes for register.
-  public IEnumerator Login(string name, string password, Action<bool> callback=null) {
+  public IEnumerator Login(string username, string password, Action<bool> callback=null) {
     string hashedPassword = GetStringHash(password);
-    yield return StartCoroutine(DoLogin(name, hashedPassword, returnValue => {
+    yield return StartCoroutine(DoLogin(username, hashedPassword, returnValue => {
       _signInSuccessful = returnValue;
     }));
     if (_signInSuccessful == false) {
@@ -64,15 +65,15 @@ public class LoginConnect : MonoBehaviour
     else {
       Debug.Log("Login Connect: Login successfully authenticated!");
       _loggedIn = true;
-      _activeAccountUsername = name;
+      _activeAccountUsername = username;
       _activeAccountHashedPassword = hashedPassword;
       callback(true);
     }
   }
-  private IEnumerator DoLogin(string name, string password, Action<bool> callback=null) {
+  private IEnumerator DoLogin(string username, string password, Action<bool> callback=null) {
     WWWForm form = new WWWForm();
     form.AddField("check_credentials", "true");
-    form.AddField("name", name);
+    form.AddField("name", username);
     form.AddField("password", password);
 
     using (UnityWebRequest www = UnityWebRequest.Post(loginURL, form)) {
@@ -98,10 +99,10 @@ public class LoginConnect : MonoBehaviour
 
   // Register ------------------------
 
-  public IEnumerator Register(string email, string name, string password, Action<bool> callback=null) {
+  public IEnumerator Register(string email, string username, string password, Action<bool> callback=null) {
     // Confirm check has been moved to AccountInterface
     string hashedPassword = GetStringHash(password);
-    yield return StartCoroutine(DoRegister(email, name, hashedPassword, returnValue => _registerSuccessful = returnValue));
+    yield return StartCoroutine(DoRegister(email, username, hashedPassword, returnValue => _registerSuccessful = returnValue));
     if (_registerSuccessful == false) {
       callback(false);
       yield break;
@@ -109,15 +110,15 @@ public class LoginConnect : MonoBehaviour
     else {
       Debug.Log("LoginConnect: Successfully registered account!");
       _loggedIn = true;
-      _activeAccountUsername = name;
+      _activeAccountUsername = username;
       _activeAccountHashedPassword = hashedPassword;
       callback(true);
     }
   }
-  private IEnumerator DoRegister(string email, string name, string hashedPassword, Action<bool> callback=null) {
+  private IEnumerator DoRegister(string email, string username, string hashedPassword, Action<bool> callback=null) {
     WWWForm form = new WWWForm();
     form.AddField("register_account", "true");
-    form.AddField("name", name);
+    form.AddField("name", username);
     form.AddField("email", email);
     form.AddField("password", hashedPassword);
 
@@ -136,15 +137,20 @@ public class LoginConnect : MonoBehaviour
 
   // Delete Account -------------------
 
-  public string DeleteAccount(string name, string password) {
+  public IEnumerator DeleteAccount(Action<bool> callback=null) {
     // Confirm check has been moved to AccountInterface
-    // TODO: Get rid of password and name parameters; the user is already logged in, so they aren't needed
-    string hashedPassword = GetStringHash(password);
-    StartCoroutine(DoDeleteAccount(name, hashedPassword));
-    Logout();
-    return "Account successfully deleted.";
+    yield return StartCoroutine(DoDeleteAccount(_activeAccountUsername, _activeAccountHashedPassword, returnValue => _deleteSuccessful = returnValue));
+    if (_deleteSuccessful) {
+      Debug.Log("LoginConnect: Successfully deleted account!");
+      Logout();
+      callback(true);
+    }
+    else {
+      Debug.Log("LoginConnect: Failed to delete account!");
+      callback(false);
+    }
   }
-  private IEnumerator DoDeleteAccount(string name, string hashedPassword) {
+  private IEnumerator DoDeleteAccount(string name, string hashedPassword, Action<bool> callback=null) {
     WWWForm form = new WWWForm();
     form.AddField("delete_account", "true");
     form.AddField("name", name);
@@ -152,11 +158,13 @@ public class LoginConnect : MonoBehaviour
 
     using (UnityWebRequest www = UnityWebRequest.Post(loginURL, form)) {
       yield return www.SendWebRequest();
-      if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
-        Debug.Log(www.error);
+      if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError || www.responseCode == 401) {
+        Debug.Log($"LoginConnect: Delete Account Error: {www.error}");
+        callback(false);
       }
       else {
-        Debug.Log("Successfully deleted account!");
+        Debug.Log($"LoginConnect: Delete Account downloaded text: {www.downloadHandler.text}");
+        callback(true);
       }
     }
   }

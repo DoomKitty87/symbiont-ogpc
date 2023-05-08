@@ -39,7 +39,7 @@ public class AccountInterface : MonoBehaviour
   [Header("Delete")]
   [SerializeField] private TMP_InputField _deletePassword;
   [SerializeField] private TMP_InputField _deleteConfirmPassword;
-  [SerializeField] private string _deletePasswordsNoMatchError;
+  [SerializeField] private string _deleteInputEmptyError, _deletePasswordsNoMatchError, _deletePasswordInvaildError;
   [SerializeField] private FadeElementInOut _deleteErrorFade;
   [SerializeField] private TextMeshProUGUI _deleteErrorText;
   [SerializeField] private FadeElementInOut _deleteButtonFade;
@@ -55,18 +55,23 @@ public class AccountInterface : MonoBehaviour
   // Coroutine multicall protection
   private bool _isWaitingForLogin = false;
   private bool _isWaitingForRegister = false;
+  private bool _isWaitingForDelete = false;
 
   // Coroutine callback variables
   private bool _isLoginSuccessful = false;
   private bool _isRegisterSuccessful = false;
+  private bool _isDeleteSuccessful = false;
 
   void Start() {
     _loginManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
     _isWaitingForLogin = false;
+    _isWaitingForRegister = false;
+    _isWaitingForDelete = false;
 
     _loginButton.onClick.AddListener(OnClickLogin);
     _logOutButton.onClick.AddListener(OnClickLogout);
     _registerButton.onClick.AddListener(OnClickRegister);
+    _deleteButton.onClick.AddListener(OnClickDelete);
   }
 
   // For all account functions: OnClick will check for basics like password confirmation and empty fields.
@@ -185,28 +190,46 @@ public class AccountInterface : MonoBehaviour
     _registerPasswordErrorFade.FadeOut(false);
   }
 
-  // TODO: Figure out if Delete should live in a separate script because of it being on the leaderboard page
+  // Delete ---------------------------------
 
   public void OnClickDelete() {
-    string password = _deletePassword.text;
-    string confirmpassword = _deleteConfirmPassword.text;
-    if (password != confirmpassword) {
-      DisplayPasswordDeleteError(_deletePasswordsNoMatchError);
+    _deleteButtonFade.FadeOut(false);
+    if (_isWaitingForDelete) return;
+    if (_deletePassword.text == "" || _deleteConfirmPassword.text == "") {
+      DisplayDeleteError(_deleteInputEmptyError);
+      _deleteButtonFade.FadeIn(false);
+      return;
     }
-    string name = _loginManager.GetActiveAccountName();
-    string result = _loginManager.DeleteAccount(name, password);
-    HidePasswordDeleteError();
+    if (_deletePassword.text != _deleteConfirmPassword.text) {
+      DisplayDeleteError(_deletePasswordsNoMatchError);
+      _deleteButtonFade.FadeIn(false);
+      return;
+    }
+    StartCoroutine(OnClickDeleteCoroutine());
   }
-  private void OnClickDeleteCoroutine(string username, string password) {
-    StartCoroutine(_loginManager.DeleteAccount(username, password));
+  private IEnumerator OnClickDeleteCoroutine() {
+    _isWaitingForDelete = true;
+    HideDeleteError();
+    yield return StartCoroutine(_loginManager.DeleteAccount(returnValue => _isDeleteSuccessful = returnValue));
+    if (_isDeleteSuccessful) {
+      _activeAccountDisplayText.text = "Not logged in.";
+      _onLogout?.Invoke();
+    }
+    else {
+      DisplayDeleteError(_deletePasswordInvaildError);
+      _deleteButtonFade.FadeIn(true);
+    }
+    // Reset coroutine callback
+    _isDeleteSuccessful = false;
+    _isWaitingForDelete = false;
   }
 
-  private void DisplayPasswordDeleteError(string textToDisplay) {
+  private void DisplayDeleteError(string textToDisplay) {
     _deleteErrorText.text = textToDisplay;
     _deleteErrorFade.FadeIn(true);
   }
 
-  private void HidePasswordDeleteError() {
+  private void HideDeleteError() {
     _deleteErrorFade.FadeOut(false);
   }
 }
