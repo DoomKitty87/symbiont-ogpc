@@ -196,7 +196,7 @@ public class ViewSwitcher : MonoBehaviour
     _currentObjectInhabiting.SwitchAway();
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
-    _currentObjectInhabiting.gameObject.transform.GetChild(1).rotation = initRot;
+    _currentObjectInhabiting._rotationBase.rotation = initRot;
   }
   private bool CanSwitch() {
     if (_secondsSinceLastSwitch <= _effectDuration + _switchCooldown || _playingEffect) {

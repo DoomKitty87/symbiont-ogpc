@@ -31,7 +31,7 @@ public class DoorCameraFollow : MonoBehaviour {
     }
 
     Transform GetCurrentActivePlayer() {
-      return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(1).GetChild(0).GetChild(0).transform;
+      return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.GetComponent<SwitchableObject>()._objectCameras[0].gameObject.transform;
     }
   }
 }

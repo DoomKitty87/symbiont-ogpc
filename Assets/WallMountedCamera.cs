@@ -9,7 +9,7 @@ public class WallMountedCamera : MonoBehaviour
 
 	private void Update() {
 		playerTransform = GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform;
-		transform.LookAt(playerTransform, Vector3.back);
-    transform.rotation = Quaternion.Euler(transform.rotation.x, -transform.rotation.y, transform.rotation.z);
+		transform.rotation = Quaternion.LookRotation((playerTransform.position - transform.position).normalized);
+    transform.rotation *= Quaternion.Euler(25, 180, 0);
 	}
 }
