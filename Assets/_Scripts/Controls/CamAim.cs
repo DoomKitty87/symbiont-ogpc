@@ -22,6 +22,8 @@ public class CamAim : MonoBehaviour
   [HideInInspector] public float _rotX;
   [HideInInspector] public float _rotY;
 
+  private Vector3 _rot;
+
   void Start() {
     Cursor.lockState = CursorLockMode.Locked;
     transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
@@ -44,6 +46,7 @@ public class CamAim : MonoBehaviour
     _deltaX = _rotX - oldX;
 
     // Negative bc up is negative for some reason
-    transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(-_rotX, _rotY, transform.localRotation.z)), _smoothSpeed * Time.deltaTime);
+    _rot = Vector3.Slerp(_rot, new Vector3(_rotX, _rotY, transform.localRotation.z), _smoothSpeed * Time.deltaTime);
+    transform.localRotation = Quaternion.Euler(_rot);
   }
 }
