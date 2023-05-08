@@ -4,9 +4,9 @@ public class RoomGenNew : MonoBehaviour
 {
 
 	// Rooms should have child categories of:
-	// Room Components
-	// Door Object
-	// Door fillers (for doors not in use)
+	// Enemies
+  // Doors
+  // Components
 
   private GameObject[] randomRooms;
   private GameObject[] startingRooms;

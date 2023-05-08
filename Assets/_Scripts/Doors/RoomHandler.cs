@@ -58,6 +58,7 @@ public class RoomHandler : MonoBehaviour
 		Material doorMaterial = Resources.Load<Material>("Materials/DoorMaterial");
 		_nextDoor.transform.GetChild(0).GetComponent<Renderer>().material = doorMaterial;
 		_nextDoor.transform.GetChild(0).tag = "DoorGraphic";
+		_nextDoor.transform.GetChild(1).gameObject.SetActive(false);
 	}
 
 	// Should be called by previous RoomHandler
