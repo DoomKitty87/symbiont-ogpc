@@ -8944,6 +8944,7 @@ MonoBehaviour:
   _registerUsername: {fileID: 1860794011}
   _registerPassword: {fileID: 1477174181}
   _registerConfirmPassword: {fileID: 1990597676}
+  _registerUnsuccessfulError: Username is invalid or already taken.
   _registerPasswordIncorrectError: Passwords do not match. Please try again.
   _registerNoCredentialsEnteredError: Please input all fields.
   _registerUsernameErrorFade: {fileID: 126146212}
@@ -8954,6 +8955,7 @@ MonoBehaviour:
   _registerButton: {fileID: 524631044}
   _deletePassword: {fileID: 0}
   _deleteConfirmPassword: {fileID: 0}
+  _deletePasswordsNoMatchError: 
   _deleteErrorFade: {fileID: 0}
   _deleteErrorText: {fileID: 0}
   _deleteButtonFade: {fileID: 0}
@@ -8998,7 +9000,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _onRegisterSuccess:
+  _onLogout:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1003607017
