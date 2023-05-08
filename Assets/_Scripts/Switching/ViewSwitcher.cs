@@ -190,7 +190,7 @@ public class ViewSwitcher : MonoBehaviour
     chromaticAberration.intensity.Override(aberrationInit);
   }
   private void SwitchToSelected(SwitchableObject selectedObject) {
-    Quaternion initRot = _currentObjectInhabiting.gameObject.transform.GetChild(1).rotation;
+    Quaternion initRot = _currentObjectInhabiting._rotationBase.rotation;
     _secondsSinceLastSwitch = 0f;
     selectedObject.SwitchTo();
     _currentObjectInhabiting.SwitchAway();

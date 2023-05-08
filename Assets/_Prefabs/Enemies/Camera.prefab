@@ -46,6 +46,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4027940877321447789}
   - component: {fileID: 4027940877321447788}
+  - component: {fileID: 8109479168697889117}
   m_Layer: 0
   m_Name: Rotation Point
   m_TagString: Untagged
@@ -82,6 +83,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a499d89ed9e4bb0a383446c8856658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8109479168697889117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4027940877321447787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1382923e59485384daaf58c399eef8cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectToAimX: {fileID: 0}
+  _objectToAimY: {fileID: 0}
+  _horizontalSens: 1
+  _verticalSens: 1
+  _smoothSpeed: 0.8
+  _constrainX: 1
+  _minX: -45
+  _maxX: 45
+  _constrainY: 1
+  _minY: 0
+  _maxY: 180
+  _deltaX: 0
+  _deltaY: 0
+  _rotX: 0
+  _rotY: 0
 --- !u!1 &4027940877567073791
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +347,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8109479168697889117}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _OnSwitchedAway:
     m_PersistentCalls:
       m_Calls:
@@ -333,6 +373,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8109479168697889117}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
   _OnSelected:
     m_PersistentCalls:
