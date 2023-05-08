@@ -14,7 +14,7 @@ public class LoginConnect : MonoBehaviour
   private bool _loggedIn;
 
   private bool _signInSuccessful;
-  private bool _registerSuccesful;
+  private bool _registerSuccessful;
 
   void Awake() {
     if (GameObject.FindGameObjectsWithTag("ConnectionManager").Length > 1) Destroy(this.gameObject);
@@ -51,7 +51,7 @@ public class LoginConnect : MonoBehaviour
   }
 
   // Login ---------------------------
-  // TODO: Since these are both coroutines, shouldn't we merge these?
+  // NOTE: Since these are both coroutines, it's possible to merge these. Same goes for register.
   public IEnumerator Login(string name, string password, Action<bool> callback=null) {
     string hashedPassword = GetStringHash(password);
     yield return StartCoroutine(DoLogin(name, hashedPassword, returnValue => {
@@ -99,11 +99,21 @@ public class LoginConnect : MonoBehaviour
 
   // Register ------------------------
 
-  public bool Register(string email, string name, string password) {
+  public IEnumerator Register(string email, string name, string password, Action<bool> callback=null) {
     // Confirm check has been moved to AccountInterface
     string hashedPassword = GetStringHash(password);
-    StartCoroutine(DoRegister(email, name, hashedPassword, returnValue => { _registerSuccesful = returnValue; }));
-    return _registerSuccesful;
+    yield return StartCoroutine(DoRegister(email, name, hashedPassword, returnValue => _registerSuccessful = returnValue));
+    if (_registerSuccessful == false) {
+      callback(false);
+      yield break;
+    }
+    else {
+      Debug.Log("LoginConnect: Successfully registered account!");
+      _loggedIn = true;
+      _activeAccountUsername = name;
+      _activeAccountHashedPassword = hashedPassword;
+      callback(true);
+    }
   }
   private IEnumerator DoRegister(string email, string name, string hashedPassword, Action<bool> callback=null) {
     WWWForm form = new WWWForm();
@@ -114,16 +124,12 @@ public class LoginConnect : MonoBehaviour
 
     using (UnityWebRequest www = UnityWebRequest.Post(loginURL, form)) {
       yield return www.SendWebRequest();
-      if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
+      if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError || www.responseCode == 401) {
         Debug.Log($"LoginConnect: Register Account Error: {www.error}");
         callback(false);
       }
       else {
         Debug.Log($"LoginConnect: RegisterAccount downloaded text: {www.downloadHandler.text}");
-        Debug.Log("LoginConnect: Successfully registered account!");
-        _loggedIn = true;
-        _activeAccountUsername = name;
-        _activeAccountHashedPassword = hashedPassword;
         callback(true);
       }
     }

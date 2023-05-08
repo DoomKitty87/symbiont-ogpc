@@ -55,6 +55,7 @@ public class AccountInterface : MonoBehaviour
 
   // Coroutine callback variables
   private bool _isLoginSuccessful = false;
+  private bool _isRegisterSuccessful = false;
 
   void Start() {
     _loginManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
@@ -108,6 +109,14 @@ public class AccountInterface : MonoBehaviour
     _loginErrorFade.FadeOut(false);
   }
 
+  // Logout ---------------------------------
+
+  public void OnClickLogout() {
+    _loginManager.Logout();
+    _activeAccountDisplayText.text = "Not logged in.";
+    _onLogout?.Invoke();
+  }
+
   // Register ---------------------------------
 
   // TODO: Finish implementing register; this will require a change to the database,
@@ -116,8 +125,6 @@ public class AccountInterface : MonoBehaviour
   public void OnClickRegister() {
     _registerButtonFade.FadeOut(false);
     if (_isWaitingForRegister) return;
-
-    // Client checkable errors
     if (_registerUsername.text == "" || _registerPassword.text == "" || _registerConfirmPassword.text == "") {
       DisplayPasswordRegisterError(_registerNoCredentialsEnteredError);
       _registerButtonFade.FadeIn(false);
@@ -128,25 +135,30 @@ public class AccountInterface : MonoBehaviour
       _registerButtonFade.FadeIn(false);
       return;
     }
-
     HideUsernameRegisterError();
     HidePasswordRegisterError();
-
+    StartCoroutine(OnClickRegisterCoroutine(_registerUsername.text, _registerPassword.text));
+  }
+  private IEnumerator OnClickRegisterCoroutine(string name, string password) {
+    _isWaitingForRegister = true;
+    
     // TODO: Remove email from database
     string email = "no_email";
 
-    string name = _registerUsername.text;
-    string password = _registerPassword.text;
-    if (_loginManager.Register(email, name, password)) {
+    yield return StartCoroutine(_loginManager.Register(email, name, password, returnValue => _isRegisterSuccessful = returnValue));
+    if (_isRegisterSuccessful) {
+      print("AccountInterface: Recived Register Success");
+      _activeAccountDisplayText.text = _loginManager.GetActiveAccountName();
       _onLoginSuccess?.Invoke();
     }
     else {
+      print("AccountInterface: Recived Register Error");
       DisplayUsernameRegisterError(_registerUnsuccessfulError);
       _registerButtonFade.FadeIn(true);
     }
-  }
-  private IEnumerator CheckForAccountsWithSameName(string name) {
-    yield return null;
+    // Reset coroutine callback
+    _isRegisterSuccessful = false;
+    _isWaitingForRegister = false;
   }
 
   private void DisplayUsernameRegisterError(string textToDisplay) {
@@ -163,13 +175,6 @@ public class AccountInterface : MonoBehaviour
   }
   private void HidePasswordRegisterError() {
     _registerPasswordErrorFade.FadeOut(false);
-  }
-
-  // TODO: Implement logout
-
-  public void OnClickLogout() {
-    _loginManager.Logout();
-    _activeAccountDisplayText.text = "Not logged in.";
   }
 
   // TODO: Figure out if Delete should live in a separate script because of it being on the leaderboard page
