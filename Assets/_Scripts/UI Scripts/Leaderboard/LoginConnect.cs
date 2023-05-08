@@ -9,10 +9,12 @@ public class LoginConnect : MonoBehaviour
 {
 
   private const string loginURL = "https://csprojectdatabase.000webhostapp.com/login.php";
-  private string activeAccountUsername;
-  private string activeAccountHashedPassword;
-  private bool loggedIn;
-  private bool auth;
+  private string _activeAccountUsername;
+  private string _activeAccountHashedPassword;
+  private bool _loggedIn;
+
+  private bool _signInSuccessful;
+  private bool _registerSuccesful;
 
   void Awake() {
     if (GameObject.FindGameObjectsWithTag("ConnectionManager").Length > 1) Destroy(this.gameObject);
@@ -37,30 +39,35 @@ public class LoginConnect : MonoBehaviour
   }
 
   public string GetActiveAuthPass() {
-    return activeAccountHashedPassword;
+    return _activeAccountHashedPassword;
   }
 
   public string GetActiveAccountName() {
-    return activeAccountUsername;
+    return _activeAccountUsername;
   }
 
   public bool IsLoggedIn() {
-    return loggedIn;
+    return _loggedIn;
   }
 
   // Login ---------------------------
-
-  public IEnumerator Login(string name, string password) {
+  // TODO: Since these are both coroutines, shouldn't we merge these?
+  public IEnumerator Login(string name, string password, Action<bool> callback=null) {
     string hashedPassword = GetStringHash(password);
-    print(hashedPassword);
     yield return StartCoroutine(DoLogin(name, hashedPassword, returnValue => {
-      auth = returnValue;
+      _signInSuccessful = returnValue;
     }));
-    if (!auth) yield break;
-    print("Logged in successfully");
-    loggedIn = true;
-    activeAccountUsername = name;
-    activeAccountHashedPassword = hashedPassword;
+    if (_signInSuccessful == false) {
+      callback(false);
+      yield break;
+    }
+    else {
+      print("Logged in successfully");
+      callback(true);
+      _loggedIn = true;
+      _activeAccountUsername = name;
+      _activeAccountHashedPassword = hashedPassword;
+    }
   }
   private IEnumerator DoLogin(string name, string password, Action<bool> callback=null) {
     WWWForm form = new WWWForm();
@@ -71,7 +78,7 @@ public class LoginConnect : MonoBehaviour
     using (UnityWebRequest www = UnityWebRequest.Post(loginURL, form)) {
       yield return www.SendWebRequest();
       if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError || www.responseCode == 401) {
-        Debug.Log(www.error);
+        Debug.Log($"LoginConnect: Error: {www.error}");
         callback(false);
       }
       else {
@@ -85,34 +92,39 @@ public class LoginConnect : MonoBehaviour
   // Logout --------------------------
 
   public void Logout() {
-    loggedIn = false;
-    activeAccountUsername = "";
-    activeAccountHashedPassword = "";
+    _loggedIn = false;
+    _activeAccountUsername = "";
+    _activeAccountHashedPassword = "";
   }
 
   // Register ------------------------
 
-  public string Register(string email, string name, string password) {
+  public bool Register(string email, string name, string password) {
     // Confirm check has been moved to AccountInterface
-    password = GetStringHash(password);
-    StartCoroutine(DoRegister(email, name, password));
-    return "Registered account.";
+    string hashedPassword = GetStringHash(password);
+    StartCoroutine(DoRegister(email, name, hashedPassword, returnValue => { _registerSuccesful = returnValue; }));
+    return _registerSuccesful;
   }
-  private IEnumerator DoRegister(string email, string name, string password) {
+  private IEnumerator DoRegister(string email, string name, string hashedPassword, Action<bool> callback=null) {
     WWWForm form = new WWWForm();
     form.AddField("register_account", "true");
     form.AddField("name", name);
     form.AddField("email", email);
-    form.AddField("password", password);
+    form.AddField("password", hashedPassword);
 
     using (UnityWebRequest www = UnityWebRequest.Post(loginURL, form)) {
       yield return www.SendWebRequest();
       if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
-        Debug.Log(www.error);
+        Debug.Log($"LoginConnect: Register Account Error: {www.error}");
+        callback(false);
       }
       else {
-        Debug.Log(www.downloadHandler.text);
-        Debug.Log("Successfully registered account!");
+        Debug.Log($"LoginConnect: RegisterAccount downloaded text: {www.downloadHandler.text}");
+        Debug.Log("LoginConnect: Successfully registered account!");
+        _loggedIn = true;
+        _activeAccountUsername = name;
+        _activeAccountHashedPassword = hashedPassword;
+        callback(true);
       }
     }
   }
@@ -122,16 +134,16 @@ public class LoginConnect : MonoBehaviour
   public string DeleteAccount(string name, string password) {
     // Confirm check has been moved to AccountInterface
     // TODO: Get rid of password and name parameters; the user is already logged in, so they aren't needed
-    password = GetStringHash(password);
-    StartCoroutine(DoDeleteAccount(name, password));
+    string hashedPassword = GetStringHash(password);
+    StartCoroutine(DoDeleteAccount(name, hashedPassword));
     Logout();
     return "Account successfully deleted.";
   }
-  private IEnumerator DoDeleteAccount(string name, string password) {
+  private IEnumerator DoDeleteAccount(string name, string hashedPassword) {
     WWWForm form = new WWWForm();
     form.AddField("delete_account", "true");
     form.AddField("name", name);
-    form.AddField("password", password);
+    form.AddField("password", hashedPassword);
 
     using (UnityWebRequest www = UnityWebRequest.Post(loginURL, form)) {
       yield return www.SendWebRequest();
