@@ -31,6 +31,12 @@ public class RoomHandler : MonoBehaviour
 		}
 	}
 
+	public void CloseDoors() {
+    for (int i = 0; i < transform.GetChild(1).childCount; i++) {
+      transform.GetChild(1).GetChild(i).GetChild(2).gameObject.SetActive(true);
+    }
+  }
+
 	private void Update() {
 
 		_numberOfEnemies = transform.GetChild(0).childCount;
@@ -58,7 +64,7 @@ public class RoomHandler : MonoBehaviour
 		Material doorMaterial = Resources.Load<Material>("Materials/DoorMaterial");
 		_nextDoor.transform.GetChild(0).GetComponent<Renderer>().material = doorMaterial;
 		_nextDoor.transform.GetChild(0).tag = "DoorGraphic";
-		_nextDoor.transform.GetChild(1).gameObject.SetActive(false);
+		_nextDoor.transform.GetChild(2).gameObject.SetActive(false);
 	}
 
 	// Should be called by previous RoomHandler

@@ -194,6 +194,9 @@ public class ViewSwitcher : MonoBehaviour
     _secondsSinceLastSwitch = 0f;
     selectedObject.SwitchTo();
     _currentObjectInhabiting.SwitchAway();
+    if (_currentObjectInhabiting.gameObject.transform.parent.parent.parent != _selectedSwitchableObject.gameObject.transform.parent.parent.parent) {
+      _selectedSwitchableObject.gameObject.transform.parent.parent.parent.gameObject.GetComponent<RoomHandler>().CloseDoors();
+    }
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
     _currentObjectInhabiting._rotationBase.rotation = initRot;
