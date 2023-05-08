@@ -23,7 +23,7 @@ public class AccountInterface : MonoBehaviour
   [SerializeField] private TMP_InputField _registerUsername;
   [SerializeField] private TMP_InputField _registerPassword;
   [SerializeField] private TMP_InputField _registerConfirmPassword;
-  [SerializeField] private string _registerPasswordIncorrectError, _registerNoCredentialsEnteredError;
+  [SerializeField] private string _registerUnsuccessfulError, _registerPasswordIncorrectError, _registerNoCredentialsEnteredError;
   [SerializeField] private FadeElementInOut _registerUsernameErrorFade;
   [SerializeField] private TextMeshProUGUI _registerUsernameErrorText;
   [SerializeField] private FadeElementInOut _registerPasswordErrorFade;
@@ -47,12 +47,14 @@ public class AccountInterface : MonoBehaviour
   
   [Header("Events")]
   [SerializeField] private UnityEvent _onLoginSuccess;
-  [SerializeField] private UnityEvent _onRegisterSuccess;
-
+  [SerializeField] private UnityEvent _onLogout;
 
   // Coroutine multicall protection
   private bool _isWaitingForLogin = false;
   private bool _isWaitingForRegister = false;
+
+  // Coroutine callback variables
+  private bool _isLoginSuccessful = false;
 
   void Start() {
     _loginManager = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>();
@@ -81,8 +83,8 @@ public class AccountInterface : MonoBehaviour
   private IEnumerator OnClickLoginCoroutine(string username, string password) {
     _isWaitingForLogin = true;
     HideLoginError();
-    yield return StartCoroutine(_loginManager.Login(username, password));
-    if (_loginManager.IsLoggedIn()) {
+    yield return StartCoroutine(_loginManager.Login(username, password, returnValue => _isLoginSuccessful = returnValue));
+    if (_isLoginSuccessful) {
       _activeAccountDisplayText.text = _loginManager.GetActiveAccountName();
       _onLoginSuccess?.Invoke();
     }
@@ -90,6 +92,8 @@ public class AccountInterface : MonoBehaviour
       DisplayLoginError(_loginInvalidError);
       _loginButtonFade.FadeIn(true);
     }
+    // Reset coroutine callback
+    _isLoginSuccessful = false;
     _isWaitingForLogin = false;
   }
 
@@ -112,6 +116,8 @@ public class AccountInterface : MonoBehaviour
   public void OnClickRegister() {
     _registerButtonFade.FadeOut(false);
     if (_isWaitingForRegister) return;
+
+    // Client checkable errors
     if (_registerUsername.text == "" || _registerPassword.text == "" || _registerConfirmPassword.text == "") {
       DisplayPasswordRegisterError(_registerNoCredentialsEnteredError);
       _registerButtonFade.FadeIn(false);
@@ -122,6 +128,7 @@ public class AccountInterface : MonoBehaviour
       _registerButtonFade.FadeIn(false);
       return;
     }
+
     HideUsernameRegisterError();
     HidePasswordRegisterError();
 
@@ -130,7 +137,16 @@ public class AccountInterface : MonoBehaviour
 
     string name = _registerUsername.text;
     string password = _registerPassword.text;
-    _loginManager.Register(email, name, password);
+    if (_loginManager.Register(email, name, password)) {
+      _onLoginSuccess?.Invoke();
+    }
+    else {
+      DisplayUsernameRegisterError(_registerUnsuccessfulError);
+      _registerButtonFade.FadeIn(true);
+    }
+  }
+  private IEnumerator CheckForAccountsWithSameName(string name) {
+    yield return null;
   }
 
   private void DisplayUsernameRegisterError(string textToDisplay) {
