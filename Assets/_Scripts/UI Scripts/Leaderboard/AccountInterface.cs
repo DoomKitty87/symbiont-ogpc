@@ -33,6 +33,9 @@ public class AccountInterface : MonoBehaviour
 
   [Header("These will be available once signed in.")]
 
+  [Header("Logout")]
+  [SerializeField] private Button _logOutButton;
+
   [Header("Delete")]
   [SerializeField] private TMP_InputField _deletePassword;
   [SerializeField] private TMP_InputField _deleteConfirmPassword;
@@ -62,6 +65,7 @@ public class AccountInterface : MonoBehaviour
     _isWaitingForLogin = false;
 
     _loginButton.onClick.AddListener(OnClickLogin);
+    _logOutButton.onClick.AddListener(OnClickLogout);
     _registerButton.onClick.AddListener(OnClickRegister);
   }
 
@@ -114,13 +118,17 @@ public class AccountInterface : MonoBehaviour
   public void OnClickLogout() {
     _loginManager.Logout();
     _activeAccountDisplayText.text = "Not logged in.";
+    _loginUsername.text = "";
+    _loginPassword.text = "";
+    _registerUsername.text = "";
+    _registerPassword.text = "";
+    _registerConfirmPassword.text = "";
+    _loginButtonFade.FadeIn(false);
+    _registerButtonFade.FadeIn(false);
     _onLogout?.Invoke();
   }
 
   // Register ---------------------------------
-
-  // TODO: Finish implementing register; this will require a change to the database,
-  // and a callback coroutine from LoginConnect, just like login
 
   public void OnClickRegister() {
     _registerButtonFade.FadeOut(false);
