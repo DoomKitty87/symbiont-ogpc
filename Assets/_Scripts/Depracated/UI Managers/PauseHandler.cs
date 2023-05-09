@@ -70,19 +70,24 @@ public class PauseHandler : MonoBehaviour
 	}
 
 	public void RemovePause() {
-		_menuLayers[_menuScreens.Count].SetActive(false);
-		_menuLayers.Remove(_menuScreens[_menuScreens.Count]);
-		_menuLayers[_menuScreens.Count].SetActive(true);
 
-		if (_menuLayers.Count == 1) {
-			_pauseState = PauseState.FirstPause;
+		_menuLayers[^1].SetActive(false);
+		_menuLayers.Remove(_menuLayers[^1]);
+
+		if (_menuLayers.Count > 0) _pauseState = PauseState.FirstPause;
+		else {
+			_pauseState = PauseState.Unpaused;
+
+			Time.timeScale = 1.0f;
+			Cursor.visible = false;
+			Cursor.lockState = CursorLockMode.Locked;
 		}
 	}
 
 	public void AddPause(string screenName) {
-		_menuLayers[_menuScreens.Count].SetActive(false);
+		_menuLayers[^1].SetActive(false);
 		_menuLayers.Add(FindObjectWithName(screenName));
-		_menuLayers[_menuScreens.Count].SetActive(true);
+		_menuLayers[^1].SetActive(true);
 	}
 
 	// Returns GameObject in scene with name
