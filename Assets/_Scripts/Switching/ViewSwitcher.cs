@@ -195,7 +195,7 @@ public class ViewSwitcher : MonoBehaviour
     selectedObject.SwitchTo();
     _currentObjectInhabiting.SwitchAway();
     GameObject nowInRoom = _currentObjectInhabiting.gameObject;
-    GameObject switchToRoom = _selectedSwitchableObject.gameObject;
+    GameObject switchToRoom = selectedObject.gameObject;
     while (!nowInRoom.CompareTag("Room")) {
       nowInRoom = nowInRoom.transform.parent.gameObject;
     }
