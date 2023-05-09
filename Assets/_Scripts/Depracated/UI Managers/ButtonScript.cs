@@ -44,5 +44,6 @@ public class ButtonScript : MonoBehaviour
 	}
 
 	public void ButtomSwitchScreen(string s) {
+		_pauseHandler.ChangeScene(s);
 	}
 }

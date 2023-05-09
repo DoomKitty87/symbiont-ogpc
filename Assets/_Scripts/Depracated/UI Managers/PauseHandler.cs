@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseHandler : MonoBehaviour 
 {
@@ -94,6 +95,10 @@ public class PauseHandler : MonoBehaviour
 
 		if (_pauseState == PauseState.Unpaused) _pauseState = PauseState.FirstPause;
 		else if (_pauseState == PauseState.FirstPause) _pauseState = PauseState.Paused;
+	}
+
+	public void ChangeScene(string sceenName) {
+		SceneManager.LoadScene(sceenName);
 	}
 
 	// Returns GameObject in scene with name
