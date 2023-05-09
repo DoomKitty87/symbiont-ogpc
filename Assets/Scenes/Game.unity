@@ -1646,6 +1646,11 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7659927199947667004, guid: 6f7a4e1d94b2f7642b119692c1111b51,
+        type: 3}
+      propertyPath: _buttonType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8057665050356223937, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Name
@@ -2532,6 +2537,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7659927199947667004, guid: 6f7a4e1d94b2f7642b119692c1111b51,
+        type: 3}
+      propertyPath: _screenName
+      value: Controls Menu
       objectReference: {fileID: 0}
     - target: {fileID: 8057665050356223937, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -4110,6 +4120,11 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7659927199947667004, guid: 6f7a4e1d94b2f7642b119692c1111b51,
+        type: 3}
+      propertyPath: _screenName
+      value: Audio Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 8057665050356223937, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Name
@@ -5581,6 +5596,11 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7659927199947667004, guid: 6f7a4e1d94b2f7642b119692c1111b51,
+        type: 3}
+      propertyPath: _buttonType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8057665050356223937, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Name
@@ -6436,6 +6456,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7659927199947667004, guid: 6f7a4e1d94b2f7642b119692c1111b51,
+        type: 3}
+      propertyPath: _buttonType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8057665050356223937, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -9335,6 +9360,7 @@ MonoBehaviour:
   - {fileID: 427850685}
   - {fileID: 1069658010}
   _menuLayers: []
+  _pauseState: 0
 --- !u!1 &1231087129
 GameObject:
   m_ObjectHideFlags: 0
@@ -10854,6 +10880,11 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7659927199947667004, guid: 6f7a4e1d94b2f7642b119692c1111b51,
+        type: 3}
+      propertyPath: _screenName
+      value: Video Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 8057665050356223937, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
       propertyPath: m_Name
@@ -12058,6 +12089,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7659927199947667004, guid: 6f7a4e1d94b2f7642b119692c1111b51,
+        type: 3}
+      propertyPath: _buttonType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8057665050356223937, guid: 6f7a4e1d94b2f7642b119692c1111b51,
         type: 3}
@@ -13675,9 +13711,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SETTINGS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 88fae5fc16fabc947baca0c9e2a914e2, type: 2}
-  m_sharedMaterial: {fileID: 4101456709202523672, guid: 88fae5fc16fabc947baca0c9e2a914e2,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
