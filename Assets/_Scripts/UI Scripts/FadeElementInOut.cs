@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FadeElementInOut : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class FadeElementInOut : MonoBehaviour
   [SerializeField] private AnimationCurve _easingCurve;
   [SerializeField] private float _inDuration;
   [SerializeField] private float _outDuration;
+  [Header("Events")]
+  public UnityEvent _OnFadeComplete;
 
   public void FadeIn(bool resetAlpha) {
     if (resetAlpha) {
@@ -37,5 +40,6 @@ public class FadeElementInOut : MonoBehaviour
       yield return null;
     }
     _canvasGroup.alpha = targetAlpha;
+    _OnFadeComplete?.Invoke();
   }
 }
