@@ -209,7 +209,7 @@ public class ViewSwitcher : MonoBehaviour
 
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
-    _currentObjectInhabiting._rotationBase.rotation = initRot;
+    _currentObjectInhabiting._rotationBase.rotation = initRot * switchToRoom.transform.rotation;
   }
   private bool CanSwitch() {
     if (_secondsSinceLastSwitch <= _effectDuration + _switchCooldown || _playingEffect) {
