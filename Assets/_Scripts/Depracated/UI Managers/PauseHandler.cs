@@ -3,104 +3,100 @@ using UnityEngine;
 
 public class PauseHandler : MonoBehaviour 
 {
-	[SerializeField] private GameObject[] _objectsToBeHidden;
+	[SerializeField] private GameObject[] _objectsToBeHiddenOnPause;
 
-	[SerializeField] private List<GameObject> _currentActiveElements;
+	public List<GameObject> _menuScreens; // First string is default pause string
 
-	[SerializeField] private IDictionary<string, GameObject> _menuScreens;
+	public List<GameObject> _menuLayers;
 
-	[SerializeField] private string _defaultCurrentActiveElement;
-	[SerializeField] private string _stringToShowOnPause;
+	private enum PauseState {
+		Unpaused,
+		FirstPause,
+		Paused
+	}
+	private PauseState _pauseState;
 
 	private void Awake() {
-		_menuScreens = new Dictionary<string, GameObject>() {
-			{ "Main Menu", FindObjectOfName("Main Menu") },
-			{ "Pause Menu", FindObjectOfName("Pause Menu") },
-			{ "Settings Menu", FindObjectOfName("Settings Menu") },
-			{ "Check Menu", FindObjectOfName("Check Menu") },
-			{ "Controls Menu", FindObjectOfName("Controls Menu") },
-			{ "Audio Menu", FindObjectOfName("Audio Menu") },
-			{ "Video Menu", FindObjectOfName("Video Menu") },
-			{ "Gun Menu", FindObjectOfName("Gun Menu") },
-			{ "Armor Menu", FindObjectOfName("Armor Menu") },
-			{ "", null}
-		};
-
-		 _stringToShowOnPause ??= "Pause Menu";
+		_pauseState = PauseState.Unpaused;
 	}
 
 	private void Start() {
-		_currentActiveElements.Add(_menuScreens[_defaultCurrentActiveElement]);
-		// UnPause();
+		_menuLayers = new List<GameObject>();
 	}
 
 	private void Update() {
+		HandlePausing();
+	}
+
+	private void HandlePausing() {
+
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			
-			// Handles what pressing escape does depending on the active scene
-			if (_currentActiveElements[0] == null) {
-				if (_currentActiveElements.Count == 1) InitPause(); else if (_currentActiveElements.Count == 2) Unpause(); else RemovePause();
-			} else {
-				if (_currentActiveElements.Count > 1) RemovePause();
+
+			switch(_pauseState) {
+
+				case PauseState.Unpaused:
+					_pauseState = PauseState.FirstPause;
+
+					Time.timeScale = 0.0f;
+					Cursor.visible = true;
+					Cursor.lockState = CursorLockMode.None;
+
+					_menuLayers.Add(_menuScreens[0]);
+					_menuLayers[0].SetActive(true);
+
+					foreach(GameObject thing in _objectsToBeHiddenOnPause) thing.SetActive(false);
+
+					break;
+
+				case PauseState.FirstPause:
+					_pauseState = PauseState.Unpaused;
+
+					Time.timeScale = 1.0f;
+					Cursor.visible = false;
+					Cursor.lockState = CursorLockMode.Locked;
+
+					_menuLayers[0].SetActive(false);
+					_menuLayers.Remove(_menuScreens[0]);
+
+					foreach (GameObject thing in _objectsToBeHiddenOnPause) thing.SetActive(true);
+
+					break;
+
+				case PauseState.Paused:
+					RemovePause();
+					break;
 			}
 		}
 	}
 
-	// Handles when pause key is first pressed
-	public void InitPause() {
-		Cursor.lockState = CursorLockMode.None;
-		Cursor.visible = true;
-
-		foreach (GameObject thing in _objectsToBeHidden) thing.SetActive(false);
-
-		_currentActiveElements.Add(_menuScreens[_stringToShowOnPause]);
-	
-		_currentActiveElements[^1].SetActive(true);
-
-		Time.timeScale = 0.0f;
-	}
-
-	// Adds an object to pause array
-	public void AddPause(string s) {
-		StartCoroutine(_currentActiveElements[^1].GetComponent<MenuScreenAnimations>().CloseScreen(_currentActiveElements[^1]));
-		_currentActiveElements.Add(_menuScreens[s]);
-	}
-
-	// Removes an object from pause array
 	public void RemovePause() {
-		StartCoroutine(_currentActiveElements[^1].GetComponent<MenuScreenAnimations>().CloseScreen(_currentActiveElements[^1]));
-		_currentActiveElements.RemoveAt(_currentActiveElements.Count - 1);
+		_menuLayers[_menuScreens.Count].SetActive(false);
+		_menuLayers.Remove(_menuScreens[_menuScreens.Count]);
+		_menuLayers[_menuScreens.Count].SetActive(true);
+
+		if (_menuLayers.Count == 1) {
+			_pauseState = PauseState.FirstPause;
+		}
 	}
 
-	// Handles when pause fully unpauses menu
-	public void Unpause() {
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
-
-		foreach (GameObject thing in _objectsToBeHidden) thing.SetActive(true);
-
-		_currentActiveElements[^1].SetActive(false);
-		_currentActiveElements.RemoveAt(_currentActiveElements.Count - 1);
-
-		Time.timeScale = 1.0f;
-	}
-
-	// Script called by MenuScreenAnimations after coroutine
-	public void ChangeScreen() {
-		if (_currentActiveElements.Count != 1 && _currentActiveElements[0] == null) _currentActiveElements[^1].SetActive(true); else _currentActiveElements[^1].SetActive(true);
+	public void AddPause(string screenName) {
+		_menuLayers[_menuScreens.Count].SetActive(false);
+		_menuLayers.Add(FindObjectWithName(screenName));
+		_menuLayers[_menuScreens.Count].SetActive(true);
 	}
 
 	// Returns GameObject in scene with name
 	// Used because GameObject.Find doesn't work with GameObjects that are inactive
-	private GameObject FindObjectOfName(string name) {
+	private GameObject FindObjectWithName(string name) {
 		GameObject[] list = FindObjectsOfType<GameObject>(true);
 
 		for (var i = 0; i < list.Length; i++) {
 			if (list[i].name == name) {
+				Debug.Log(list[i].name);
 				return list[i];
 			}
 		}
-		// Debug.LogError("Unable to find GameObject " + name);
+		Debug.LogError("Unable to find GameObject " + name);
 		return null;
 	}
 }
