@@ -20,7 +20,7 @@ public class PathRenderer : MonoBehaviour
   }
 
   public void StartOverlay() {
-    InvokeRepeating("ReloadPaths", 0, 0.5f);
+    InvokeRepeating("ReloadPaths", 0, 0.1f);
     active = true;
     // print("overlya started");
   }
@@ -40,6 +40,10 @@ public class PathRenderer : MonoBehaviour
       else {
         lineRend.GetComponent<LineRenderer>().positionCount = col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points.Length;
         lineRend.GetComponent<LineRenderer>().SetPositions(col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points);
+      }
+      if (col.gameObject == GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) {
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_EmissionColor", Color.red * 5f);
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_Albedo", Color.red);
       }
     }
   }

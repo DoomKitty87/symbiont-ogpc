@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseHandler : MonoBehaviour 
 {
@@ -14,7 +15,7 @@ public class PauseHandler : MonoBehaviour
 		FirstPause,
 		Paused
 	}
-	private PauseState _pauseState;
+	[SerializeField] private PauseState _pauseState;
 
 	private void Awake() {
 		_pauseState = PauseState.Unpaused;
@@ -56,7 +57,7 @@ public class PauseHandler : MonoBehaviour
 					Cursor.lockState = CursorLockMode.Locked;
 
 					_menuLayers[0].SetActive(false);
-					_menuLayers.Remove(_menuScreens[0]);
+					_menuLayers.Remove(_menuLayers[^1]);
 
 					foreach (GameObject thing in _objectsToBeHiddenOnPause) thing.SetActive(true);
 
@@ -74,20 +75,30 @@ public class PauseHandler : MonoBehaviour
 		_menuLayers[^1].SetActive(false);
 		_menuLayers.Remove(_menuLayers[^1]);
 
-		if (_menuLayers.Count > 0) _pauseState = PauseState.FirstPause;
-		else {
-			_pauseState = PauseState.Unpaused;
-
+		if (_menuLayers.Count > 0) {
+			_menuLayers[^1].SetActive(true);
+		} else {
 			Time.timeScale = 1.0f;
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 		}
+
+		if (_menuLayers.Count > 1) _pauseState = PauseState.Paused;
+		else if (_menuLayers.Count == 1) _pauseState = PauseState.FirstPause;
+		else _pauseState = PauseState.Unpaused;
 	}
 
 	public void AddPause(string screenName) {
 		_menuLayers[^1].SetActive(false);
 		_menuLayers.Add(FindObjectWithName(screenName));
 		_menuLayers[^1].SetActive(true);
+
+		if (_pauseState == PauseState.Unpaused) _pauseState = PauseState.FirstPause;
+		else if (_pauseState == PauseState.FirstPause) _pauseState = PauseState.Paused;
+	}
+
+	public void ChangeScene(string sceenName) {
+		SceneManager.LoadScene(sceenName);
 	}
 
 	// Returns GameObject in scene with name
