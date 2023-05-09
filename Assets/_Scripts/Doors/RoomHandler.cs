@@ -23,7 +23,7 @@ public class RoomHandler : MonoBehaviour
 		// Fills _arrayOfDoors with all child doors
 		for (int i = 0; i < _numberOfDoors; i++) {
 			_arrayOfDoors.Add(transform.GetChild(1).GetChild(i).gameObject);
-      transform.GetChild(1).GetChild(i).gameObject.SetActive(false);
+      transform.GetChild(1).GetChild(i).GetChild(1).gameObject.SetActive(false);
 		}
 
 		if (_roomGenNew.gameObject.transform.GetChild(0).gameObject != gameObject) { // If this gameobject is not the starting room
