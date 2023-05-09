@@ -95,8 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1382923e59485384daaf58c399eef8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectToAimX: {fileID: 0}
-  _objectToAimY: {fileID: 0}
   _horizontalSens: 1
   _verticalSens: 1
   _smoothSpeed: 0.8
@@ -104,8 +102,8 @@ MonoBehaviour:
   _minX: -45
   _maxX: 45
   _constrainY: 1
-  _minY: 0
-  _maxY: 180
+  _minY: 10
+  _maxY: 170
   _deltaX: 0
   _deltaY: 0
   _rotX: 0
@@ -359,6 +357,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 4027940877567073791}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _OnSwitchedAway:
     m_PersistentCalls:
       m_Calls:
@@ -385,6 +395,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4027940877567073791}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
   _OnSelected:
     m_PersistentCalls:
