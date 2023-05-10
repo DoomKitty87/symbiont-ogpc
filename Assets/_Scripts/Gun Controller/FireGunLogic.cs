@@ -315,7 +315,7 @@ public class FireGunLogic : MonoBehaviour
       return true;
     }
   }
-  private bool CanFire() {
+  public bool CanFire() {
     if (_secondsSinceLastFire < _fireDelay) return false;
     if (_isReloading) return false;
     if (_isFiringBurst) return false;

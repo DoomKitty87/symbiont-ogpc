@@ -8237,6 +8237,7 @@ GameObject:
   - component: {fileID: 7384218135843328979}
   - component: {fileID: 7384218135843328812}
   - component: {fileID: 7384218135843328813}
+  - component: {fileID: 8143794893343324807}
   m_Layer: 0
   m_Name: CameraRotation
   m_TagString: LookController
@@ -8757,6 +8758,31 @@ MonoBehaviour:
   _OnChargeEnd:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8143794893343324807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7384218135843328815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e6202231b291403a827b3b81b16ba9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fovDirect: 80
+  _fovPeriph: 120
+  _rangeDirect: 40
+  _rangePeriph: 30
+  _rangeInvis: 20
+  _noticeChanceDirect: 0.9
+  _noticeChancePeriph: 0.8
+  _noticeChanceInvis: 0.4
+  _lookSpeed: 0.9
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  _raycastOrigin: {fileID: 7384218135317066878}
 --- !u!1 &7384218135876208278
 GameObject:
   m_ObjectHideFlags: 0
