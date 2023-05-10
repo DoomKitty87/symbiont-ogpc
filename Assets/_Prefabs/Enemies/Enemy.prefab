@@ -5905,9 +5905,33 @@ MonoBehaviour:
   enemyOverlayPrefab: {fileID: 8003470162115449261, guid: 7b19abecadfdd3f48bac97c3a50073ce,
     type: 3}
   enemyCanvas: {fileID: 3653637724685086383}
-  _minScale: 0.1
+  _minScale: 0.02
   _maxScale: 1
   _maxRange: 50
+  _scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7384218135318449478
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class EnemyInfo : MonoBehaviour
   [SerializeField] private GameObject enemyOverlayPrefab;
   [SerializeField] private GameObject enemyCanvas;
   [SerializeField] private float _minScale, _maxScale, _maxRange;
+  [SerializeField] private AnimationCurve _scaleCurve;
 
   private string[] _models = {"DXRM", "FNMT", "CRLX", "ZKBL"};
   private List<string[]> _robotData = new List<string[]>();
@@ -58,9 +59,17 @@ public class EnemyInfo : MonoBehaviour
         
         tmp.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "MODEL " + _robotData[_robotsSeen.IndexOf(col.gameObject)][1] + "- #" + _robotData[_robotsSeen.IndexOf(col.gameObject)][0];
         tmp.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "STATE: " + "ALERTED";
-
-        tmp.transform.GetChild(2).position = cam.WorldToScreenPoint(col.gameObject.transform.position + new Vector3(0, GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.y / 2f, 0)) + new Vector3(20 * -GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.x, 0, 0);
-        tmp.transform.GetChild(2).localScale *= Mathf.Lerp(_maxScale, _minScale, Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange);
+        tmp.transform.GetChild(0).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
+        tmp.transform.GetChild(1).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
+        
+        tmp.transform.GetChild(2).position = cam.WorldToScreenPoint(col.gameObject.transform.position + new Vector3(0, GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.y / 2f, 0) + ((GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.x / 2) * Vector3.Cross(transform.forward, Vector3.up)));
+        tmp.transform.GetChild(2).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
+        tmp.transform.GetChild(3).position = cam.WorldToScreenPoint(col.gameObject.transform.position + new Vector3(0, GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.y / 2f, 0) - ((GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.x / 2) * Vector3.Cross(transform.forward, Vector3.up)));
+        tmp.transform.GetChild(3).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
+        tmp.transform.GetChild(4).position = cam.WorldToScreenPoint(col.gameObject.transform.position - new Vector3(0, GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.y / 2f, 0) + ((GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.x / 2) * Vector3.Cross(transform.forward, Vector3.up)));
+        tmp.transform.GetChild(4).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
+        tmp.transform.GetChild(5).position = cam.WorldToScreenPoint(col.gameObject.transform.position - new Vector3(0, GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.y / 2f, 0) - ((GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.x / 2) * Vector3.Cross(transform.forward, Vector3.up)));
+        tmp.transform.GetChild(5).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
       }
     }
   }
