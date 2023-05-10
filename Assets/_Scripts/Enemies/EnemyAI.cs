@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : Monobehaviour
+public class EnemyAI : MonoBehaviour
 {
 
-  [SerializeField] private float _fovDirect, _fovPeriph, _rangeDirect, _rangePeriph, _rangeInvis, _noticeChanceDirect, _noticeChancePeriph, _noticeChanceInvis;
+  [SerializeField] private float _fovDirect, _fovPeriph, _rangeDirect, _rangePeriph, _rangeInvis, _noticeChanceDirect, _noticeChancePeriph, _noticeChanceInvis, _lookSpeed;
   [SerializeField] private LayerMask _enemyLayer;
 
   private bool _targetingPlayer;
@@ -26,7 +26,7 @@ public class EnemyAI : Monobehaviour
   private IEnumerator TargetingPlayer() {
     GameObject player = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
     while (_targetingPlayer) {
-      transform.rotation = Quaternion.Slerp(transform.rotation, transform.position - player.transform.position, _lookSpeed * Time.deltaTime);
+      transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.position - player.transform.position), _lookSpeed * Time.deltaTime);
       yield return null;
     }
   }
@@ -39,19 +39,19 @@ public class EnemyAI : Monobehaviour
       float angleDiff = Vector3.Angle(transform.forward, transform.position - col.gameObject.transform.position);
       if (angleDiff <= _fovDirect / 2f) {
         //Found in direct range
-        if (Random.random() < _noticeChanceDirect) {
+        if (Random.value < _noticeChanceDirect) {
           LockOntoPlayer();
         }
       }
       else if (angleDiff <= _fovPeriph / 2f) {
         //Found in peripheral range
-        if (Random.random() < _noticeChancePeriph) {
+        if (Random.value < _noticeChancePeriph) {
           LockOntoPlayer();
         }
       }
       else {
         //Found in invisible range
-        if (Random.random() < _noticeChanceInvis) {
+        if (Random.value < _noticeChanceInvis) {
           LockOntoPlayer();
         }
       }
