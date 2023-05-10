@@ -260,7 +260,36 @@ public class FireGunLogic : MonoBehaviour
     _currentCharge = 0;
   }
 
+  private void AutoFireCharge() {
+    StartCoroutine(AutoFireChargeCoroutine());
+  }
+
+  private IEnumerator AutoFireChargeCoroutine() {
+    ChargeWeapon();
+    while (_isCharging) {
+      if (Random.value < 0.02f || _currentShotDamage == _maxShotDamage) ReleaseCharge();
+      yield return null;
+    }
+  }
+
   // ---------------------------------
+
+  public void FireCurrent() {
+    switch (_weaponFireType) {
+      case WeaponItem.FireType.SemiAuto:
+        FireSemiAuto();
+        break;
+      case WeaponItem.FireType.FullAuto:
+        FireFullAuto();
+        break;
+      case WeaponItem.FireType.Burst:
+        FireBurst();
+        break;
+      case WeaponItem.FireType.Charge:
+        AutoFireCharge();
+        break;
+    }
+  }
 
   public void Fire() {
     DrawFireLine(Color.green, 1f);

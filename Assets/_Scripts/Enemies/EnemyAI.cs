@@ -27,9 +27,8 @@ public class EnemyAI : MonoBehaviour
   }
   
   private void Shoot() {
-    if (!GetComponent<FireGunLogic>().CanFire()) return;
     //Fire at player
-    GetComponent<FireGunLogic>().Fire();
+    GetComponent<FireGunLogic>().FireCurrent();
   }
 
   private IEnumerator TargetingPlayer() {
