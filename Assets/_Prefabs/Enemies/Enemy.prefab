@@ -1839,6 +1839,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 8143794893343324807}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _OnSwitchedAway:
     m_PersistentCalls:
       m_Calls:
@@ -1949,6 +1961,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8143794893343324807}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
   _OnSelected:
     m_PersistentCalls:
@@ -8233,8 +8257,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7384218135843328814}
   - component: {fileID: 7384218135843328977}
-  - component: {fileID: 7384218135843328978}
   - component: {fileID: 7384218135843328979}
+  - component: {fileID: 7384218135843328978}
   - component: {fileID: 7384218135843328812}
   - component: {fileID: 7384218135843328813}
   - component: {fileID: 8143794893343324807}
@@ -8287,6 +8311,69 @@ MonoBehaviour:
   _deltaY: 0
   _rotX: 0
   _rotY: 0
+--- !u!114 &7384218135843328979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7384218135843328815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b814ff1f45ec1464f890e22b4f050b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputAxes:
+  - _inputAxisName: Weapon1
+    _inventoryIndexReference: 0
+    _validInput: 0
+    _OnInputDown:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7384218135843328978}
+          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
+          m_MethodName: SetCurrentWeaponByIndex
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _OnInputHeld:
+      m_PersistentCalls:
+        m_Calls: []
+    _OnInputUp:
+      m_PersistentCalls:
+        m_Calls: []
+    _hadInputLastFrame: 0
+  - _inputAxisName: Weapon2
+    _inventoryIndexReference: 1
+    _validInput: 0
+    _OnInputDown:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7384218135843328978}
+          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
+          m_MethodName: SetCurrentWeaponByIndex
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    _OnInputHeld:
+      m_PersistentCalls:
+        m_Calls: []
+    _OnInputUp:
+      m_PersistentCalls:
+        m_Calls: []
+    _hadInputLastFrame: 0
 --- !u!114 &7384218135843328978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8397,69 +8484,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7384218135843328979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7384218135843328815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b814ff1f45ec1464f890e22b4f050b72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputAxes:
-  - _inputAxisName: Weapon1
-    _inventoryIndexReference: 0
-    _validInput: 0
-    _OnInputDown:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7384218135843328978}
-          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
-          m_MethodName: SetCurrentWeaponByIndex
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    _OnInputHeld:
-      m_PersistentCalls:
-        m_Calls: []
-    _OnInputUp:
-      m_PersistentCalls:
-        m_Calls: []
-    _hadInputLastFrame: 0
-  - _inputAxisName: Weapon2
-    _inventoryIndexReference: 1
-    _validInput: 0
-    _OnInputDown:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7384218135843328978}
-          m_TargetAssemblyTypeName: WeaponInventory, Assembly-CSharp
-          m_MethodName: SetCurrentWeaponByIndex
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    _OnInputHeld:
-      m_PersistentCalls:
-        m_Calls: []
-    _OnInputUp:
-      m_PersistentCalls:
-        m_Calls: []
-    _hadInputLastFrame: 0
 --- !u!114 &7384218135843328812
 MonoBehaviour:
   m_ObjectHideFlags: 0
