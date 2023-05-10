@@ -21,6 +21,9 @@ public class FloorManager : MonoBehaviour
 
   private int _chosenFloorType;
 
+  [HideInInspector] public List<GameObject> _robotsSeen = new List<GameObject>();
+  [HideInInspector] public List<string[]> _robotData = new List<string[]>();
+
   //Put this script on a DDOL GameObject (needs persistence)
 
   private void Awake() {
@@ -59,6 +62,8 @@ public class FloorManager : MonoBehaviour
 
   private IEnumerator MoveFloors() {
     _chosenFloorType = Random.Range(0, _floorThemes.Length);
+    _robotsSeen.Clear();
+    _robotData.Clear();
     //Animate switch with post processing here or something
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     yield return null;

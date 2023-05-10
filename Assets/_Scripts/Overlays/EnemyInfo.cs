@@ -15,11 +15,11 @@ public class EnemyInfo : MonoBehaviour
   [SerializeField] private AnimationCurve _scaleCurve;
 
   private string[] _models = {"DXRM", "FNMT", "CRLX", "ZKBL"};
-  private List<string[]> _robotData = new List<string[]>();
-  private List<GameObject> _robotsSeen = new List<GameObject>();
+  private FloorManager _floorManager;
 
   private void Start() {
     cam = GetComponent<Camera>();
+    _floorManager = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>();
   }
 
   private string[] GenRobotData() {
@@ -52,12 +52,12 @@ public class EnemyInfo : MonoBehaviour
         GameObject tmp = Instantiate(enemyOverlayPrefab, Vector3.zero, Quaternion.identity, enemyCanvas.transform);
         tmp.transform.GetChild(0).position = cam.WorldToScreenPoint(col.gameObject.transform.position + new Vector3(0, GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.y / 1.2f, 0));
         tmp.transform.GetChild(1).position = cam.WorldToScreenPoint(col.gameObject.transform.position - new Vector3(0, GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.y / 1.2f, 0));     
-        if (!_robotsSeen.Contains(col.gameObject)) {
-          _robotsSeen.Add(col.gameObject);
-          _robotData.Add(GenRobotData());
+        if (!_floorManager._robotsSeen.Contains(col.gameObject)) {
+          _floorManager._robotsSeen.Add(col.gameObject);
+          _floorManager._robotData.Add(GenRobotData());
         }
-        
-        tmp.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "MODEL " + _robotData[_robotsSeen.IndexOf(col.gameObject)][1] + "- #" + _robotData[_robotsSeen.IndexOf(col.gameObject)][0];
+
+        tmp.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "MODEL " + _floorManager._robotData[_floorManager._robotsSeen.IndexOf(col.gameObject)][1] + "- #" + _floorManager._robotData[_floorManager._robotsSeen.IndexOf(col.gameObject)][0];
         tmp.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "STATE: " + "ALERTED";
         tmp.transform.GetChild(0).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
         tmp.transform.GetChild(1).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
