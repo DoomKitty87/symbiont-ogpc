@@ -8,12 +8,27 @@ public class EnemyAI : Monobehaviour
   [SerializeField] private float _fovDirect, _fovPeriph, _rangeDirect, _rangePeriph, _rangeInvis, _noticeChanceDirect, _noticeChancePeriph, _noticeChanceInvis;
   [SerializeField] private LayerMask _enemyLayer;
 
+  private bool _targetingPlayer;
+
   private void Start() {
 
   }
 
   private void Update() {
     CheckForPlayer();
+  }
+
+  private void LockOntoPlayer() {
+    _targetingPlayer = true;
+    StartCoroutine(TargetingPlayer());
+  }
+
+  private IEnumerator TargetingPlayer() {
+    GameObject player = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
+    while (_targetingPlayer) {
+      transform.rotation = Quaternion.Slerp(transform.rotation, transform.position - player.transform.position, _lookSpeed * Time.deltaTime);
+      yield return null;
+    }
   }
 
   private void CheckForPlayer() {
