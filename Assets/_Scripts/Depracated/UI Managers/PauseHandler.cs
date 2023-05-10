@@ -98,6 +98,7 @@ public class PauseHandler : MonoBehaviour
 	}
 
 	public void ChangeScene(string sceenName) {
+		Time.timeScale = 1.0f;
 		SceneManager.LoadScene(sceenName);
 	}
 
