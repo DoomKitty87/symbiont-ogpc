@@ -30,6 +30,10 @@ public class RoomHandler : MonoBehaviour
 			int randomIndex = Random.Range(0, _arrayOfDoors.Count);
 			_previousDoor = _arrayOfDoors[randomIndex];
 		}
+
+    for (int i = 0; i < transform.GetChild(2).GetChild(0).childCount; i++) {
+      transform.GetChild(2).GetChild(0).GetChild(i).gameObject.AddComponent<MeshCollider>();
+    }
 	}
 
 	public void CloseDoors() {
