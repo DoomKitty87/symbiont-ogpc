@@ -5905,8 +5905,8 @@ MonoBehaviour:
   enemyOverlayPrefab: {fileID: 8003470162115449261, guid: 7b19abecadfdd3f48bac97c3a50073ce,
     type: 3}
   enemyCanvas: {fileID: 3653637724685086383}
-  _minScale: 0.02
-  _maxScale: 1
+  _minScale: 0
+  _maxScale: 0.5
   _maxRange: 50
   _scaleCurve:
     serializedVersion: 2
@@ -5914,8 +5914,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -5923,8 +5923,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
