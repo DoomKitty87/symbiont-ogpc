@@ -15,7 +15,7 @@ public class RoomGenNew : MonoBehaviour
   private GameObject[] _endingRooms;
 
   public List<string> _roomBag;
-  public List<string> _roomBagEmpty;
+  private List<string> _roomBagEmpty;
 
   [SerializeField] private int _numberOfRoomsPerFloor;
 
@@ -28,6 +28,9 @@ public class RoomGenNew : MonoBehaviour
   [HideInInspector] public GameObject _startingRoom;
 
 	private void Awake() {
+    _roomBag = new List<string>();
+    _roomBagEmpty = new List<string>();
+
     _randomRooms = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetCurrentFloorRooms();
     _startingRooms = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetCurrentFloorStartRooms();
     _endingRooms = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetCurrentFloorEndRooms();
@@ -40,20 +43,11 @@ public class RoomGenNew : MonoBehaviour
     _currentRoom = _startingRoom;
 	}
 
-  public void CreateNewRoom() {
+	public void CreateNewRoom() {
 
     if (_numberOfRoomsPerFloor == -1) {
       // If the number of rooms per floor is -1, then the ending room has been generated and no more rooms should be generated
       Debug.Log("Reached maximum amount of rooms per level. Update _numberOfRoomsPerLevel value to increase room number.");
-      return;
-    }
-
-    // Creates new room
-    if (_previousRoom != null) Destroy(_previousRoom);
-    _previousRoom = _currentRoom;
-    if (_roomsGenerated == _numberOfRoomsPerFloor - 1) {
-      _currentRoom = Instantiate(_endingRooms[Random.Range(0, _endingRooms.Length)], _nextCoordinates, Quaternion.identity, transform);
-      _numberOfRoomsPerFloor = -1; // Effectively ending room generation
       return;
     }
 
@@ -63,6 +57,15 @@ public class RoomGenNew : MonoBehaviour
       foreach (GameObject room in _randomRooms) {
         _roomBag.Add(room.name);
       }
+    }
+
+    // Creates new room
+    if (_previousRoom != null) Destroy(_previousRoom);
+    _previousRoom = _currentRoom;
+    if (_roomsGenerated == _numberOfRoomsPerFloor - 1) {
+      _currentRoom = Instantiate(_endingRooms[Random.Range(0, _endingRooms.Length)], _nextCoordinates, Quaternion.identity, transform);
+      _numberOfRoomsPerFloor = -1; // Effectively ending room generation
+      return;
     }
 
     // Deals with creating new rooms
