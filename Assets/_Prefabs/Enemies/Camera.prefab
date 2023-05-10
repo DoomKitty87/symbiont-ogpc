@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 4027940877321447789}
   - component: {fileID: 4027940877321447788}
   - component: {fileID: 8109479168697889117}
-  - component: {fileID: 7995840476239680939}
   m_Layer: 0
   m_Name: Rotation Point
   m_TagString: Untagged
@@ -99,32 +98,6 @@ MonoBehaviour:
   _horizontalSens: 1
   _verticalSens: 1
   _smoothSpeed: 0.8
-  _constrainX: 1
-  _minX: -45
-  _maxX: 45
-  _constrainY: 1
-  _minY: 10
-  _maxY: 170
-  _deltaX: 0
-  _deltaY: 0
-  _rotX: 0
-  _rotY: 0
---- !u!114 &7995840476239680939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4027940877321447787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e06d67385e8507469a7eb9e82e8eee1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectToAimX: {fileID: 0}
-  _objectToAimY: {fileID: 0}
-  _horizontalSens: 1
-  _verticalSens: 1
   _constrainX: 1
   _minX: -45
   _maxX: 45
