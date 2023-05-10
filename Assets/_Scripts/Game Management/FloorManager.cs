@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class FloorTheme
 {
 
-  public GameObject[] floorTypeRooms;
   public GameObject[] floorTypeStartRooms;
+  public GameObject[] floorTypeRooms;
   public GameObject[] floorTypeEndRooms;
   public GameObject[] floorTypeWeapons;
   public GameObject floorTypeEnemy;
@@ -21,6 +21,9 @@ public class FloorManager : MonoBehaviour
 
   private int _chosenFloorType;
 
+  [HideInInspector] public List<GameObject> _robotsSeen = new List<GameObject>();
+  [HideInInspector] public List<string[]> _robotData = new List<string[]>();
+
   //Put this script on a DDOL GameObject (needs persistence)
 
   private void Awake() {
@@ -28,11 +31,12 @@ public class FloorManager : MonoBehaviour
   }
 
   private void Start() {
-    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1) Destroy(gameObject);
+    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") Destroy(gameObject);
     DontDestroyOnLoad(gameObject);
   }
 
   public void ClearedFloor() {
+    GetComponent<PlayerTracker>().ClearedFloor();
     StartCoroutine(MoveFloors());
   }
 
@@ -58,6 +62,8 @@ public class FloorManager : MonoBehaviour
 
   private IEnumerator MoveFloors() {
     _chosenFloorType = Random.Range(0, _floorThemes.Length);
+    _robotsSeen.Clear();
+    _robotData.Clear();
     //Animate switch with post processing here or something
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     yield return null;

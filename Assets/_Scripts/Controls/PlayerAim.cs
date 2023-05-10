@@ -19,6 +19,8 @@ public class PlayerAim : MonoBehaviour
   public bool _constrainY;
   public float _minY = -180f;
   public float _maxY = 180f;
+  [HideInInspector] public float _deltaX = 0;
+  [HideInInspector] public float _deltaY = 0;
 
   [HideInInspector] public float _rotX;
   [HideInInspector] public float _rotY;
@@ -32,15 +34,20 @@ public class PlayerAim : MonoBehaviour
   }
 
   void Update() {
+    float oldY = _rotY;
+    float oldX = _rotX;
     _rotY += Input.GetAxis("Mouse X") * _horizontalSens;
     _rotX += Input.GetAxis("Mouse Y") * _verticalSens;
-
+    
     if (_constrainX) {
       _rotX = Mathf.Clamp(_rotX, _minX, _maxX);
     }
     if (_constrainY) {
       _rotY = Mathf.Clamp(_rotY, _minY, _maxY);
     }
+
+    _deltaY = _rotY - oldY;
+    _deltaX = _rotX - oldX;
 
     // Negative bc up is negative for some reason
     _objectToAimX.eulerAngles = new Vector3(-_rotX, _objectToAimX.rotation.eulerAngles.y, _objectToAimX.rotation.eulerAngles.z);

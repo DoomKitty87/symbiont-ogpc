@@ -34,7 +34,26 @@ public class ExplodeEffect : MonoBehaviour
     }
   }
   public void StartEffect() {
-    StartCoroutine(ExplodeTarget());
+    StartCoroutine(SimpleFragmentation());
+  }
+
+  private IEnumerator SimpleFragmentation() {
+    GameObject explodeFXInstance = Instantiate(_explodeFXPrefab, transform.position, Quaternion.identity);
+    GameObject fragmentFXInstance = Instantiate(_fragmentFXPrefab, transform.position, Quaternion.identity);
+    ParticleSystem explodeFX = explodeFXInstance.GetComponent<ParticleSystem>();
+    ParticleSystem fragmentFX = fragmentFXInstance.GetComponent<ParticleSystem>();
+    ParticleSystem.MainModule explodeFXMain = explodeFX.main;
+    ParticleSystem.ShapeModule explodeFXShape = explodeFX.shape;
+    explodeFXMain.startSizeMultiplier = _initialParticleSizeMultiplier;
+    explodeFXShape.mesh = gameObject.GetComponent<MeshFilter>().mesh;
+    explodeFXShape.scale = transform.localScale;
+    explodeFX.Play();
+    fragmentFX.Play();
+    explodeFXInstance.GetComponent<AudioSource>().Play();
+    foreach (GameObject obj in _DestroyOnEffectComplete) {
+      Destroy(obj);
+    }
+    yield return null;
   }
   private IEnumerator ExplodeTarget() {
     float timer = 0f;

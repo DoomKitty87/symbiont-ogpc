@@ -22,6 +22,7 @@ public class SwitchableObject : MonoBehaviour
   [Header("Note: The FOV Effect will only play for the first camera in this list.")] // Could make it so that the list has a selection of whether to use the effect or not, but the KIS rule says no
   public List<Camera> _objectCameras = new();
   public AudioListener _objectAudioListener;
+  public Transform _rotationBase;
 
   [Header("Events")]
   public UnityEvent _OnSwitchedTo;

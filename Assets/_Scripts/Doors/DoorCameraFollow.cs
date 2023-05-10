@@ -5,8 +5,6 @@ public class DoorCameraFollow : MonoBehaviour {
    public Transform otherDoor;
    public Transform playerCamera;
 
-  private Transform tempPlayerCamera;
-
   private void Awake() {
     door = transform.parent;
   }
@@ -14,10 +12,7 @@ public class DoorCameraFollow : MonoBehaviour {
   private void Update() {
 
     // Finds and sets the current active player object
-    if (tempPlayerCamera != GetCurrentActivePlayer()) {
-      tempPlayerCamera = GetCurrentActivePlayer();
-      playerCamera = GetCurrentActivePlayer();
-    }
+    playerCamera = GetCurrentActivePlayer();
 
     if (otherDoor) {
       Vector3 distanceBetweenObject = otherDoor.position - playerCamera.position;
@@ -31,7 +26,7 @@ public class DoorCameraFollow : MonoBehaviour {
     }
 
     Transform GetCurrentActivePlayer() {
-      return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(1).GetChild(0).GetChild(0).transform;
+      return GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.GetComponent<SwitchableObject>()._raycastOrigin;
     }
   }
 }

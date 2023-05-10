@@ -190,13 +190,26 @@ public class ViewSwitcher : MonoBehaviour
     chromaticAberration.intensity.Override(aberrationInit);
   }
   private void SwitchToSelected(SwitchableObject selectedObject) {
-    Quaternion initRot = _currentObjectInhabiting.gameObject.transform.GetChild(1).rotation;
+    Quaternion initRot = _currentObjectInhabiting._rotationBase.rotation;
     _secondsSinceLastSwitch = 0f;
     selectedObject.SwitchTo();
     _currentObjectInhabiting.SwitchAway();
+    GameObject nowInRoom = _currentObjectInhabiting.gameObject;
+    GameObject switchToRoom = selectedObject.gameObject;
+    while (!nowInRoom.CompareTag("Room")) {
+      nowInRoom = nowInRoom.transform.parent.gameObject;
+    }
+    while (!switchToRoom.CompareTag("Room")) {
+      switchToRoom = switchToRoom.transform.parent.gameObject;
+    }
+
+    if (nowInRoom != switchToRoom) {
+      switchToRoom.GetComponent<RoomHandler>().CloseDoors();
+    }
+
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
-    _currentObjectInhabiting.gameObject.transform.GetChild(1).rotation = initRot;
+    _currentObjectInhabiting._rotationBase.rotation = initRot * switchToRoom.transform.rotation;
   }
   private bool CanSwitch() {
     if (_secondsSinceLastSwitch <= _effectDuration + _switchCooldown || _playingEffect) {

@@ -15,12 +15,10 @@ public class EaseElementToPosition : MonoBehaviour
 
   public UnityEvent OnEaseToPositionComplete;
 
-  public void EaseToPosition(int positionIndex)
-  {
+  public void EaseToPosition(int positionIndex) {
     StartCoroutine(EaseElementToPositionCoroutine(_positions[positionIndex], _duration));
   }
-  private IEnumerator EaseElementToPositionCoroutine(RectTransform targetPosition, float duration)
-  {
+  private IEnumerator EaseElementToPositionCoroutine(RectTransform targetPosition, float duration) {
     float time = 0;
     while (time < duration)
     {
