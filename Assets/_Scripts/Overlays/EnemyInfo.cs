@@ -58,7 +58,7 @@ public class EnemyInfo : MonoBehaviour
         }
 
         tmp.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "MODEL " + _floorManager._robotData[_floorManager._robotsSeen.IndexOf(col.gameObject)][1] + "- #" + _floorManager._robotData[_floorManager._robotsSeen.IndexOf(col.gameObject)][0];
-        tmp.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "STATE: " + "ALERTED";
+        tmp.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "STATE: " + (col.gameObject.transform.GetChild(1).gameObject.GetComponent<EnemyAI>()._targetingPlayer ? "ALERTED" : "PASSIVE");
         tmp.transform.GetChild(0).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
         tmp.transform.GetChild(1).localScale *= Mathf.Lerp(_maxScale, _minScale, _scaleCurve.Evaluate(Vector3.Distance(transform.position, col.gameObject.transform.position) / _maxRange));
         

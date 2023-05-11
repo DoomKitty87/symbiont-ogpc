@@ -9,12 +9,24 @@ public class EnemyAI : MonoBehaviour
   [SerializeField] private LayerMask _enemyLayer;
   [SerializeField] private Transform _raycastOrigin;
 
-  private bool _targetingPlayer;
+  [HideInInspector] public bool _targetingPlayer;
 
   private float _fireCooldown;
 
   private void Start() {
+    float[] stats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandEnemyAIStats();
+    _rangeDirect = stats[0];
+    _rangePeriph = stats[0] * 0.75f;
+    _rangeInvis = stats[0] * 0.5f;
 
+    _fovDirect = stats[1];
+    _fovPeriph = stats[1] * 1.2f;
+
+    _noticeChanceDirect = stats[2];
+    _noticeChancePeriph = stats[2] * 0.4f;
+    _noticeChanceInvis = stats[2] * 0.05f;
+
+    _lookSpeed = stats[3];
   }
 
   private void Update() {
@@ -60,7 +72,7 @@ public class EnemyAI : MonoBehaviour
           LockOntoPlayer();
         }
       }
-      else if (angleDiff <= _fovPeriph / 2f) {
+      else if (angleDiff <= _fovPeriph / 2f && Vector3.Distance(col.gameObject.transform.position, transform.position) < _rangePeriph) {
         //Found in peripheral range
         if (Random.value < _noticeChancePeriph) {
           LockOntoPlayer();
@@ -68,7 +80,7 @@ public class EnemyAI : MonoBehaviour
       }
       else {
         //Found in invisible range
-        if (Random.value < _noticeChanceInvis) {
+        if (Random.value < _noticeChanceInvis && Vector3.Distance(col.gameObject.transform.position, transform.position) < _rangeInvis) {
           LockOntoPlayer();
         }
         else {

@@ -17,6 +17,7 @@ public class HealthManager : MonoBehaviour
 
   // Start is called before the first frame update
   void Start() {
+    _maxHealth = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandEnemyHealth();
     _currentHealth = _maxHealth;
     _onHealthInitialize?.Invoke(_maxHealth);
   }

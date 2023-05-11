@@ -18,6 +18,10 @@ public class FloorManager : MonoBehaviour
 {
 
   [SerializeField] private FloorTheme[] _floorThemes;
+  [SerializeField] private float _healthBase, _speedBase, _visionRangeBase, _visionArcBase, _awarenessBase, _lookSpeedBase;
+  [SerializeField] private float _diffScaleSpeed;
+
+  private float _healthScale, _speedScale, _visionRangeScale, _visionArcScale, _awarenessScale, _lookSpeedScale;
 
   private int _chosenFloorType;
 
@@ -60,7 +64,29 @@ public class FloorManager : MonoBehaviour
     return _floorThemes[_chosenFloorType].floorTypeEnemy;
   }
 
+  public float[] GetRandEnemyAIStats() {
+    float visionRange = Random.Range(_visionRangeScale - (_visionRangeScale / 10), _visionRangeScale + (_visionRangeScale / 10));
+    float visionArc = Random.Range(_visionArcScale - (_visionArcScale / 12), _visionArcScale + (_visionArcScale / 12));
+    float awareness = Random.Range(_awarenessScale - (_awarenessScale / 4), _awarenessScale + (_awarenessScale / 4));
+    float lookSpeed = Random.Range(_lookSpeedScale - (_lookSpeedScale / 6), _lookSpeedScale + (_lookSpeedScale / 6));
+    return new float[] {visionRange, visionArc, awareness, lookSpeed};
+  }
+
+  public float GetRandEnemySpeed() {
+    return Random.Range(_speedScale - (_speedScale / 5), _speedScale + (_speedScale / 5));
+  }
+
+  public float GetRandEnemyHealth() {
+    return Random.Range(_healthScale - (_healthScale / 10), _healthScale + (_healthScale / 10));
+  }
+
   private IEnumerator MoveFloors() {
+    _healthScale *= _diffScaleSpeed;
+    _speedScale *= _diffScaleSpeed;
+    _visionRangeScale *= _diffScaleSpeed;
+    _visionArcScale *= _diffScaleSpeed;
+    _awarenessScale *= _diffScaleSpeed;
+    _lookSpeedScale *= _diffScaleSpeed;
     _chosenFloorType = Random.Range(0, _floorThemes.Length);
     _robotsSeen.Clear();
     _robotData.Clear();
