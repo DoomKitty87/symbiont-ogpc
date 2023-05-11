@@ -112,6 +112,7 @@ public class FloorManager : MonoBehaviour
     _robotsSeen.Clear();
     _robotData.Clear();
     //Animate switch with post processing here or something
+    Time.timeScale = 1f;
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     yield return null;
   }

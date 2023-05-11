@@ -24,7 +24,10 @@ public class HealthManager : MonoBehaviour
   public void Damage(float damagePoints) {
     if (_currentHealth - damagePoints <= 0) {
       _onHealthZero?.Invoke();
-      if (gameObject == GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting) GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().LoseState();
+      if (gameObject == GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting) {
+        Time.timeScale = 0f;
+        GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().LoseState();
+      }
       this.enabled = false;
     }
     else {

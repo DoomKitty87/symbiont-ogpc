@@ -12,6 +12,8 @@ public class EnemyAI : MonoBehaviour
   [HideInInspector] public bool _targetingPlayer;
   [HideInInspector] public float _secondsSinceTargeting;
 
+  private bool _lookingForPlayer;
+
   private float _fireCooldown;
 
   private void Start() {
@@ -42,10 +44,12 @@ public class EnemyAI : MonoBehaviour
 
   public void StopTracking() {
     _targetingPlayer = false;
+    _lookingForPlayer = false;
   }
 
   private void LockOntoPlayer() {
     _targetingPlayer = true;
+    _lookingForPlayer = false;
     StartCoroutine(TargetingPlayer());
   }
   
@@ -57,11 +61,26 @@ public class EnemyAI : MonoBehaviour
   private IEnumerator TargetingPlayer() {
     GameObject player = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
     while (_targetingPlayer) {
-      transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
+      transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up), _lookSpeed);
       //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.position - player.transform.position), _lookSpeed * Time.deltaTime);
       if (Physics.Raycast(transform.position, _raycastOrigin.forward, _rangeInvis, _enemyLayer)) {
         Shoot();
       }
+      yield return null;
+    }
+  }
+
+  private IEnumerator LookingForPlayer() {
+    Quaternion targetRot = Quaternion.Euler(transform.rotation.x, Random.Range(0, 360), transform.rotation.z);
+    Quaternion initRot = transform.rotation;
+    float timeElapsed = 0;
+    while (_lookingForPlayer) {
+      transform.rotation = Quaternion.Slerp(initRot, targetRot, timeElapsed * _lookSpeed / 2);
+      if (timeElapsed * _lookSpeed / 2 > 1) {
+        timeElapsed = 0;
+        targetRot = Quaternion.Euler(transform.rotation.x, Random.Range(0, 360), transform.rotation.z);
+      }
+      timeElapsed += Time.deltaTime;
       yield return null;
     }
   }
@@ -92,6 +111,10 @@ public class EnemyAI : MonoBehaviour
         }
         else {
           _targetingPlayer = false;
+          if (!_lookingForPlayer) {
+            _lookingForPlayer = true;
+            StartCoroutine(LookingForPlayer());
+          }
         }
       }
     }
