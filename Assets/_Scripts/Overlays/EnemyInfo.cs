@@ -49,6 +49,13 @@ public class EnemyInfo : MonoBehaviour
         RaycastHit hit;
         Physics.Linecast(transform.position, col.gameObject.transform.position, out hit);
         if (hit.collider != col) continue;
+        if (gameObject.CompareTag("DoorCamera")) {
+          Camera cm = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting._objectCameras[0];
+          if (screenPos.x > cm.WorldToScreenPoint(GetComponent<DoorCameraFollow>().otherDoor.position + GetComponent<DoorCameraFollow>().otherDoor.right * (GetComponent<DoorCameraFollow>().otherDoor.GetChild(1).gameObject.GetComponent<Renderer>().bounds.size.x / 2)).x) continue;
+          if (screenPos.x < cm.WorldToScreenPoint(GetComponent<DoorCameraFollow>().otherDoor.position - GetComponent<DoorCameraFollow>().otherDoor.right * (GetComponent<DoorCameraFollow>().otherDoor.GetChild(1).gameObject.GetComponent<Renderer>().bounds.size.x / 2)).x) continue;
+          if (screenPos.y > cm.WorldToScreenPoint(GetComponent<DoorCameraFollow>().otherDoor.position + new Vector3(0, GetComponent<DoorCameraFollow>().otherDoor.GetChild(1).gameObject.GetComponent<Renderer>().bounds.size.y / 2, 0)).y) continue;
+          if (screenPos.y < cm.WorldToScreenPoint(GetComponent<DoorCameraFollow>().otherDoor.position - new Vector3(0, GetComponent<DoorCameraFollow>().otherDoor.GetChild(1).gameObject.GetComponent<Renderer>().bounds.size.y / 2, 0)).y) continue;
+        }
         GameObject tmp = Instantiate(enemyOverlayPrefab, Vector3.zero, Quaternion.identity, enemyCanvas.transform);
         tmp.transform.GetChild(0).position = cam.WorldToScreenPoint(col.gameObject.transform.position + new Vector3(0, GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.y / 1.2f, 0));
         tmp.transform.GetChild(1).position = cam.WorldToScreenPoint(col.gameObject.transform.position - new Vector3(0, GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().bounds.size.y / 1.2f, 0));     
