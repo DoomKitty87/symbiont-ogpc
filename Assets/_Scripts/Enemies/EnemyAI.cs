@@ -61,7 +61,8 @@ public class EnemyAI : MonoBehaviour
   private IEnumerator TargetingPlayer() {
     GameObject player = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
     while (_targetingPlayer) {
-      transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up), _lookSpeed * Time.deltaTime);
+      transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
+      //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up), _lookSpeed * Time.deltaTime);
       //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.position - player.transform.position), _lookSpeed * Time.deltaTime);
       if (Physics.Raycast(transform.position, _raycastOrigin.forward, _rangeInvis, _enemyLayer)) {
         Shoot();
@@ -75,7 +76,7 @@ public class EnemyAI : MonoBehaviour
     Quaternion initRot = transform.rotation;
     float timeElapsed = 0;
     while (_lookingForPlayer) {
-      transform.rotation = Quaternion.Slerp(initRot, targetRot, timeElapsed * _lookSpeed / 2);
+      transform.rotation = Quaternion.Lerp(initRot, targetRot, timeElapsed * _lookSpeed / 2);
       if (timeElapsed * _lookSpeed / 2 > 1) {
         timeElapsed = 0;
         targetRot = Quaternion.Euler(transform.rotation.x, Random.Range(0, 360), transform.rotation.z);

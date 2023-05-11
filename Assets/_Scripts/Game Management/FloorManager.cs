@@ -42,7 +42,9 @@ public class FloorManager : MonoBehaviour
   }
 
   private void Start() {
-    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") Destroy(gameObject);
+    // Makes it beyond difficult to test in any other scene, so I'm disabling it for now
+    // if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") Destroy(gameObject);
+    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1) Destroy(gameObject);
     DontDestroyOnLoad(gameObject);
   }
 
@@ -112,7 +114,6 @@ public class FloorManager : MonoBehaviour
     _robotsSeen.Clear();
     _robotData.Clear();
     //Animate switch with post processing here or something
-    Time.timeScale = 1f;
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     yield return null;
   }
