@@ -28,9 +28,8 @@ namespace Enemy {
 		private Waypoints _waypoints;
 
 		public void Awake() {
-      _speed = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandEnemySpeed();
 			_waypoints = GetComponent<Waypoints>();
-
+      _speed = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandEnemySpeed();
 			_currentIndex = _startingIndex;
 			_previousIndex = _startingIndex - 1;
 			if (_previousIndex < 0) _previousIndex = _waypoints.Length;

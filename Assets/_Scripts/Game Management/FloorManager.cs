@@ -19,6 +19,7 @@ public class FloorManager : MonoBehaviour
 
   [SerializeField] private FloorTheme[] _floorThemes;
   [SerializeField] private float _healthBase, _speedBase, _visionRangeBase, _visionArcBase, _awarenessBase, _lookSpeedBase;
+  [SerializeField] private float _healthCap, _speedCap, _visionRangeCap, _visionArcCap, _awarenessCap, _lookSpeedCap;
   [SerializeField] private float _diffScaleSpeed;
 
   private float _healthScale, _speedScale, _visionRangeScale, _visionArcScale, _awarenessScale, _lookSpeedScale;
@@ -31,6 +32,12 @@ public class FloorManager : MonoBehaviour
   //Put this script on a DDOL GameObject (needs persistence)
 
   private void Awake() {
+    _healthScale = _healthBase;
+    _speedScale = _speedBase;
+    _visionRangeScale = _visionRangeBase;
+    _visionArcScale = _visionArcBase;
+    _awarenessScale = _awarenessBase;
+    _lookSpeedScale = _lookSpeedBase;
     _chosenFloorType = 0;
   }
 
@@ -69,15 +76,24 @@ public class FloorManager : MonoBehaviour
     float visionArc = Random.Range(_visionArcScale - (_visionArcScale / 12), _visionArcScale + (_visionArcScale / 12));
     float awareness = Random.Range(_awarenessScale - (_awarenessScale / 4), _awarenessScale + (_awarenessScale / 4));
     float lookSpeed = Random.Range(_lookSpeedScale - (_lookSpeedScale / 6), _lookSpeedScale + (_lookSpeedScale / 6));
+    if (visionRange > _visionRangeCap) visionRange = _visionRangeCap;
+    if (visionArc > _visionArcCap) visionArc = _visionArcCap;
+    if (awareness > _awarenessCap) awareness = _awarenessCap;
+    if (lookSpeed > _lookSpeedCap) lookSpeed = _lookSpeedCap;
     return new float[] {visionRange, visionArc, awareness, lookSpeed};
   }
 
   public float GetRandEnemySpeed() {
-    return Random.Range(_speedScale - (_speedScale / 5), _speedScale + (_speedScale / 5));
+    float speed = Random.Range(_speedScale - (_speedScale / 5), _speedScale + (_speedScale / 5));
+    if (speed > _speedCap) speed = _speedCap;
+    return speed;
   }
 
   public float GetRandEnemyHealth() {
-    return Random.Range(_healthScale - (_healthScale / 10), _healthScale + (_healthScale / 10));
+    float health = Random.Range(_healthScale - (_healthScale / 10), _healthScale + (_healthScale / 10));
+    if (health > _healthCap) health = _healthCap;
+    health = Mathf.Floor(health);
+    return health;
   }
 
   private IEnumerator MoveFloors() {

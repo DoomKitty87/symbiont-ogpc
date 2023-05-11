@@ -1980,6 +1980,19 @@ MonoBehaviour:
     - {fileID: 2830117344839291697, guid: 73aed64a4d07cbd439723cdb7e30a1de, type: 3}
     floorTypeWeapons: []
     floorTypeEnemy: {fileID: 0}
+  _healthBase: 200
+  _speedBase: 2
+  _visionRangeBase: 30
+  _visionArcBase: 70
+  _awarenessBase: 0.9
+  _lookSpeedBase: 0.7
+  _healthCap: 500
+  _speedCap: 4
+  _visionRangeCap: 70
+  _visionArcCap: 120
+  _awarenessCap: 1
+  _lookSpeedCap: 0.95
+  _diffScaleSpeed: 1.1
   _robotsSeen: []
 --- !u!114 &270392631
 MonoBehaviour:

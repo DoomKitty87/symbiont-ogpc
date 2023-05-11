@@ -32,4 +32,9 @@ public class HealthManager : MonoBehaviour
       _onHealthChanged?.Invoke(initialHealth, _currentHealth, _maxHealth);
     }
   }
+
+  private void Update() {
+    if (gameObject == GameObject.FindGameObjectWithTag("Player Holder").GetComponent<ViewSwitcher>()._currentObjectInhabiting) return;
+    
+  }
 }
