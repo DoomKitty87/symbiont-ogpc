@@ -15,12 +15,12 @@ public class InGameUI : MonoBehaviour
 
   public void UpdateHealth(float initHealth, float health, float maxHealth) {
     StopCoroutine("TweenImage1");
-    StartCoroutine(TweenImage1(_healthHolder.transform.GetChild(0).gameObject.GetComponent<Image>(), health / maxHealth, _easeTime));
+    StartCoroutine(TweenImage1(_healthHolder.transform.GetChild(0).gameObject.GetComponent<Image>(), _healthHolder.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>(), health / maxHealth, _easeTime));
   }
 
   public void UpdateAmmo(float initAmmo, float ammo, float maxAmmo) {
     StopCoroutine("TweenImage2");
-    StartCoroutine(TweenImage2(_ammoHolder.transform.GetChild(0).gameObject.GetComponent<Image>(), ammo / maxAmmo, _easeTime));
+    StartCoroutine(TweenImage2(_ammoHolder.transform.GetChild(0).gameObject.GetComponent<Image>(), _ammoHolder.transform.GetChild(0).GetChild(1).GetComponent<Image>(), ammo / maxAmmo, _easeTime));
   }
 
   public void OnFireAmmo(float currentAmmo) {
@@ -40,29 +40,35 @@ public class InGameUI : MonoBehaviour
     _currentAmmo = ammoCount;
   }
 
-  private IEnumerator TweenImage1(Image image, float targetValue, float duration) {
+  private IEnumerator TweenImage1(Image image, Image image2, float targetValue, float duration) {
     float timeElapsed = 0;
     float initFillAmount = image.fillAmount;
+    float initFillAmount2 = image2.fillAmount;
     while (timeElapsed < duration) {
       timeElapsed += Time.deltaTime;
       float t = timeElapsed / duration;
       t = _easeCurve.Evaluate(t);
       image.fillAmount = Mathf.Lerp(initFillAmount, targetValue, t);
+      image2.fillAmount = Mathf.Lerp(initFillAmount2, targetValue, t);
       yield return null;
     }
     image.fillAmount = targetValue;
+    image2.fillAmount = targetValue;
   }
 
-  private IEnumerator TweenImage2(Image image, float targetValue, float duration) {
+  private IEnumerator TweenImage2(Image image, Image image2, float targetValue, float duration) {
     float timeElapsed = 0;
     float initFillAmount = image.fillAmount;
+    float initFillAmount2 = image2.fillAmount;
     while (timeElapsed < duration) {
       timeElapsed += Time.deltaTime;
       float t = timeElapsed / duration;
       t = _easeCurve.Evaluate(t);
       image.fillAmount = Mathf.Lerp(initFillAmount, targetValue, t);
+      image2.fillAmount = Mathf.Lerp(initFillAmount2, targetValue, t);
       yield return null;
     }
     image.fillAmount = targetValue;
+    image2.fillAmount = targetValue;
   }
 }
