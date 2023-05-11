@@ -24,6 +24,7 @@ public class HealthManager : MonoBehaviour
   public void Damage(float damagePoints) {
     if (_currentHealth - damagePoints <= 0) {
       _onHealthZero?.Invoke();
+      GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().LoseState();
       this.enabled = false;
     }
     else {
@@ -31,10 +32,5 @@ public class HealthManager : MonoBehaviour
       _currentHealth -= damagePoints;
       _onHealthChanged?.Invoke(initialHealth, _currentHealth, _maxHealth);
     }
-  }
-
-  private void Update() {
-    if (gameObject == GameObject.FindGameObjectWithTag("Player Holder").GetComponent<ViewSwitcher>()._currentObjectInhabiting) return;
-    
   }
 }

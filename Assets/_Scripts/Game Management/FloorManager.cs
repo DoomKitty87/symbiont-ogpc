@@ -96,6 +96,10 @@ public class FloorManager : MonoBehaviour
     return health;
   }
 
+  public void LoseState() {
+    SceneManager.LoadScene("Main Menu");
+  }
+
   private IEnumerator MoveFloors() {
     _healthScale *= _diffScaleSpeed;
     _speedScale *= _diffScaleSpeed;
