@@ -125,7 +125,7 @@ public class FloorManager : MonoBehaviour
   }
 
   private void InNewFloor(Scene current, Scene next) {
-    VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
+    VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("PostProcessing").GetComponent<Volume>().profile;
     ColorAdjustments colorAdjustments;
     volumeProfile.TryGet(out colorAdjustments);
     colorAdjustments.hueShift.Override(Random.Range(-360, 361));
