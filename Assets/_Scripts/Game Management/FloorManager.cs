@@ -97,6 +97,7 @@ public class FloorManager : MonoBehaviour
   }
 
   public void LoseState() {
+    Cursor.lockState = CursorLockMode.None;
     SceneManager.LoadScene("Main Menu");
   }
 
