@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
   [SerializeField] private Transform _raycastOrigin;
 
   [HideInInspector] public bool _targetingPlayer;
+  [HideInInspector] public float _secondsSinceTargeting;
 
   private float _fireCooldown;
 
@@ -30,6 +31,12 @@ public class EnemyAI : MonoBehaviour
   }
 
   private void Update() {
+    if (_targetingPlayer) {
+      _secondsSinceTargeting = 0;
+    }
+    else {
+      _secondsSinceTargeting += Time.deltaTime;
+    }
     CheckForPlayer();
   }
 
