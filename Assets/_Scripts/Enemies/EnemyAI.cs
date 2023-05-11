@@ -50,6 +50,7 @@ public class EnemyAI : MonoBehaviour
   private void LockOntoPlayer() {
     _targetingPlayer = true;
     _lookingForPlayer = false;
+    print("now targeting");
     StartCoroutine(TargetingPlayer());
   }
   
@@ -95,23 +96,30 @@ public class EnemyAI : MonoBehaviour
       if (angleDiff <= _fovDirect / 2f) {
         //Found in direct range
         if (Random.value < _noticeChanceDirect) {
-          LockOntoPlayer();
+          if (!_targetingPlayer) {
+            LockOntoPlayer();
+          }
         }
       }
       else if (angleDiff <= _fovPeriph / 2f && Vector3.Distance(col.gameObject.transform.position, transform.position) < _rangePeriph) {
         //Found in peripheral range
         if (Random.value < _noticeChancePeriph) {
-          LockOntoPlayer();
+          if (!_targetingPlayer) {
+            LockOntoPlayer();
+          }
         }
       }
       else {
         //Found in invisible range
         if (Random.value < _noticeChanceInvis && Vector3.Distance(col.gameObject.transform.position, transform.position) < _rangeInvis) {
-          LockOntoPlayer();
+          if (!_targetingPlayer) {
+            LockOntoPlayer();
+          }
         }
         else {
           _targetingPlayer = false;
           if (!_lookingForPlayer) {
+            print("now looking");
             _lookingForPlayer = true;
             StartCoroutine(LookingForPlayer());
           }
