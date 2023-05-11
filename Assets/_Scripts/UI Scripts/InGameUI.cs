@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InGameUI : MonoBehaviour
 {
@@ -12,6 +13,21 @@ public class InGameUI : MonoBehaviour
 
   private float _maxAmmo;
   private float _currentAmmo;
+
+  public void InitializeHealth(float maxHealth) {
+    _healthHolder.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = maxHealth.ToString();
+    _healthHolder.transform.GetChild(0).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = ((int)(maxHealth / 2)).ToString();
+  }
+
+  public void InitializeAmmo(WeaponItem[] weapons, WeaponItem weapon) {
+    _ammoHolder.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = weapon.magSize.ToString();
+    _ammoHolder.transform.GetChild(0).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = ((int)(weapon.magSize / 2)).ToString();
+  }
+
+  public void UpdateAmmoValues(float maxAmmo) {
+    _ammoHolder.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = maxAmmo.ToString();
+    _ammoHolder.transform.GetChild(0).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = ((int)(maxAmmo / 2)).ToString();
+  }
 
   public void UpdateHealth(float initHealth, float health, float maxHealth) {
     StopCoroutine("TweenImage1");
@@ -36,6 +52,7 @@ public class InGameUI : MonoBehaviour
 
   public void UpdateForNewValues(WeaponItem weapon, int ammoCount) {
     _maxAmmo = weapon.magSize;
+    UpdateAmmoValues(weapon.magSize);
     UpdateAmmo(_currentAmmo, ammoCount, _maxAmmo);
     _currentAmmo = ammoCount;
   }
