@@ -53,7 +53,7 @@ public class ChangeTextColorOnHover : MonoBehaviour, IPointerEnterHandler
     float time = 0;
     while (time < duration)
     {
-      time += Time.deltaTime;
+      time += Time.unscaledDeltaTime;
       _text.color = Color.Lerp(startColor, targetColor, _easingCurve.Evaluate(time / duration));
       yield return null;
     }

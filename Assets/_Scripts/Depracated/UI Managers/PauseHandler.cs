@@ -45,7 +45,15 @@ public class PauseHandler : MonoBehaviour
 					_menuLayers.Add(_menuScreens[0]);
 					_menuLayers[0].SetActive(true);
 
-					foreach(GameObject thing in _objectsToBeHiddenOnPause) thing.SetActive(false);
+					GameObject disableEnemy = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
+					try {disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.gameObject.GetComponent<EnemyInfo>().SwitchedAway();
+						disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.gameObject.GetComponent<EnemyInfo>().enabled = false;
+					} catch {
+						disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.parent.GetChild(1).GetComponent<CameraOverlay>().enabled = false;
+					}
+					if (disableEnemy.transform.GetChild(3).GetComponent<InGameUI>()) disableEnemy.transform.GetChild(3).gameObject.SetActive(false);
+					if (disableEnemy.transform.GetChild(1).GetComponent<PlayerAim>()) disableEnemy.transform.GetChild(1).GetComponent<PlayerAim>().enabled = false;
+
 
 					break;
 
@@ -59,7 +67,12 @@ public class PauseHandler : MonoBehaviour
 					_menuLayers[0].SetActive(false);
 					_menuLayers.Remove(_menuLayers[^1]);
 
-					foreach (GameObject thing in _objectsToBeHiddenOnPause) thing.SetActive(true);
+					GameObject enableEnemy = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
+					try { enableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.gameObject.GetComponent<EnemyInfo>().enabled = true;
+					} catch { enableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.parent.GetChild(1).GetComponent<CameraOverlay>().enabled = true;
+					}
+					if (enableEnemy.transform.GetChild(3).GetComponent<InGameUI>()) enableEnemy.transform.GetChild(3).gameObject.SetActive(true);
+					if (enableEnemy.transform.GetChild(1).GetComponent<PlayerAim>()) enableEnemy.transform.GetChild(1).GetComponent<PlayerAim>().enabled = true;
 
 					break;
 
