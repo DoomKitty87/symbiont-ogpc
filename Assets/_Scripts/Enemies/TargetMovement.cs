@@ -6,7 +6,8 @@ namespace Enemy {
 
   [RequireComponent(typeof(Waypoints))]
   public class TargetMovement : MonoBehaviour {
-
+    [Header("References")]
+    [SerializeField] private bool _useFloorValues;
     [SerializeField][Range(0.0f, 10.0f)] private float _speed = 1.0f;
 		[SerializeField] public bool _loop;
 		[SerializeField] private int _startingIndex;
@@ -29,7 +30,9 @@ namespace Enemy {
 
 		public void Awake() {
 			_waypoints = GetComponent<Waypoints>();
-      _speed = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandEnemySpeed();
+      if (_useFloorValues) {
+        _speed = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandEnemySpeed();
+      }
 			_currentIndex = _startingIndex;
 			_previousIndex = _startingIndex - 1;
 			if (_previousIndex < 0) _previousIndex = _waypoints.Length;
