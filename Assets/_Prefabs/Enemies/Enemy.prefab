@@ -1582,8 +1582,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c94c67d5b10dc44f90770e873f2eb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 200
-  _maxHealth: 200
+  _currentHealth: 5000
+  _maxHealth: 5000
   _onHealthInitialize:
     m_PersistentCalls:
       m_Calls:
@@ -1851,6 +1851,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8143794893343324807}
+        m_TargetAssemblyTypeName: EnemyAI, Assembly-CSharp
+        m_MethodName: StopTracking
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _OnSwitchedAway:
     m_PersistentCalls:
       m_Calls:
@@ -1900,7 +1912,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 7384218134253497423}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
@@ -3822,6 +3834,7 @@ MonoBehaviour:
   _weaponInstanceMuzzlePosition: {x: 0, y: 0, z: 0}
   _laserBeamPrefab: {fileID: 1362095038030980878, guid: edfe8dd26ae289c448cee08622b726b8,
     type: 3}
+  _laserShotPrefab: {fileID: 0}
   _effectPositionOffset: {x: 0, y: 0, z: 0}
   _laserScaleUpColor: {r: 0, g: 0, b: 0, a: 0}
   _laserScaleDownColor: {r: 0, g: 0, b: 0, a: 0}

@@ -18,7 +18,7 @@ public class WeaponEffects : MonoBehaviour
   private GameObject _weaponInstanceMuzzleObject;
   [SerializeField] private Vector3 _weaponInstanceMuzzlePosition;
   [Header("Shot Effect")]
-  [SerializeField] private GameObject _laserBeamPrefab;
+  [SerializeField] private GameObject _laserBeamPrefab, _laserShotPrefab;
   [SerializeField] private Vector3 _effectPositionOffset;
   [SerializeField][ColorUsage(true, true)] private Color _laserScaleUpColor; 
   [SerializeField][ColorUsage(true, true)] private Color _laserScaleDownColor; 
@@ -76,6 +76,7 @@ public class WeaponEffects : MonoBehaviour
     // if (activeGun == heavyRifle) StartCoroutine(ReactorGlow());
     // if (activeGun == assaultRifle) StartCoroutine(ChamberCharge());
     StartCoroutine(LaserFX(hitPosition));
+    //ShootLaser(hitPosition);
     if (_muzzleFlashPrefab != null) {
       StartCoroutine(MuzzleFlashFX(_weaponInstanceMuzzlePosition));
     };
@@ -83,6 +84,12 @@ public class WeaponEffects : MonoBehaviour
       StartCoroutine(HitEffectFX(hitPosition));
     };
   }
+
+  private void ShootLaser(Vector3 hitPosition) {
+    GameObject laser = Instantiate(_laserShotPrefab, _weaponInstanceMuzzleObject.transform.position, Quaternion.LookRotation(hitPosition - _weaponInstanceMuzzleObject.transform.position), transform);
+    laser.GetComponent<Rigidbody>().AddForce(laser.transform.forward * 20, ForceMode.Impulse);
+  }
+
   private IEnumerator MuzzleFlashFX(Vector3 muzzlePosition) {
     GameObject muzzleFlashInstance = Instantiate(_muzzleFlashPrefab, _weaponInstanceMuzzleObject.transform, false);
     ParticleSystem muzzleFlashParticleSystem = muzzleFlashInstance.GetComponent<ParticleSystem>();
@@ -105,7 +112,7 @@ public class WeaponEffects : MonoBehaviour
     _laserScaleUpColor = Color.white;
     // print(_weaponInstance.name);
 
-    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _weaponInstanceMuzzleObject.transform.position,  _weaponInstanceMuzzleObject.transform.rotation, _weaponInstanceMuzzleObject.transform).GetComponent<LineRenderer>();
+    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _weaponInstanceMuzzleObject.transform.position,  _weaponInstanceMuzzleObject.transform.rotation, transform).GetComponent<LineRenderer>();
     Renderer laserRenderer = laserLineRenderer.gameObject.GetComponent<Renderer>();
     laserLineRenderer.SetPosition(0, _weaponInstanceMuzzleObject.transform.position);
     laserLineRenderer.SetPosition(1, endPoint);
