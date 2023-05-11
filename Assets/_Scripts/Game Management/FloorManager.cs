@@ -48,6 +48,7 @@ public class FloorManager : MonoBehaviour
     // if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") Destroy(gameObject);
     if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1) Destroy(gameObject);
     DontDestroyOnLoad(gameObject);
+    SceneManager.activeSceneChanged += InNewFloor;
   }
 
   public void ClearedFloor() {
@@ -120,11 +121,13 @@ public class FloorManager : MonoBehaviour
 
     //Animate switch with post processing here or something
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    yield return new WaitForSeconds(0.5f);
+    yield return null;
+  }
+
+  private void InNewFloor(Scene current, Scene next) {
     VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
     ColorAdjustments colorAdjustments;
     volumeProfile.TryGet(out colorAdjustments);
     colorAdjustments.hueShift.Override(Random.Range(-360, 361));
-    yield return null;
   }
 }
