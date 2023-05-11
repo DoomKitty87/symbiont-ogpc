@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 [System.Serializable]
 public class FloorTheme
@@ -113,9 +115,16 @@ public class FloorManager : MonoBehaviour
     _chosenFloorType = Random.Range(0, _floorThemes.Length);
     _robotsSeen.Clear();
     _robotData.Clear();
+
+
+
     //Animate switch with post processing here or something
-    Time.timeScale = 1f;
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    yield return new WaitForSeconds(0.5f);
+    VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
+    ColorAdjustments colorAdjustments;
+    volumeProfile.TryGet(out colorAdjustments);
+    colorAdjustments.hueShift.Override(Random.Range(-360, 361));
     yield return null;
   }
 }
