@@ -13,8 +13,6 @@ public class ChangeSceneOnPress : MonoBehaviour
   [Header("Settings")]
   [SerializeField] private string _sceneToSwitchToName; 
 
-  private bool _buttonClicked = false;
-
   private void Start() {
     if (_button == null) {
       _button = gameObject.GetComponent<Button>();
@@ -23,7 +21,6 @@ public class ChangeSceneOnPress : MonoBehaviour
   }
 
   public void OnStartClick() {
-    _buttonClicked = true;
     _fadingObject._OnFadeComplete.AddListener(OnFadeFinish);
     _fadingObject.FadeIn(false);  
   }

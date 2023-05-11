@@ -13,8 +13,6 @@ public class StartButtonManager : MonoBehaviour
   [Header("Settings")]
   [SerializeField] private string _sceneToSwitchToName; 
 
-  private bool _startClicked = false;
-
   private void Start() {
     if (_startButton == null) {
       _startButton = gameObject.GetComponent<Button>();
@@ -23,7 +21,6 @@ public class StartButtonManager : MonoBehaviour
   }
 
   public void OnStartClick() {
-    _startClicked = true;
     _fadingObject._OnFadeComplete.AddListener(OnFadeFinish);
     _fadingObject.FadeIn(false);  
   }
