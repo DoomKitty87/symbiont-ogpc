@@ -37,15 +37,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      showgrid="false"
-     inkscape:zoom="0.5"
-     inkscape:cx="1292"
-     inkscape:cy="690"
-     inkscape:window-width="1918"
-     inkscape:window-height="1041"
-     inkscape:window-x="0"
+     inkscape:zoom="0.25"
+     inkscape:cx="812"
+     inkscape:cy="224"
+     inkscape:window-width="1348"
+     inkscape:window-height="729"
+     inkscape:window-x="2"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer3">
+     inkscape:current-layer="layer8">
     <inkscape:grid
        type="xygrid"
        id="grid283" />
@@ -180,28 +180,6 @@
        x="0"
        y="0"
        inkscape:label="world dimming" />
-    <text
-       xml:space="preserve"
-       style="font-weight:bold;font-size:13.4687px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';letter-spacing:6.73433px;stroke-width:0.336716"
-       x="353.47864"
-       y="725.30841"
-       id="text1382"><tspan
-         sodipodi:role="line"
-         id="tspan1380"
-         x="353.47864"
-         y="725.30841"
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';fill:#ffffff;fill-opacity:1;stroke-width:0.336716">SYSTEM INTEGRITY</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-weight:bold;font-size:13.9945px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';letter-spacing:6.99724px;stroke-width:0.349861"
-       x="1996.733"
-       y="725.30524"
-       id="text1382-9"><tspan
-         sodipodi:role="line"
-         id="tspan1380-2"
-         x="1996.733"
-         y="725.30524"
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';fill:#ffffff;fill-opacity:1;stroke-width:0.349861">MUNITION STATE</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -425,7 +403,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer4"
-     inkscape:label="Ammo Bar">
+     inkscape:label="Ammo Bar"
+     transform="translate(78)">
     <text
        xml:space="preserve"
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
@@ -465,7 +444,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer5"
-     inkscape:label="Health Bar">
+     inkscape:label="Health Bar"
+     transform="translate(-85.316608)">
     <text
        xml:space="preserve"
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
@@ -555,5 +535,36 @@
        ry="0.65930635"
        transform="matrix(0,-1,-1,0,0,0)"
        inkscape:label="Left Leg" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer8"
+     inkscape:label="Info">
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:13.4687px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';letter-spacing:6.73433px;stroke-width:0.336716"
+       x="325.14844"
+       y="725.30841"
+       id="text1382"><tspan
+         sodipodi:role="line"
+         id="tspan1380"
+         x="325.14844"
+         y="725.30841"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';fill:#ffffff;fill-opacity:1;stroke-width:0.336716">SYSTEM INTEGRITY      <tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Bold'"
+   id="tspan472">100%</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:13.9945px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';letter-spacing:6.99724px;stroke-width:0.349861"
+       x="1908.9773"
+       y="725.30524"
+       id="text1382-9"><tspan
+         sodipodi:role="line"
+         id="tspan1380-2"
+         x="1908.9773"
+         y="725.30524"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';fill:#ffffff;fill-opacity:1;stroke-width:0.349861"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Bold'"
+   id="tspan474">100%</tspan>    MUNITION STATE</tspan></text>
   </g>
 </svg>
