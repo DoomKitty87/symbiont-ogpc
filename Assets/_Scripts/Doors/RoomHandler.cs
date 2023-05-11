@@ -39,6 +39,7 @@ public class RoomHandler : MonoBehaviour
 	public void CloseDoors() {
     for (int i = 0; i < transform.GetChild(1).childCount; i++) {
       transform.GetChild(1).GetChild(i).GetChild(1).gameObject.SetActive(true);
+      transform.GetChild(1).GetChild(i).GetChild(1).gameObject.GetComponent<Animator>().SetBool("Open", false);
     }
   }
 
