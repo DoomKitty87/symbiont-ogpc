@@ -112,7 +112,7 @@ public class WeaponEffects : MonoBehaviour
     _laserScaleUpColor = Color.white;
     // print(_weaponInstance.name);
 
-    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _weaponInstanceMuzzleObject.transform.position,  _weaponInstanceMuzzleObject.transform.rotation, transform).GetComponent<LineRenderer>();
+    LineRenderer laserLineRenderer = Instantiate(_laserBeamPrefab, _weaponInstanceMuzzleObject.transform.position,  _weaponInstanceMuzzleObject.transform.rotation, _weaponInstanceMuzzleObject.transform).GetComponent<LineRenderer>();
     Renderer laserRenderer = laserLineRenderer.gameObject.GetComponent<Renderer>();
     laserLineRenderer.SetPosition(0, _weaponInstanceMuzzleObject.transform.position);
     laserLineRenderer.SetPosition(1, endPoint);
