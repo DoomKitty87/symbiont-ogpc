@@ -15,18 +15,17 @@ public class InGameUI : MonoBehaviour
   private float _currentAmmo;
 
   public void InitializeHealth(float maxHealth) {
-    _healthHolder.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = maxHealth.ToString();
+    _healthHolder.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = ((int)maxHealth).ToString();
     _healthHolder.transform.GetChild(0).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = ((int)(maxHealth / 2)).ToString();
   }
 
   public void InitializeAmmo(WeaponItem[] weapons, WeaponItem weapon) {
-    _ammoHolder.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = weapon.magSize.ToString();
+    _ammoHolder.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = ((int)weapon.magSize).ToString();
     _ammoHolder.transform.GetChild(0).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = ((int)(weapon.magSize / 2)).ToString();
   }
 
-  public void UpdateAmmoValues(float maxAmmo) {
-    _ammoHolder.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = maxAmmo.ToString();
-    _ammoHolder.transform.GetChild(0).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = ((int)(maxAmmo / 2)).ToString();
+  public void UpdateAmmoValues(float currMax, float maxAmmo) {
+    StartCoroutine(TweenAmmoVals(_ammoHolder.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMeshProUGUI>(), _ammoHolder.transform.GetChild(0).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>(), currMax, maxAmmo, _easeTime));
   }
 
   public void UpdateHealth(float initHealth, float health, float maxHealth) {
@@ -51,10 +50,24 @@ public class InGameUI : MonoBehaviour
   }
 
   public void UpdateForNewValues(WeaponItem weapon, int ammoCount) {
+    UpdateAmmoValues(_maxAmmo, weapon.magSize);
     _maxAmmo = weapon.magSize;
-    UpdateAmmoValues(weapon.magSize);
     UpdateAmmo(_currentAmmo, ammoCount, _maxAmmo);
     _currentAmmo = ammoCount;
+  }
+
+  private IEnumerator TweenAmmoVals(TextMeshProUGUI text1, TextMeshProUGUI text2, float oldAmmo, float newAmmo, float duration) {
+    float timeElapsed = 0;
+    while (timeElapsed < duration) {
+      timeElapsed += Time.deltaTime;
+      float t = timeElapsed / duration;
+      t = _easeCurve.Evaluate(t);
+      text1.text = ((int)Mathf.Lerp(oldAmmo, newAmmo, t)).ToString();
+      text2.text = ((int)Mathf.Lerp(oldAmmo / 2, newAmmo / 2, t)).ToString();
+      yield return null;
+    }
+    text1.text = ((int)(newAmmo)).ToString();
+    text2.text = ((int)(newAmmo / 2)).ToString();
   }
 
   private IEnumerator TweenImage1(Image image, Image image2, float targetValue, float duration) {
