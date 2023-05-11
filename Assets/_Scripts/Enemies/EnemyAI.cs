@@ -50,7 +50,6 @@ public class EnemyAI : MonoBehaviour
   private void LockOntoPlayer() {
     _targetingPlayer = true;
     _lookingForPlayer = false;
-    print("now targeting");
     StartCoroutine(TargetingPlayer());
   }
   
@@ -119,7 +118,6 @@ public class EnemyAI : MonoBehaviour
         else {
           _targetingPlayer = false;
           if (!_lookingForPlayer) {
-            print("now looking");
             _lookingForPlayer = true;
             StartCoroutine(LookingForPlayer());
           }

@@ -35,7 +35,7 @@ public class FadeElementInOut : MonoBehaviour
   private IEnumerator FadeElementInOutCoroutine(float startAlpha, float targetAlpha, float duration) {
     float time = 0;
     while (time < duration) {
-      time += Time.deltaTime;
+      time += Time.unscaledDeltaTime;
       _canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, _easingCurve.Evaluate(time / duration));
       yield return null;
     }
