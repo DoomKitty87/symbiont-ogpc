@@ -2620,6 +2620,7 @@ GameObject:
   - component: {fileID: 8842775743014252994}
   - component: {fileID: 4218816068699444911}
   - component: {fileID: 3069320240194248718}
+  - component: {fileID: 144819830370645060}
   m_Layer: 0
   m_Name: LoseScreen
   m_TagString: Untagged
@@ -2724,6 +2725,18 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!225 &144819830370645060
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8443786209686129335}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &9029903884292635130
 GameObject:
   m_ObjectHideFlags: 0

@@ -120,20 +120,33 @@ public class FloorManager : MonoBehaviour
   }
 
   public void LoseState() {
+    GameObject.FindWithTag("Handler").GetComponent<PauseHandler>()._pauseState = PauseHandler.PauseState.Dead;
     Cursor.lockState = CursorLockMode.None;
     StartCoroutine(SubmitHighScore());
-    Time.timeScale = 0f;
     BringUpOverviewScreen();
   }
 
   private void BringUpOverviewScreen() {
     int[] runStats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().GetRunStats();
     GameObject tmp = Instantiate(_loseScreenPrefab, Vector3.zero, Quaternion.identity);
+    StartCoroutine(FadeOutDeathScreen(tmp));
     for (int i = 0; i < runStats.Length; i++) {
       tmp.transform.GetChild(1).GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = runStats[i].ToString();
     }
     tmp.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = _flavorTexts[Random.Range(0, _flavorTexts.Length)];
-  }
+    }
+    private IEnumerator FadeOutDeathScreen(GameObject tmp) {
+        float alpha = 0;
+        CanvasGroup tmpCanvasGroup = tmp.GetComponent<CanvasGroup>();
+        while (alpha < 1) {
+            alpha += Time.unscaledDeltaTime;
+            tmpCanvasGroup.alpha = Mathf.Lerp(0, 1, alpha);
+            Time.timeScale = 1 - alpha;
+            yield return null;
+		}
+        Time.timeScale = 0.0f;
+	}
+  
 
   private IEnumerator SubmitHighScore() {
     int[] runStats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().GetRunStats();
