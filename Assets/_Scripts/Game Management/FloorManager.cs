@@ -26,6 +26,7 @@ public class FloorManager : MonoBehaviour
   [SerializeField] private float _healthCap, _speedCap, _visionRangeCap, _visionArcCap, _awarenessCap, _lookSpeedCap;
   [SerializeField] private float _diffScaleSpeed;
   [SerializeField] private GameObject _loseScreenPrefab;
+  [SerializeField] private string[] _flavorTexts;
 
   private float _healthScale, _speedScale, _visionRangeScale, _visionArcScale, _awarenessScale, _lookSpeedScale;
 
@@ -123,7 +124,6 @@ public class FloorManager : MonoBehaviour
     StartCoroutine(SubmitHighScore());
     Time.timeScale = 0f;
     BringUpOverviewScreen();
-    SceneManager.LoadScene("Main Menu");
   }
 
   private void BringUpOverviewScreen() {
@@ -132,6 +132,7 @@ public class FloorManager : MonoBehaviour
     for (int i = 0; i < runStats.Length; i++) {
       tmp.transform.GetChild(1).GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = runStats[i].ToString();
     }
+    tmp.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = _flavorTexts[Random.Range(0, _flavorTexts.Length)];
   }
 
   private IEnumerator SubmitHighScore() {
