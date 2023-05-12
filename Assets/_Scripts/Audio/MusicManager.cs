@@ -36,7 +36,9 @@ public class MusicManager : MonoBehaviour
       _audioSource.clip = track;
       _currentClipIndex = _musicClips.IndexOf(track);
       _audioSource.Play();
-      yield return new WaitForSeconds(track.length);
+      while (_audioSource.isPlaying) {
+        yield return null;
+      }
       _clipIndexesPlayed.Add(_currentClipIndex);
     }
   }
@@ -50,7 +52,9 @@ public class MusicManager : MonoBehaviour
       }
       _audioSource.clip = _musicClips[indexToPlay];
       _audioSource.Play();
-      yield return new WaitForSeconds(track.length);
+      while (_audioSource.isPlaying) {
+        yield return null;
+      }
       _clipIndexesPlayed.Add(_currentClipIndex);
     }
   }

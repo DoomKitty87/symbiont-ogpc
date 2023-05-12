@@ -84,9 +84,9 @@ public class EnemyAI : MonoBehaviour
     else if (rel.z < 0 && rel.y < 0) {
       radVal = -radVal - Mathf.PI;
     }
-    else if (rel.z > 0 && rel.y < 0) {
-      radVal = //wip
-    }
+    // else if (rel.z > 0 && rel.y < 0) {
+    //  radVal = //wip
+    // }
     else if (rel.z == 0) {
       if (rel.y > 0) radVal = Mathf.PI / 2;
       else radVal = -Mathf.PI / 2;
