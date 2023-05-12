@@ -10,12 +10,13 @@ public class PauseHandler : MonoBehaviour
 
 	public List<GameObject> _menuLayers;
 
-	private enum PauseState {
+	public enum PauseState {
 		Unpaused,
 		FirstPause,
-		Paused
+		Paused,
+		Dead
 	}
-	[SerializeField] private PauseState _pauseState;
+	public PauseState _pauseState;
 
 	private void Awake() {
 		_pauseState = PauseState.Unpaused;
@@ -27,6 +28,7 @@ public class PauseHandler : MonoBehaviour
 
 	private void Update() {
 		HandlePausing();
+		CheckForDeath();
 	}
 
 	private void HandlePausing() {
@@ -78,6 +80,19 @@ public class PauseHandler : MonoBehaviour
 					RemovePause();
 					break;
 			}
+		}
+	}
+
+	private void CheckForDeath() {
+		if (_pauseState == PauseState.Dead) {
+			GameObject disableEnemy = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
+			try {
+				disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.gameObject.GetComponent<EnemyInfo>().SwitchedAway();
+				disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.gameObject.GetComponent<EnemyInfo>().enabled = false;
+			} catch {
+				disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.parent.GetChild(1).GetComponent<CameraOverlay>().enabled = false;
+			}
+			if (disableEnemy.transform.GetChild(1).GetComponent<PlayerAim>()) disableEnemy.transform.GetChild(1).GetComponent<PlayerAim>().enabled = false;
 		}
 	}
 
