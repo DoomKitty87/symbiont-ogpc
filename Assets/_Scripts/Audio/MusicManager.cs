@@ -14,12 +14,14 @@ public class MusicManager : MonoBehaviour
 
   private void Start() {
     UpdateVolume();
-    if (!_shuffle) {
-      StartCoroutine(PlayInOrder());
-    }
-    else {
-      StartCoroutine(PlayShuffled());
-    }
+    StartCoroutine(PlayInOrder());
+ 
+    // if (!_shuffle) {
+    //   StartCoroutine(PlayInOrder());
+    // }
+    // else {
+    //   StartCoroutine(PlayShuffled());
+    // }
   }
 
   private void UpdateVolume() {
@@ -32,30 +34,31 @@ public class MusicManager : MonoBehaviour
   }
 
   private IEnumerator PlayInOrder() {
-    foreach (AudioClip track in _musicClips) {
-      _audioSource.clip = track;
-      _currentClipIndex = _musicClips.IndexOf(track);
-      _audioSource.Play();
-      while (_audioSource.isPlaying) {
-        yield return null;
+    while (true) {
+      foreach (AudioClip track in _musicClips) {
+        _audioSource.clip = track;
+        _currentClipIndex = _musicClips.IndexOf(track);
+        _audioSource.Play();
+        yield return new WaitForSeconds(_audioSource.clip.length);
+        Debug.Log("MusicManager: Song ended.");
+        _clipIndexesPlayed.Add(_currentClipIndex);
       }
-      _clipIndexesPlayed.Add(_currentClipIndex);
     }
   }
 
-  private IEnumerator PlayShuffled() {
-    foreach (AudioClip track in _musicClips) {
-      int indexToPlay = Random.Range(0, _musicClips.Count);
-      _currentClipIndex = _musicClips.IndexOf(track);
-      while (indexToPlay == _currentClipIndex || _clipIndexesPlayed.Contains(indexToPlay)) {
-        indexToPlay = Random.Range(0, _musicClips.Count);
-      }
-      _audioSource.clip = _musicClips[indexToPlay];
-      _audioSource.Play();
-      while (_audioSource.isPlaying) {
-        yield return null;
-      }
-      _clipIndexesPlayed.Add(_currentClipIndex);
-    }
-  }
+  // private IEnumerator PlayShuffled() {
+  //   foreach (AudioClip track in _musicClips) {
+  //     int indexToPlay = Random.Range(0, _musicClips.Count);
+  //     _currentClipIndex = _musicClips.IndexOf(track);
+  //     while (indexToPlay == _currentClipIndex || _clipIndexesPlayed.Contains(indexToPlay)) {
+  //       indexToPlay = Random.Range(0, _musicClips.Count);
+  //     }
+  //     _audioSource.clip = _musicClips[indexToPlay];
+  //     _audioSource.Play();
+  //     while (_audioSource.isPlaying) {
+  //       yield return null;
+  //     }
+  //     _clipIndexesPlayed.Add(_currentClipIndex);
+  //   }
+  // }
 }
