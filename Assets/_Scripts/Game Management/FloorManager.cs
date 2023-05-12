@@ -12,7 +12,7 @@ public class FloorTheme
   public GameObject[] floorTypeStartRooms;
   public GameObject[] floorTypeRooms;
   public GameObject[] floorTypeEndRooms;
-  public GameObject[] floorTypeWeapons;
+  public WeaponItem[] floorTypeWeapons;
   public GameObject floorTypeEnemy;
 }
 
@@ -68,7 +68,7 @@ public class FloorManager : MonoBehaviour
     return _floorThemes[_chosenFloorType].floorTypeEndRooms;
   }
 
-  public GameObject[] GetCurrentFloorWeapon() {
+  public WeaponItem[] GetCurrentFloorWeapon() {
     return _floorThemes[_chosenFloorType].floorTypeWeapons;
   }
 
@@ -101,6 +101,10 @@ public class FloorManager : MonoBehaviour
     return health;
   }
 
+  public WeaponItem GetRandWeapon() {
+    return _floorThemes[_chosenFloorType].floorTypeWeapons[Random.Range(0, _floorThemes[_chosenFloorType].floorTypeWeapons.Length)];
+  }
+
   public void LoseState() {
     Cursor.lockState = CursorLockMode.None;
     SceneManager.LoadScene("Main Menu");
@@ -125,7 +129,7 @@ public class FloorManager : MonoBehaviour
   }
 
   private void InNewFloor(Scene current, Scene next) {
-    VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("PostProcessing").GetComponent<Volume>().profile;
+    VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
     ColorAdjustments colorAdjustments;
     volumeProfile.TryGet(out colorAdjustments);
     colorAdjustments.hueShift.Override(Random.Range(-360, 361));

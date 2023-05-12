@@ -39,6 +39,9 @@ public class WeaponInventory : MonoBehaviour
   public OnInventoryInitalize _onInventoryInitialize;
 
   private void Start() {
+    _equippedWeapons.Clear();
+    WeaponItem chosenWeapon = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandWeapon();
+    _equippedWeapons.Add(new EquippedWeapon(chosenWeapon, chosenWeapon.magSize));
     if (_equippedWeapons.Count >= 1) {
       _currentWeapon = _equippedWeapons[0];
     }

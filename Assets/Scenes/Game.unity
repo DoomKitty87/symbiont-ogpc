@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731715, g: 0.13414735, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1186,7 +1186,9 @@ MonoBehaviour:
     - {fileID: 8921232140841081478, guid: 15b4f119359e0794d828f24b5d878337, type: 3}
     - {fileID: 2830117344839291697, guid: 6029bd29411986b4789ecfd5ea781bc5, type: 3}
     - {fileID: 2830117344839291697, guid: 73aed64a4d07cbd439723cdb7e30a1de, type: 3}
-    floorTypeWeapons: []
+    floorTypeWeapons:
+    - {fileID: 11400000, guid: bd4677ac24159b248a38406eb51cd56a, type: 2}
+    - {fileID: 11400000, guid: f0fe6355a8782f0479b0600462bbe47c, type: 2}
     floorTypeEnemy: {fileID: 0}
   _healthBase: 200
   _speedBase: 2
