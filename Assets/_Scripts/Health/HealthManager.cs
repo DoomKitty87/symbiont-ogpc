@@ -23,7 +23,7 @@ public class HealthManager : MonoBehaviour
   }
   public void Damage(float damagePoints) {
     if (gameObject != GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) {
-      GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Damage(damagePoints);
+      GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Damage((int)damagePoints);
     }
     if (_currentHealth - damagePoints <= 0) {
       // The event system is used so we don't have to make direct references like this please change thank you

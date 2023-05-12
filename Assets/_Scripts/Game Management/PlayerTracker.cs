@@ -9,7 +9,7 @@ public class PlayerTracker : MonoBehaviour
   private int roomsCleared;
   private int floorsCleared;
   private int kills;
-  private int runTime;
+  private float runTime;
   private int damage;
   private int switches;
   private int score;
@@ -26,8 +26,7 @@ public class PlayerTracker : MonoBehaviour
   }
 
   public int[] GetRunStats() {
-    int scoreToSubmit = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetScore();
-    return new int[] {score, runTime, roomsCleared, floorsCleared, kills, damage, switches};
+    return new int[] {score, (int)runTime, roomsCleared, floorsCleared, kills, damage, switches};
   }
 
   public void ClearedRoom() {

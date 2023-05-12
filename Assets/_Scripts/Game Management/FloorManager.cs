@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System.Linq;
+using TMPro;
 
 [System.Serializable]
 public class FloorTheme
@@ -24,6 +25,7 @@ public class FloorManager : MonoBehaviour
   [SerializeField] private float _healthBase, _speedBase, _visionRangeBase, _visionArcBase, _awarenessBase, _lookSpeedBase;
   [SerializeField] private float _healthCap, _speedCap, _visionRangeCap, _visionArcCap, _awarenessCap, _lookSpeedCap;
   [SerializeField] private float _diffScaleSpeed;
+  [SerializeField] private GameObject _loseScreenPrefab;
 
   private float _healthScale, _speedScale, _visionRangeScale, _visionArcScale, _awarenessScale, _lookSpeedScale;
 
@@ -119,7 +121,17 @@ public class FloorManager : MonoBehaviour
   public void LoseState() {
     Cursor.lockState = CursorLockMode.None;
     StartCoroutine(SubmitHighScore());
+    Time.timeScale = 0f;
+    BringUpOverviewScreen();
     SceneManager.LoadScene("Main Menu");
+  }
+
+  private void BringUpOverviewScreen() {
+    int[] runStats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().GetRunStats();
+    GameObject tmp = Instantiate(_loseScreenPrefab, Vector3.zero, Quaternion.identity);
+    for (int i = 0; i < runStats.Length; i++) {
+      tmp.transform.GetChild(0).GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = runStats[i].ToString();
+    }
   }
 
   private IEnumerator SubmitHighScore() {
@@ -130,7 +142,7 @@ public class FloorManager : MonoBehaviour
     }
     bool submitted = false;
     foreach (Score s in scores) {
-      if (s.name == GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>().GetACtiveAccountName()) {
+      if (s.name == GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>().GetActiveAccountName()) {
         if (runStats[0] > s.score) {
           submitted = true;
           GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>().PostScores(runStats[0], runStats[1]);
