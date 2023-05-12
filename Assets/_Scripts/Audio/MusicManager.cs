@@ -19,6 +19,7 @@ public class MusicManager : MonoBehaviour
 
   private void Start() {
     UpdateVolume();
+    UpdateShuffle();
     StartPlaying();
   }
 
@@ -84,19 +85,23 @@ public class MusicManager : MonoBehaviour
   }
 
   private IEnumerator NewSongPlaying(AudioClip clip) {
+    float duration = 0.2f;
     GameObject tmp = Instantiate(_nowPlayingPopup, Vector3.zero, Quaternion.identity, _mainCanvas.transform);
     Transform infoHolder = tmp.transform.GetChild(0);
-    infoHolder.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = clip.name + " | " + clip.length.ToString();
+    infoHolder.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = clip.name + " | " + ((int)clip.length / 60).ToString() + ":" + (((int)clip.length % 60) < 10 ? "0" : "") + ((int)clip.length % 60);
     float timeElapsed = 0;
-    while (timeElapsed < 1) {
-      infoHolder.transform.position = new Vector3(Mathf.Lerp(Screen.width + (infoHolder.gameObject.GetComponent<RectTransform>().rect.x / 2), Screen.width - (infoHolder.gameObject.GetComponent<RectTransform>().rect.x / 2), timeElapsed), 0, 0);
+    while (timeElapsed < duration) {
+      tmp.transform.position = new Vector3(Mathf.Lerp(Screen.width + (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2f)), Screen.width - (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2.5f)), timeElapsed / duration), 300, 0);
       timeElapsed += Time.deltaTime;
+      yield return null;
     }
-    yield return new WaitForSeconds(1.5f);
+    tmp.transform.position = new Vector3(Screen.width - (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2.5f)), 300, 0);
+    yield return new WaitForSeconds(2f);
     timeElapsed = 0;
-    while (timeElapsed < 1) {
-      infoHolder.transform.position = new Vector3(Mathf.Lerp(Screen.width + (infoHolder.gameObject.GetComponent<RectTransform>().rect.x / 2), Screen.width - (infoHolder.gameObject.GetComponent<RectTransform>().rect.x / 2), 1 - timeElapsed), 0, 0);
+    while (timeElapsed < duration) {
+      tmp.transform.position = new Vector3(Mathf.Lerp(Screen.width + (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2f)), Screen.width - (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2.5f)), 1 - (timeElapsed / duration)), 300, 0);
       timeElapsed += Time.deltaTime;
+      yield return null;
     }
     Destroy(tmp);
   }

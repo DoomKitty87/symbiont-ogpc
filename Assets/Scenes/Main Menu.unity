@@ -5800,6 +5800,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 840ac89a30c23d746bade712e367259a, type: 3}
   _shuffle: 1
   _clipIndexesPlayed: 
+  _nowPlayingPopup: {fileID: 6775114353414211153, guid: 5fcda130626a845c08f305dd402f6138,
+    type: 3}
+  _mainCanvas: {fileID: 894984589}
 --- !u!1 &442992134
 GameObject:
   m_ObjectHideFlags: 0
@@ -19242,10 +19245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf830018ec5c14557a46b3e932e4998a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultValue: 0
-  _settingsKey: SOUND_SHUFFLE_SONGS
-  _checkbox: {fileID: 1657905698}
-  _floatLayout: 
 --- !u!114 &1657905698
 MonoBehaviour:
   m_ObjectHideFlags: 0
