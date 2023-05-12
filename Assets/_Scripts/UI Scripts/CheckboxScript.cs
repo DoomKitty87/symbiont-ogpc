@@ -26,7 +26,7 @@ public class CheckboxScript : MonoBehaviour
   private void Start() {
     _checkbox.isOn = (PlayerPrefs.GetInt(_settingsKey) == 1);
     _checkbox.onValueChanged.AddListener((v) => {
-      PlayerPrefs.SetInt(_settingsKey, v ? 1 : 0);
+      PlayerPrefs.SetBool(_settingsKey, v);
     });
   }
 }
