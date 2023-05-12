@@ -73,9 +73,32 @@ public class EnemyAI : MonoBehaviour
 
   private void TargetingPlayer() {
     GameObject player = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
-    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.LookRotation(new Vector3(0, player.transform.position.y - _rotateX.position.y, player.transform.position.z - _rotateX.position.z)), _timeElapsed * _lookSpeed / 2);
+    Vector3 rel = player.transform.position - _rotateX.transform.position;
+    float radVal = Mathf.Atan2(rel.y, rel.z);
+    if (rel.z > 0 && rel.y > 0) {
+      radVal = Mathf.PI / 2 - radVal;
+    } 
+    else if (rel.z < 0 && rel.y > 0) {
+      radVal += Mathf.PI;
+    }
+    else if (rel.z < 0 && rel.y < 0) {
+      radVal = -radVal - Mathf.PI;
+    }
+    else if (rel.z > 0 && rel.y < 0) {
+      radVal = //wip
+    }
+    else if (rel.z == 0) {
+      if (rel.y > 0) radVal = Mathf.PI / 2;
+      else radVal = -Mathf.PI / 2;
+    }
+    else if (rel.y == 0) {
+      if (rel.z > 0) radVal = 0;
+      else radVal = Mathf.PI;
+    }
+    else if (rel.z == 0 && rel.y == 0) radVal = 0;
+    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
     //Rotation on X axis
-    Vector3 rel = player.transform.position - _rotateY.transform.position;
+    rel = player.transform.position - _rotateY.transform.position;
     rel.y = 0;
     _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.LookRotation(rel), _timeElapsed * _lookSpeed / 2);
     //Rotation on Y axis
