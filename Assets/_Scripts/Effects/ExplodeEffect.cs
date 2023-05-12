@@ -45,7 +45,7 @@ public class ExplodeEffect : MonoBehaviour
     ParticleSystem.MainModule explodeFXMain = explodeFX.main;
     ParticleSystem.ShapeModule explodeFXShape = explodeFX.shape;
     explodeFXMain.startSizeMultiplier = _initialParticleSizeMultiplier;
-    explodeFXShape.mesh = gameObject.GetComponent<MeshFilter>().mesh;
+    explodeFXShape.mesh = transform.GetChild(0).gameObject.GetComponent<ReferenceMainTorso>()._torso.GetComponent<MeshFilter>().mesh;
     explodeFXShape.scale = transform.localScale;
     explodeFX.Play();
     fragmentFX.Play();

@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
   [SerializeField] private float _fovDirect, _fovPeriph, _rangeDirect, _rangePeriph, _rangeInvis, _noticeChanceDirect, _noticeChancePeriph, _noticeChanceInvis, _lookSpeed;
   [SerializeField] private LayerMask _enemyLayer;
   [SerializeField] private Transform _raycastOrigin;
+  [SerializeField] private Transform _rotateX, _rotateY;
 
   [HideInInspector] public bool _targetingPlayer;
   [HideInInspector] public float _secondsSinceTargeting;
@@ -15,6 +16,9 @@ public class EnemyAI : MonoBehaviour
   private bool _lookingForPlayer;
 
   private float _fireCooldown;
+  private float _targetRot;
+  private float _initRot;
+  private float _timeElapsed;
 
   private void Start() {
     float[] stats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandEnemyAIStats();
@@ -39,18 +43,27 @@ public class EnemyAI : MonoBehaviour
     else {
       _secondsSinceTargeting += Time.deltaTime;
     }
+
+    if (_targetingPlayer) {
+      TargetingPlayer();
+    }
+    else if (_lookingForPlayer) {
+      LookingForPlayer();
+    }
+
     CheckForPlayer();
   }
 
   public void StopTracking() {
     _targetingPlayer = false;
     _lookingForPlayer = false;
+    _timeElapsed = 0;
   }
 
   private void LockOntoPlayer() {
+    if (!_targetingPlayer) _timeElapsed = 0;
     _targetingPlayer = true;
     _lookingForPlayer = false;
-    StartCoroutine(TargetingPlayer());
   }
   
   private void Shoot() {
@@ -58,32 +71,29 @@ public class EnemyAI : MonoBehaviour
     GetComponent<FireGunLogic>().FireCurrent();
   }
 
-  private IEnumerator TargetingPlayer() {
+  private void TargetingPlayer() {
     GameObject player = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
-    while (_targetingPlayer) {
-      transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-      //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up), _lookSpeed * Time.deltaTime);
-      //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.position - player.transform.position), _lookSpeed * Time.deltaTime);
-      if (Physics.Raycast(transform.position, _raycastOrigin.forward, _rangeInvis, _enemyLayer)) {
-        Shoot();
-      }
-      yield return null;
+    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.LookRotation(new Vector3(0, player.transform.position.y - _rotateX.position.y, player.transform.position.z - _rotateX.position.z)), _timeElapsed * _lookSpeed / 2);
+    //Rotation on X axis
+    Vector3 rel = player.transform.position - _rotateY.transform.position;
+    rel.y = 0;
+    _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.LookRotation(rel), _timeElapsed * _lookSpeed / 2);
+    //Rotation on Y axis
+    RaycastHit hit;
+    if (Physics.Raycast(transform.position, _raycastOrigin.forward, out hit, _rangeDirect, _enemyLayer)) {
+      if (hit.collider.gameObject == player) Shoot();
     }
+    _timeElapsed += Time.deltaTime;
   }
 
-  private IEnumerator LookingForPlayer() {
-    Quaternion targetRot = Quaternion.Euler(transform.rotation.x, Random.Range(0, 360), transform.rotation.z);
-    Quaternion initRot = transform.rotation;
-    float timeElapsed = 0;
-    while (_lookingForPlayer) {
-      transform.rotation = Quaternion.Lerp(initRot, targetRot, timeElapsed * _lookSpeed / 2);
-      if (timeElapsed * _lookSpeed / 2 > 1) {
-        timeElapsed = 0;
-        targetRot = Quaternion.Euler(transform.rotation.x, Random.Range(0, 360), transform.rotation.z);
-      }
-      timeElapsed += Time.deltaTime;
-      yield return null;
+  private void LookingForPlayer() {
+    _rotateY.localRotation = Quaternion.Euler(new Vector3(0, Mathf.Lerp(_initRot, _targetRot, _timeElapsed * _lookSpeed / 2)));
+    if (_timeElapsed * _lookSpeed / 2 > 1.5f) {
+      _timeElapsed = 0;
+      _initRot = _targetRot;
+      _targetRot = Random.Range(0, 360);
     }
+    _timeElapsed += Time.deltaTime;
   }
 
   private void CheckForPlayer() {
@@ -95,32 +105,22 @@ public class EnemyAI : MonoBehaviour
       float angleDiff = Vector3.Angle(_raycastOrigin.forward, transform.position - col.gameObject.transform.position);
       if (angleDiff <= _fovDirect / 2f) {
         //Found in direct range
-        if (Random.value < _noticeChanceDirect) {
-          if (!_targetingPlayer) {
-            LockOntoPlayer();
-          }
-        }
+        if (Random.value < _noticeChanceDirect) LockOntoPlayer();
       }
       else if (angleDiff <= _fovPeriph / 2f && Vector3.Distance(col.gameObject.transform.position, transform.position) < _rangePeriph) {
         //Found in peripheral range
-        if (Random.value < _noticeChancePeriph) {
-          if (!_targetingPlayer) {
-            LockOntoPlayer();
-          }
-        }
+        if (Random.value < _noticeChancePeriph) LockOntoPlayer();
       }
       else {
         //Found in invisible range
-        if (Random.value < _noticeChanceInvis && Vector3.Distance(col.gameObject.transform.position, transform.position) < _rangeInvis) {
-          if (!_targetingPlayer) {
-            LockOntoPlayer();
-          }
+        if (Vector3.Distance(col.gameObject.transform.position, transform.position) < _rangeInvis) {
+          if (Random.value < _noticeChanceInvis) LockOntoPlayer();
         }
         else {
-          _targetingPlayer = false;
-          if (!_lookingForPlayer) {
+          if (_targetingPlayer && _timeElapsed > 0.1f) {
+            if (_targetingPlayer) _timeElapsed = 0;
+            _targetingPlayer = false;
             _lookingForPlayer = true;
-            StartCoroutine(LookingForPlayer());
           }
         }
       }
