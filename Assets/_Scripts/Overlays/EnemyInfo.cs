@@ -71,7 +71,7 @@ public class EnemyInfo : MonoBehaviour
         }
 
         tmp.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "MODEL " + _floorManager._robotData[_floorManager._robotsSeen.IndexOf(col.gameObject)][1] + "- #" + _floorManager._robotData[_floorManager._robotsSeen.IndexOf(col.gameObject)][0];
-        if (col.gameObject.transform.GetChild(1).gameObject.GetComponent<EnemyAI>()._secondsSinceTargeting < 0.25f) {
+        if (col.gameObject.transform.GetChild(1).gameObject.GetComponent<EnemyAI>()._targetingPlayer) {
           tmp.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "STATE: <color=#FF0000>ALERTED</color>";
         }
         else {
