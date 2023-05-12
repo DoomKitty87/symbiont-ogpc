@@ -24,8 +24,13 @@ public class MusicManager : MonoBehaviour
     _audioSource.volume = _audioSource.volume * (PlayerPrefs.GetFloat("SOUND_VOLUME_MUSIC") / 100);
   }
 
+  private void UpdateShuffle() {
+    _shuffle = PlayerPrefs.GetBool("SOUND_SHUFFLE_SONGS");
+  }
+
   private void Update() {
     UpdateVolume();
+    UpdateShuffle();
     if (!_playing) StartPlaying();
   }
 

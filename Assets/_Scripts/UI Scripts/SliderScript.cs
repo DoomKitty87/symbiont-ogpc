@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class SliderScript : MonoBehaviour
 {
+	
 	[Header("Setup")]
 	[SerializeField] private float _minValue;
 	[SerializeField] private float _maxValue;
