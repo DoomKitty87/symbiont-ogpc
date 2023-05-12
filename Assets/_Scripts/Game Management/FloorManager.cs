@@ -130,7 +130,7 @@ public class FloorManager : MonoBehaviour
     int[] runStats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().GetRunStats();
     GameObject tmp = Instantiate(_loseScreenPrefab, Vector3.zero, Quaternion.identity);
     for (int i = 0; i < runStats.Length; i++) {
-      tmp.transform.GetChild(0).GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = runStats[i].ToString();
+      tmp.transform.GetChild(1).GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = runStats[i].ToString();
     }
   }
 
