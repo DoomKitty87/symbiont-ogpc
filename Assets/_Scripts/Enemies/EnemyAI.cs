@@ -61,9 +61,9 @@ public class EnemyAI : MonoBehaviour
   }
 
   private void LockOntoPlayer() {
+    if (!_targetingPlayer) _timeElapsed = 0;
     _targetingPlayer = true;
     _lookingForPlayer = false;
-    _timeElapsed = 0;
   }
   
   private void Shoot() {
@@ -73,14 +73,15 @@ public class EnemyAI : MonoBehaviour
 
   private void TargetingPlayer() {
     GameObject player = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
-    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(player.transform.position.y - transform.position.y, 0, 0)), _timeElapsed * _lookSpeed / 2);
+    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.LookRotation(new Vector3(0, player.transform.position.y - _rotateX.position.y, player.transform.position.z - _rotateX.position.z)), _timeElapsed * _lookSpeed / 2);
     //Rotation on X axis
     Vector3 rel = player.transform.position - _rotateY.transform.position;
     rel.y = 0;
     _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.LookRotation(rel), _timeElapsed * _lookSpeed / 2);
     //Rotation on Y axis
-    if (Physics.Raycast(transform.position, _raycastOrigin.forward, _rangeDirect, _enemyLayer)) {
-      Shoot();
+    RaycastHit hit;
+    if (Physics.Raycast(transform.position, _raycastOrigin.forward, out hit, _rangeDirect, _enemyLayer)) {
+      if (hit.collider.gameObject == player) Shoot();
     }
     _timeElapsed += Time.deltaTime;
   }
@@ -116,9 +117,11 @@ public class EnemyAI : MonoBehaviour
           if (Random.value < _noticeChanceInvis) LockOntoPlayer();
         }
         else {
-          _targetingPlayer = false;
-          _lookingForPlayer = true;
-          _timeElapsed = 0;
+          if (_targetingPlayer && _timeElapsed > 0.1f) {
+            if (_targetingPlayer) _timeElapsed = 0;
+            _targetingPlayer = false;
+            _lookingForPlayer = true;
+          }
         }
       }
     }
