@@ -25,7 +25,7 @@ public class MusicManager : MonoBehaviour
   }
 
   private void UpdateShuffle() {
-    _shuffle = PlayerPrefs.GetBool("SOUND_SHUFFLE_SONGS");
+    _shuffle = PlayerPrefs.GetInt("SOUND_SHUFFLE_SONGS") == 1;
   }
 
   private void Update() {

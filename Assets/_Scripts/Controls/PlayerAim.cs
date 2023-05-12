@@ -10,8 +10,8 @@ public class PlayerAim : MonoBehaviour
   [Tooltip("Will be set to the attached gameObject if unassigned.")][SerializeField] private Transform _objectToAimY;
   [Header("(In case we want to seperate the rotations; ie. X rotation is for the camera, " + "\n" + "and Y rotation is for the player.)")]
   [Header("Sensitivity")]
-  public float _horizontalSens = 1f;
-  public float _verticalSens = 1f;
+  public float _horizontalSens = 0.2f;
+  public float _verticalSens = 0.2f;
   [Header("Constraints")]
   public bool _constrainX;
   public float _minX = -90f;
@@ -26,6 +26,8 @@ public class PlayerAim : MonoBehaviour
   [HideInInspector] public float _rotY;
 
   void Start() {
+    _horizontalSens *= PlayerPrefs.GetFloat("INPUT_SENSITIVITY");
+    _verticalSens *= PlayerPrefs.GetFloat("INPUT_SENSITIVITY");
     Cursor.lockState = CursorLockMode.Locked;
     if (_objectToAimX == null) _objectToAimX = transform;
     if (_objectToAimY == null) _objectToAimY = transform;
