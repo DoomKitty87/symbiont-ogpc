@@ -74,7 +74,7 @@ public class EnemyAI : MonoBehaviour
   private void TargetingPlayer() {
     GameObject player = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
     Vector3 rel = player.transform.position - _rotateX.transform.position;
-    float radVal = Mathf.Atan2(rel.y, rel.z);
+    float radVal = Mathf.Abs(Mathf.Atan2(rel.y, rel.z));
     if (rel.z > 0 && rel.y > 0) {
       radVal = Mathf.PI / 2 - radVal;
     } 
@@ -84,18 +84,20 @@ public class EnemyAI : MonoBehaviour
     else if (rel.z < 0 && rel.y < 0) {
       radVal = -radVal - Mathf.PI;
     }
-    // else if (rel.z > 0 && rel.y < 0) {
-    //  radVal = //wip
-    // }
+    else if (rel.z > 0 && rel.y < 0) {
+      radVal = (-Mathf.PI / 2) + radVal;
+    }
     else if (rel.z == 0) {
       if (rel.y > 0) radVal = Mathf.PI / 2;
       else radVal = -Mathf.PI / 2;
     }
     else if (rel.y == 0) {
       if (rel.z > 0) radVal = 0;
-      else radVal = Mathf.PI;
+      else radVal = 0;
     }
     else if (rel.z == 0 && rel.y == 0) radVal = 0;
+
+    //if (radVal == -Mathf.PI) radVal = 0;
     _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
     //Rotation on X axis
     rel = player.transform.position - _rotateY.transform.position;
@@ -125,6 +127,8 @@ public class EnemyAI : MonoBehaviour
     foreach (Collider col in cols) {
       if (col.gameObject == transform.parent.gameObject) continue;
       if (col.gameObject != GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) continue;
+      RaycastHit hit;
+      if (Physics.Linecast(transform.position, col.gameObject.transform.position, out hit)) if (hit.collider.gameObject != col.gameObject) continue;
       float angleDiff = Vector3.Angle(_raycastOrigin.forward, transform.position - col.gameObject.transform.position);
       if (angleDiff <= _fovDirect / 2f) {
         //Found in direct range
