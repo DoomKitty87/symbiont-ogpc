@@ -51,6 +51,9 @@ public class EnemyInfo : MonoBehaviour
         if (hit.collider != col) continue;
         GameObject tmp;
         if (gameObject.CompareTag("DoorCamera")) {
+          RaycastHit hit2;
+          Physics.Linecast(GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject.transform.position, GetComponent<DoorCameraFollow>().otherDoor.GetChild(0).position, out hit2);
+          if (hit2.collider.gameObject.name != "DoorGraphic") continue;
           if (screenPos.x > cam.WorldToScreenPoint(GetComponent<DoorCameraFollow>().door.position + GetComponent<DoorCameraFollow>().door.forward * (GetComponent<DoorCameraFollow>().door.GetChild(1).gameObject.GetComponent<Renderer>().bounds.size.x / 2)).x) continue;
           if (screenPos.x < cam.WorldToScreenPoint(GetComponent<DoorCameraFollow>().door.position - GetComponent<DoorCameraFollow>().door.forward * (GetComponent<DoorCameraFollow>().door.GetChild(1).gameObject.GetComponent<Renderer>().bounds.size.x / 2)).x) continue;
           if (screenPos.y > cam.WorldToScreenPoint(GetComponent<DoorCameraFollow>().door.position + new Vector3(0, GetComponent<DoorCameraFollow>().door.GetChild(1).gameObject.GetComponent<Renderer>().bounds.size.y / 2, 0)).y) continue;
