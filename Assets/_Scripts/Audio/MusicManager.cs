@@ -12,16 +12,11 @@ public class MusicManager : MonoBehaviour
   [SerializeField] private bool _shuffle;
   [SerializeField] private List<int> _clipIndexesPlayed;
 
+  private bool _playing;
+
   private void Start() {
     UpdateVolume();
-    StartCoroutine(PlayInOrder());
- 
-    // if (!_shuffle) {
-    //   StartCoroutine(PlayInOrder());
-    // }
-    // else {
-    //   StartCoroutine(PlayShuffled());
-    // }
+    StartPlaying();
   }
 
   private void UpdateVolume() {
@@ -31,19 +26,51 @@ public class MusicManager : MonoBehaviour
 
   private void Update() {
     UpdateVolume();
+    if (!_playing) StartPlaying();
+  }
+
+  private void StartPlaying() {
+    if (!_shuffle) {
+      StartCoroutine(PlayInOrder());
+    }
+    else {
+      StartCoroutine(PlayShuffled());
+    }
   }
 
   private IEnumerator PlayInOrder() {
-    while (true) {
-      foreach (AudioClip track in _musicClips) {
-        _audioSource.clip = track;
-        _currentClipIndex = _musicClips.IndexOf(track);
-        _audioSource.Play();
-        yield return new WaitForSeconds(_audioSource.clip.length);
-        Debug.Log("MusicManager: Song ended.");
-        _clipIndexesPlayed.Add(_currentClipIndex);
-      }
+    _playing = true;
+    foreach (AudioClip track in _musicClips) {
+      _audioSource.clip = track;
+      _currentClipIndex = _musicClips.IndexOf(track);
+      _audioSource.Play();
+      yield return new WaitForSeconds(_audioSource.clip.length);
+      Debug.Log("MusicManager: Song ended.");
+      _clipIndexesPlayed.Add(_currentClipIndex);
     }
+    _playing = false;
+  }
+
+  private IEnumerator PlayShuffled() {
+    _playing = true;
+    List<int> played = new List<int>();
+    for (int i = 0; i < _musicClips.Count; i++) {
+      int indexToPlay = Random.Range(0, _musicClips.Count);
+      if (played.Contains(indexToPlay)) {
+        if (played.Count >= _musicClips.Count) {
+          played.Clear();
+        }
+        else {
+          while (played.Contains(indexToPlay)) indexToPlay = Random.Range(0, _musicClips.Count);
+        }
+      }
+      played.Add(indexToPlay);
+      _audioSource.clip = _musicClips[indexToPlay];
+      _audioSource.Play();
+      yield return new WaitForSeconds(_audioSource.clip.length);
+      Debug.Log("MusicManager: Song ended.");
+    }
+    _playing = false;
   }
 
   // private IEnumerator PlayShuffled() {
