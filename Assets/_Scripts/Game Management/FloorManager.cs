@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using System.Linq;
 
 [System.Serializable]
 public class FloorTheme
@@ -27,6 +28,7 @@ public class FloorManager : MonoBehaviour
   private float _healthScale, _speedScale, _visionRangeScale, _visionArcScale, _awarenessScale, _lookSpeedScale;
 
   private int _chosenFloorType;
+  private float _diffScaleOverall = 1f; 
 
   [HideInInspector] public List<GameObject> _robotsSeen = new List<GameObject>();
   [HideInInspector] public List<string[]> _robotData = new List<string[]>();
@@ -101,8 +103,16 @@ public class FloorManager : MonoBehaviour
     return health;
   }
 
-  public WeaponItem GetRandWeapon() {
-    return _floorThemes[_chosenFloorType].floorTypeWeapons[Random.Range(0, _floorThemes[_chosenFloorType].floorTypeWeapons.Length)];
+  public WeaponItem[] GetRandWeapons() {
+    WeaponItem[] weaponsToReturn = new WeaponItem[1];
+    int wpn1 = Random.Range(0, _floorThemes[_chosenFloorType].floorTypeWeapons.Length);
+    weaponsToReturn[0] = _floorThemes[_chosenFloorType].floorTypeWeapons[wpn1];
+    if (Random.value < _diffScaleOverall - 1) {
+      int wpn2 = Random.Range(0, _floorThemes[_chosenFloorType].floorTypeWeapons.Length);
+      while (wpn2 == wpn1) wpn2 = Random.Range(0, _floorThemes[_chosenFloorType].floorTypeWeapons.Length);
+      weaponsToReturn = weaponsToReturn.Append(_floorThemes[_chosenFloorType].floorTypeWeapons[wpn2]).ToArray();
+    }
+    return weaponsToReturn;
   }
 
   public void LoseState() {
@@ -117,6 +127,7 @@ public class FloorManager : MonoBehaviour
     _visionArcScale *= _diffScaleSpeed;
     _awarenessScale *= _diffScaleSpeed;
     _lookSpeedScale *= _diffScaleSpeed;
+    _diffScaleOverall *= _diffScaleSpeed;
     _chosenFloorType = Random.Range(0, _floorThemes.Length);
     _robotsSeen.Clear();
     _robotData.Clear();
