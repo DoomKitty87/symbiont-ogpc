@@ -1561,6 +1561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4272128194766408327}
   - component: {fileID: 1539525137694087329}
+  - component: {fileID: 4005534600293995566}
   m_Layer: 8
   m_Name: External Model
   m_TagString: Untagged
@@ -1654,6 +1655,19 @@ MonoBehaviour:
   - {fileID: 4604682785072374997}
   - {fileID: 5749209505335160619}
   - {fileID: 6539939412940603578}
+--- !u!114 &4005534600293995566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459456492129472573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b72552e13973c4d9712e037f1643ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _torso: {fileID: 7350991851793803595}
 --- !u!1 &3653637724685086383
 GameObject:
   m_ObjectHideFlags: 0
@@ -10714,6 +10728,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _raycastOrigin: {fileID: 7384218135317066878}
+  _rotateX: {fileID: 7384218135843328814}
+  _rotateY: {fileID: 7384218134606678416}
   _targetingPlayer: 0
   _secondsSinceTargeting: 0
 --- !u!1 &7384218135876208278
