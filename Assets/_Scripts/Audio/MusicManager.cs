@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MusicManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class MusicManager : MonoBehaviour
   [SerializeField] private List<AudioClip> _musicClips;
   [SerializeField] private bool _shuffle;
   [SerializeField] private List<int> _clipIndexesPlayed;
+  [SerializeField] private GameObject _nowPlayingPopup;
+  [SerializeField] private GameObject _mainCanvas;
 
   private bool _playing;
 
@@ -49,6 +52,7 @@ public class MusicManager : MonoBehaviour
       _audioSource.clip = track;
       _currentClipIndex = _musicClips.IndexOf(track);
       _audioSource.Play();
+      StartCoroutine(NewSongPlaying(_audioSource.clip));
       yield return new WaitForSeconds(_audioSource.clip.length);
       Debug.Log("MusicManager: Song ended.");
       _clipIndexesPlayed.Add(_currentClipIndex);
@@ -72,10 +76,29 @@ public class MusicManager : MonoBehaviour
       played.Add(indexToPlay);
       _audioSource.clip = _musicClips[indexToPlay];
       _audioSource.Play();
+      StartCoroutine(NewSongPlaying(_audioSource.clip));
       yield return new WaitForSeconds(_audioSource.clip.length);
       Debug.Log("MusicManager: Song ended.");
     }
     _playing = false;
+  }
+
+  private IEnumerator NewSongPlaying(AudioClip clip) {
+    GameObject tmp = Instantiate(_nowPlayingPopup, Vector3.zero, Quaternion.identity, _mainCanvas.transform);
+    Transform infoHolder = tmp.transform.GetChild(0);
+    infoHolder.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = clip.name + " | " + clip.length.ToString();
+    float timeElapsed = 0;
+    while (timeElapsed < 1) {
+      infoHolder.transform.position = new Vector3(Mathf.Lerp(Screen.width + (infoHolder.gameObject.GetComponent<RectTransform>().rect.x / 2), Screen.width - (infoHolder.gameObject.GetComponent<RectTransform>().rect.x / 2), timeElapsed), 0, 0);
+      timeElapsed += Time.deltaTime;
+    }
+    yield return new WaitForSeconds(1.5f);
+    timeElapsed = 0;
+    while (timeElapsed < 1) {
+      infoHolder.transform.position = new Vector3(Mathf.Lerp(Screen.width + (infoHolder.gameObject.GetComponent<RectTransform>().rect.x / 2), Screen.width - (infoHolder.gameObject.GetComponent<RectTransform>().rect.x / 2), 1 - timeElapsed), 0, 0);
+      timeElapsed += Time.deltaTime;
+    }
+    Destroy(tmp);
   }
 
   // private IEnumerator PlayShuffled() {
