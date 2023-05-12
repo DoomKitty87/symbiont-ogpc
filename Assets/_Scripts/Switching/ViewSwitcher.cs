@@ -210,6 +210,7 @@ public class ViewSwitcher : MonoBehaviour
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
     _currentObjectInhabiting._rotationBase.rotation = initRot * switchToRoom.transform.rotation;
+    GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Switched();
   }
   private bool CanSwitch() {
     if (_secondsSinceLastSwitch <= _effectDuration + _switchCooldown || _playingEffect) {

@@ -33,6 +33,7 @@ public class FloorManager : MonoBehaviour
   [HideInInspector] public List<GameObject> _robotsSeen = new List<GameObject>();
   [HideInInspector] public List<string[]> _robotData = new List<string[]>();
 
+
   //Put this script on a DDOL GameObject (needs persistence)
 
   private void Awake() {
@@ -117,7 +118,27 @@ public class FloorManager : MonoBehaviour
 
   public void LoseState() {
     Cursor.lockState = CursorLockMode.None;
+    StartCoroutine(SubmitHighScore());
     SceneManager.LoadScene("Main Menu");
+  }
+
+  private IEnumerator SubmitHighScore() {
+    int[] runStats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().GetRunStats();
+    List<Score> scores = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>().RetrieveScores();
+    while (scores.Count == 0) {
+      yield return new WaitForSeconds(0.05f);
+    }
+    bool submitted = false;
+    foreach (Score s in scores) {
+      if (s.name == GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>().GetACtiveAccountName()) {
+        if (runStats[0] > s.score) {
+          submitted = true;
+          GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>().PostScores(runStats[0], runStats[1]);
+        }
+        else submitted = true;
+      }
+    }
+    if (!submitted) GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>().PostScores(runStats[0], runStats[1]);
   }
 
   private IEnumerator MoveFloors() {
@@ -131,8 +152,6 @@ public class FloorManager : MonoBehaviour
     _chosenFloorType = Random.Range(0, _floorThemes.Length);
     _robotsSeen.Clear();
     _robotData.Clear();
-
-
 
     //Animate switch with post processing here or something
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);

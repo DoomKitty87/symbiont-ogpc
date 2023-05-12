@@ -22,6 +22,9 @@ public class HealthManager : MonoBehaviour
     _onHealthInitialize?.Invoke(_maxHealth);
   }
   public void Damage(float damagePoints) {
+    if (gameObject != GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) {
+      GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Damage(damagePoints);
+    }
     if (_currentHealth - damagePoints <= 0) {
       // The event system is used so we don't have to make direct references like this please change thank you
       // Keep all needed references on the singleton, not the other scripts
@@ -29,6 +32,7 @@ public class HealthManager : MonoBehaviour
         GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().LoseState();
       }
       else {
+        GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Kills();
         _onHealthZero?.Invoke();
       }
       this.enabled = false;
