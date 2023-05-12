@@ -23,6 +23,8 @@ public class HealthManager : MonoBehaviour
   }
   public void Damage(float damagePoints) {
     if (_currentHealth - damagePoints <= 0) {
+      // The event system is used so we don't have to make direct references like this please change thank you
+      // Keep all needed references on the singleton, not the other scripts
       if (gameObject == GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) {
         GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().LoseState();
       }
