@@ -51,7 +51,6 @@ public class PauseHandler : MonoBehaviour
 					} catch {
 						disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.parent.GetChild(1).GetComponent<CameraOverlay>().enabled = false;
 					}
-					if (disableEnemy.transform.GetChild(3).GetComponent<InGameUI>()) disableEnemy.transform.GetChild(3).gameObject.SetActive(false);
 					if (disableEnemy.transform.GetChild(1).GetComponent<PlayerAim>()) disableEnemy.transform.GetChild(1).GetComponent<PlayerAim>().enabled = false;
 
 
@@ -71,7 +70,6 @@ public class PauseHandler : MonoBehaviour
 					try { enableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.gameObject.GetComponent<EnemyInfo>().enabled = true;
 					} catch { enableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.parent.GetChild(1).GetComponent<CameraOverlay>().enabled = true;
 					}
-					if (enableEnemy.transform.GetChild(3).GetComponent<InGameUI>()) enableEnemy.transform.GetChild(3).gameObject.SetActive(true);
 					if (enableEnemy.transform.GetChild(1).GetComponent<PlayerAim>()) enableEnemy.transform.GetChild(1).GetComponent<PlayerAim>().enabled = true;
 
 					break;
