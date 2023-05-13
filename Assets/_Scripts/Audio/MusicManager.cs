@@ -1,26 +1,121 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.Events;
 
+[System.Serializable]
+public class MusicTrack {
+  public string _trackName;
+  public string _trackArtist;
+  public AudioClip _trackAudioClip;
+}
+
+[RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
   [Header("References")]
   [SerializeField] private AudioSource _audioSource;
-  [Header("Settings")]
-  [SerializeField] private int _currentClipIndex;
-  [SerializeField] private List<AudioClip> _musicClips;
-  [SerializeField] private bool _shuffle;
-  [SerializeField] private List<int> _clipIndexesPlayed;
-  [SerializeField] private GameObject _nowPlayingPopup;
-  [SerializeField] private GameObject _mainCanvas;
 
-  private bool _playing;
+  [Header("Settings")]
+  [SerializeField] private List<MusicTrack> _allTracks;
+  [SerializeField] private bool _shuffleTracks;
+
+  [Header("Debug")]
+  [SerializeField] private List<MusicTrack> _trackQueue = new List<MusicTrack>();
+  [SerializeField] private int _currentQueueIndex = 0;
+  [Header("Bool")]
+  public bool _isPaused;
+  
+  public MusicTrack _currentTrack {
+    get {
+      if (_trackQueue.Count > 0) return _trackQueue[_currentQueueIndex]; else return null;
+    }
+  }
+  public float _songCurrentTime { 
+    get {
+      if (_audioSource.isPlaying) return _audioSource.time; else return -1;
+    }
+  }
+
+  public float _songTotalTime { 
+    get {
+      if (_audioSource.isPlaying) return _audioSource.clip.length; else return -1;
+    }
+  }
+
+
+  // Control Functions
+
+  // the AudioSource should always already be playing before isPaused is set to false,
+  // or else the song will be skipped to the next one in the queue
+
+  public void PlayPause(bool pause) {
+    if (pause) {
+      Pause();
+    }
+    else {
+      Play();
+    }
+  }
+
+  public void Play() {
+    if (_isPaused) {
+      _audioSource.UnPause();
+      _isPaused = false;
+    }
+    else {
+      StartCoroutine(PlayTrackQueueUntilCompleted());
+    }
+  }
+
+  public void Pause() {
+    _isPaused = true;
+    _audioSource.Pause();
+  }
+
+  public void Skip() {
+    StopCoroutine(PlayTrackQueueUntilCompleted());
+    _audioSource.Stop();
+    _currentQueueIndex++;
+    if (_currentQueueIndex >= _trackQueue.Count) _currentQueueIndex = 0;
+    StartCoroutine(PlayTrackQueueUntilCompleted());
+  }
+
+  public void Previous() {
+    StopCoroutine(PlayTrackQueueUntilCompleted());
+    _audioSource.Stop();
+    _currentQueueIndex--;
+    if (_currentQueueIndex < 0) _currentQueueIndex = _trackQueue.Count - 1;
+    StartCoroutine(PlayTrackQueueUntilCompleted());
+  }
+
+
+
+  // ------------------------------
 
   private void Start() {
     UpdateVolume();
-    UpdateShuffle();
-    StartPlaying();
+    if (_shuffleTracks) {
+      AddTracksToQueueAtRandom();
+    }
+    else {
+      for (int i = 0; i < _allTracks.Count; i++) {
+        _trackQueue.Add(_allTracks[i]);
+      }
+    }
+    _currentQueueIndex = 0;
+    Play();
+  }
+  private void AddTracksToQueueAtRandom() {
+    List<MusicTrack> _tracksToAddToQueue = new List<MusicTrack>();
+    for (int i = 0; i < _allTracks.Count; i++) {
+      _tracksToAddToQueue.Add(_allTracks[i]);
+    }
+    while (_tracksToAddToQueue.Count > 0) {
+      int randomIndex = Random.Range(0, _tracksToAddToQueue.Count);
+      _trackQueue.Add(_tracksToAddToQueue[randomIndex]);
+      _tracksToAddToQueue.RemoveAt(randomIndex);
+    }
   }
 
   private void UpdateVolume() {
@@ -28,97 +123,35 @@ public class MusicManager : MonoBehaviour
     _audioSource.volume = _audioSource.volume * (PlayerPrefs.GetFloat("SOUND_VOLUME_MUSIC") / 100);
   }
 
-  private void UpdateShuffle() {
-    _shuffle = PlayerPrefs.GetInt("SOUND_SHUFFLE_SONGS") == 1;
-  }
+  // private void UpdateShuffle() {
+  //   _shuffleTracks = PlayerPrefs.GetInt("SOUND_SHUFFLE_SONGS") == 1;
+  // }
 
   private void Update() {
     UpdateVolume();
-    UpdateShuffle();
-    if (!_playing) StartPlaying();
   }
 
-  private void StartPlaying() {
-    if (!_shuffle) {
-      StartCoroutine(PlayInOrder());
+  private IEnumerator PlayTrackQueueUntilCompleted() {
+    if (_trackQueue.Count == 0) {
+      Debug.LogWarning("MusicManager: Track Queue is empty!");
+      yield break;
     }
-    else {
-      StartCoroutine(PlayShuffled());
-    }
-  }
-
-  private IEnumerator PlayInOrder() {
-    _playing = true;
-    foreach (AudioClip track in _musicClips) {
-      _audioSource.clip = track;
-      _currentClipIndex = _musicClips.IndexOf(track);
-      _audioSource.Play();
-      StartCoroutine(NewSongPlaying(_audioSource.clip));
-      yield return new WaitForSeconds(_audioSource.clip.length);
-      Debug.Log("MusicManager: Song ended.");
-      _clipIndexesPlayed.Add(_currentClipIndex);
-    }
-    _playing = false;
-  }
-
-  private IEnumerator PlayShuffled() {
-    _playing = true;
-    List<int> played = new List<int>();
-    for (int i = 0; i < _musicClips.Count; i++) {
-      int indexToPlay = Random.Range(0, _musicClips.Count);
-      if (played.Contains(indexToPlay)) {
-        if (played.Count >= _musicClips.Count) {
-          played.Clear();
-        }
-        else {
-          while (played.Contains(indexToPlay)) indexToPlay = Random.Range(0, _musicClips.Count);
-        }
+    while (_currentQueueIndex < _trackQueue.Count) {
+      PlayTrack(_trackQueue[_currentQueueIndex]);
+      while (_audioSource.isPlaying || (_audioSource.isPlaying == false && Application.isFocused == false) || _isPaused ) {
+        yield return null;
       }
-      played.Add(indexToPlay);
-      _audioSource.clip = _musicClips[indexToPlay];
-      _audioSource.Play();
-      StartCoroutine(NewSongPlaying(_audioSource.clip));
-      yield return new WaitForSeconds(_audioSource.clip.length);
-      Debug.Log("MusicManager: Song ended.");
+      _currentQueueIndex++;
+      if (_currentQueueIndex >= _trackQueue.Count) _currentQueueIndex = 0;
     }
-    _playing = false;
   }
 
-  private IEnumerator NewSongPlaying(AudioClip clip) {
-    float duration = 0.2f;
-    GameObject tmp = Instantiate(_nowPlayingPopup, Vector3.zero, Quaternion.identity, _mainCanvas.transform);
-    Transform infoHolder = tmp.transform.GetChild(0);
-    infoHolder.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = clip.name + " | " + ((int)clip.length / 60).ToString() + ":" + (((int)clip.length % 60) < 10 ? "0" : "") + ((int)clip.length % 60);
-    float timeElapsed = 0;
-    while (timeElapsed < duration) {
-      tmp.transform.position = new Vector3(Mathf.Lerp(Screen.width + (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2f)), Screen.width - (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2.5f)), timeElapsed / duration), 300, 0);
-      timeElapsed += Time.deltaTime;
-      yield return null;
-    }
-    tmp.transform.position = new Vector3(Screen.width - (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2.5f)), 300, 0);
-    yield return new WaitForSeconds(2f);
-    timeElapsed = 0;
-    while (timeElapsed < duration) {
-      tmp.transform.position = new Vector3(Mathf.Lerp(Screen.width + (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2f)), Screen.width - (Mathf.Abs(infoHolder.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2.5f)), 1 - (timeElapsed / duration)), 300, 0);
-      timeElapsed += Time.deltaTime;
-      yield return null;
-    }
-    Destroy(tmp);
+  private void PlayTrack(MusicTrack track) {
+    StartCoroutine(PlayTrackCoroutine(track));
   }
-
-  // private IEnumerator PlayShuffled() {
-  //   foreach (AudioClip track in _musicClips) {
-  //     int indexToPlay = Random.Range(0, _musicClips.Count);
-  //     _currentClipIndex = _musicClips.IndexOf(track);
-  //     while (indexToPlay == _currentClipIndex || _clipIndexesPlayed.Contains(indexToPlay)) {
-  //       indexToPlay = Random.Range(0, _musicClips.Count);
-  //     }
-  //     _audioSource.clip = _musicClips[indexToPlay];
-  //     _audioSource.Play();
-  //     while (_audioSource.isPlaying) {
-  //       yield return null;
-  //     }
-  //     _clipIndexesPlayed.Add(_currentClipIndex);
-  //   }
-  // }
+  private IEnumerator PlayTrackCoroutine(MusicTrack track) {
+    _audioSource.clip = track._trackAudioClip;
+    _audioSource.Play();
+    yield return new WaitForSeconds(track._trackAudioClip.length);
+  }
 }
