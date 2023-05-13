@@ -26,13 +26,9 @@ public class MouseImageParallax : MonoBehaviour
   }
 
   private Vector2 GetTargetPosition(Vector2 mousePos) {
-    // When the mouse moves to the left edge of the screen, the image should have been moved by _parallaxDistance to the right
-    // If it were halfway to the left edge of the sceen, the image should have been moved by _parallaxDistance / 2 to the right
-    // If it were at the center of the screen, the image should be at the center of the screen
-
     return new Vector2(
-      Mathf.Clamp((mousePos.x / Screen.width) * _parallaxDistance, -_parallaxDistance, _parallaxDistance),
-      Mathf.Clamp((mousePos.y / Screen.height) * _parallaxDistance, -_parallaxDistance, _parallaxDistance)
+      Mathf.Clamp((mousePos.x / Screen.width) * _parallaxDistance, -Mathf.Abs(_parallaxDistance), Mathf.Abs(_parallaxDistance)),
+      Mathf.Clamp((mousePos.y / Screen.height) * _parallaxDistance, -Mathf.Abs(_parallaxDistance), Mathf.Abs(_parallaxDistance))
     );
   }
 } 
