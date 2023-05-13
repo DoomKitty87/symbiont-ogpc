@@ -29,4 +29,9 @@ public class CheckboxScript : MonoBehaviour
       PlayerPrefs.SetInt(_settingsKey, v ? 1 : 0);
     });
   }
+
+  public void ResetValue() {
+    PlayerPrefs.SetInt(_settingsKey, _defaultValue);
+    _checkbox.isOn = _defaultValue == 1;
+  }
 }

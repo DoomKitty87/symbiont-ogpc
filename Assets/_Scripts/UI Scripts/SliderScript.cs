@@ -48,4 +48,9 @@ public class SliderScript : MonoBehaviour
 		float updateNum = Mathf.Clamp(float.Parse(value), _slider.minValue, _slider.maxValue);
 		_slider.value = updateNum;
 	}
+
+  public void ResetValue() {
+    PlayerPrefs.SetFloat(_settingsKey, _defaultValue);
+    _slider.value = _defaultValue;
+  }
 }
