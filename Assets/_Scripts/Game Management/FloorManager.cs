@@ -127,28 +127,43 @@ public class FloorManager : MonoBehaviour
   }
 
   private void BringUpOverviewScreen() {
+    if (GameObject.FindWithTag("LoseScreen")) return;
+
     int[] runStats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().GetRunStats();
     GameObject tmp = Instantiate(_loseScreenPrefab, Vector3.zero, Quaternion.identity);
     StartCoroutine(FadeOutDeathScreen(tmp));
     for (int i = 0; i < runStats.Length; i++) {
-      tmp.transform.GetChild(1).GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = runStats[i].ToString();
+      tmp.transform.GetChild(1).GetChild(0).GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = runStats[i].ToString();
     }
-    tmp.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = _flavorTexts[Random.Range(0, _flavorTexts.Length)];
+    tmp.transform.GetChild(1).GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = _flavorTexts[Random.Range(0, _flavorTexts.Length)];
     }
-    private IEnumerator FadeOutDeathScreen(GameObject tmp) {
-        float alpha = 0;
-        CanvasGroup tmpCanvasGroup = tmp.GetComponent<CanvasGroup>();
-        while (alpha < 1) {
-            alpha += Time.unscaledDeltaTime;
-            tmpCanvasGroup.alpha = Mathf.Lerp(0, 1, alpha);
-            Time.timeScale = 1 - alpha;
-            yield return null;
-		}
-        Time.timeScale = 0.0f;
-	}
-  
+  private IEnumerator FadeOutDeathScreen(GameObject tmp) {
+    float alpha = 0;
+    CanvasGroup tmpCanvasGroup = tmp.GetComponent<CanvasGroup>();
 
-  private IEnumerator SubmitHighScore() {
+    // Fade in BackgroundDim
+    while (alpha < 1) {
+      tmpCanvasGroup.alpha = Mathf.Lerp(0, 1, alpha);
+      if (alpha !> 0.99) Time.timeScale = 1 - alpha;
+      alpha += Time.unscaledDeltaTime; // Takes one seconds to fade in
+      yield return null;
+	  }
+    tmpCanvasGroup.alpha = 1;
+		Time.timeScale = 0.0f;
+
+		//Fade in text
+		alpha = 0;
+		tmpCanvasGroup = tmp.transform.GetChild(1).GetComponent<CanvasGroup>();
+		while (alpha < 1) {
+			tmpCanvasGroup.alpha = Mathf.Lerp(0, 1, alpha);
+			alpha += Time.unscaledDeltaTime; // Takes one seconds to fade in
+			yield return null;
+		}
+		tmpCanvasGroup.alpha = 1;
+	}
+
+
+	private IEnumerator SubmitHighScore() {
     int[] runStats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().GetRunStats();
     List<Score> scores = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>().RetrieveScores();
     while (scores.Count == 0) {
