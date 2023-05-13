@@ -123,12 +123,29 @@ public class MusicManager : MonoBehaviour
     _audioSource.volume = _audioSource.volume * (PlayerPrefs.GetFloat("SOUND_VOLUME_MUSIC") / 100);
   }
 
-  // private void UpdateShuffle() {
-  //   _shuffleTracks = PlayerPrefs.GetInt("SOUND_SHUFFLE_SONGS") == 1;
-  // }
+  private void UpdateShuffle() {
+    _shuffleTracks = PlayerPrefs.GetInt("SOUND_SHUFFLE_SONGS") == 1;
+  }
 
   private void Update() {
     UpdateVolume();
+    bool shuffleOld = _shuffleTracks;
+    UpdateShuffle();
+    if (shuffleOld != _shuffleTracks) {
+      _trackQueue.Clear();
+      if (_shuffleTracks) {
+      AddTracksToQueueAtRandom();
+      }
+      else {
+        for (int i = 0; i < _allTracks.Count; i++) {
+          _trackQueue.Add(_allTracks[i]);
+        }
+      }
+    }
+  }
+
+  private void ClearQueue() {
+    _trackQueue.Clear();
   }
 
   private IEnumerator PlayTrackQueueUntilCompleted() {
