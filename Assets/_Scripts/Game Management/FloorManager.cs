@@ -121,7 +121,6 @@ public class FloorManager : MonoBehaviour
 
   public void LoseState() {
     GameObject.FindWithTag("Handler").GetComponent<PauseHandler>()._pauseState = PauseHandler.PauseState.Dead;
-    Cursor.lockState = CursorLockMode.None;
     StartCoroutine(SubmitHighScore());
     BringUpOverviewScreen();
   }
@@ -150,6 +149,9 @@ public class FloorManager : MonoBehaviour
 	  }
     tmpCanvasGroup.alpha = 1;
 		Time.timeScale = 0.0f;
+
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
 
 		//Fade in text
 		alpha = 0;
