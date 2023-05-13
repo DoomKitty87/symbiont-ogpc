@@ -31,11 +31,9 @@ public class SwitchSpriteOnToggle : MonoBehaviour
  public void SwitchSprites(bool _) {
     if (_toggle.isOn) {
       _image.sprite = _onSprite;
-      print("Switched to On Sprite");
     }
     else {
       _image.sprite = _offSprite;
-      print("Switched to Off Sprite");
     }
  }
 }
