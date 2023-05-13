@@ -48,7 +48,6 @@ public class RoomHandler : MonoBehaviour
 		_numberOfEnemies = transform.GetChild(0).childCount;
 		// && !gameObject.CompareTag("EndingRoom")
 		if (_numberOfEnemies == 1 && !_instantiatedNewRoom)  {
-			GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().ClearedRoom();
 			_instantiatedNewRoom = true;
 			PickNextDoor();
 			_roomGenNew.CreateNewRoom();

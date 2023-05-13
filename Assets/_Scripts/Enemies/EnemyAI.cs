@@ -105,7 +105,7 @@ public class EnemyAI : MonoBehaviour
     _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.LookRotation(rel), _timeElapsed * _lookSpeed / 2);
     //Rotation on Y axis
     RaycastHit hit;
-    if (Physics.Raycast(transform.position, _raycastOrigin.forward, out hit, _rangeDirect, _enemyLayer)) {
+    if (Physics.Raycast(transform.position, _raycastOrigin.forward, out hit, _rangeDirect)) {
       if (hit.collider.gameObject == player) Shoot();
     }
     _timeElapsed += Time.deltaTime;
