@@ -38,6 +38,7 @@ public class LeaderboardManager : MonoBehaviour
       yield return new WaitForSeconds(0.05f);
     }
     scores.Sort((s1, s2) => s1.score.CompareTo(s2.score));
+    scores.Reverse();
     // Need to add places to the leaderboard
     int place = 1;
     for (int i = 0; i < transform.childCount; i++) {

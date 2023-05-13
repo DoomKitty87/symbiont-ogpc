@@ -71,9 +71,7 @@ public class LeaderboardConnect : MonoBehaviour
     form.AddField("password", password);
     form.AddField("score", score);
     form.AddField("length", length);
-    print(name);
-    print(password);
-    print(score);
+
     using (UnityWebRequest www = UnityWebRequest.Post(highscoreURL, form)) {
       yield return www.SendWebRequest();
       if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
