@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class PauseHandler : MonoBehaviour 
 {
-	[SerializeField] private GameObject[] _objectsToBeHiddenOnPause;
-
 	public List<GameObject> _menuScreens; // First string is default pause string
 
 	public List<GameObject> _menuLayers;
@@ -64,6 +62,18 @@ public class PauseHandler : MonoBehaviour
 					Time.timeScale = 1.0f;
 					Cursor.visible = false;
 					Cursor.lockState = CursorLockMode.Locked;
+
+					_menuLayers[0].transform.GetChild(1).GetComponent<CanvasGroup>().alpha = 1.0f;
+					_menuLayers[0].transform.GetChild(1).GetComponent<CanvasGroup>().interactable = true;
+					_menuLayers[0].transform.GetChild(1).GetComponent<CanvasGroup>().blocksRaycasts = true;
+											
+					_menuLayers[0].transform.GetChild(2).GetComponent<CanvasGroup>().alpha = 0f;
+					_menuLayers[0].transform.GetChild(2).GetComponent<CanvasGroup>().interactable = false;
+					_menuLayers[0].transform.GetChild(2).GetComponent<CanvasGroup>().blocksRaycasts = false;
+											
+					_menuLayers[0].transform.GetChild(3).GetComponent<CanvasGroup>().alpha = 0f;
+					_menuLayers[0].transform.GetChild(3).GetComponent<CanvasGroup>().interactable = false;
+					_menuLayers[0].transform.GetChild(3).GetComponent<CanvasGroup>().blocksRaycasts = false;
 
 					_menuLayers[0].SetActive(false);
 					_menuLayers.Remove(_menuLayers[^1]);
