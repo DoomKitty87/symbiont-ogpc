@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51dfbe5df0024eb41b8dea943b82e833, type: 3}
+  m_Name: Burst Rifle
+  m_EditorClassIdentifier: 
+  name: Burst Rifle
+  id: 3
+  gunPrefab: {fileID: 4967066953837077705, guid: 5828eb3adede2f24a98381a177d90b1c,
+    type: 3}
+  gunOffset: {x: 0, y: 0, z: 0}
+  gunRotationOffset: {x: 0, y: 0, z: 0}
+  manufacturer: ElectroArms
+  modelName: BRX18
+  nickName: Triple Threat
+  fireType: 1
+  maxShotDamage: 12
+  fireDelaySeconds: 0.5
+  magSize: 24
+  reloadTimeSeconds: 2.5
+  verticalRecoil: 6
+  horizontalRecoilDeviation: 0.5
+  recoilSnapiness: 7
+  recoilRecoverySpeed: 5
+  zCameraShake: 0.8
+  minShotSpreadDegrees: 0.005
+  maxShotSpreadDegrees: 0.1
+  shotSpreadFireInaccuracyDegrees: 0.05
+  shotSpreadRecovery: 0.05
+  shotsPerBurst: 3
+  secondsBetweenBurstShots: 0.08
+  minShotDamage: 0
+  chargeTimeSeconds: 0
+  animatorOverride: {fileID: 0}
+  shotSound: {fileID: 0}
+  shotSoundNearEmpty: {fileID: 0}
+  emptyFireSound: {fileID: 0}
+  reloadStartSound: {fileID: 0}
+  reloadEndSound: {fileID: 0}
+  equipSound: {fileID: 0}
+  effectPositionOffset: {x: 0, y: 0, z: 0}
+  laserScaleUpColor: {r: 0, g: 1, b: 0, a: 1}
+  laserScaleDownColor: {r: 1, g: 1, b: 1, a: 0}
+  durationLaserScaleUp: 0.04
+  durationLaserScaleDown: 0.06
+  laserEmissionColor: {r: 0, g: 4, b: 0, a: 0}
+  muzzleFlashEffectPrefab: {fileID: 1681060557054156774, guid: f922669cfb7651546a43e0fa800f4ddd,
+    type: 3}
+  hitEffectPrefab: {fileID: 0}
