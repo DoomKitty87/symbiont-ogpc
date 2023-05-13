@@ -14,9 +14,6 @@ public class CheckboxScript : MonoBehaviour
 	[Header("References")]
   [SerializeField] private Toggle _checkbox;
 
-	[Header("Layout")]
-	[SerializeField] private string _floatLayout;
-
   void OnEnable() {
     if (!PlayerPrefs.HasKey(_settingsKey)) PlayerPrefs.SetInt(_settingsKey, _defaultValue);
 

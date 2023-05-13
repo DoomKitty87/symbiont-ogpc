@@ -49,11 +49,10 @@ public class EaseElementToPosition : MonoBehaviour
   private IEnumerator EaseElementToPositionCoroutine(RectTransform targetPosition, float duration) {
     _moving = true;
     float time = 0;
-    while (time < duration)
-    {
-      time += Time.deltaTime;
+    while (time < duration) {
       _rectTransformToMove.anchoredPosition = Vector2.Lerp(_rectTransformToMove.anchoredPosition, targetPosition.anchoredPosition, _easeCurve.Evaluate(time / duration));
       yield return null;
+      time += Time.deltaTime;
     }
     _rectTransformToMove.anchoredPosition = targetPosition.anchoredPosition;
     OnEaseToPositionComplete?.Invoke();

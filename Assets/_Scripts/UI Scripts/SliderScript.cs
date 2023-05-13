@@ -46,6 +46,7 @@ public class SliderScript : MonoBehaviour
 	private void SetSliderValue(string value) {
     // Changed activation to onEndEdit; player may not always press enter
 		float updateNum = Mathf.Clamp(float.Parse(value), _slider.minValue, _slider.maxValue);
+    _inputField.text = updateNum.ToString(_floatLayout);
 		_slider.value = updateNum;
 	}
 
