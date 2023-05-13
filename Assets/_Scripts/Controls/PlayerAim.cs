@@ -25,9 +25,21 @@ public class PlayerAim : MonoBehaviour
   [HideInInspector] public float _rotX;
   [HideInInspector] public float _rotY;
 
+  private float _initSensH;
+  private float _initSensV;
+
   void Start() {
-    _horizontalSens *= PlayerPrefs.GetFloat("INPUT_SENSITIVITY");
-    _verticalSens *= PlayerPrefs.GetFloat("INPUT_SENSITIVITY");
+    _initSensH = _horizontalSens;
+    _initSensV = _verticalSens;
+
+    if (PlayerPrefs.HasKey("INPUT_SENSITIVITY")) {
+      _horizontalSens *= PlayerPrefs.GetFloat("INPUT_SENSITIVITY");
+      _verticalSens *= PlayerPrefs.GetFloat("INPUT_SENSITIVITY");
+    }
+    else {
+      _horizontalSens *= 5;
+      _verticalSens *= 5;
+    }
     Cursor.lockState = CursorLockMode.Locked;
     if (_objectToAimX == null) _objectToAimX = transform;
     if (_objectToAimY == null) _objectToAimY = transform;
@@ -35,7 +47,13 @@ public class PlayerAim : MonoBehaviour
     _objectToAimY.rotation = Quaternion.Euler(0f, 0f, 0f);
   }
 
+  private void UpdateSensitivity() {
+    _horizontalSens = _initSensH * PlayerPrefs.GetFloat("INPUT_SENSITIVITY");
+    _verticalSens = _initSensV * PlayerPrefs.GetFloat("INPUT_SENSITIVITY");
+  }
+
   void Update() {
+    UpdateSensitivity();
     float oldY = _rotY;
     float oldX = _rotX;
     _rotY += Input.GetAxis("Mouse X") * _horizontalSens;

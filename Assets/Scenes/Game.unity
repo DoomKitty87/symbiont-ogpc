@@ -8332,6 +8332,7 @@ GameObject:
   - component: {fileID: 1226219032}
   - component: {fileID: 1226219031}
   - component: {fileID: 1226219033}
+  - component: {fileID: 1226219034}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Handler
@@ -8387,6 +8388,18 @@ MonoBehaviour:
   _menuScreens: []
   _menuLayers: []
   _pauseState: 0
+--- !u!114 &1226219034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226219030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f904d982d7a054ea6760d432c25e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1285869596
 GameObject:
   m_ObjectHideFlags: 0
@@ -8916,10 +8929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf830018ec5c14557a46b3e932e4998a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultValue: 0
-  _settingsKey: SOUND_SHUFFLE_SONGS
-  _checkbox: {fileID: 1413274064}
-  _floatLayout: 
 --- !u!114 &1413274064
 MonoBehaviour:
   m_ObjectHideFlags: 0
