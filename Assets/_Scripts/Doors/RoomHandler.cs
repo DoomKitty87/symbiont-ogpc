@@ -70,7 +70,6 @@ public class RoomHandler : MonoBehaviour
 		_nextDoor.transform.GetChild(0).GetComponent<Renderer>().material = doorMaterial;
 		_nextDoor.transform.GetChild(0).tag = "DoorGraphic";
 		_nextDoor.transform.GetChild(1).gameObject.GetComponent<Animator>().SetBool("Open", true);
-		Debug.Log(_nextDoor.transform.GetChild(1));
 		GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().ClearedRoom();
 	}
 

@@ -189,7 +189,7 @@ namespace Enemy.Editor {
 				Vector3 pointPosition = HandleUtility.ClosestPointToPolyLine(_lines);
 				Color previousColor = Handles.color;
 				Handles.color = _pointOnLineColor;
-				Handles.DrawSolidDisc(pointPosition, Camera.current.transform.forward, HandleUtility.GetHandleSize(pointPosition * 0.001f));
+				Handles.DrawSolidDisc(pointPosition, Camera.current.transform.forward, HandleUtility.GetHandleSize(pointPosition) / 5);
 				Handles.color = previousColor;
 				HandleUtility.Repaint();
 
