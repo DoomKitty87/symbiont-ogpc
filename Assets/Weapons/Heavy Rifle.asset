@@ -16,6 +16,7 @@ MonoBehaviour:
   id: 2
   gunPrefab: {fileID: 0}
   gunOffset: {x: 0, y: 0, z: 0}
+  gunRotationOffset: {x: 0, y: 0, z: 0}
   manufacturer: Krieslauf AG
   modelName: OHM100
   nickName: Resistor
@@ -24,9 +25,11 @@ MonoBehaviour:
   fireDelaySeconds: 0
   magSize: 8
   reloadTimeSeconds: 0
-  verticalRecoilDegrees: 0.5
-  verticalRecoilRecovery: 1
-  backRecoil: 0.25
+  verticalRecoil: 0
+  horizontalRecoilDeviation: 0
+  recoilSnapiness: 0
+  recoilRecoverySpeed: 0
+  zCameraShake: 5
   minShotSpreadDegrees: 0
   maxShotSpreadDegrees: 0
   shotSpreadFireInaccuracyDegrees: 0
@@ -35,5 +38,18 @@ MonoBehaviour:
   secondsBetweenBurstShots: 0
   minShotDamage: 0
   chargeTimeSeconds: 0
-  upRecoilAnim: 0
-  shotColor: {r: 0, g: 0, b: 0, a: 0}
+  animatorOverride: {fileID: 0}
+  shotSound: {fileID: 0}
+  shotSoundNearEmpty: {fileID: 0}
+  emptyFireSound: {fileID: 0}
+  reloadStartSound: {fileID: 0}
+  reloadEndSound: {fileID: 0}
+  equipSound: {fileID: 0}
+  effectPositionOffset: {x: 0, y: 0, z: 0}
+  laserScaleUpColor: {r: 0, g: 0, b: 0, a: 0}
+  laserScaleDownColor: {r: 0, g: 0, b: 0, a: 0}
+  durationLaserScaleUp: 0.08
+  durationLaserScaleDown: 0.1
+  laserEmissionColor: {r: 0, g: 0, b: 0, a: 0}
+  muzzleFlashEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 0}
