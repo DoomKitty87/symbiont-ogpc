@@ -10,6 +10,9 @@ public class EnemyAI : MonoBehaviour
   [SerializeField] private Transform _raycastOrigin;
   [SerializeField] private Transform _rotateX, _rotateY;
 
+  [Header("Debug")]
+  [SerializeField] private bool _debug;
+  
   [HideInInspector] public bool _targetingPlayer;
   [HideInInspector] public float _secondsSinceTargeting;
 
@@ -152,5 +155,20 @@ public class EnemyAI : MonoBehaviour
         }
       }
     }
+  }
+
+  private void OnDrawGizmos() {
+    Gizmos.color = Color.red;
+    Gizmos.DrawWireSphere(transform.position, _rangeDirect);
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawWireSphere(transform.position, _rangePeriph);
+    Gizmos.color = Color.blue;
+    Gizmos.DrawWireSphere(transform.position, _rangeInvis);
+    Gizmos.color = Color.blue;
+    Gizmos.DrawRay(_raycastOrigin.position, _raycastOrigin.forward * _rangeDirect);
+    Gizmos.DrawRay(_raycastOrigin.position, Quaternion.Euler(0, _fovDirect / 2f, 0) * _raycastOrigin.forward * _rangeDirect);
+    Gizmos.DrawRay(_raycastOrigin.position, Quaternion.Euler(0, -_fovDirect / 2f, 0) * _raycastOrigin.forward * _rangeDirect);
+    Gizmos.DrawRay(_raycastOrigin.position, Quaternion.Euler(0, _fovPeriph / 2f, 0) * _raycastOrigin.forward * _rangePeriph);
+    Gizmos.DrawRay(_raycastOrigin.position, Quaternion.Euler(0, -_fovPeriph / 2f, 0) * _raycastOrigin.forward * _rangePeriph);
   }
 }
