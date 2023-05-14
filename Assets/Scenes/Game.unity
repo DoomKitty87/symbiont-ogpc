@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731715, g: 0.13414735, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1269,15 +1269,15 @@ MonoBehaviour:
     floorTypeEnemy: {fileID: 0}
   _healthBase: 200
   _speedBase: 2
-  _visionRangeBase: 50
+  _visionRangeBase: 10
   _visionArcBase: 70
-  _awarenessBase: 0.6
+  _awarenessBase: 0.1
   _lookSpeedBase: 3
   _healthCap: 500
   _speedCap: 4
-  _visionRangeCap: 70
+  _visionRangeCap: 13
   _visionArcCap: 120
-  _awarenessCap: 1
+  _awarenessCap: 0.2
   _lookSpeedCap: 10
   _diffScaleSpeed: 1.1
   _loseScreenPrefab: {fileID: 8443786209686129335, guid: 08e265d5ab966411ba8412e4f842f4db,
@@ -1289,7 +1289,9 @@ MonoBehaviour:
   - 'Kabourophobia: The fear of crabs.'
   - '"And that was on easy mode!"'
   - Do better.
-  _robotsSeen: []
+  _robotsSeen:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &270392631
 MonoBehaviour:
   m_ObjectHideFlags: 0
