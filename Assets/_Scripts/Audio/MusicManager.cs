@@ -169,6 +169,7 @@ public class MusicManager : MonoBehaviour
   private IEnumerator PlayTrackCoroutine(MusicTrack track) {
     _audioSource.clip = track._trackAudioClip;
     _audioSource.Play();
+    GetComponent<MusicPopupManager>().UpdateSongInfo();
     yield return new WaitForSeconds(track._trackAudioClip.length);
   }
 }

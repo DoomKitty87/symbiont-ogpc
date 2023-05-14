@@ -23,10 +23,13 @@ public class MusicPopupManager : MonoBehaviour
 
   private void Update() {
     UpdateSongCompletionFill();
-    UpdateSongNameText();
-    UpdateSongArtistText();
     UpdateSongCurrentTimeText();
     UpdateSongTotalTimeText();
+  }
+
+  public void UpdateSongInfo() {
+    UpdateSongNameText();
+    UpdateSongArtistText();
   }
 
   private void UpdateSongCompletionFill() {
