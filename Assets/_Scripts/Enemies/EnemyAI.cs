@@ -158,6 +158,7 @@ public class EnemyAI : MonoBehaviour
   }
 
   private void OnDrawGizmos() {
+    if (!_debug) return;
     Gizmos.color = Color.red;
     Gizmos.DrawWireSphere(transform.position, _rangeDirect);
     Gizmos.color = Color.yellow;

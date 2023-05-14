@@ -16,8 +16,8 @@ MonoBehaviour:
   id: 3
   gunPrefab: {fileID: 4967066953837077705, guid: 5828eb3adede2f24a98381a177d90b1c,
     type: 3}
-  gunOffset: {x: 0, y: 0, z: 0}
-  gunRotationOffset: {x: 0, y: 0, z: 0}
+  gunOffset: {x: 0.000242, y: 0.001774, z: 0.001084}
+  gunRotationOffset: {x: 0, y: 90, z: 90}
   manufacturer: ElectroArms
   modelName: BRX18
   nickName: Triple Threat
@@ -39,7 +39,7 @@ MonoBehaviour:
   secondsBetweenBurstShots: 0.08
   minShotDamage: 0
   chargeTimeSeconds: 0
-  animatorOverride: {fileID: 0}
+  animatorOverride: {fileID: 22100000, guid: 0a5f3a44ce1eb3f478eb2515647af5b0, type: 2}
   shotSound: {fileID: 0}
   shotSoundNearEmpty: {fileID: 0}
   emptyFireSound: {fileID: 0}

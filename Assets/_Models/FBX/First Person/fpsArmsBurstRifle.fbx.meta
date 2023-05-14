@@ -1,29 +1,20 @@
 fileFormatVersion: 2
-guid: 841648ae31929cd4aba4675a8ef69a78
+guid: fbd95faa559eb844cb74451f8bd410dd
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
-      74: -2636558830185790942
-    second: ArmRig|Pistol Draw
+      74: 732257279572301449
+    second: ArmRig|BR Draw
   - first:
-      74: 2354875514723008868
-    second: ArmRig|Pistol Fire
+      74: -8463294227641590208
+    second: ArmRig|BR Fire
   - first:
-      74: -5371471444511318523
-    second: ArmRig|Pistol Idle
+      74: -7784563903182380859
+    second: ArmRig|BR Idle
   - first:
-      74: -344926455608498059
-    second: ArmRig|Pistol Reload
-  - first:
-      74: -2404559564744886298
-    second: ArmRig|ArmatureAction
-  - first:
-      74: -8514471749012554530
-    second: Gun|ArmatureAction
-  - first:
-      74: 8504078464728368919
-    second: GunBone|ArmatureAction
+      74: -2378921492903542443
+    second: ArmRig|BR Reload
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -54,69 +45,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: ArmRig|Pistol Draw
-      takeName: ArmRig|Pistol Draw
+      name: ArmRig|BR Draw
+      takeName: ArmRig|BR Draw
       internalID: 0
       firstFrame: 0
       lastFrame: 18
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: ArmRig|Pistol Fire
-      takeName: ArmRig|Pistol Fire
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 6
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: ArmRig|Pistol Idle
-      takeName: ArmRig|Pistol Idle
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 160
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -141,11 +74,69 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ArmRig|Pistol Reload
-      takeName: ArmRig|Pistol Reload
+      name: ArmRig|BR Fire
+      takeName: ArmRig|BR Fire
       internalID: 0
       firstFrame: 0
-      lastFrame: 31
+      lastFrame: 5
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ArmRig|BR Idle
+      takeName: ArmRig|BR Idle
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ArmRig|BR Reload
+      takeName: ArmRig|BR Reload
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
