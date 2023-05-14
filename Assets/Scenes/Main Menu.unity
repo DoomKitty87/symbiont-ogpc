@@ -10837,7 +10837,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -10935,17 +10935,17 @@ MonoBehaviour:
   _displayText: {fileID: 2126960246}
   _settingsKey: COLORBLIND_MODE
   _presets:
-  - displayName: Off
+  - displayName: OFF
     type: 0
     intValue: 0
     floatValue: 0
     boolValue: 0
-  - displayName: Protanopia
+  - displayName: PROTANOPIA
     type: 0
     intValue: 1
     floatValue: 0
     boolValue: 0
-  - displayName: Tritanopia
+  - displayName: TRITANOPIA
     type: 0
     intValue: 2
     floatValue: 0
@@ -11112,10 +11112,10 @@ MonoBehaviour:
   m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
-  m_Elasticity: 0.1
+  m_Elasticity: 0.25
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 20
   m_Viewport: {fileID: 1332425820}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 867400591}
@@ -18912,7 +18912,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: -120, y: 81.6653}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1190853750
 MonoBehaviour:
@@ -18927,7 +18927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7294118}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -24115,22 +24115,22 @@ MonoBehaviour:
   _displayText: {fileID: 583094768}
   _settingsKey: GRAPHICS_MSAA_SCALE
   _presets:
-  - displayName: None
+  - displayName: NONE
     type: 0
     intValue: 0
     floatValue: 0
     boolValue: 0
-  - displayName: 2x
+  - displayName: 2X
     type: 0
     intValue: 1
     floatValue: 0
     boolValue: 0
-  - displayName: 4x
+  - displayName: 4X
     type: 0
     intValue: 2
     floatValue: 0
     boolValue: 0
-  - displayName: 8x
+  - displayName: 8X
     type: 0
     intValue: 3
     floatValue: 0
@@ -32447,7 +32447,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -33609,7 +33609,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
