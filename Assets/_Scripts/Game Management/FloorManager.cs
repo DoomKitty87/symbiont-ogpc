@@ -51,8 +51,8 @@ public class FloorManager : MonoBehaviour
 
   private void Start() {
     // Makes it beyond difficult to test in any other scene, so I'm disabling it for now
-    // if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") Destroy(gameObject);
-    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1) Destroy(gameObject);
+    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") Destroy(gameObject);
+    //if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1) Destroy(gameObject);
     DontDestroyOnLoad(gameObject);
     SceneManager.activeSceneChanged += InNewFloor;
   }
