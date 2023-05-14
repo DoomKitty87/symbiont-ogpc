@@ -10777,10 +10777,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fovDirect: 80
-  _fovPeriph: 120
-  _rangeDirect: 40
-  _rangePeriph: 30
-  _rangeInvis: 20
+  _fovPeriph: 124.97
+  _rangeDirect: 12
+  _rangePeriph: 4
+  _rangeInvis: 2
   _noticeChanceDirect: 0.9
   _noticeChancePeriph: 0.8
   _noticeChanceInvis: 0.4
@@ -10791,6 +10791,7 @@ MonoBehaviour:
   _raycastOrigin: {fileID: 7384218135317066878}
   _rotateX: {fileID: 7384218135843328814}
   _rotateY: {fileID: 7384218134606678416}
+  _debug: 0
   _targetingPlayer: 0
   _secondsSinceTargeting: 0
 --- !u!1 &7384218135876208278
