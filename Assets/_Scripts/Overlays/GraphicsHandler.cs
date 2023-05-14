@@ -49,7 +49,7 @@ public class GraphicsHandler : MonoBehaviour
       VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
       LiftGammaGain lgg;
       volumeProfile.TryGet(out lgg);
-      lgg.gamma.value = new Vector4(1, 1, 1, PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS"));
+      lgg.gamma.value = new Vector4(1, 1, 1, PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS") - 1);
       _lastBrightness = PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS");
     }
   }

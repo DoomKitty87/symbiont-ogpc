@@ -31,6 +31,7 @@ public class CarouselScript : MonoBehaviour
   [Header("Settings")]
 	[SerializeField] private List<CarouselItem> _presets;
   [SerializeField] private int _currentPresetIndex;
+  [SerializeField] private int _defaultPresetIndex;
 
   private void Start() {
     if (_presets.Count == 0) {
@@ -80,6 +81,22 @@ public class CarouselScript : MonoBehaviour
 
 	private void UpdateDisplayAndValues() {
     CarouselItem currentItem = _presets[_currentPresetIndex];
+    _displayText.text = currentItem.displayName;
+    switch (currentItem.type) {
+      case CarouselItem.Type.Int:
+        PlayerPrefs.SetInt(_settingsKey, currentItem.intValue);
+        break;
+      case CarouselItem.Type.Float:
+        PlayerPrefs.SetFloat(_settingsKey, currentItem.floatValue);
+        break;
+      case CarouselItem.Type.Bool:
+        PlayerPrefs.SetInt(_settingsKey, currentItem.boolValue ? 1 : 0);
+        break;
+    }
+  }
+
+  public void ResetValue() {
+    CarouselItem currentItem = _presets[_defaultPresetIndex];
     _displayText.text = currentItem.displayName;
     switch (currentItem.type) {
       case CarouselItem.Type.Int:
