@@ -42,6 +42,19 @@ public class CarouselScript : MonoBehaviour
       _currentPresetIndex = 0;
       return;
     }
+    foreach (CarouselItem obj in _presets) {
+      switch (obj.type) {
+        case CarouselItem.Type.Int:
+          if (PlayerPrefs.GetInt(_settingsKey) == obj.intValue) _currentPresetIndex = _presets.IndexOf(obj);
+          break;
+        case CarouselItem.Type.Float:
+          if (PlayerPrefs.GetFloat(_settingsKey) == obj.floatValue) _currentPresetIndex = _presets.IndexOf(obj);
+          break;
+        case CarouselItem.Type.Bool:
+          if ((PlayerPrefs.GetInt(_settingsKey) == 1) == obj.boolValue) _currentPresetIndex = _presets.IndexOf(obj);
+          break;
+      }
+    }
     _previousButton.onClick.AddListener(PreviousItem);
     _nextButton.onClick.AddListener(NextItem);
     UpdateDisplayAndValues();
