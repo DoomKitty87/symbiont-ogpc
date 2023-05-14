@@ -29484,6 +29484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1862948609}
   - component: {fileID: 1862948610}
+  - component: {fileID: 1862948611}
   m_Layer: 0
   m_Name: PlayerPrefs
   m_TagString: Untagged
@@ -29578,6 +29579,18 @@ MonoBehaviour:
     :float
 
     fullscreen: int (0 or 1)'
+--- !u!114 &1862948611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862948608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5dc180de7b0bbd4ab2f79bb2d2cd7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1868252494
 GameObject:
   m_ObjectHideFlags: 0
