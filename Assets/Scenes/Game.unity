@@ -1271,7 +1271,7 @@ MonoBehaviour:
   _speedBase: 2
   _visionRangeBase: 50
   _visionArcBase: 70
-  _awarenessBase: 1
+  _awarenessBase: 0.6
   _lookSpeedBase: 3
   _healthCap: 500
   _speedCap: 4
@@ -4314,6 +4314,7 @@ MonoBehaviour:
   - {fileID: 838976614}
   _toggles:
   - {fileID: 1413274061}
+  _carousels: []
 --- !u!1 &530047138
 GameObject:
   m_ObjectHideFlags: 0
@@ -8979,7 +8980,6 @@ MonoBehaviour:
   _defaultValue: 0
   _settingsKey: SOUND_SHUFFLE_SONGS
   _checkbox: {fileID: 1413274064}
-  _floatLayout: 
 --- !u!114 &1413274064
 MonoBehaviour:
   m_ObjectHideFlags: 0
