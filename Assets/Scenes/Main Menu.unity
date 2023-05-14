@@ -24901,6 +24901,7 @@ GameObject:
   - component: {fileID: 1568783640}
   - component: {fileID: 1568783639}
   - component: {fileID: 1568783638}
+  - component: {fileID: 1568783642}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -25019,6 +25020,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1568783642}
+        m_TargetAssemblyTypeName: ApplyButton, Assembly-CSharp
+        m_MethodName: ApplySettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 918825412}
         m_TargetAssemblyTypeName: FadeElementInOut, Assembly-CSharp
         m_MethodName: FadeIn
@@ -25105,6 +25118,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568783636}
   m_CullTransparentMesh: 1
+--- !u!114 &1568783642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568783636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092b43993f85d694883cd488db0b1f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sliders:
+  - {fileID: 95589485}
+  - {fileID: 247348357}
+  - {fileID: 622010280}
+  - {fileID: 1903205517}
+  - {fileID: 869356330}
+  _toggles:
+  - {fileID: 1199330424}
+  - {fileID: 870177900}
+  - {fileID: 1504219971}
+  - {fileID: 414984357}
+  - {fileID: 466967928}
+  _carousels:
+  - {fileID: 608396354}
+  - {fileID: 18456795}
+  - {fileID: 1522626284}
 --- !u!1 &1577220638
 GameObject:
   m_ObjectHideFlags: 0

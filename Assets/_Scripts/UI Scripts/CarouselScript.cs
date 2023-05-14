@@ -82,6 +82,11 @@ public class CarouselScript : MonoBehaviour
 	private void UpdateDisplayAndValues() {
     CarouselItem currentItem = _presets[_currentPresetIndex];
     _displayText.text = currentItem.displayName;
+  }
+
+  public void ResetValue() {
+    CarouselItem currentItem = _presets[_defaultPresetIndex];
+    _displayText.text = currentItem.displayName;
     switch (currentItem.type) {
       case CarouselItem.Type.Int:
         PlayerPrefs.SetInt(_settingsKey, currentItem.intValue);
@@ -95,9 +100,8 @@ public class CarouselScript : MonoBehaviour
     }
   }
 
-  public void ResetValue() {
-    CarouselItem currentItem = _presets[_defaultPresetIndex];
-    _displayText.text = currentItem.displayName;
+  public void Apply() {
+    CarouselItem currentItem = _presets[_currentPresetIndex];
     switch (currentItem.type) {
       case CarouselItem.Type.Int:
         PlayerPrefs.SetInt(_settingsKey, currentItem.intValue);

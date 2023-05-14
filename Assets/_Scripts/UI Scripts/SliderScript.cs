@@ -19,6 +19,8 @@ public class SliderScript : MonoBehaviour
 	[Header("Layout")]
 	[SerializeField] private string _floatLayout;
 
+  private float _bufferValue;
+
   void OnEnable() {
 		if (!PlayerPrefs.HasKey(_settingsKey)) PlayerPrefs.SetFloat(_settingsKey, _defaultValue);
 
@@ -30,11 +32,12 @@ public class SliderScript : MonoBehaviour
 
 	private void Start() {
     _slider.value = PlayerPrefs.GetFloat(_settingsKey);
+    _bufferValue = _slider.value;
 
 		_slider.onValueChanged.AddListener((v) => {
 			if (_inputField) _inputField.text = v.ToString(_floatLayout);
 			if (_text) _text.text = v.ToString(_floatLayout);
-			PlayerPrefs.SetFloat(_settingsKey, v);
+			_bufferValue = v;
 		});
 
 		_slider.minValue = _minValue;
@@ -53,5 +56,9 @@ public class SliderScript : MonoBehaviour
   public void ResetValue() {
     PlayerPrefs.SetFloat(_settingsKey, _defaultValue);
     _slider.value = _defaultValue;
+  }
+
+  public void Apply() {
+    PlayerPrefs.SetFloat(_settingsKey, _bufferValue);
   }
 }
