@@ -135,7 +135,8 @@ public class FloorManager : MonoBehaviour
       tmp.transform.GetChild(1).GetChild(0).GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = runStats[i].ToString();
     }
     tmp.transform.GetChild(1).GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = _flavorTexts[Random.Range(0, _flavorTexts.Length)];
-    }
+  }
+  
   private IEnumerator FadeOutDeathScreen(GameObject tmp) {
     float alpha = 0;
     CanvasGroup tmpCanvasGroup = tmp.GetComponent<CanvasGroup>();
@@ -202,8 +203,6 @@ public class FloorManager : MonoBehaviour
   }
 
   private void InNewFloor(Scene current, Scene next) {
-    if (!GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile) return; // Main menu edge case
-
     VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
     ColorAdjustments colorAdjustments;
     volumeProfile.TryGet(out colorAdjustments);
