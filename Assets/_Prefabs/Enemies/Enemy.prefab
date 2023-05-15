@@ -1726,7 +1726,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &7805157513567143148
 MonoBehaviour:
@@ -10776,22 +10776,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6202231b291403a827b3b81b16ba9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fovDirect: 80
-  _fovPeriph: 124.97
-  _rangeDirect: 12
-  _rangePeriph: 4
-  _rangeInvis: 2
-  _noticeChanceDirect: 0.9
-  _noticeChancePeriph: 0.8
-  _noticeChanceInvis: 0.4
-  _lookSpeed: 0.9
+  _floorManager: {fileID: 0}
+  _useFloorManagerValues: 1
+  _viewSwitcher: {fileID: 0}
+  _fireLogicManager: {fileID: 7384218135843328813}
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 512
   _raycastOrigin: {fileID: 7384218135317066878}
+  _lookSpeed: 0.9
   _rotateX: {fileID: 4604682785072374997}
   _rotateY: {fileID: 4604682785072374997}
-  _debug: 0
+  _fovDirect: 80
+  _fovPeriph: 124.97
+  _rangeDirect: 12
+  _rangePeriph: 4
+  _rangeNoVision: 0
+  _noticeChanceDirect: 0.9
+  _noticeChancePeriph: 0.8
+  _noticeChanceNoVision: 0
+  _debug: 1
+  _showViewRanges: 0
   _targetingPlayer: 0
   _secondsSinceTargeting: 0
 --- !u!1 &7384218135876208278
