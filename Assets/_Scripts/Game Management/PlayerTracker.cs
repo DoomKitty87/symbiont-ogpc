@@ -25,6 +25,14 @@ public class PlayerTracker : MonoBehaviour
     runTime += Time.deltaTime;
   }
 
+  public int GetPoints() {
+    return score;
+  }
+
+  public void SpendPoints(int points) {
+    score -= points;
+  }
+
   public int[] GetRunStats() {
     return new int[] {score, (int)runTime, roomsCleared, floorsCleared, kills, damage, switches};
   }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731715, g: 0.13414735, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1212,6 +1212,8 @@ GameObject:
   - component: {fileID: 270392629}
   - component: {fileID: 270392630}
   - component: {fileID: 270392631}
+  - component: {fileID: 270392632}
+  - component: {fileID: 270392633}
   m_Layer: 0
   m_Name: Persistent
   m_TagString: Persistent
@@ -1300,6 +1302,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077add0678e5a43749f14a1598f2736a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &270392632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270392627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da67e29291ab0f546aa5341f29fe475a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debuffs:
+  - name: Last-gen
+    type: 0
+    scaleRarities:
+    - 1
+    - 1
+    - 2
+    - 3
+  - name: RGB-less
+    type: 1
+    scaleRarities:
+    - 1
+    - 2
+    - 2
+    - 3
+  - name: Budget
+    type: 2
+    scaleRarities:
+    - 1.5
+    - 2
+    - 2.5
+    - 3
+  - name: Core
+    type: 3
+    scaleRarities: []
+  - name: Recycled
+    type: 4
+    scaleRarities:
+    - 2
+    - 2
+    - 3
+    - 3
+  _items:
+  - name: Data Recovery
+    type: 0
+    rarity: 0
+  - name: More RAM!
+    type: 1
+    rarity: 0
+  - name: Parting Gift
+    type: 2
+    rarity: 0
+  - name: System Cleaner
+    type: 3
+    rarity: 0
+  - name: Cryptojacking
+    type: 4
+    rarity: 0
+  - name: High-speed Cable
+    type: 5
+    rarity: 0
+  _rarityPrices: e8030000c40900008813000010270000
+--- !u!114 &270392633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270392627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4cbfe02f99a8f247bf609c125edb683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 'Items can be seen at the google sheet: https://docs.google.com/spreadsheets/d/16BjPvkIpd30LR5g2u3-dLcupfwsO7cb4srA3wHd6sIU/edit#gid=0
+
+    They
+    are added here according to the order in which they are in the sheet. (Indexes
+    determined)'
 --- !u!1 &280129795
 GameObject:
   m_ObjectHideFlags: 0
