@@ -93,6 +93,9 @@ public class FireGunLogic : MonoBehaviour
   private float _secondsSinceLastFire = 0;
   private bool _isReloading = false;
 
+  private GameObject _lastEnemyShot = null;
+  private float _dpsTimer;
+
   // ==================================================================================================
 
   void Start() {
@@ -154,6 +157,15 @@ public class FireGunLogic : MonoBehaviour
     _secondsSinceLastFire += Time.deltaTime;
     _currentShotSpread = Mathf.Clamp(_currentShotSpread -= _shotSpreadRecovery * Time.deltaTime, _minShotSpread, _maxShotSpread);
     _OnBroadcastShotSpread.Invoke(_currentShotSpread);
+    CheckForDPS();
+  }
+
+  private void CheckForDPS() {
+    if (_dpsTimer >= 1f) {
+      _dpsTimer = 0;
+      if (_lastEnemyShot != null && GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting == gameObject) _lastEnemyShot.GetComponent<HealthManager>().Damage(GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>().GetDPS());
+    }
+    _dpsTimer += Time.deltaTime;
   }
 
   // ======================== Firing Functions ========================
@@ -318,6 +330,7 @@ public class FireGunLogic : MonoBehaviour
           healthManager.Damage(_currentShotDamage * GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>().GetDamageMult());
         }
         else healthManager.Damage(_currentShotDamage);
+        _lastEnemyShot = hitGameObject;
         DrawFireLine(Color.yellow, 1f);
       }
       //}
