@@ -54,6 +54,7 @@ public class WeaponAudio : MonoBehaviour
   }
   public void OnReloadEnd() {
     _audioSource.PlayOneShot(_reloadEndSound);
+    _ammoCount = _currentWeaponItem.magSize;
   }
 
 }
