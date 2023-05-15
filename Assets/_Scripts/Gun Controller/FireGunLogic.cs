@@ -314,7 +314,10 @@ public class FireGunLogic : MonoBehaviour
       HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
       if (healthManager != null) {
         //Disabled on purpose, causing bug with room generation
-        healthManager.Damage(_currentShotDamage);
+        if (GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting == gameObject) {
+          healthManager.Damage(_currentShotDamage * GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>().GetDamageMult());
+        }
+        else healthManager.Damage(_currentShotDamage);
         DrawFireLine(Color.yellow, 1f);
       }
       //}

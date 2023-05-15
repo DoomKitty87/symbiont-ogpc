@@ -21,6 +21,18 @@ public class HealthManager : MonoBehaviour
     _currentHealth = _maxHealth;
     _onHealthInitialize?.Invoke(_maxHealth);
   }
+
+  public void Heal(float healPoints) {
+    float initialHealth = _currentHealth;
+    if (_currentHealth + healPoints >= _maxHealth) _currentHealth = _maxHealth;
+    else _currentHealth += _maxHealth;
+    _onHealthChanged?.Invoke(initialHealth, _currentHealth, _maxHealth);
+  }
+
+  public void UpdateHealth(float initHealth, float newHealth, float maxHealth) {
+    _onHealthChanged?.Invoke(initHealth, newHealth, maxHealth);
+  }
+
   public void Damage(float damagePoints) {
     if (gameObject != GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) {
       GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Damage((int)damagePoints);
