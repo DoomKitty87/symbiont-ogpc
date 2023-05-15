@@ -22,15 +22,15 @@ MonoBehaviour:
   modelName: ZAP29
   nickName: Bugzapper
   fireType: 0
-  maxShotDamage: 5
+  maxShotDamage: 15
   fireDelaySeconds: 0.1
   magSize: 12
   reloadTimeSeconds: 0.7
-  verticalRecoil: 5
-  horizontalRecoilDeviation: 4
+  verticalRecoil: 10
+  horizontalRecoilDeviation: 2
   recoilSnapiness: 10
-  recoilRecoverySpeed: 10
-  zCameraShake: 5
+  recoilRecoverySpeed: 9
+  zCameraShake: 4
   minShotSpreadDegrees: 0.01
   maxShotSpreadDegrees: 0.5
   shotSpreadFireInaccuracyDegrees: 0.15
