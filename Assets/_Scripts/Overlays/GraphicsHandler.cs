@@ -51,9 +51,9 @@ public class GraphicsHandler : MonoBehaviour
     if (PlayerPrefs.HasKey("GRAPHICS_BRIGHTNESS")) {
       if (SceneManager.GetActiveScene().name == "Game") {
         VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
-        LiftGammaGain lgg;
-        volumeProfile.TryGet(out lgg);
-        lgg.gamma.value = new Vector4(1, 1, 1, (PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS") - 1f));
+        ColorAdjustments colorAdjustments;
+        volumeProfile.TryGet(out colorAdjustments);
+        colorAdjustments.postExposure.value = PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS") * 3 - 2;
         _lastBrightness = PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS");
       }
     }
@@ -101,11 +101,11 @@ public class GraphicsHandler : MonoBehaviour
     if (_lastBrightness != PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS")) {
       if (SceneManager.GetActiveScene().name == "Game") {
         VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
-        LiftGammaGain lgg;
-        volumeProfile.TryGet(out lgg);
-        lgg.gamma.value = new Vector4(1, 1, 1, (PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS") - 1f));
-        _lastBrightness = PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS");
-      }
+				ColorAdjustments colorAdjustments;
+				volumeProfile.TryGet(out colorAdjustments);
+				colorAdjustments.postExposure.value = PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS") * 3 - 2;
+				_lastBrightness = PlayerPrefs.GetFloat("GRAPHICS_BRIGHTNESS");
+			}
     }
   }
 }

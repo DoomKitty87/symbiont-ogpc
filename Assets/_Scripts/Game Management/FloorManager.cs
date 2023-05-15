@@ -202,6 +202,8 @@ public class FloorManager : MonoBehaviour
   }
 
   private void InNewFloor(Scene current, Scene next) {
+    if (!GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile) return; // Main menu edge case
+
     VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
     ColorAdjustments colorAdjustments;
     volumeProfile.TryGet(out colorAdjustments);

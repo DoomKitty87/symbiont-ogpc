@@ -39,7 +39,7 @@ public class RoomHandler : MonoBehaviour
 	public void CloseDoors() {
     for (int i = 0; i < transform.GetChild(1).childCount; i++) {
       transform.GetChild(1).GetChild(i).GetChild(1).gameObject.SetActive(true);
-      transform.GetChild(1).GetChild(i).GetChild(1).gameObject.GetComponent<Animator>().SetBool("Open", false);
+      //transform.GetChild(1).GetChild(i).GetChild(1).gameObject.GetComponent<Animator>().SetBool("Open", false);
     }
   }
 
@@ -69,7 +69,7 @@ public class RoomHandler : MonoBehaviour
 		Material doorMaterial = Resources.Load<Material>("Materials/DoorMaterial");
 		_nextDoor.transform.GetChild(0).GetComponent<Renderer>().material = doorMaterial;
 		_nextDoor.transform.GetChild(0).tag = "DoorGraphic";
-		_nextDoor.transform.GetChild(1).gameObject.GetComponent<Animator>().SetBool("Open", true);
+		// _nextDoor.transform.GetChild(1).gameObject.GetComponent<Animator>().SetBool("Open", true);
 		GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().ClearedRoom();
 	}
 
