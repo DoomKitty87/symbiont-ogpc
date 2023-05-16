@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class EnemyCollisionDetection : MonoBehaviour
 {
-  TargetMovement _targetMovement;
+  EnemyMovement _enemyMovement;
 
 	private void Awake() {
-		_targetMovement = transform.parent.GetComponent<TargetMovement>();
+		_enemyMovement = transform.parent.GetComponent<EnemyMovement>();
 	}
 
 	private void OnCollisionEnter(Collision collision) {
-		_targetMovement.CollisionDetected(collision);
+		_enemyMovement.CollisionDetected(collision);
 	}
 }

@@ -1737,6 +1737,7 @@ GameObject:
   - component: {fileID: 4272128194766408327}
   - component: {fileID: 1539525137694087329}
   - component: {fileID: 4005534600293995566}
+  - component: {fileID: 9186667856358650157}
   m_Layer: 8
   m_Name: External Model
   m_TagString: Untagged
@@ -1843,6 +1844,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _torso: {fileID: 7350991851793803595}
+--- !u!95 &9186667856358650157
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459456492129472573}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 30c6fd34d7ecde042845e221c80914f7, type: 3}
+  m_Controller: {fileID: 9100000, guid: 78a955c30d5d66a4f8310c977b75e1e5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3653637724685086383
 GameObject:
   m_ObjectHideFlags: 0
@@ -11078,7 +11099,7 @@ MonoBehaviour:
   _noticeChanceDirect: 0.9
   _noticeChancePeriph: 0.8
   _noticeChanceNoVision: 0
-  _debug: 1
+  _debug: 0
   _showViewRanges: 1
   _targetingPlayer: 0
   _secondsSinceTargeting: 0

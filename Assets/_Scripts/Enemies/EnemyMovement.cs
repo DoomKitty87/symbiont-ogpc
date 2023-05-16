@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Enemy {
 
   [RequireComponent(typeof(Waypoints))]
-  public class TargetMovement : MonoBehaviour {
+  public class EnemyMovement : MonoBehaviour {
     [Header("References")]
     [SerializeField] private bool _useFloorValues;
     [SerializeField][Range(0.0f, 10.0f)] private float _speed = 1.0f;
