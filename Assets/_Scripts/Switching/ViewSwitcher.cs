@@ -211,8 +211,11 @@ public class ViewSwitcher : MonoBehaviour
     if (nowInRoom != switchToRoom) {
       switchToRoom.GetComponent<RoomHandler>().CloseDoors();
     }
-    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth -= _playerItems.GetMaxHealthIncrease();
-    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth -= _playerItems.GetMaxHealthIncrease();
+    // This is dumb because not all objects have health
+    if (_currentObjectInhabiting.gameObject.GetComponent<HealthManager>() != null) {
+      _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth -= _playerItems.GetMaxHealthIncrease();
+      _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth -= _playerItems.GetMaxHealthIncrease();
+    }
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
     _currentObjectInhabiting._rotationBase.rotation = initRot * switchToRoom.transform.rotation;
