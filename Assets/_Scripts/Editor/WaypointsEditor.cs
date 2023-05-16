@@ -9,7 +9,7 @@ namespace Enemy.Editor {
 		#region Fields
 		private readonly float _dashSize = 4f;
 		private Waypoints _waypoints;
-		private TargetMovement _targetMovement;
+		private EnemyMovement _enemyMovement;
 
 		private int[] _segmentIndices;
 		private Vector3[] _lines;
@@ -28,7 +28,7 @@ namespace Enemy.Editor {
 			_waypoints = (Waypoints)target;
 			_pointsProperty = serializedObject.FindProperty("points");
 
-			_targetMovement = _waypoints.GetComponent<TargetMovement>();
+			_enemyMovement = _waypoints.GetComponent<EnemyMovement>();
 
 			CreateSegments();
 			CreateLines();
@@ -171,7 +171,7 @@ namespace Enemy.Editor {
 				index++;
 				_segmentIndices[start + 1] = index;
 			}
-			if (_targetMovement.ShouldLoop) {
+			if (_enemyMovement.ShouldLoop) {
 				_segmentIndices[^2] = _waypoints.Length - 1;
 				_segmentIndices[^1] = 0;
 			}

@@ -33,7 +33,7 @@ public class PathRenderer : MonoBehaviour
     Collider[] cols = Physics.OverlapSphere(transform.position, 50f, enemyLayer);
     foreach (Collider col in cols) {
       GameObject lineRend = Instantiate(linePrefab, col.gameObject.transform.parent.position, Quaternion.identity, transform);
-      if (col.gameObject.transform.parent.gameObject.GetComponent<TargetMovement>()._loop) {
+      if (col.gameObject.transform.parent.gameObject.GetComponent<EnemyMovement>()._loop) {
         lineRend.GetComponent<LineRenderer>().positionCount = col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points.Length + 1;
         lineRend.GetComponent<LineRenderer>().SetPositions(col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points.Concat(new Vector3[] {col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points[0]}).ToArray());
       }
