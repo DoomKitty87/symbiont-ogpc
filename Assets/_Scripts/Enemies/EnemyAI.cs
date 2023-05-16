@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
   [Header("Movement Settings")]
   [SerializeField] private float _lookSpeed;
   [SerializeField] private Transform _rotateX, _rotateY;
+  [SerializeField] private Transform[] _additionalRotateX, _additionalRotateY;
   
   [Header("Vision Field Settings")]
   [SerializeField] private float _fovDirect;
@@ -142,10 +143,44 @@ public class EnemyAI : MonoBehaviour
 
     //if (radVal == -Mathf.PI) radVal = 0;
     _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+    foreach(Transform t in _additionalRotateX) {
+      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+    }
     //Rotation on X axis
+
     relativeVector = player.transform.position - _rotateY.transform.position;
-    relativeVector.y = 0;
-    _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.LookRotation(relativeVector), _timeElapsed * _lookSpeed / 2);
+    radVal = Mathf.Abs(Mathf.Atan2(relativeVector.x, relativeVector.z));
+    if (relativeVector.z > 0 && relativeVector.x > 0) {
+      radVal = Mathf.PI / 2 - radVal;
+    } 
+    // If the player is to the left of the camera
+    else if (relativeVector.z < 0 && relativeVector.x > 0) {
+      radVal += Mathf.PI;
+    }
+    // If the player is below the camera
+    else if (relativeVector.z < 0 && relativeVector.x < 0) {
+      radVal = (-Mathf.PI / 2) - radVal;
+    }
+    // If the player is to the right of the camera
+    else if (relativeVector.z > 0 && relativeVector.x < 0) {
+      radVal = (-Mathf.PI / 2) + radVal;
+    }
+    // If the player is directly above or below the camera
+    else if (relativeVector.z == 0) {
+      if (relativeVector.x > 0) radVal = Mathf.PI / 2;
+      else radVal = -Mathf.PI / 2;
+    }
+    // If the player is directly to the left or right of the camera
+    else if (relativeVector.x == 0) {
+      if (relativeVector.z > 0) radVal = 0;
+      else radVal = 0;
+    }
+    // If the player is in the same position as the camera
+    else if (relativeVector.z == 0 && relativeVector.x == 0) radVal = 0;
+    _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+    foreach(Transform t in _additionalRotateY) {
+      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+    }
     //Rotation on Y axis
     if (Physics.Raycast(transform.position, _raycastOrigin.forward, out RaycastHit hit, _rangeDirect)) {
       if (hit.collider.gameObject == player) Shoot();
@@ -168,6 +203,9 @@ public class EnemyAI : MonoBehaviour
 
   private void LookingForPlayer() {
     _rotateY.localRotation = Quaternion.Euler(new Vector3(0, Mathf.Lerp(_initRot, _targetRot, _timeElapsed * _lookSpeed / 2)));
+    foreach(Transform t in _additionalRotateY) {
+      t.localRotation = Quaternion.Euler(new Vector3(0, Mathf.Lerp(_initRot, _targetRot, _timeElapsed * _lookSpeed / 2)));
+    }
     if (_timeElapsed * _lookSpeed / 2 > 1.5f) {
       _timeElapsed = 0;
       _initRot = _targetRot;

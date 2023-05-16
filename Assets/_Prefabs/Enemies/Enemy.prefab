@@ -11064,10 +11064,14 @@ MonoBehaviour:
     m_Bits: 512
   _raycastOrigin: {fileID: 7384218135317066878}
   _lookSpeed: 0.9
-  _rotateX: {fileID: 4604682785072374997}
-  _rotateY: {fileID: 4604682785072374997}
+  _rotateX: {fileID: 7384218135843328814}
+  _rotateY: {fileID: 7384218135843328814}
+  _additionalRotateX:
+  - {fileID: 4604682785072374997}
+  _additionalRotateY:
+  - {fileID: 4604682785072374997}
   _fovDirect: 80
-  _fovPeriph: 124.97
+  _fovPeriph: 125
   _rangeDirect: 12
   _rangePeriph: 4
   _rangeNoVision: 0
@@ -11075,7 +11079,7 @@ MonoBehaviour:
   _noticeChancePeriph: 0.8
   _noticeChanceNoVision: 0
   _debug: 1
-  _showViewRanges: 0
+  _showViewRanges: 1
   _targetingPlayer: 0
   _secondsSinceTargeting: 0
 --- !u!1 &7384218135876208278
