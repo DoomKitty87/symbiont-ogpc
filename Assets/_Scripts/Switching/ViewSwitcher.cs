@@ -216,11 +216,14 @@ public class ViewSwitcher : MonoBehaviour
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
     _currentObjectInhabiting._rotationBase.rotation = initRot * switchToRoom.transform.rotation;
-    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().Heal(_playerItems.GetHealOnTeleport());
+
+    try { _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().Heal(_playerItems.GetHealOnTeleport());
     float initHealth = _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth;
     _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth += _playerItems.GetMaxHealthIncrease();
     _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth += _playerItems.GetMaxHealthIncrease();
     _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().UpdateHealth(initHealth, _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth, _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth);
+    } catch { }
+	
     GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Switched();
   }
   private bool CanSwitch() {
