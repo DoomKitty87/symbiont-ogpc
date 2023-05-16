@@ -112,36 +112,28 @@ public class EnemyAI : MonoBehaviour
 
     float radVal = Mathf.Abs(Mathf.Atan2(relativeVector.y, relativeVector.z));
 
-    // If the player is above the camera
     if (relativeVector.z > 0 && relativeVector.y > 0) {
       radVal = Mathf.PI / 2 - radVal;
     } 
-    // If the player is to the left of the camera
     else if (relativeVector.z < 0 && relativeVector.y > 0) {
       radVal += Mathf.PI;
     }
-    // If the player is below the camera
     else if (relativeVector.z < 0 && relativeVector.y < 0) {
       radVal = (-Mathf.PI / 2) - radVal;
     }
-    // If the player is to the right of the camera
     else if (relativeVector.z > 0 && relativeVector.y < 0) {
       radVal = (-Mathf.PI / 2) + radVal;
     }
-    // If the player is directly above or below the camera
+    else if (relativeVector.z == 0 && relativeVector.y == 0) radVal = 0;
     else if (relativeVector.z == 0) {
       if (relativeVector.y > 0) radVal = Mathf.PI / 2;
       else radVal = -Mathf.PI / 2;
     }
-    // If the player is directly to the left or right of the camera
     else if (relativeVector.y == 0) {
       if (relativeVector.z > 0) radVal = 0;
-      else radVal = 0;
+      else radVal = Mathf.PI;
     }
-    // If the player is in the same position as the camera
-    else if (relativeVector.z == 0 && relativeVector.y == 0) radVal = 0;
 
-    //if (radVal == -Mathf.PI) radVal = 0;
     _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
     foreach(Transform t in _additionalRotateX) {
       t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
@@ -150,36 +142,31 @@ public class EnemyAI : MonoBehaviour
 
     relativeVector = player.transform.position - _rotateY.transform.position;
     radVal = Mathf.Abs(Mathf.Atan2(relativeVector.x, relativeVector.z));
-    if (relativeVector.z > 0 && relativeVector.x > 0) {
+    if (relativeVector.x > 0 && relativeVector.z > 0) {
       radVal = Mathf.PI / 2 - radVal;
     } 
-    // If the player is to the left of the camera
-    else if (relativeVector.z < 0 && relativeVector.x > 0) {
+    else if (relativeVector.x < 0 && relativeVector.z > 0) {
       radVal += Mathf.PI;
     }
-    // If the player is below the camera
-    else if (relativeVector.z < 0 && relativeVector.x < 0) {
+    else if (relativeVector.x < 0 && relativeVector.z < 0) {
       radVal = (-Mathf.PI / 2) - radVal;
     }
-    // If the player is to the right of the camera
-    else if (relativeVector.z > 0 && relativeVector.x < 0) {
+    else if (relativeVector.x > 0 && relativeVector.z < 0) {
       radVal = (-Mathf.PI / 2) + radVal;
     }
-    // If the player is directly above or below the camera
-    else if (relativeVector.z == 0) {
-      if (relativeVector.x > 0) radVal = Mathf.PI / 2;
+    else if (relativeVector.x == 0 && relativeVector.z == 0) radVal = 0;
+    else if (relativeVector.x == 0) {
+      if (relativeVector.z > 0) radVal = Mathf.PI / 2;
       else radVal = -Mathf.PI / 2;
     }
-    // If the player is directly to the left or right of the camera
-    else if (relativeVector.x == 0) {
-      if (relativeVector.z > 0) radVal = 0;
-      else radVal = 0;
+    else if (relativeVector.z == 0) {
+      if (relativeVector.x > 0) radVal = 0;
+      else radVal = Mathf.PI;
     }
-    // If the player is in the same position as the camera
-    else if (relativeVector.z == 0 && relativeVector.x == 0) radVal = 0;
-    _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+    
+    _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.Euler(new Vector3(0, radVal * Mathf.Rad2Deg, 0)), _timeElapsed * _lookSpeed / 2);
     foreach(Transform t in _additionalRotateY) {
-      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(0, radVal * Mathf.Rad2Deg, 0)), _timeElapsed * _lookSpeed / 2);
     }
     //Rotation on Y axis
     if (Physics.Raycast(transform.position, _raycastOrigin.forward, out RaycastHit hit, _rangeDirect)) {
