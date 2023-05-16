@@ -2535,21 +2535,39 @@ MonoBehaviour:
   - name: Data Recovery
     type: 0
     rarity: 0
+    flavorText: '"Oh, so that''s where my 7 hour gameplay recording went!"'
+    description: Heal x to target when teleporting
+    category: Healing
   - name: More RAM!
     type: 1
     rarity: 0
+    flavorText: Visit downloadmoreram.com to get your first 16 GB free!
+    description: Increase max health by x
+    category: Healing
   - name: Parting Gift
     type: 2
     rarity: 0
+    flavorText: Remove the flash drive WITHOUT ejecting
+    description: Deal x damage when you leave an enemy
+    category: Damage
   - name: System Cleaner
     type: 3
     rarity: 0
+    flavorText: Increasing performance starts with removing bloatware
+    description: Do 1.1x as much damage when shooting
+    category: Damage
   - name: Cryptojacking
     type: 4
     rarity: 0
+    flavorText: '"I hope they''ve got a lot of thermal paste, for their sake..."'
+    description: Deal x damage every second
+    category: Damage
   - name: High-speed Cable
     type: 5
     rarity: 0
+    flavorText: Gold-plated and RGB for maximum bits!
+    description: Switch between robots x times faster
+    category: Teleporting
   _rarityPrices: e8030000c40900008813000010270000
   _rarityUpgradePrices: 
 --- !u!114 &270392633
