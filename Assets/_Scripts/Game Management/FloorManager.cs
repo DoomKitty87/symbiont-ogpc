@@ -134,7 +134,7 @@ public class FloorManager : MonoBehaviour
     volumeProfile.TryGet(out filmGrain);
     while (elapsedTime < duration) {
       filmGrain.intensity.Override(Mathf.SmoothStep(0, 50, elapsedTime / duration));
-      elapsedTime += Time.deltaTime;
+      elapsedTime += Time.unscaledDeltaTime;
       yield return null;
     }
   }
@@ -153,17 +153,16 @@ public class FloorManager : MonoBehaviour
   
   private IEnumerator FadeOutDeathScreen(GameObject tmp) {
     float alpha = 0;
+    Time.timeScale = 0f;
     CanvasGroup tmpCanvasGroup = tmp.GetComponent<CanvasGroup>();
 
     // Fade in BackgroundDim
     while (alpha < 1) {
       tmpCanvasGroup.alpha = Mathf.Lerp(0, 1, alpha);
-      if (alpha !> 0.99) Time.timeScale = 1 - alpha;
-      alpha += Time.unscaledDeltaTime; // Takes one seconds to fade in
+      alpha += Time.unscaledDeltaTime * 0.7f; // Takes one seconds to fade in
       yield return null;
 	  }
     tmpCanvasGroup.alpha = 1;
-		Time.timeScale = 0.0f;
 
     Cursor.visible = true;
     Cursor.lockState = CursorLockMode.None;
