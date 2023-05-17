@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 30
+  m_PixelsPerUnitMultiplier: 50
 --- !u!222 &58411182
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1944,6 +1944,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 102358533}
+  - component: {fileID: 102358534}
   m_Layer: 5
   m_Name: Credits Viewport
   m_TagString: Untagged
@@ -1970,8 +1971,22 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 200}
+  m_SizeDelta: {x: 0, y: 836.6223}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &102358534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102358532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 5}
 --- !u!1 &108165107
 GameObject:
   m_ObjectHideFlags: 0
@@ -4137,7 +4152,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 65494f4fa5fe29c4a9434bfcece21811, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ad238c3568fc14690ae04d1e626bf61f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -12226,8 +12241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d996cb946774e01a06a9c092bfd09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  object1: {fileID: 2029326160}
-  object2: {fileID: 37874670}
 --- !u!1 &656416873
 GameObject:
   m_ObjectHideFlags: 0
@@ -15291,7 +15304,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2144702874}
   m_HandleRect: {fileID: 2144702873}
   m_Direction: 2
-  m_Value: 1.0000002
+  m_Value: 1.0000001
   m_Size: 0.56842107
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -17827,7 +17840,7 @@ RectTransform:
   m_GameObject: {fileID: 1084827496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.4, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 675071119}
@@ -17860,7 +17873,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: d26d18759d29a584f87274f857c8a1d3, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -20679,7 +20692,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 30
+  m_PixelsPerUnitMultiplier: 50
 --- !u!222 &1283167662
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21270,7 +21283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 65494f4fa5fe29c4a9434bfcece21811, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ad238c3568fc14690ae04d1e626bf61f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -22396,7 +22409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 65494f4fa5fe29c4a9434bfcece21811, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ad238c3568fc14690ae04d1e626bf61f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -22962,7 +22975,6 @@ GameObject:
   - component: {fileID: 1421115740}
   - component: {fileID: 1421115739}
   - component: {fileID: 1421115738}
-  - component: {fileID: 1421115742}
   m_Layer: 5
   m_Name: Credits Button
   m_TagString: Untagged
@@ -23141,7 +23153,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1421115742}
+      - m_Target: {fileID: 2055640546}
         m_TargetAssemblyTypeName: CreditsScript, Assembly-CSharp
         m_MethodName: StartCredits
         m_Mode: 1
@@ -23191,20 +23203,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421115736}
   m_CullTransparentMesh: 1
---- !u!114 &1421115742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421115736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d1c3b4e6790344084369912d5ab4d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _creditsContent: {fileID: 1702252977}
-  _creditsScrollSpeed: 50
 --- !u!1 &1421777308
 GameObject:
   m_ObjectHideFlags: 0
@@ -26694,7 +26692,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 30
+  m_PixelsPerUnitMultiplier: 50
 --- !u!222 &1593599317
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27602,7 +27600,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1702252978}
+  - component: {fileID: 1702252981}
   - component: {fileID: 1702252979}
+  - component: {fileID: 1702252980}
   m_Layer: 5
   m_Name: Credits Content
   m_TagString: Untagged
@@ -27634,10 +27634,10 @@ RectTransform:
   m_Father: {fileID: 102358533}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -2580}
+  m_SizeDelta: {x: 1920, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1702252979
 MonoBehaviour:
@@ -27654,17 +27654,44 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 150
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 1
   m_Spacing: 175
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1702252980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702252977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 1
+--- !u!114 &1702252981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702252977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &1709691630
 GameObject:
   m_ObjectHideFlags: 0
@@ -34482,6 +34509,7 @@ GameObject:
   - component: {fileID: 2055640543}
   - component: {fileID: 2055640545}
   - component: {fileID: 2055640544}
+  - component: {fileID: 2055640546}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -34560,10 +34588,25 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055640542}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2055640546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055640542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d1c3b4e6790344084369912d5ab4d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _creditsContent: {fileID: 1702252978}
+  _creditsScrollSpeed: 50
+  _creditsScrollDistance: 8000
 --- !u!1 &2059879127
 GameObject:
   m_ObjectHideFlags: 0
