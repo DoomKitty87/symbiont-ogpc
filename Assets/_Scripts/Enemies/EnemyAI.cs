@@ -112,18 +112,18 @@ public class EnemyAI : MonoBehaviour
 
     float radVal = Mathf.Atan2(relativeVector.y, relativeVector.z);
 
-    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, _rotateX.localRotation.y, _rotateX.localRotation.z)), _timeElapsed * _lookSpeed / 2);
     foreach(Transform t in _additionalRotateX) {
-      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, t.localRotation.y, t.localRotation.z)), _timeElapsed * _lookSpeed / 2);
     }
     //Rotation on X axis
 
     relativeVector = player.transform.position - _rotateY.transform.position;
     radVal = Mathf.Atan2(relativeVector.x, relativeVector.z);
     
-    _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.Euler(new Vector3(0, (radVal * Mathf.Rad2Deg), 0)), _timeElapsed * _lookSpeed / 2);
+    _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.Euler(new Vector3(_rotateY.localRotation.x, (radVal * Mathf.Rad2Deg), _rotateY.localRotation.z)), _timeElapsed * _lookSpeed / 2);
     foreach(Transform t in _additionalRotateY) {
-      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(0, (radVal * Mathf.Rad2Deg), 0)), _timeElapsed * _lookSpeed / 2);
+      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(t.localRotation.x, (radVal * Mathf.Rad2Deg), t.localRotation.z)), _timeElapsed * _lookSpeed / 2);
     }
     //Rotation on Y axis
     if (Physics.Raycast(transform.position, _raycastOrigin.forward, out RaycastHit hit, _rangeDirect)) {
