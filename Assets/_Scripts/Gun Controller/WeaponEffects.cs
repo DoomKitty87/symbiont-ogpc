@@ -69,10 +69,11 @@ public class WeaponEffects : MonoBehaviour
     else { Debug.LogError($"WeaponEffects: MuzzlePosition object not found in weaponItemPrefab for '{weaponItem.name}'"); }
     if (weaponItem.muzzleFlashEffectPrefab != null) { _muzzleFlashPrefab = weaponItem.muzzleFlashEffectPrefab; }
     else { Debug.LogWarning($"WeaponEffects: WeaponItem: '{weaponItem.name}' doesn't contain MuzzleFlashPrefab!"); }
+    if (weaponItem.hitEffectPrefab != null) { _hitEffectPrefab = weaponItem.hitEffectPrefab; }
+    else { Debug.LogWarning($"WeaponEffects: WeaponItem: '{weaponItem.name}' doesn't contain HitEffectPrefab!"); }
   }
 
   public void StartEffect(Vector3 hitPosition) {
-    print("starting weapon effects");
     // Will do custom effects like these through a WeaponAnimator + animations
     // if (activeGun == heavyRifle) StartCoroutine(ReactorGlow());
     // if (activeGun == assaultRifle) StartCoroutine(ChamberCharge());
@@ -82,7 +83,7 @@ public class WeaponEffects : MonoBehaviour
       MuzzleFlashFX(_weaponInstanceMuzzlePosition);
     };
     if (_hitEffectPrefab != null) {
-      StartCoroutine(HitEffectFX(hitPosition));
+      HitEffectFX(hitPosition);
     };
   }
 
@@ -97,12 +98,12 @@ public class WeaponEffects : MonoBehaviour
     muzzleFlashInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_EmissionColor", _laserEmissionColor);
     muzzleFlashParticleSystem.Play();
   }
-  private IEnumerator HitEffectFX(Vector3 hitPosition) {
+  private void HitEffectFX(Vector3 hitPosition) {
     GameObject hitEffectInstance = Instantiate(_hitEffectPrefab, hitPosition, Quaternion.identity);
     ParticleSystem hitEffectParticleSystem = hitEffectInstance.GetComponent<ParticleSystem>();
+    hitEffectInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_AlbedoColor", _laserEmissionColor);
+    hitEffectInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_EmissionColor", _laserEmissionColor);
     hitEffectParticleSystem.Play();
-    yield return new WaitForSeconds(hitEffectParticleSystem.main.duration);
-    Destroy(hitEffectInstance);
   }
   // Changed to code to spawn the laser inside of the muzzle position gameobject
   private IEnumerator LaserFX(Vector3 endPoint) {
