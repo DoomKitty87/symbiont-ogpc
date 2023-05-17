@@ -91,7 +91,8 @@ public class FireGunLogic : MonoBehaviour
   public UnityEvent _OnChargeStart;
   public UnityEvent _OnChargeEnd;
 
-  public float _bulletImpactSize;
+  //public float _bulletImpactSize;
+  public GameObject _laserBurnDecal;
 
   private float _secondsSinceLastFire = 0;
   private bool _isReloading = false;
@@ -342,7 +343,8 @@ public class FireGunLogic : MonoBehaviour
       mesh.RecalculateNormals();
       mesh.RecalculateTangents();
       */
-      // ^ Code for impact deform on wall, not really working great
+      // ^ Code for impact deform on wall, not really working great. Code below manages decal version.
+      if (_laserBurnDecal != null) Instantiate(_laserBurnDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
 
       GameObject hitGameObject = hit.collider.gameObject;
       HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
