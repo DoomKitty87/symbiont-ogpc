@@ -209,7 +209,7 @@ public class ViewSwitcher : MonoBehaviour
     }
 
     if (nowInRoom != switchToRoom) {
-      // switchToRoom.GetComponent<RoomHandler>().CloseDoors();
+      // switchToRoom.GetComponent<RoomHandler>().CloseDoors(); // idk what this code does so im commenting it out
     }
     // This is dumb because not all objects have health
     if (_currentObjectInhabiting.gameObject.GetComponent<HealthManager>() != null) {

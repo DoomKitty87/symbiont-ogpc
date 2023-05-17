@@ -913,6 +913,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7384218134606678417, guid: 676790f03d634214ab64fe4b1bd3c874,
         type: 3}
+      propertyPath: points.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384218134606678417, guid: 676790f03d634214ab64fe4b1bd3c874,
+        type: 3}
       propertyPath: points.Array.data[0].x
       value: 5.6803617
       objectReference: {fileID: 0}
@@ -940,6 +945,16 @@ PrefabInstance:
         type: 3}
       propertyPath: points.Array.data[2].z
       value: 5.618572
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384218134606678417, guid: 676790f03d634214ab64fe4b1bd3c874,
+        type: 3}
+      propertyPath: points.Array.data[3].x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384218134606678417, guid: 676790f03d634214ab64fe4b1bd3c874,
+        type: 3}
+      propertyPath: points.Array.data[3].z
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 7384218134606678419, guid: 676790f03d634214ab64fe4b1bd3c874,
         type: 3}

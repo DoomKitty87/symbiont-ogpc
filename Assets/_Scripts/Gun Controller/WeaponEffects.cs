@@ -72,7 +72,7 @@ public class WeaponEffects : MonoBehaviour
   }
 
   public void StartEffect(Vector3 hitPosition) {
-    print("starting ewapon effects");
+    print("starting weapon effects");
     // Will do custom effects like these through a WeaponAnimator + animations
     // if (activeGun == heavyRifle) StartCoroutine(ReactorGlow());
     // if (activeGun == assaultRifle) StartCoroutine(ChamberCharge());

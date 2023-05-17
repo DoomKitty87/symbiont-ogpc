@@ -23,6 +23,9 @@ public class RoomGenNew : MonoBehaviour
   private bool _parody; // Used for things that require odd or even (Basically don't worry about it)
   private int _roomsGenerated = 0;
 
+  private GameObject _roomEnemyIsInhabiting;
+  private GameObject _tempRoomEnemyIsInhabiting;
+
   [HideInInspector] public GameObject _currentRoom;
   [HideInInspector] public GameObject _previousRoom;
   [HideInInspector] public GameObject _startingRoom;
@@ -41,6 +44,14 @@ public class RoomGenNew : MonoBehaviour
       _startingRoom.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<SwitchableObject>();
     _roomsGenerated++;
     _currentRoom = _startingRoom;
+	}
+
+	private void Update() {
+		_roomEnemyIsInhabiting = GetRoom(GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject, "Room");
+    if (_roomEnemyIsInhabiting != _tempRoomEnemyIsInhabiting) {
+			_tempRoomEnemyIsInhabiting = _roomEnemyIsInhabiting;
+      _currentRoom.GetComponent<RoomHandler>().ClosePreviousDoor();
+		}
 	}
 
 	public void CreateNewRoom() {
@@ -85,6 +96,15 @@ public class RoomGenNew : MonoBehaviour
     _roomsGenerated++;
   }
 
+  private GameObject GetRoom(GameObject reference, string tagName) {
+    while (reference.transform.parent != null) {
+      if (reference.transform.parent.CompareTag(tagName)) return reference.transform.parent.gameObject;
+      else reference = reference.transform.parent.gameObject;
+    }
+    Debug.LogError("No parent with tag found on reference.");
+    return null;
+  }
+
   private GameObject GetRoomWithName(string s, GameObject[] roomArray) {
     foreach(GameObject gameObject in roomArray) {
       if (gameObject.name == s) {
@@ -94,13 +114,4 @@ public class RoomGenNew : MonoBehaviour
     Debug.LogError("No gameObject with name " + s + " found in " + roomArray + " array.");
     return null;
   }
-
-  /*
-  private string RemoveCharacterFromEndOfString(string startingString, int numberOfCharacterToRemove) {
-    string newString = "";
-    for (int i = startingString.Length; i < startingString.Length - numberOfCharacterToRemove; i++) {
-			newString += startingString[i];
-		}
-  }
-  */
 }
