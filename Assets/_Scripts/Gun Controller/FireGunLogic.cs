@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEditor;
 
 // I really didn't want to, but the ==='s just make it so much easier to separate the sections of the script
 // out mentally for me, and for later reference for whoever decides to edit or change this. 
@@ -89,6 +90,8 @@ public class FireGunLogic : MonoBehaviour
   [Header("Charge Events")]
   public UnityEvent _OnChargeStart;
   public UnityEvent _OnChargeEnd;
+
+  public float _bulletImpactSize;
 
   private float _secondsSinceLastFire = 0;
   private bool _isReloading = false;
@@ -322,6 +325,25 @@ public class FireGunLogic : MonoBehaviour
       //else {
       //Above manages shooting through doors, disabled due to problems and unnecessary
       _OnFireHitPosition?.Invoke(hit.point);
+      /*
+      Mesh mesh = hit.collider.gameObject.GetComponent<MeshFilter>().mesh;
+      var so = new SerializedObject(mesh);
+      so.Update();
+      var sp = so.FindProperty("m_IsReadable");
+      sp.boolValue = true;
+      so.ApplyModifiedProperties();
+      Vector3[] vertices = mesh.vertices;
+      for (int i = 0; i < vertices.Length; i++) {
+        if (Vector3.Distance(hit.collider.gameObject.transform.localToWorldMatrix.MultiplyPoint3x4(vertices[i]), hit.point) < _bulletImpactSize) {
+          vertices[i] -= (vertices[i] - transform.position).normalized * 0.2f;
+        }
+      }
+      mesh.vertices = vertices;
+      mesh.RecalculateNormals();
+      mesh.RecalculateTangents();
+      */
+      // ^ Code for impact deform on wall, not really working great
+
       GameObject hitGameObject = hit.collider.gameObject;
       HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
       if (healthManager != null) {
