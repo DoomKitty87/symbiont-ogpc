@@ -23,30 +23,33 @@ public class RoomHandler : MonoBehaviour
 		// Fills _arrayOfDoors with all child doors
 		for (int i = 0; i < _numberOfDoors; i++) {
 			_arrayOfDoors.Add(transform.GetChild(1).GetChild(i).gameObject);
-      transform.GetChild(1).GetChild(i).GetChild(1).gameObject.SetActive(false);
 		}
 
 		if (_roomGenNew.gameObject.transform.GetChild(0).gameObject != gameObject) { // If this gameobject is not the starting room
 			int randomIndex = Random.Range(0, _arrayOfDoors.Count);
 			_previousDoor = _arrayOfDoors[randomIndex];
+			_previousDoor.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+			_arrayOfDoors.Remove(_previousDoor);
 		}
 
+		// Adds mesh colliders to all wall objects
     for (int i = 0; i < transform.GetChild(2).GetChild(0).childCount; i++) {
       transform.GetChild(2).GetChild(0).GetChild(i).gameObject.AddComponent<MeshCollider>();
     }
 	}
 
+	/*
 	public void CloseDoors() {
     for (int i = 0; i < transform.GetChild(1).childCount; i++) {
       transform.GetChild(1).GetChild(i).GetChild(1).gameObject.SetActive(true);
       //transform.GetChild(1).GetChild(i).GetChild(1).gameObject.GetComponent<Animator>().SetBool("Open", false);
     }
   }
+	*/
 
 	private void Update() {
 
 		_numberOfEnemies = transform.GetChild(0).childCount;
-		// && !gameObject.CompareTag("EndingRoom")
 		if (_numberOfEnemies == 1 && !_instantiatedNewRoom)  {
 			_instantiatedNewRoom = true;
 			PickNextDoor();
@@ -59,8 +62,9 @@ public class RoomHandler : MonoBehaviour
 	private void PickNextDoor() {
 		// At this point the previous door should be removed from _arrayOfDoors
 
-		if (_arrayOfDoors.Count < 1) return; // Should only trigger when there is only one door left (The final room)
+		if (_arrayOfDoors.Count == 0) return; // Return when no doors
 		_nextDoor = _arrayOfDoors[Random.Range(0, _arrayOfDoors.Count)];
+		_nextDoor.gameObject.transform.GetChild(1).gameObject.SetActive(false);
 		InitiateSetUp(_nextDoor);
 	}
 
@@ -69,7 +73,6 @@ public class RoomHandler : MonoBehaviour
 		Material doorMaterial = Resources.Load<Material>("Materials/DoorMaterial");
 		_nextDoor.transform.GetChild(0).GetComponent<Renderer>().material = doorMaterial;
 		_nextDoor.transform.GetChild(0).tag = "DoorGraphic";
-		// _nextDoor.transform.GetChild(1).gameObject.GetComponent<Animator>().SetBool("Open", true);
 		GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().ClearedRoom();
 	}
 
