@@ -72,31 +72,30 @@ public class WeaponEffects : MonoBehaviour
   }
 
   public void StartEffect(Vector3 hitPosition) {
+    print("starting ewapon effects");
     // Will do custom effects like these through a WeaponAnimator + animations
     // if (activeGun == heavyRifle) StartCoroutine(ReactorGlow());
     // if (activeGun == assaultRifle) StartCoroutine(ChamberCharge());
     StartCoroutine(LaserFX(hitPosition));
     //ShootLaser(hitPosition);
     if (_muzzleFlashPrefab != null) {
-      StartCoroutine(MuzzleFlashFX(_weaponInstanceMuzzlePosition));
+      MuzzleFlashFX(_weaponInstanceMuzzlePosition);
     };
     if (_hitEffectPrefab != null) {
       StartCoroutine(HitEffectFX(hitPosition));
     };
   }
 
-  private void ShootLaser(Vector3 hitPosition) {
-    GameObject laser = Instantiate(_laserShotPrefab, _weaponInstanceMuzzleObject.transform.position, Quaternion.LookRotation(hitPosition - _weaponInstanceMuzzleObject.transform.position), transform);
-    laser.GetComponent<Rigidbody>().AddForce(laser.transform.forward * 20, ForceMode.Impulse);
-  }
+  //private void ShootLaser(Vector3 hitPosition) {
+  //  GameObject laser = Instantiate(_laserShotPrefab, _weaponInstanceMuzzleObject.transform.position, Quaternion.LookRotation(hitPosition - _weaponInstanceMuzzleObject.transform.position), transform);
+  //  laser.GetComponent<Rigidbody>().AddForce(laser.transform.forward * 20, ForceMode.Impulse);
+  //}
 
-  private IEnumerator MuzzleFlashFX(Vector3 muzzlePosition) {
+  private void MuzzleFlashFX(Vector3 muzzlePosition) {
     GameObject muzzleFlashInstance = Instantiate(_muzzleFlashPrefab, _weaponInstanceMuzzleObject.transform, false);
     ParticleSystem muzzleFlashParticleSystem = muzzleFlashInstance.GetComponent<ParticleSystem>();
     muzzleFlashInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_EmissionColor", _laserEmissionColor);
     muzzleFlashParticleSystem.Play();
-    yield return new WaitForSeconds(muzzleFlashParticleSystem.main.duration);
-    Destroy(muzzleFlashInstance);
   }
   private IEnumerator HitEffectFX(Vector3 hitPosition) {
     GameObject hitEffectInstance = Instantiate(_hitEffectPrefab, hitPosition, Quaternion.identity);
