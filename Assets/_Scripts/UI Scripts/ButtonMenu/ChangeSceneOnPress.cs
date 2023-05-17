@@ -21,8 +21,11 @@ public class ChangeSceneOnPress : MonoBehaviour
   }
 
   public void OnStartClick() {
-    _fadingObject._OnFadeComplete.AddListener(OnFadeFinish);
-    _fadingObject.FadeIn(false);  
+    if (_fadingObject != null) {
+      _fadingObject._OnFadeComplete.AddListener(OnFadeFinish);
+      _fadingObject.FadeIn(false);  
+    }
+    OnFadeFinish();
   }
   public void OnFadeFinish() {
     SceneManager.LoadScene(_sceneToSwitchToName);
