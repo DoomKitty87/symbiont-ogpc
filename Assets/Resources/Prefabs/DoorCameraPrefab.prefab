@@ -126,7 +126,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 0}
   otherDoor: {fileID: 0}
-  playerCamera: {fileID: 0}
+  playerCameraTransform: {fileID: 0}
+  nearClipOffset: 0.05
+  nearClipLimit: 0.2
 --- !u!114 &2625413256523642530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +148,7 @@ MonoBehaviour:
     type: 3}
   enemyCanvas: {fileID: 6508239917784317609}
   _minScale: 0
-  _maxScale: 0.5
+  _maxScale: 0.15
   _maxRange: 50
   _scaleCurve:
     serializedVersion: 2

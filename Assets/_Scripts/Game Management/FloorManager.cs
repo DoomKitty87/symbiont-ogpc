@@ -122,7 +122,21 @@ public class FloorManager : MonoBehaviour
   public void LoseState() {
     GameObject.FindWithTag("Handler").GetComponent<PauseHandler>()._pauseState = PauseHandler.PauseState.Dead;
     StartCoroutine(SubmitHighScore());
+    StartCoroutine(DeathEffects());
     BringUpOverviewScreen();
+  }
+
+  private IEnumerator DeathEffects() {
+    float elapsedTime = 0;
+    float duration = 1f;
+    VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
+    FilmGrain filmGrain;
+    volumeProfile.TryGet(out filmGrain);
+    while (elapsedTime < duration) {
+      filmGrain.intensity.Override(Mathf.SmoothStep(0, 50, elapsedTime / duration));
+      elapsedTime += Time.deltaTime;
+      yield return null;
+    }
   }
 
   private void BringUpOverviewScreen() {
