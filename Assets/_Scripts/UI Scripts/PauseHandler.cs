@@ -164,6 +164,10 @@ public class PauseHandler : MonoBehaviour
 		SceneManager.LoadScene(sceenName);
 	}
 
+	public void Unpause() {
+		_pauseState = PauseState.Unpaused;
+	}
+
 	// Returns GameObject in scene with name
 	// Used because GameObject.Find doesn't work with GameObjects that are inactive
 	private GameObject FindObjectWithName(string name) {
