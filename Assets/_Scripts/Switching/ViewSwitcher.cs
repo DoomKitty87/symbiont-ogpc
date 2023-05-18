@@ -208,9 +208,7 @@ public class ViewSwitcher : MonoBehaviour
       switchToRoom = switchToRoom.transform.parent.gameObject;
     }
 
-    if (nowInRoom != switchToRoom) {
-      // switchToRoom.GetComponent<RoomHandler>().CloseDoors(); // idk what this code does so im commenting it out
-    }
+
     // This is dumb because not all objects have health
     if (_currentObjectInhabiting.gameObject.GetComponent<HealthManager>() != null) {
       _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth -= _playerItems.GetMaxHealthIncrease();
@@ -218,7 +216,16 @@ public class ViewSwitcher : MonoBehaviour
     }
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
-    _currentObjectInhabiting._rotationBase.rotation = initRot * switchToRoom.transform.rotation;
+
+    if (nowInRoom != switchToRoom) {
+      _currentObjectInhabiting._rotationBase.rotation = initRot * switchToRoom.transform.rotation;
+      // switchToRoom.GetComponent<RoomHandler>().CloseDoors(); // idk what this code does so im commenting it out
+    }
+    else {
+      _currentObjectInhabiting._rotationBase.rotation = initRot;
+    }
+
+
 
     try { _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().Heal(_playerItems.GetHealOnTeleport());
     float initHealth = _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth;
