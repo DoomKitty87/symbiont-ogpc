@@ -42,8 +42,12 @@ public class PathRenderer : MonoBehaviour
         lineRend.GetComponent<LineRenderer>().SetPositions(col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points);
       }
       if (col.gameObject == GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) {
-        lineRend.GetComponent<LineRenderer>().material.SetColor("_EmissionColor", Color.red * 5f);
-        lineRend.GetComponent<LineRenderer>().material.SetColor("_Albedo", Color.red);
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_EmissionColor", Color.red * 2f);
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_Albedo", Color.white);
+      }
+      else {
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_EmissionColor", Color.cyan * 3f);
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_Albedo", Color.white);
       }
     }
   }
