@@ -2296,7 +2296,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7258234639253748717}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4587934735029852435}
+        m_TargetAssemblyTypeName: TimescaleReset, Assembly-CSharp
+        m_MethodName: Reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7258234639253748719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3772,6 +3784,7 @@ GameObject:
   - component: {fileID: 1074230937927695378}
   - component: {fileID: 231008724312460809}
   - component: {fileID: 7462139983810101066}
+  - component: {fileID: 4587934735029852435}
   m_Layer: 0
   m_Name: LoseScreen
   m_TagString: LoseScreen
@@ -3967,6 +3980,18 @@ MonoBehaviour:
   _button: {fileID: 7258234638103254115}
   _fadingObject: {fileID: 7258234638333924897}
   _sceneToSwitchToName: Main Menu
+--- !u!114 &4587934735029852435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8443786209686129335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78bd5fa3be05f240887e9671e2572c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8910694533468974785
 GameObject:
   m_ObjectHideFlags: 0

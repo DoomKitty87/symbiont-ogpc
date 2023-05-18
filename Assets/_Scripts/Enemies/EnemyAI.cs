@@ -113,10 +113,10 @@ public class EnemyAI : MonoBehaviour
       Vector3 relativeVector = player.transform.position - _rotateObject.transform.position;
       float radValX = Mathf.Atan2(relativeVector.y, relativeVector.z);
       float radValY = Mathf.Atan2(relativeVector.x, relativeVector.z);
-      _rotateObject.rotation = Quaternion.Slerp(_rotateObject.rotation, Quaternion.AngleAxis(-radValX * Mathf.Rad2Deg, Vector3.right) * Quaternion.AngleAxis(radValY * Mathf.Rad2Deg, Vector3.up), _timeElapsed * _lookSpeed / 2);
+      _rotateObject.rotation = Quaternion.Slerp(_rotateObject.rotation, Quaternion.LookRotation(relativeVector, Vector3.up), _timeElapsed * _lookSpeed / 2);
       //_rotateObject.rotation = Quaternion.Lerp(_rotateObject.rotation, Quaternion.Euler(-radValX * Mathf.Rad2Deg, radValY * Mathf.Rad2Deg, 0), _timeElapsed * _lookSpeed / 2);
       foreach(Transform t in _additionalRotateSingle) {
-        t.rotation = Quaternion.Slerp(t.rotation, Quaternion.AngleAxis(-radValX * Mathf.Rad2Deg, Vector3.right) * Quaternion.AngleAxis(radValY * Mathf.Rad2Deg, Vector3.up), _timeElapsed * _lookSpeed / 2);
+        t.rotation = Quaternion.Slerp(t.rotation, Quaternion.LookRotation(relativeVector, Vector3.up), _timeElapsed * _lookSpeed / 2);
       }
     }
     else {
