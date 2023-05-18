@@ -13,6 +13,8 @@ public class DisplayHealth : MonoBehaviour
   [SerializeField][Range(0, 10)] private int _healthTextDecimalPlaces;
   [SerializeField][Tooltip("This is optional.")] private Slider _healthSlider;
   [SerializeField][Tooltip("This is optional.")] private List<Image> _healthImages;
+  [SerializeField] private TextMeshProUGUI _maxHealthText;
+  [SerializeField] private TextMeshProUGUI _midHealthText;
 
   [Header("Tweening Values")]
   [SerializeField] private AnimationCurve _easeCurve;
@@ -24,8 +26,11 @@ public class DisplayHealth : MonoBehaviour
     }
   }
   public void OnHealthInitialize(float maxHealth) {
-    if (_textElement != null) {
-      _textElement.text = _textElementPrefix + maxHealth.ToString();
+    if (_maxHealthText != null) {
+      _maxHealthText.text = _textElementPrefix + maxHealth.ToString();
+    }
+    if (_midHealthText != null) {
+      _midHealthText.text = _textElementPrefix + ((int)(maxHealth / 2)).ToString();
     }
     if (_healthSlider != null) {
       _healthSlider.value = 1;
