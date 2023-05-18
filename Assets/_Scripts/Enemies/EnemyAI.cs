@@ -120,6 +120,7 @@ public class EnemyAI : MonoBehaviour
       }
     }
     else {
+      //Must be used only for separate rotations, not on same object.
       Vector3 relativeVectorX = player.transform.position - _rotateX.transform.position;
       float radValX = Mathf.Atan2(relativeVectorX.y, relativeVectorX.z);
       _rotateX.rotation = Quaternion.Slerp(_rotateX.rotation, Quaternion.AngleAxis(-radValX * Mathf.Rad2Deg, Vector3.right), _timeElapsed * _lookSpeed / 2);
