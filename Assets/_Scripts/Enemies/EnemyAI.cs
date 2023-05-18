@@ -108,31 +108,29 @@ public class EnemyAI : MonoBehaviour
   private void TargetingPlayer() {
     GameObject player = _viewSwitcher._currentObjectInhabiting.gameObject;
     // Calculate the angle between the player and the camera
-    if (_debug) {
-      Debug.DrawRay(_rotateX.transform.position, relativeVector, Color.red);
-    }
 
     if (_singleRotateObject) {
       Vector3 relativeVector = player.transform.position - _rotateObject.transform.position;
       float radValX = Mathf.Atan2(relativeVector.y, relativeVector.z);
       float radValY = Mathf.Atan2(relativeVector.x, relativeVector.z);
-      _rotateObject.localRotation = Quaternion.Lerp(_rotateObject.localRotation, Quaternion.Euler(new Vector3(-radValX * Mathf.Rad2Deg, radValY * Mathf.Rad2Deg, 0)), _timeElapsed * _lookSpeed / 2);
+      _rotateObject.rotation = Quaternion.Slerp(_rotateObject.rotation, Quaternion.AngleAxis(-radValX * Mathf.Rad2Deg, Vector3.right) * Quaternion.AngleAxis(radValY * Mathf.Rad2Deg, Vector3.up), _timeElapsed * _lookSpeed / 2);
+      //_rotateObject.rotation = Quaternion.Lerp(_rotateObject.rotation, Quaternion.Euler(-radValX * Mathf.Rad2Deg, radValY * Mathf.Rad2Deg, 0), _timeElapsed * _lookSpeed / 2);
       foreach(Transform t in _additionalRotateSingle) {
-        t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(-radValX * Mathf.Rad2Deg, radValY * Mathf.Rad2Deg, 0)), _timeElapsed * _lookSpeed / 2);
+        t.rotation = Quaternion.Slerp(t.rotation, Quaternion.AngleAxis(-radValX * Mathf.Rad2Deg, Vector3.right) * Quaternion.AngleAxis(radValY * Mathf.Rad2Deg, Vector3.up), _timeElapsed * _lookSpeed / 2);
       }
     }
     else {
       Vector3 relativeVectorX = player.transform.position - _rotateX.transform.position;
       float radValX = Mathf.Atan2(relativeVectorX.y, relativeVectorX.z);
-      _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+      _rotateX.rotation = Quaternion.Slerp(_rotateX.rotation, Quaternion.AngleAxis(-radValX * Mathf.Rad2Deg, Vector3.right), _timeElapsed * _lookSpeed / 2);
       foreach(Transform t in _additionalRotateX) {
-        t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+        t.rotation = Quaternion.Slerp(t.rotation, Quaternion.AngleAxis(-radValX * Mathf.Rad2Deg, Vector3.right), _timeElapsed * _lookSpeed / 2);
       }
       Vector3 relativeVectorY = player.transform.position - _rotateY.transform.position;
       float radValY = Mathf.Atan2(relativeVectorY.x, relativeVectorY.z);
-      _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.Euler(new Vector3(0, (radValY * Mathf.Rad2Deg), 0)), _timeElapsed * _lookSpeed / 2);
+      _rotateY.rotation = Quaternion.Slerp(_rotateY.rotation, Quaternion.AngleAxis(radValY * Mathf.Rad2Deg, Vector3.up), _timeElapsed * _lookSpeed / 2);
       foreach(Transform t in _additionalRotateY) {
-        t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(0, (radValY * Mathf.Rad2Deg), 0)), _timeElapsed * _lookSpeed / 2);
+        t.rotation = Quaternion.Slerp(t.rotation, Quaternion.AngleAxis(radValY * Mathf.Rad2Deg, Vector3.up), _timeElapsed * _lookSpeed / 2);
       }
     }
     if (Physics.Raycast(transform.position, _raycastOrigin.forward, out RaycastHit hit, _rangeDirect)) {
