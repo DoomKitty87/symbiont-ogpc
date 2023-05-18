@@ -16,7 +16,7 @@ public class CreditsScript : MonoBehaviour
   }
 
   public void StartCredits() {
-    StopCoroutine("StartCreditsCoroutine");
+    StopAllCoroutines();
     StartCoroutine(StartCreditsCoroutine());
   }
 

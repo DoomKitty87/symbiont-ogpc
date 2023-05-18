@@ -101,7 +101,6 @@ public class WeaponEffects : MonoBehaviour
   private void HitEffectFX(Vector3 hitPosition) {
     GameObject hitEffectInstance = Instantiate(_hitEffectPrefab, hitPosition, Quaternion.identity);
     ParticleSystem hitEffectParticleSystem = hitEffectInstance.GetComponent<ParticleSystem>();
-    hitEffectInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_AlbedoColor", _laserEmissionColor);
     hitEffectInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_EmissionColor", _laserEmissionColor);
     hitEffectParticleSystem.Play();
   }
