@@ -112,14 +112,6 @@ public class EnemyAI : MonoBehaviour
       Debug.DrawRay(_rotateX.transform.position, relativeVector, Color.red);
     }
 
-<<<<<<< Updated upstream
-    float radVal = Mathf.Atan2(relativeVector.y, relativeVector.z);
-    print(radVal * Mathf.Rad2Deg);
-
-    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3((-radVal * Mathf.Rad2Deg), _rotateX.localRotation.y, _rotateX.localRotation.z)), _timeElapsed * _lookSpeed / 2);
-    foreach(Transform t in _additionalRotateX) {
-      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3((-radVal * Mathf.Rad2Deg), t.localRotation.y, t.localRotation.z)), _timeElapsed * _lookSpeed / 2);
-=======
     if (_singleRotateObject) {
       Vector3 relativeVector = player.transform.position - _rotateObject.transform.position;
       float radValX = Mathf.Atan2(relativeVector.y, relativeVector.z);
@@ -142,16 +134,7 @@ public class EnemyAI : MonoBehaviour
       foreach(Transform t in _additionalRotateY) {
         t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(0, (radValY * Mathf.Rad2Deg), 0)), _timeElapsed * _lookSpeed / 2);
       }
->>>>>>> Stashed changes
     }
-
-
-
-    //Rotation on X axis
-
-    
-
-    //Rotation on Y axis
     if (Physics.Raycast(transform.position, _raycastOrigin.forward, out RaycastHit hit, _rangeDirect)) {
       if (hit.collider.gameObject == player) Shoot();
     }
