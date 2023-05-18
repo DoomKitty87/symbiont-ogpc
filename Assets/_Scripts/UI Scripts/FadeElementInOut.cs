@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+[RequireComponent(typeof(CanvasGroup))]
 public class FadeElementInOut : MonoBehaviour
 {
   [Header("References")]
