@@ -111,10 +111,11 @@ public class EnemyAI : MonoBehaviour
     }
 
     float radVal = Mathf.Atan2(relativeVector.y, relativeVector.z);
+    print(radVal * Mathf.Rad2Deg);
 
-    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, _rotateX.localRotation.y, _rotateX.localRotation.z)), _timeElapsed * _lookSpeed / 2);
+    _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3((-radVal * Mathf.Rad2Deg), _rotateX.localRotation.y, _rotateX.localRotation.z)), _timeElapsed * _lookSpeed / 2);
     foreach(Transform t in _additionalRotateX) {
-      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, t.localRotation.y, t.localRotation.z)), _timeElapsed * _lookSpeed / 2);
+      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3((-radVal * Mathf.Rad2Deg), t.localRotation.y, t.localRotation.z)), _timeElapsed * _lookSpeed / 2);
     }
     //Rotation on X axis
 
