@@ -20,6 +20,9 @@ public class EnemyAI : MonoBehaviour
   [SerializeField] private float _lookSpeed;
   [SerializeField] private Transform _rotateX, _rotateY;
   [SerializeField] private Transform[] _additionalRotateX, _additionalRotateY;
+  [SerializeField] private bool _singleRotateObject;
+  [SerializeField] private Transform _rotateObject;
+  [SerializeField] private Transform[] _additionalRotateSingle;
   
   [Header("Vision Field Settings")]
   [SerializeField] private float _fovDirect;
@@ -105,27 +108,49 @@ public class EnemyAI : MonoBehaviour
   private void TargetingPlayer() {
     GameObject player = _viewSwitcher._currentObjectInhabiting.gameObject;
     // Calculate the angle between the player and the camera
-    Vector3 relativeVector = player.transform.position - _rotateX.transform.position;
     if (_debug) {
       Debug.DrawRay(_rotateX.transform.position, relativeVector, Color.red);
     }
 
+<<<<<<< Updated upstream
     float radVal = Mathf.Atan2(relativeVector.y, relativeVector.z);
     print(radVal * Mathf.Rad2Deg);
 
     _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3((-radVal * Mathf.Rad2Deg), _rotateX.localRotation.y, _rotateX.localRotation.z)), _timeElapsed * _lookSpeed / 2);
     foreach(Transform t in _additionalRotateX) {
       t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3((-radVal * Mathf.Rad2Deg), t.localRotation.y, t.localRotation.z)), _timeElapsed * _lookSpeed / 2);
+=======
+    if (_singleRotateObject) {
+      Vector3 relativeVector = player.transform.position - _rotateObject.transform.position;
+      float radValX = Mathf.Atan2(relativeVector.y, relativeVector.z);
+      float radValY = Mathf.Atan2(relativeVector.x, relativeVector.z);
+      _rotateObject.localRotation = Quaternion.Lerp(_rotateObject.localRotation, Quaternion.Euler(new Vector3(-radValX * Mathf.Rad2Deg, radValY * Mathf.Rad2Deg, 0)), _timeElapsed * _lookSpeed / 2);
+      foreach(Transform t in _additionalRotateSingle) {
+        t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(-radValX * Mathf.Rad2Deg, radValY * Mathf.Rad2Deg, 0)), _timeElapsed * _lookSpeed / 2);
+      }
     }
+    else {
+      Vector3 relativeVectorX = player.transform.position - _rotateX.transform.position;
+      float radValX = Mathf.Atan2(relativeVectorX.y, relativeVectorX.z);
+      _rotateX.localRotation = Quaternion.Lerp(_rotateX.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+      foreach(Transform t in _additionalRotateX) {
+        t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(-radVal * Mathf.Rad2Deg, 0, 0)), _timeElapsed * _lookSpeed / 2);
+      }
+      Vector3 relativeVectorY = player.transform.position - _rotateY.transform.position;
+      float radValY = Mathf.Atan2(relativeVectorY.x, relativeVectorY.z);
+      _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.Euler(new Vector3(0, (radValY * Mathf.Rad2Deg), 0)), _timeElapsed * _lookSpeed / 2);
+      foreach(Transform t in _additionalRotateY) {
+        t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(0, (radValY * Mathf.Rad2Deg), 0)), _timeElapsed * _lookSpeed / 2);
+      }
+>>>>>>> Stashed changes
+    }
+
+
+
     //Rotation on X axis
 
-    relativeVector = player.transform.position - _rotateY.transform.position;
-    radVal = Mathf.Atan2(relativeVector.x, relativeVector.z);
     
-    _rotateY.localRotation = Quaternion.Lerp(_rotateY.localRotation, Quaternion.Euler(new Vector3(_rotateY.localRotation.x, (radVal * Mathf.Rad2Deg), _rotateY.localRotation.z)), _timeElapsed * _lookSpeed / 2);
-    foreach(Transform t in _additionalRotateY) {
-      t.localRotation = Quaternion.Lerp(t.localRotation, Quaternion.Euler(new Vector3(t.localRotation.x, (radVal * Mathf.Rad2Deg), t.localRotation.z)), _timeElapsed * _lookSpeed / 2);
-    }
+
     //Rotation on Y axis
     if (Physics.Raycast(transform.position, _raycastOrigin.forward, out RaycastHit hit, _rangeDirect)) {
       if (hit.collider.gameObject == player) Shoot();
