@@ -60,7 +60,7 @@ public class RoomHandler : MonoBehaviour
 	}
 
 	public void ClosePreviousDoor() {
-		_previousDoor.transform.GetChild(1).gameObject.SetActive(true);
+		if (_previousDoor) _previousDoor.transform.GetChild(1).gameObject.SetActive(true);
 	}
 
 	private void InitiateSetUp(GameObject _nextDoor) {

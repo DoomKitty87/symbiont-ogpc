@@ -9,9 +9,20 @@ public class ToggleUIElement : MonoBehaviour
 	[SerializeField] private GameObject object1;
 	[SerializeField] private GameObject object2;
 
-    public void Toggle() {
+	[SerializeField] private float duration;
+
+	private IEnumerator ToggleCoroutine() {
+		float time = 0;
+		while (time < duration / 2) { // Half the duration then switch icon
+			time += Time.unscaledDeltaTime;
+			yield return null;
+		}
 		object1.SetActive(toggleState);
 		object2.SetActive(!toggleState);
 		toggleState = !toggleState;
+	}
+
+  public void Toggle() {
+		StartCoroutine(ToggleCoroutine());
 	}
 }

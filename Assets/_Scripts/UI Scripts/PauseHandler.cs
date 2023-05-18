@@ -63,17 +63,17 @@ public class PauseHandler : MonoBehaviour
 					Cursor.visible = false;
 					Cursor.lockState = CursorLockMode.Locked;
 
-					_menuLayers[0].transform.GetChild(1).GetComponent<CanvasGroup>().alpha = 1.0f;
-					_menuLayers[0].transform.GetChild(1).GetComponent<CanvasGroup>().interactable = true;
-					_menuLayers[0].transform.GetChild(1).GetComponent<CanvasGroup>().blocksRaycasts = true;
+					_menuScreens[0].transform.GetChild(1).GetComponent<CanvasGroup>().alpha = 1.0f;
+					_menuScreens[0].transform.GetChild(1).GetComponent<CanvasGroup>().interactable = true;
+					_menuScreens[0].transform.GetChild(1).GetComponent<CanvasGroup>().blocksRaycasts = true;
 											
-					_menuLayers[0].transform.GetChild(2).GetComponent<CanvasGroup>().alpha = 0f;
-					_menuLayers[0].transform.GetChild(2).GetComponent<CanvasGroup>().interactable = false;
-					_menuLayers[0].transform.GetChild(2).GetComponent<CanvasGroup>().blocksRaycasts = false;
+					_menuScreens[0].transform.GetChild(2).GetComponent<CanvasGroup>().alpha = 0f;
+					_menuScreens[0].transform.GetChild(2).GetComponent<CanvasGroup>().interactable = false;
+					_menuScreens[0].transform.GetChild(2).GetComponent<CanvasGroup>().blocksRaycasts = false;
 											
-					_menuLayers[0].transform.GetChild(3).GetComponent<CanvasGroup>().alpha = 0f;
-					_menuLayers[0].transform.GetChild(3).GetComponent<CanvasGroup>().interactable = false;
-					_menuLayers[0].transform.GetChild(3).GetComponent<CanvasGroup>().blocksRaycasts = false;
+					_menuScreens[0].transform.GetChild(3).GetComponent<CanvasGroup>().alpha = 0f;
+					_menuScreens[0].transform.GetChild(3).GetComponent<CanvasGroup>().interactable = false;
+					_menuScreens[0].transform.GetChild(3).GetComponent<CanvasGroup>().blocksRaycasts = false;
 
 					_menuLayers[0].SetActive(false);
 					_menuLayers.Remove(_menuLayers[^1]);
@@ -108,16 +108,34 @@ public class PauseHandler : MonoBehaviour
 
 	public void RemovePause() {
 
-		_menuLayers[^1].SetActive(false);
+		_pauseState = PauseState.Unpaused;
+
+		Time.timeScale = 1.0f;
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+
+		_menuScreens[0].transform.GetChild(1).GetComponent<CanvasGroup>().alpha = 1.0f;
+		_menuScreens[0].transform.GetChild(1).GetComponent<CanvasGroup>().interactable = true;
+		_menuScreens[0].transform.GetChild(1).GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+		_menuScreens[0].transform.GetChild(2).GetComponent<CanvasGroup>().alpha = 0f;
+		_menuScreens[0].transform.GetChild(2).GetComponent<CanvasGroup>().interactable = false;
+		_menuScreens[0].transform.GetChild(2).GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+		_menuScreens[0].transform.GetChild(3).GetComponent<CanvasGroup>().alpha = 0f;
+		_menuScreens[0].transform.GetChild(3).GetComponent<CanvasGroup>().interactable = false;
+		_menuScreens[0].transform.GetChild(3).GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+		_menuScreens[0].SetActive(false);
 		_menuLayers.Remove(_menuLayers[^1]);
 
-		if (_menuLayers.Count > 0) {
-			_menuLayers[^1].SetActive(true);
-		} else {
-			Time.timeScale = 1.0f;
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
+		GameObject enableEnemy = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
+		try {
+			enableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.gameObject.GetComponent<EnemyInfo>().enabled = true;
+		} catch {
+			enableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.parent.GetChild(1).GetComponent<CameraOverlay>().enabled = true;
 		}
+		if (enableEnemy.transform.GetChild(1).GetComponent<PlayerAim>()) enableEnemy.transform.GetChild(1).GetComponent<PlayerAim>().enabled = true;
 
 		if (_menuLayers.Count > 1) _pauseState = PauseState.Paused;
 		else if (_menuLayers.Count == 1) _pauseState = PauseState.FirstPause;
