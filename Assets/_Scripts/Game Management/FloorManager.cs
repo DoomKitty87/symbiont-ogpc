@@ -50,7 +50,6 @@ public class FloorManager : MonoBehaviour
   }
 
   private void Start() {
-    // Makes it beyond difficult to test in any other scene, so I'm disabling it for now
     if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") Destroy(gameObject);
     //if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1) Destroy(gameObject);
     DontDestroyOnLoad(gameObject);
@@ -143,59 +142,34 @@ public class FloorManager : MonoBehaviour
     if (GameObject.FindWithTag("LoseScreen")) return;
 
     int[] runStats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().GetRunStats();
-    GameObject tmp = Instantiate(_loseScreenPrefab, Vector3.zero, Quaternion.identity);
-    StartCoroutine(FadeOutDeathScreen(tmp));
-    for (int i = 0; i < runStats.Length; i++) {
-      tmp.transform.GetChild(1).GetChild(0).GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = runStats[i].ToString();
-    }
-    tmp.transform.GetChild(1).GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = _flavorTexts[Random.Range(0, _flavorTexts.Length)];
+    GameObject loseScreenInstance = Instantiate(_loseScreenPrefab, Vector3.zero, Quaternion.identity);
+    LoseScreenManager loseScreenManager = loseScreenInstance.GetComponent<LoseScreenManager>();
+    loseScreenManager.Initalize(runStats, _flavorTexts[Random.Range(0, _flavorTexts.Length)]);
   }
-  
-  private IEnumerator FadeOutDeathScreen(GameObject tmp) {
-    float alpha = 0;
-    Time.timeScale = 0f;
-    CanvasGroup tmpCanvasGroup = tmp.GetComponent<CanvasGroup>();
-
-    // Fade in BackgroundDim
-    while (alpha < 1) {
-      tmpCanvasGroup.alpha = Mathf.Lerp(0, 1, alpha);
-      alpha += Time.unscaledDeltaTime * 0.7f; // Takes one seconds to fade in
-      yield return null;
-	  }
-    tmpCanvasGroup.alpha = 1;
-
-    Cursor.visible = true;
-    Cursor.lockState = CursorLockMode.None;
-
-		//Fade in text
-		alpha = 0;
-		tmpCanvasGroup = tmp.transform.GetChild(1).GetComponent<CanvasGroup>();
-		while (alpha < 1) {
-			tmpCanvasGroup.alpha = Mathf.Lerp(0, 1, alpha);
-			alpha += Time.unscaledDeltaTime; // Takes one seconds to fade in
-			yield return null;
-		}
-		tmpCanvasGroup.alpha = 1;
-	}
-
 
 	private IEnumerator SubmitHighScore() {
     int[] runStats = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().GetRunStats();
-    List<Score> scores = GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>().RetrieveScores();
+    GameObject connectionManager = GameObject.FindGameObjectWithTag("ConnectionManager");
+    if (connectionManager == null) {
+      Debug.LogWarning("FloorManager: No connection manager found.");
+      yield break;
+    }
+    LeaderboardConnect leaderboardConnect = connectionManager.GetComponent<LeaderboardConnect>();
+    List<Score> scores = leaderboardConnect.RetrieveScores();
     while (scores.Count == 0) {
       yield return new WaitForSeconds(0.05f);
     }
     bool submitted = false;
     foreach (Score s in scores) {
-      if (s.name == GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LoginConnect>().GetActiveAccountName()) {
+      if (s.name == connectionManager.GetComponent<LoginConnect>().GetActiveAccountName()) {
         if (runStats[0] > s.score) {
           submitted = true;
-          GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>().PostScores(runStats[0], runStats[1]);
+          connectionManager.GetComponent<LeaderboardConnect>().PostScores(runStats[0], runStats[1]);
         }
         else submitted = true;
       }
     }
-    if (!submitted) GameObject.FindGameObjectWithTag("ConnectionManager").GetComponent<LeaderboardConnect>().PostScores(runStats[0], runStats[1]);
+    if (!submitted) connectionManager.GetComponent<LeaderboardConnect>().PostScores(runStats[0], runStats[1]);
   }
 
   private IEnumerator MoveFloors() {
