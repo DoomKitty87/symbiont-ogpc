@@ -8,6 +8,7 @@ public class RestartButton : MonoBehaviour
 
   public void RestartGame() {
     Time.timeScale = 1f;
+    GameObject.FindGameObjectWithTag("Handler").GetComponent<PauseHandler>().Unpause();
     SceneManager.LoadScene("Game");
   }
 }
