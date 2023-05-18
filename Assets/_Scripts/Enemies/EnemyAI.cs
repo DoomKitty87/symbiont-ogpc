@@ -116,7 +116,7 @@ public class EnemyAI : MonoBehaviour
       _rotateObject.rotation = Quaternion.Slerp(_rotateObject.rotation, Quaternion.LookRotation(relativeVector, Vector3.up), _timeElapsed * _lookSpeed / 2);
       //_rotateObject.rotation = Quaternion.Lerp(_rotateObject.rotation, Quaternion.Euler(-radValX * Mathf.Rad2Deg, radValY * Mathf.Rad2Deg, 0), _timeElapsed * _lookSpeed / 2);
       foreach(Transform t in _additionalRotateSingle) {
-        t.rotation = Quaternion.Slerp(t.rotation, Quaternion.LookRotation(relativeVector, Vector3.up), _timeElapsed * _lookSpeed / 2);
+        t.rotation = Quaternion.Slerp(t.rotation, Quaternion.LookRotation(player.transform.position - t.position, Vector3.up), _timeElapsed * _lookSpeed / 2);
       }
     }
     else {
@@ -171,11 +171,13 @@ public class EnemyAI : MonoBehaviour
   private void CheckForPlayer() {
     //Check first for player in direct vision range, then peripheral, then non-visible.
     Collider[] cols = Physics.OverlapSphere(transform.position, _rangeDirect, _enemyLayer);
+    bool foundPlayer = false;
     foreach (Collider col in cols) {
       if (col.gameObject == transform.parent.gameObject) continue;
       if (col.gameObject != _viewSwitcher._currentObjectInhabiting.gameObject) continue;
       RaycastHit hit;
       if (Physics.Linecast(transform.position, col.gameObject.transform.position, out hit)) if (hit.collider.gameObject != col.gameObject) continue;
+      foundPlayer = true;
       float angleDiff = Vector3.Angle(_raycastOrigin.forward, transform.position - col.gameObject.transform.position);
       if (angleDiff <= _fovDirect / 2f) {
         //Found in direct range
@@ -192,11 +194,21 @@ public class EnemyAI : MonoBehaviour
         }
         else {
           if (_targetingPlayer && _timeElapsed > 0.1f) {
-            if (_targetingPlayer) _timeElapsed = 0;
+            _timeElapsed = 0;
             _targetingPlayer = false;
             _lookingForPlayer = true;
           }
+          else if (!_targetingPlayer && !_lookingForPlayer) {
+            _lookingForPlayer = true;
+            _timeElapsed = 0;
+          }
         }
+      }
+    }
+    if (!foundPlayer) {
+      if (!_targetingPlayer && !_lookingForPlayer) {
+        _lookingForPlayer = true;
+        _timeElapsed = 0;
       }
     }
   }
