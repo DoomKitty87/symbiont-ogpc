@@ -29,6 +29,10 @@ public class CamAim : MonoBehaviour
     transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
   }
 
+  void OnEnable() {
+    _rotY = Mathf.Lerp(_minX, _maxX, 0.5f);
+  }
+
   void Update() {
     float oldY = _rotY;
     float oldX = _rotX;
