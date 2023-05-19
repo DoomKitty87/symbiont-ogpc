@@ -2557,7 +2557,7 @@ MonoBehaviour:
     flavorText: Remove the flash drive WITHOUT ejecting
     description: Deal x damage when you leave an enemy
     category: Damage
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 5f7f8b62c14b74652890540d32c1538b, type: 3}
     equation: 10 + (n*3)
   - name: System Cleaner
     type: 3
@@ -2565,7 +2565,7 @@ MonoBehaviour:
     flavorText: Increasing performance starts with removing bloatware
     description: Do *x as much damage when shooting
     category: Damage
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: feca749642b0d41ce89b7290529932aa, type: 3}
     equation: 1.1 + (n*.05)
   - name: Cryptojacking
     type: 4
