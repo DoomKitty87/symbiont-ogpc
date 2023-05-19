@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731715, g: 0.13414735, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12699,6 +12699,7 @@ GameObject:
   - component: {fileID: 1421176994}
   - component: {fileID: 1421176993}
   - component: {fileID: 1421176997}
+  - component: {fileID: 1421176998}
   m_Layer: 5
   m_Name: Sound Button
   m_TagString: Untagged
@@ -12945,6 +12946,18 @@ MonoBehaviour:
   _OnFadeComplete:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &1421176998
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421176991}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1489227375
 GameObject:
   m_ObjectHideFlags: 0
@@ -15755,6 +15768,7 @@ GameObject:
   - component: {fileID: 1819657061}
   - component: {fileID: 1819657060}
   - component: {fileID: 1819657064}
+  - component: {fileID: 1819657065}
   m_Layer: 5
   m_Name: Graphics Button
   m_TagString: Untagged
@@ -16001,6 +16015,18 @@ MonoBehaviour:
   _OnFadeComplete:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &1819657065
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819657058}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1828407006
 GameObject:
   m_ObjectHideFlags: 0
@@ -16408,6 +16434,7 @@ GameObject:
   - component: {fileID: 1846739850}
   - component: {fileID: 1846739849}
   - component: {fileID: 1846739853}
+  - component: {fileID: 1846739854}
   m_Layer: 5
   m_Name: Controls Button
   m_TagString: Untagged
@@ -16654,6 +16681,18 @@ MonoBehaviour:
   _OnFadeComplete:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &1846739854
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846739847}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1847678212
 GameObject:
   m_ObjectHideFlags: 0
