@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class PlayerItem
 {
@@ -32,6 +33,7 @@ public class Item
   public string flavorText;
   public string description;
   public string category;
+  public Sprite icon;
 }
 
 public class PlayerItems : MonoBehaviour

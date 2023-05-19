@@ -32,7 +32,6 @@ public class ChangeOpacityOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
     _canvasGroup.alpha = _minOpacity;      
   }
 
-
   public void OnPointerClick(PointerEventData eventData) {
     OpacityIn(false);
     _locked = true;
@@ -43,6 +42,7 @@ public class ChangeOpacityOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
     OpacityIn(false);
     StartCoroutine(CheckForNotMouseOver());
   }
+
   private IEnumerator CheckForNotMouseOver() {
     while (true) {
       // All other ways to test if the pointer was over the UI Image had problems when the mouse moved too fast
@@ -70,6 +70,7 @@ public class ChangeOpacityOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
       StartCoroutine(OpacityInOutCoroutine(_canvasGroup.alpha, _minOpacity, _outDuration));
     }
   }
+  
   private IEnumerator OpacityInOutCoroutine(float startAlpha, float targetAlpha, float duration) {
     float time = 0;
     while (time < duration) {
