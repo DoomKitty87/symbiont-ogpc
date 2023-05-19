@@ -78,6 +78,23 @@ public class RoomHandler : MonoBehaviour
 		StartCoroutine(LeaveCountdown());
 	}
 
+	public void InNewRoom() {
+		StopCoroutine("LeaveCountdown");
+		VolumeProfile profile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
+		PaniniProjection proj;
+		DepthOfField dof;
+		ChromaticAberration chrom;
+		Vignette vignette;
+		profile.TryGet(out proj);
+		profile.TryGet(out dof);
+		profile.TryGet(out chrom);
+		profile.TryGet(out vignette);
+		proj.active = false;
+		dof.active = false;
+		chrom.intensity.Override(0);
+		vignette.intensity.Override(0);
+	}
+
 	private IEnumerator LeaveCountdown() {
 		yield return new WaitForSeconds(5f);
 		float timeElapsed = 0;

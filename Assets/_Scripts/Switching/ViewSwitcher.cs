@@ -219,6 +219,7 @@ public class ViewSwitcher : MonoBehaviour
 
     if (nowInRoom != switchToRoom) {
       _currentObjectInhabiting._rotationBase.rotation = initRot * switchToRoom.transform.rotation;
+      nowInRoom.GetComponent<RoomHandler>().InNewRoom();
       // switchToRoom.GetComponent<RoomHandler>().CloseDoors(); // idk what this code does so im commenting it out
     }
     else {
