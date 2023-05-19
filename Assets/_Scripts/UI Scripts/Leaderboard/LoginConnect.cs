@@ -18,7 +18,7 @@ public class LoginConnect : MonoBehaviour
   private bool _deleteSuccessful;
 
   void Awake() {
-    if (GameObject.FindGameObjectsWithTag("ConnectionManager").Length > 1) Destroy(this.gameObject);
+    if (GameObject.FindGameObjectsWithTag("ConnectionManager").Length > 1 && !_loggedIn) Destroy(this.gameObject);
     DontDestroyOnLoad(this.gameObject);
     //Uncomment for testing/debugging
     //StartCoroutine(Login("admin", "godhelpme"));

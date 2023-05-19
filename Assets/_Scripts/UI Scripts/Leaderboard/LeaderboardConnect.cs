@@ -16,12 +16,12 @@ public class LeaderboardConnect : MonoBehaviour
     StartCoroutine(DoRetrieveScores(scores));
     return scores;
   }
-
+  /*
   void Awake() {
     if (GameObject.FindGameObjectsWithTag("ConnectionManager").Length > 1) Destroy(this.gameObject);
     DontDestroyOnLoad(this.gameObject);
   }
-
+  */
   public bool PostScores(int score, int length) {
     if (!GetComponent<LoginConnect>().IsLoggedIn()) return false;
     string authPassword = GetComponent<LoginConnect>().GetActiveAuthPass();
