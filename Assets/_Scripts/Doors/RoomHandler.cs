@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class RoomHandler : MonoBehaviour
 {
@@ -72,6 +75,35 @@ public class RoomHandler : MonoBehaviour
 		_nextDoor.transform.GetChild(0).GetComponent<Renderer>().material = doorMaterial;
 		_nextDoor.transform.GetChild(0).tag = "DoorGraphic";
 		GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().ClearedRoom();
+		StartCoroutine(LeaveCountdown());
+	}
+
+	private IEnumerator LeaveCountdown() {
+		yield return new WaitForSeconds(5f);
+		float timeElapsed = 0;
+		float timeLimit = 15;
+		VolumeProfile profile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
+		PaniniProjection proj;
+		DepthOfField dof;
+		ChromaticAberration chrom;
+		Vignette vignette;
+		profile.TryGet(out proj);
+		profile.TryGet(out dof);
+		profile.TryGet(out chrom);
+		profile.TryGet(out vignette);
+
+		proj.active = true;
+		dof.active = true;
+		while (timeElapsed < timeLimit) {
+			proj.distance.Override(Mathf.SmoothStep(0, 10, timeElapsed / timeLimit));
+			dof.gaussianEnd.Override(Mathf.SmoothStep(30, 0, timeElapsed / timeLimit));
+			dof.gaussianMaxRadius.Override(Mathf.SmoothStep(0, 3, timeElapsed / timeLimit));
+			chrom.intensity.Override(Mathf.SmoothStep(0, 5, timeElapsed / timeLimit));
+			vignette.intensity.Override(Mathf.SmoothStep(0, 0.4f, timeElapsed / timeLimit));
+			timeElapsed += Time.deltaTime;
+			yield return null;
+		}
+		GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().LoseState();
 	}
 
 	// Should be called by previous RoomHandler
