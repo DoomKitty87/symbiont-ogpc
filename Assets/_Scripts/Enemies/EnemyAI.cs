@@ -50,6 +50,7 @@ public class EnemyAI : MonoBehaviour
   private float _targetRot;
   private float _initRot;
   private float _timeElapsed;
+  private float _gracePeriod;
 
   private void Start() {
     if (_fireLogicManager == null) {
@@ -92,8 +93,16 @@ public class EnemyAI : MonoBehaviour
     else if (_lookingForPlayer) {
       LookingForPlayer();
     }
-
+    _gracePeriod -= Time.deltaTime;
+    if (_gracePeriod > 0) {
+      StopTracking();
+      return;
+    }
     CheckForPlayer();
+  }
+
+  private void OnEnable() {
+    _gracePeriod = 1f;
   }
 
   // Called by what?
