@@ -6719,6 +6719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 599724392}
   - component: {fileID: 599724394}
+  - component: {fileID: 599724395}
   m_Layer: 0
   m_Name: Player
   m_TagString: PlayerHolder
@@ -6811,6 +6812,20 @@ MonoBehaviour:
   _endFov: 1
   _effectDuration: 0.5
   _playingEffect: 0
+--- !u!114 &599724395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599724391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288f43c60e3a746738a57524e71df5bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeToCharge: 5
+  _rechargeAmt: 0
 --- !u!1 &621484510
 GameObject:
   m_ObjectHideFlags: 0
