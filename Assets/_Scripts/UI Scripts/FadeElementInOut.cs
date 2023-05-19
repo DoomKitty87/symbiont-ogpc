@@ -14,6 +14,10 @@ public class FadeElementInOut : MonoBehaviour
   [Header("Events")]
   public UnityEvent _OnFadeComplete;
 
+  void OnValidate() {
+    if (_canvasGroup == null) _canvasGroup = GetComponent<CanvasGroup>();
+  }
+
   public void FadeIn(bool resetAlpha) {
     if (resetAlpha) {
       _canvasGroup.interactable = false;
