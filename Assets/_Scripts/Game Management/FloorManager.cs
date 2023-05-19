@@ -150,6 +150,7 @@ public class FloorManager : MonoBehaviour
     GameObject loseScreenInstance = Instantiate(_loseScreenPrefab, Vector3.zero, Quaternion.identity);
     LoseScreenManager loseScreenManager = loseScreenInstance.GetComponent<LoseScreenManager>();
     loseScreenManager.Initalize(runStats, _flavorTexts[Random.Range(0, _flavorTexts.Length)]);
+    GetComponent<PlayerTracker>().ResetRun();
   }
 
 	private IEnumerator SubmitHighScore() {
