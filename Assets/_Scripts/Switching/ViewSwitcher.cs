@@ -226,8 +226,6 @@ public class ViewSwitcher : MonoBehaviour
       _currentObjectInhabiting._rotationBase.rotation = initRot;
     }
 
-
-
     try { _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().Heal(_playerItems.GetHealOnTeleport());
     float initHealth = _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth;
     _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth += _playerItems.GetMaxHealthIncrease();

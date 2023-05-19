@@ -24,7 +24,7 @@ public class DamageFX : MonoBehaviour
 
   private IEnumerator ScreenBlurEffect() {
     float timeElapsed = 0;
-    float duration = 0.2f;
+    float duration = 0.1f;
     float blurMax = 1;
     float initBlur = motionBlur.intensity.value;
     while (timeElapsed < duration) {
