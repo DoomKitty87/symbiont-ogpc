@@ -26,7 +26,7 @@ public class LoginConnect : MonoBehaviour
 
   void Start() {
     //For debugging: uncomment and remove all other database calls.
-    StartCoroutine(GetComponent<LeaderboardConnect>().DoPostScores("admin", "0A1AC6758704F09F8347B214AC2892C4F0BBFCEEEE0359EF99D78388D4D53D54", 11500, 150));
+    //StartCoroutine(GetComponent<LeaderboardConnect>().DoPostScores("admin", "0A1AC6758704F09F8347B214AC2892C4F0BBFCEEEE0359EF99D78388D4D53D54", 11500, 150));
   }
 
   internal static string GetStringHash(string input) {
