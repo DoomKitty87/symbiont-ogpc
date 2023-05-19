@@ -91,6 +91,7 @@ public class PlayerItems : MonoBehaviour
     if (itm.debuff.type == 2) {
       price *= (int)itm.debuff.scaleRarities[itm.item.rarity];
     }
+    if (itm.debuff.type == 1 && itm.level == itm.debuff.scaleRarities[itm.item.rarity]) return -1;
     if (itm.debuff.type == 4) return -1;
     return price;
   }
