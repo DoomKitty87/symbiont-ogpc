@@ -2502,6 +2502,7 @@ MonoBehaviour:
   _debuffs:
   - name: Last-gen
     type: 0
+    description: This item's effectiveness is * levels less than normal
     scaleRarities:
     - 1
     - 1
@@ -2509,6 +2510,7 @@ MonoBehaviour:
     - 3
   - name: RGB-less
     type: 1
+    description: This item's level is capped at *
     scaleRarities:
     - 1
     - 2
@@ -2516,6 +2518,7 @@ MonoBehaviour:
     - 3
   - name: Budget
     type: 2
+    description: This item costs half the usual price, but costs *x as much to upgrade
     scaleRarities:
     - 1.5
     - 2
@@ -2523,9 +2526,11 @@ MonoBehaviour:
     - 3
   - name: Core
     type: 3
+    description: This item cannot be removed once it is equipped
     scaleRarities: []
   - name: Recycled
     type: 4
+    description: This item is free, but cannot be upgraded
     scaleRarities:
     - 2
     - 2

@@ -18,6 +18,7 @@ public class Debuff
 
   public string name;
   public int type;
+  public string description;
   public float[] scaleRarities;
 }
 
@@ -81,6 +82,7 @@ public class PlayerItems : MonoBehaviour
 
   public int CalculatePrice(PlayerItem itm) {
     if (itm.debuff.type == 2) return (int)(_rarityPrices[itm.item.rarity] * 0.5f);
+    if (itm.debuff.type == 4) return 0;
     return _rarityPrices[itm.item.rarity];
   }
 
@@ -89,6 +91,7 @@ public class PlayerItems : MonoBehaviour
     if (itm.debuff.type == 2) {
       price *= (int)itm.debuff.scaleRarities[itm.item.rarity];
     }
+    if (itm.debuff.type == 4) return -1;
     return price;
   }
 
@@ -97,7 +100,7 @@ public class PlayerItems : MonoBehaviour
     foreach (PlayerItem itm in _invItems) {
       if (itm.item.type != 3) continue;
       if (itm.debuff.type == 0) damageMult *= 1.1f + ((itm.level - itm.debuff.scaleRarities[itm.item.rarity]) * .05f);
-      else if (itm.debuff.type == 4) damageMult *= 1 + (0.1f / itm.debuff.scaleRarities[itm.item.rarity]);
+      //else if (itm.debuff.type == 4) damageMult *= 1 + (0.1f / itm.debuff.scaleRarities[itm.item.rarity]);
       else damageMult *= 1.1f + (itm.level * .05f);
     }
     return damageMult;
@@ -108,7 +111,7 @@ public class PlayerItems : MonoBehaviour
     foreach (PlayerItem itm in _invItems) {
       if (itm.item.type != 0) continue;
       if (itm.debuff.type == 0) healValue += 10 + ((itm.level - itm.debuff.scaleRarities[itm.item.rarity]) * 2);
-      else if (itm.debuff.type == 4) healValue += 10 / itm.debuff.scaleRarities[itm.item.rarity];
+      //else if (itm.debuff.type == 4) healValue += 10 / itm.debuff.scaleRarities[itm.item.rarity];
       else healValue += 10 + (itm.level * 2);
     }
     return healValue;
@@ -119,7 +122,7 @@ public class PlayerItems : MonoBehaviour
     foreach (PlayerItem itm in _invItems) {
       if (itm.item.type != 1) continue;
       if (itm.debuff.type == 0) maxHealthIncrease += 20 + ((itm.level - itm.debuff.scaleRarities[itm.item.rarity]) * 5);
-      else if (itm.debuff.type == 4) maxHealthIncrease += 20 / itm.debuff.scaleRarities[itm.item.rarity];
+      //else if (itm.debuff.type == 4) maxHealthIncrease += 20 / itm.debuff.scaleRarities[itm.item.rarity];
       else maxHealthIncrease += 20 + (itm.level * 5);
     }
     return maxHealthIncrease;
@@ -130,7 +133,7 @@ public class PlayerItems : MonoBehaviour
     foreach (PlayerItem itm in _invItems) {
       if (itm.item.type != 2) continue;
       if (itm.debuff.type == 0) onLeaveDamage += 10 + ((itm.level - itm.debuff.scaleRarities[itm.item.rarity]) * 3);
-      else if (itm.debuff.type == 4) onLeaveDamage += 10 / itm.debuff.scaleRarities[itm.item.rarity];
+      //else if (itm.debuff.type == 4) onLeaveDamage += 10 / itm.debuff.scaleRarities[itm.item.rarity];
       else onLeaveDamage += 10 + (itm.level * 3);
     }
     return onLeaveDamage;
@@ -141,7 +144,7 @@ public class PlayerItems : MonoBehaviour
     foreach (PlayerItem itm in _invItems) {
       if (itm.item.type != 4) continue;
       if (itm.debuff.type == 0) damagePerSecond += 1 + ((itm.level - itm.debuff.scaleRarities[itm.item.rarity]) * 3);
-      else if (itm.debuff.type == 4) damagePerSecond += 1 / itm.debuff.scaleRarities[itm.item.rarity];
+      //else if (itm.debuff.type == 4) damagePerSecond += 1 / itm.debuff.scaleRarities[itm.item.rarity];
       else damagePerSecond += 1 + itm.level;
     }
     return damagePerSecond;
@@ -152,7 +155,7 @@ public class PlayerItems : MonoBehaviour
     foreach (PlayerItem itm in _invItems) {
       if (itm.item.type != 5) continue;
       if (itm.debuff.type == 0) teleportSpeed *= 0.1f + ((itm.level - itm.debuff.scaleRarities[itm.item.rarity]) * 0.05f);
-      else if (itm.debuff.type == 4) teleportSpeed *= 0.1f / itm.debuff.scaleRarities[itm.item.rarity];
+      //else if (itm.debuff.type == 4) teleportSpeed *= 0.1f / itm.debuff.scaleRarities[itm.item.rarity];
       else teleportSpeed *= 0.1f + (itm.level * 0.05f);
     }
     return 1 / teleportSpeed;
