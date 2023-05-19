@@ -24,7 +24,7 @@ public class RoomGenNew : MonoBehaviour
   [SerializeField] private int _numberOfRoomsPerFloor;
 
 	private Vector3 _nextCoordinates = new(-100, 0, -100);
-  private bool _parody; // Used for things that require odd or even (Basically don't worry about it)
+  private bool _parity; // Used for things that require odd or even (Basically don't worry about it)
   private int _roomsGenerated = 0;
 
   private GameObject _roomEnemyIsInhabiting;
@@ -42,7 +42,8 @@ public class RoomGenNew : MonoBehaviour
     _startingRooms = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetCurrentFloorStartRooms();
     _endingRooms = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetCurrentFloorEndRooms();
 
-    _startingRoom = Instantiate(_startingRooms[Random.Range(0, _startingRooms.Length)], Vector3.zero, Quaternion.identity, transform);
+    if (_isTutorial) _startingRoom = Instantiate(GetNextTutorialRoom(), Vector3.zero, Quaternion.identity, transform);
+    else _startingRoom = Instantiate(_startingRooms[Random.Range(0, _startingRooms.Length)], Vector3.zero, Quaternion.identity, transform);
 	  // Assigns the first room as the current object inhabited
 	  GameObject.FindWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting = 
       _startingRoom.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<SwitchableObject>();
@@ -59,7 +60,7 @@ public class RoomGenNew : MonoBehaviour
 	}
 
 	public void CreateNewRoom() {
-
+        Debug.Log("NewThing");
         if (_isTutorial) {
             TutorialScript();
             return;
@@ -95,11 +96,11 @@ public class RoomGenNew : MonoBehaviour
         _roomBagEmpty.Add(roomToAdd.name.Remove(roomToAdd.name.Length - 7));
         _roomBag.Remove(roomToAdd.name.Remove(roomToAdd.name.Length - 7));
     
-        if (_parody) {
-          _parody ^= true;
+        if (_parity) {
+            _parity ^= true;
           _nextCoordinates.x *= -1;
         } else {
-          _parody ^= true;
+            _parity ^= true;
           _nextCoordinates.z *= -1;
         }
         _roomsGenerated++;
@@ -109,16 +110,13 @@ public class RoomGenNew : MonoBehaviour
         if (_previousRoom != null) Destroy(_previousRoom);
         _previousRoom = _currentRoom;
 
-        GameObject roomToAdd = Instantiate(tutorialRooms[0], _nextCoordinates, Quaternion.identity, transform);
+        GameObject roomToAdd = Instantiate(GetNextTutorialRoom(), _nextCoordinates, Quaternion.identity, transform);
 
-        _currentRoom = roomToAdd;
-        tutorialRooms.Remove(roomToAdd);
-
-        if (_parody) {
-            _parody ^= true;
+        if (_parity) {
+            _parity ^= true;
             _nextCoordinates.x *= -1;
         } else {
-            _parody ^= true;
+            _parity ^= true;
             _nextCoordinates.z *= -1;
         }
     }
@@ -131,6 +129,12 @@ public class RoomGenNew : MonoBehaviour
     Debug.LogError("No parent with tag found on reference.");
     return null;
   }
+
+    private GameObject GetNextTutorialRoom() {
+        GameObject nextRoom = tutorialRooms[0];
+        tutorialRooms.Remove(nextRoom);
+        return nextRoom;
+	}
 
   private GameObject GetRoomWithName(string s, GameObject[] roomArray) {
     foreach(GameObject gameObject in roomArray) {

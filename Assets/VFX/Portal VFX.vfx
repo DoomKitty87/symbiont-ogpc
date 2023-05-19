@@ -41,9 +41,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: 623
-    y: -248
+    y: -249
     width: 767
-    height: 2304
+    height: 2305
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,7 +78,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":1367.1202392578125,"g":0.0,"b":0.0,"a":0.0}'
+      m_SerializableObject: '{"r":2206.91552734375,"g":2206.91552734375,"b":2206.91552734375,"a":0.0}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -189,7 +189,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 750
+      m_SerializableObject: 300
     m_Space: 2147483647
   m_Property:
     name: Rate
@@ -853,7 +853,7 @@ MonoBehaviour:
   AlphaComposition: 0
   SampleMode: 0
   Mode: 1
-  ColorMode: 3
+  ColorMode: 2
   channels: 6
 --- !u!114 &8926484042661614594
 MonoBehaviour:
@@ -880,7 +880,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.0},{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.10000763088464737},{"alpha":1.0,"time":0.800000011920929},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.0},{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.8117647171020508,"time":0.00881971511989832},{"alpha":1.0,"time":0.2558785378932953},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: Color
@@ -2644,7 +2644,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661614773}
     position: {x: 648, y: 1811}
     expandedSlots: []
-    expanded: 0
+    expanded: 1
 --- !u!114 &8926484042661614778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2674,7 +2674,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":1367.1202392578125,"g":0.0,"b":0.0,"a":0.0}'
+      m_SerializableObject: '{"r":0.0,"g":1521.17529296875,"b":1653.02294921875,"a":0.0}'
     m_Space: 2147483647
   m_Property:
     name: o
@@ -2841,7 +2841,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1
+      m_SerializableObject: 0.4
     m_Space: 2147483647
   m_Property:
     name: Lifetime

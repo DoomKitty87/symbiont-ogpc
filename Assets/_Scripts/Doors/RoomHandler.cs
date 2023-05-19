@@ -8,7 +8,7 @@ public class RoomHandler : MonoBehaviour
 {
 	private RoomGenNew _roomGenNew;
 
-	[HideInInspector] public List<GameObject> _arrayOfDoors;
+	 public List<GameObject> _arrayOfDoors;
 	private int _numberOfDoors;
 
 	[HideInInspector] public GameObject _previousDoor;
@@ -58,6 +58,7 @@ public class RoomHandler : MonoBehaviour
 		// At this point the previous door should be removed from _arrayOfDoors
 
 		if (_arrayOfDoors.Count == 0) return; // Return when no doors
+
 		_nextDoor = _arrayOfDoors[Random.Range(0, _arrayOfDoors.Count)];
 		_nextDoor.gameObject.transform.GetChild(1).gameObject.SetActive(false);
 		InitiateSetUp(_nextDoor);
