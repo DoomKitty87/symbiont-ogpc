@@ -2541,42 +2541,36 @@ MonoBehaviour:
     flavorText: '"Oh, so that''s where my 7 hour gameplay recording went!"'
     description: Heal x to target when teleporting
     category: Healing
-    icon: {fileID: 21300000, guid: 1e16c8734298757429209e3c63ca9ad0, type: 3}
   - name: More RAM!
     type: 1
     rarity: 0
     flavorText: Visit downloadmoreram.com to get your first 16 GB free!
     description: Increase max health by x
     category: Healing
-    icon: {fileID: 21300000, guid: 186a7ac52d85d3e4cb44f368cbba5b5c, type: 3}
   - name: Parting Gift
     type: 2
     rarity: 0
     flavorText: Remove the flash drive WITHOUT ejecting
     description: Deal x damage when you leave an enemy
     category: Damage
-    icon: {fileID: 0}
   - name: System Cleaner
     type: 3
     rarity: 0
     flavorText: Increasing performance starts with removing bloatware
     description: Do 1.1x as much damage when shooting
     category: Damage
-    icon: {fileID: 0}
   - name: Cryptojacking
     type: 4
     rarity: 0
     flavorText: '"I hope they''ve got a lot of thermal paste, for their sake..."'
     description: Deal x damage every second
     category: Damage
-    icon: {fileID: 0}
   - name: High-speed Cable
     type: 5
     rarity: 0
     flavorText: Gold-plated and RGB for maximum bits!
     description: Switch between robots x times faster
     category: Teleporting
-    icon: {fileID: 0}
   _rarityPrices: e8030000c40900008813000010270000
   _rarityUpgradePrices: 
 --- !u!114 &270392633
@@ -12165,6 +12159,9 @@ MonoBehaviour:
   - _trackName: Auxillary
     _trackArtist: Ansel Stanik
     _trackAudioClip: {fileID: 8300000, guid: 0170da98013744323b5339588d97307d, type: 3}
+  - _trackName: Reboot
+    _trackArtist: Ansel Stanik
+    _trackAudioClip: {fileID: 8300000, guid: 271982969730c425e9b6acf4777312a5, type: 3}
   _shuffleTracks: 0
   _trackQueue: []
   _currentQueueIndex: 0
