@@ -25,7 +25,7 @@ public class HealthManager : MonoBehaviour
   public void Heal(float healPoints) {
     float initialHealth = _currentHealth;
     if (_currentHealth + healPoints >= _maxHealth) _currentHealth = _maxHealth;
-    else _currentHealth += _maxHealth;
+    else _currentHealth += healPoints;
     _onHealthChanged?.Invoke(initialHealth, _currentHealth, _maxHealth);
   }
 
