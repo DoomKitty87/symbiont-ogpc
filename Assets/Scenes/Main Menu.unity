@@ -33701,6 +33701,7 @@ GameObject:
   - component: {fileID: 2027249571}
   - component: {fileID: 2027249572}
   - component: {fileID: 2027249573}
+  - component: {fileID: 2027249574}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -33783,6 +33784,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leaderboardPlacePrefab: {fileID: 7196567438404582904, guid: 05cf0c3f976ea463f90288a67de0c277,
     type: 3}
+--- !u!114 &2027249574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027249569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &2029093767
 GameObject:
   m_ObjectHideFlags: 0

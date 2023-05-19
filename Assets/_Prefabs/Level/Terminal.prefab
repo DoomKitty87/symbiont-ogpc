@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6457316600172519806}
   - component: {fileID: 5428564136946373967}
   - component: {fileID: 126844377008384418}
+  - component: {fileID: -1538106795753825798}
   m_Layer: 0
   m_Name: Terminal
   m_TagString: Untagged
@@ -101,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9ff4256d282e04d8fccd7e6eaaff03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _raycastOrigin: {fileID: 0}
+  _raycastOrigin: {fileID: 6203767617773040878}
   _raycastOriginOffset: {x: 0, y: 0, z: 0}
   _raycastDistance: 0
   _layerMask:
@@ -109,8 +110,8 @@ MonoBehaviour:
     m_Bits: 0
   _showRaycast: 0
   _objectCameras: []
-  _objectAudioListener: {fileID: 0}
-  _rotationBase: {fileID: 0}
+  _objectAudioListener: {fileID: -1538106795753825798}
+  _rotationBase: {fileID: 6203767617773040878}
   _OnSwitchedTo:
     m_PersistentCalls:
       m_Calls:
@@ -161,3 +162,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: db7bf60073a3b41b4874b2309ffc32c0, type: 3}
+--- !u!81 &-1538106795753825798
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5040178872553083869}
+  m_Enabled: 1
