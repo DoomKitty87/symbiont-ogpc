@@ -29,8 +29,9 @@ public class RoomHandler : MonoBehaviour
 			int randomIndex = Random.Range(0, _arrayOfDoors.Count);
 			_previousDoor = _arrayOfDoors[randomIndex];
 			_previousDoor.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+			_previousDoor.gameObject.transform.GetChild(3).gameObject.SetActive(true);
 			_arrayOfDoors.Remove(_previousDoor);
-		}
+		}	
 
 		// Adds mesh colliders to all wall objects
     for (int i = 0; i < transform.GetChild(2).GetChild(0).childCount; i++) {
@@ -60,7 +61,10 @@ public class RoomHandler : MonoBehaviour
 	}
 
 	public void ClosePreviousDoor() {
-		if (_previousDoor) _previousDoor.transform.GetChild(1).gameObject.SetActive(true);
+		if (_previousDoor) {
+			_previousDoor.transform.GetChild(1).gameObject.SetActive(true);
+			_previousDoor.transform.GetChild(3).gameObject.SetActive(false);
+		}
 	}
 
 	private void InitiateSetUp(GameObject _nextDoor) {
