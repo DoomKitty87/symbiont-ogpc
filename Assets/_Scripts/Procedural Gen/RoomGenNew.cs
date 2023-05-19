@@ -6,9 +6,13 @@ public class RoomGenNew : MonoBehaviour
 
 	// Rooms should have child categories of:
 	// Enemies
-  // Doors
-  // Components
-  // Cameras
+    // Doors
+    // Components
+    // Cameras
+
+    [Header("Tutorial")]
+    [SerializeField] private bool _isTutorial;
+    [SerializeField] private List<GameObject> tutorialRooms;
 
   private GameObject[] _randomRooms;
   private GameObject[] _startingRooms;
@@ -56,47 +60,70 @@ public class RoomGenNew : MonoBehaviour
 
 	public void CreateNewRoom() {
 
-    if (_numberOfRoomsPerFloor == -1) {
-      // If the number of rooms per floor is -1, then the ending room has been generated and no more rooms should be generated
-      Debug.Log("Reached maximum amount of rooms per level. Update _numberOfRoomsPerLevel value to increase room number.");
-      return;
-    }
+        if (_isTutorial) {
+            TutorialScript();
+            return;
+        }
 
-    // If the room bag is empty, refill it and empty the empty bag
-    if (_roomBag.Count == 0) {
-      _roomBagEmpty.Clear();
-      foreach (GameObject room in _randomRooms) {
-        _roomBag.Add(room.name);
-      }
-    }
+        if (_numberOfRoomsPerFloor == -1) {
+          // If the number of rooms per floor is -1, then the ending room has been generated and no more rooms should be generated
+          Debug.Log("Reached maximum amount of rooms per level. Update _numberOfRoomsPerLevel value to increase room number.");
+          return;
+        }
 
-    // Creates new room
-    if (_previousRoom != null) Destroy(_previousRoom);
-    _previousRoom = _currentRoom;
-    if (_roomsGenerated == _numberOfRoomsPerFloor - 1) {
-      _currentRoom = Instantiate(_endingRooms[Random.Range(0, _endingRooms.Length)], _nextCoordinates, Quaternion.identity, transform);
-      _numberOfRoomsPerFloor = -1; // Effectively ending room generation
-      return;
-    }
+        // If the room bag is empty, refill it and empty the empty bag
+        if (_roomBag.Count == 0) {
+          _roomBagEmpty.Clear();
+          foreach (GameObject room in _randomRooms) {
+            _roomBag.Add(room.name);
+          }
+        }
 
-    // Deals with creating new rooms
-    GameObject roomToAdd = Instantiate(GetRoomWithName(_roomBag[Random.Range(0, _roomBag.Count)], _randomRooms), _nextCoordinates, Quaternion.identity, transform);
+        // Creates new room
+        if (_previousRoom != null) Destroy(_previousRoom);
+        _previousRoom = _currentRoom;
+        if (_roomsGenerated == _numberOfRoomsPerFloor - 1) {
+          _currentRoom = Instantiate(_endingRooms[Random.Range(0, _endingRooms.Length)], _nextCoordinates, Quaternion.identity, transform);
+          _numberOfRoomsPerFloor = -1; // Effectively ending room generation
+          return;
+        }
 
-    _currentRoom = roomToAdd;
-    _roomBagEmpty.Add(roomToAdd.name.Remove(roomToAdd.name.Length - 7));
-    _roomBag.Remove(roomToAdd.name.Remove(roomToAdd.name.Length - 7));
+        // Deals with creating new rooms
+        GameObject roomToAdd = Instantiate(GetRoomWithName(_roomBag[Random.Range(0, _roomBag.Count)], _randomRooms), _nextCoordinates, Quaternion.identity, transform);
+
+        _currentRoom = roomToAdd;
+        _roomBagEmpty.Add(roomToAdd.name.Remove(roomToAdd.name.Length - 7));
+        _roomBag.Remove(roomToAdd.name.Remove(roomToAdd.name.Length - 7));
     
-    if (_parody) {
-      _parody ^= true;
-      _nextCoordinates.x *= -1;
-    } else {
-      _parody ^= true;
-      _nextCoordinates.z *= -1;
+        if (_parody) {
+          _parody ^= true;
+          _nextCoordinates.x *= -1;
+        } else {
+          _parody ^= true;
+          _nextCoordinates.z *= -1;
+        }
+        _roomsGenerated++;
     }
-    _roomsGenerated++;
-  }
 
-  private GameObject GetRoom(GameObject reference, string tagName) {
+    private void TutorialScript() {
+        if (_previousRoom != null) Destroy(_previousRoom);
+        _previousRoom = _currentRoom;
+
+        GameObject roomToAdd = Instantiate(tutorialRooms[0], _nextCoordinates, Quaternion.identity, transform);
+
+        _currentRoom = roomToAdd;
+        tutorialRooms.Remove(roomToAdd);
+
+        if (_parody) {
+            _parody ^= true;
+            _nextCoordinates.x *= -1;
+        } else {
+            _parody ^= true;
+            _nextCoordinates.z *= -1;
+        }
+    }
+
+    private GameObject GetRoom(GameObject reference, string tagName) {
     while (reference.transform.parent != null) {
       if (reference.transform.parent.CompareTag(tagName)) return reference.transform.parent.gameObject;
       else reference = reference.transform.parent.gameObject;
