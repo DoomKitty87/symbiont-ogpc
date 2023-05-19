@@ -8,6 +8,12 @@ public class SpeedUpDisplay : MonoBehaviour
   public float _timeToCharge;
 
   [HideInInspector] public float _rechargeAmt;
+
+  private PauseHandler _pauseHandler;
+
+  private void Start() {
+    _pauseHandler = GameObject.FindGameObjectWithTag("Handler").GetComponent<PauseHandler>();
+  }
   
   private void Update() {
     if (Input.GetKeyDown(KeyCode.E)) TriggerSpeedUp();
@@ -17,12 +23,14 @@ public class SpeedUpDisplay : MonoBehaviour
 
   private void TriggerSpeedUp() {
     if (_rechargeAmt <= 0) return;
+    if (_pauseHandler._pauseState != PauseHandler.PauseState.Unpaused) return;
     _rechargeAmt -= Time.deltaTime / Time.timeScale;
     Time.timeScale = Mathf.Lerp(Time.timeScale, 2.5f, 0.8f);
   }
 
   private void StopSpeedUp() {
     if (Time.timeScale == 1f) return;
+    if (_pauseHandler._pauseState != PauseHandler.PauseState.Unpaused) return;
     Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, 0.8f);
   }
 
