@@ -2531,11 +2531,7 @@ MonoBehaviour:
   - name: Recycled
     type: 4
     description: This item is free, but cannot be upgraded
-    scaleRarities:
-    - 2
-    - 2
-    - 3
-    - 3
+    scaleRarities: []
   _items:
   - name: Data Recovery
     type: 0
@@ -12073,6 +12069,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cdb3d6c33acb4fc7a0ed56d04b95172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isTutorial: 0
+  tutorialRooms: []
   _roomBag: []
   _numberOfRoomsPerFloor: 10
   _currentRoom: {fileID: 0}
