@@ -1,29 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SpeedUpDisplay : MonoBehaviour
 {
 
-  [SerializeField] private GameObject _rechargeBar;
-  [SerializeField] private float _timeToCharge;
+  public float _timeToCharge;
 
-  private float _rechargeAmt;
-  private bool _speedingUp;
+  [HideInInspector] public float _rechargeAmt;
   
   private void Update() {
-    if (Input.GetKeyDown(KeyCode.E) && GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting != gameObject) TriggerSpeedUp();
-    _rechargeAmt += Time.unscaledDeltaTime;
-    _rechargeBar.GetComponent<Image>().fillAmount = _rechargeAmt / _timeToCharge;
+    if (Input.GetKeyDown(KeyCode.E)) TriggerSpeedUp();
+    else StopSpeedUp();
+    if (Time.timeScale > 0) _rechargeAmt += Time.unscaledDeltaTime;
   }
 
   private void TriggerSpeedUp() {
-    if (_rechargeAmt < _timeToCharge) return;
-    if (_speedingUp) return;
-    StartCoroutine(SpeedUpGame());
+    if (_rechargeAmt <= 0) return;
+    _rechargeAmt -= Time.deltaTime / Time.timeScale;
+    Time.timeScale = Mathf.Lerp(Time.timeScale, 2.5f, 0.8f);
   }
 
+  private void StopSpeedUp() {
+    if (Time.timeScale == 1f) return;
+    Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, 0.8f);
+  }
+
+  /*
   private IEnumerator SpeedUpGame() {
     _rechargeAmt = 0;
     Time.timeScale = 0.99f;
@@ -47,4 +50,5 @@ public class SpeedUpDisplay : MonoBehaviour
     Time.timeScale = 1f;
     _speedingUp = false;
   }
+  */
 }
