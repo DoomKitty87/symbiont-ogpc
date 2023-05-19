@@ -49,7 +49,7 @@ public class CustomTimer : MonoBehaviour
     while (timeLeft > 0) {
       timeLeft -= Time.deltaTime;
       if (_timerText != null) {
-        _timerText.text = string.Format("{0}.{1}", Mathf.FloorToInt(timeLeft % 60), Mathf.FloorToInt((timeLeft * 100) % 100).ToString("00"));
+        _timerText.text = string.Format("{0}.{1}", Mathf.Clamp(Mathf.FloorToInt(timeLeft % 60), 0, 61), Mathf.Clamp(Mathf.FloorToInt((timeLeft * 100) % 100), 0, 101).ToString("00"));
       }
       if (_timerSlider != null) {
         _timerSlider.value = timeLeft;
@@ -60,7 +60,7 @@ public class CustomTimer : MonoBehaviour
       yield return null;
     }
     if (_timerText != null) {
-      _timerText.text = string.Format("{0}.{1}", Mathf.FloorToInt(0 % 60), Mathf.FloorToInt((0 * 100) % 100).ToString("00"));
+      _timerText.text = string.Format("{0}.{1}", Mathf.Clamp(Mathf.FloorToInt(timeLeft % 60), 0, 61), Mathf.Clamp(Mathf.FloorToInt((timeLeft * 100) % 100), 0, 101).ToString("00"));
     }
     _OnTimerEnd?.Invoke();
   }
@@ -70,7 +70,7 @@ public class CustomTimer : MonoBehaviour
     while (timePassed < _timerDuration) {
       timePassed += Time.deltaTime;
       if (_timerText != null) {
-        _timerText.text = string.Format("{0}.{1}", Mathf.FloorToInt(timePassed % 60), Mathf.FloorToInt((timePassed * 100) % 100).ToString("00"));
+        _timerText.text = string.Format("{0}.{1}", Mathf.Clamp(Mathf.FloorToInt(timePassed % 60), 0, 61), Mathf.Clamp(Mathf.FloorToInt((timePassed * 100) % 100), 0, 101).ToString("00"));
       }
       if (_timerSlider != null) {
         _timerSlider.value = timePassed;
@@ -81,7 +81,7 @@ public class CustomTimer : MonoBehaviour
       yield return null;
     }
     if (_timerText != null) {
-      _timerText.text = string.Format("{0}.{1}", Mathf.FloorToInt(_timerDuration % 60), Mathf.FloorToInt((_timerDuration * 100) % 100).ToString("00"));
+      _timerText.text = string.Format("{0}.{1}", Mathf.Clamp(Mathf.FloorToInt(timePassed % 60), 0, 61), Mathf.Clamp(Mathf.FloorToInt((timePassed * 100) % 100), 0, 101).ToString("00"));
     }
     _OnTimerEnd?.Invoke();
   }
@@ -91,7 +91,7 @@ public class CustomTimer : MonoBehaviour
     while (true) {
       timePassed += Time.deltaTime;
       if (_timerText != null) {
-        _timerText.text = string.Format("{0}:{1}.{2}", Mathf.FloorToInt(timePassed / 60), Mathf.FloorToInt(timePassed % 60), Mathf.FloorToInt((timePassed * 100) % 100).ToString("00"));
+        _timerText.text = string.Format("{0}:{1}.{2}", Mathf.FloorToInt(timePassed / 60), Mathf.Clamp(Mathf.FloorToInt(timePassed % 60), 0, 61), Mathf.Clamp(Mathf.FloorToInt((timePassed * 100) % 100), 0, 101).ToString("00"));
       }
       yield return null;
     }

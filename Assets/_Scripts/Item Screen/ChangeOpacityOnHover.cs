@@ -6,12 +6,13 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class ChangeOpacityOnHover : MonoBehaviour, IPointerEnterHandler
+public class ChangeOpacityOnHover : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
   [Header("References")]
   [SerializeField] private CanvasGroup _canvasGroup;
   [SerializeField] private Image _mouseOverImage;
   [Header("Settings")]
+  [SerializeField] private bool _maxOpacityOnClick;
   [SerializeField] private float _minOpacity;
   [SerializeField] private float _maxOpacity;
   [SerializeField] private AnimationCurve _easingCurve;
@@ -21,6 +22,8 @@ public class ChangeOpacityOnHover : MonoBehaviour, IPointerEnterHandler
   [Header("Events")]
   public UnityEvent _OnOpacityChangeComplete;
 
+  private bool _locked;
+
   private void OnValidate() {
     if (_canvasGroup == null) _canvasGroup = GetComponent<CanvasGroup>();
   }
@@ -29,7 +32,14 @@ public class ChangeOpacityOnHover : MonoBehaviour, IPointerEnterHandler
     _canvasGroup.alpha = _minOpacity;      
   }
 
+
+  public void OnPointerClick(PointerEventData eventData) {
+    OpacityIn(false);
+    _locked = true;
+  }
+
   public void OnPointerEnter(PointerEventData pointerEventData) {
+    if (_locked) return;
     OpacityIn(false);
     StartCoroutine(CheckForNotMouseOver());
   }
