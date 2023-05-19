@@ -34,6 +34,7 @@ public class Item
   public string description;
   public string category;
   public Sprite icon;
+  public string equation;
 }
 
 public class PlayerItems : MonoBehaviour
