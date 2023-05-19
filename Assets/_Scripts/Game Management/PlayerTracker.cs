@@ -21,6 +21,16 @@ public class PlayerTracker : MonoBehaviour
     DontDestroyOnLoad(gameObject);
   }
 
+  public void ResetRun() {
+    roomsCleared = 0;
+    floorsCleared = 0;
+    kills = 0;
+    runTime = 0;
+    damage = 0;
+    switches = 0;
+    score = 0;
+  }
+
   private void Update() {
     runTime += Time.deltaTime;
   }
