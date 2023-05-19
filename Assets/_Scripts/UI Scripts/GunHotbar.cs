@@ -12,14 +12,14 @@ public class GunHotbar : MonoBehaviour
 
   public void LoadInfoForGuns(WeaponItem[] weapons, WeaponItem weapon) {
     if (weapons.Length == 2) {
-      _gunSlot1.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = weapons[0].name.ToUpper();
-      _gunSlot2.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = weapons[1].name.ToUpper();
+      _gunSlot1.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = weapons[0].nickName.ToUpper();
+      _gunSlot2.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = weapons[1].nickName.ToUpper();
       _gunSlot1.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = weapons[0].sprite;
       _gunSlot2.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = weapons[0].sprite;
     }
     else {
-      _gunSlot1.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = weapons[0].name.ToUpper();
-      _gunSlot2.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "NULL WEAPON";
+      _gunSlot1.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = weapons[0].nickName.ToUpper();
+      _gunSlot2.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "NO WEAPON";
       _gunSlot1.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = weapons[0].sprite;
       _gunSlot2.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = null;
       _gunSlot2.transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(0, 0, 0, 0);
