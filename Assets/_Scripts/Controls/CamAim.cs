@@ -36,8 +36,8 @@ public class CamAim : MonoBehaviour
   void Update() {
     float oldY = _rotY;
     float oldX = _rotX;
-    _rotY += Input.GetAxis("Mouse X") * _horizontalSens;
-    _rotX += Input.GetAxis("Mouse Y") * _verticalSens;
+    _rotY += Input.GetAxis("Horizontal") * _horizontalSens;
+    _rotX += Input.GetAxis("Vertical") * _verticalSens;
     
     if (_constrainX) {
       _rotX = Mathf.Clamp(_rotX, _minX, _maxX);
