@@ -26,7 +26,6 @@ public class FadeElementInOut : MonoBehaviour
     } else {
       StartCoroutine(FadeElementInOutCoroutine(_canvasGroup.alpha, 1, _inDuration));
     }
-    print("finish fade in");
     _canvasGroup.interactable = true;
     _canvasGroup.blocksRaycasts = true;
   }
