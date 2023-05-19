@@ -18,6 +18,9 @@ public class WeaponAudio : MonoBehaviour
   [SerializeField] private AudioClip _reloadEndSound;
   [SerializeField] private AudioClip _equipSound;
 
+  private float _initVol;
+  private float _lastAudioVol;
+
   public void UpdateForNewValues(WeaponItem weaponItem, int ammoCount) {
     _currentWeaponItem = weaponItem;
     _ammoCount = ammoCount;
@@ -34,6 +37,14 @@ public class WeaponAudio : MonoBehaviour
   // Start is called before the first frame update
   private void Start() {
     _audioSource = gameObject.GetComponent<AudioSource>();
+    _initVol = _audioSource.volume;
+  }
+
+  private void Update() {
+    if (PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS") != _lastAudioVol) {
+      _lastAudioVol = PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS");
+      _audioSource.volume = _initVol * _lastAudioVol;
+    }
   }
 
   public void OnEquip() {
