@@ -51,7 +51,7 @@ public class FloorManager : MonoBehaviour
   }
 
   private void Start() {
-    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || SceneManager.GetActiveScene().name != "Game") Destroy(gameObject);
+    if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1 || !(SceneManager.GetActiveScene().name == "Game" || SceneManager.GetActiveScene().name == "Tutorial")) Destroy(gameObject);
     //if (GameObject.FindGameObjectsWithTag("Persistent").Length > 1) Destroy(gameObject);
     DontDestroyOnLoad(gameObject);
     SceneManager.activeSceneChanged += InNewFloor;

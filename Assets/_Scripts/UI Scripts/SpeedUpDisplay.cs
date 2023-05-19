@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class SpeedUpDisplay : MonoBehaviour
 {
@@ -10,31 +12,38 @@ public class SpeedUpDisplay : MonoBehaviour
   [HideInInspector] public float _rechargeAmt;
 
   private PauseHandler _pauseHandler;
+  private VolumeProfile _profile;
+  private LensDistortion _lensDist;
+  private ChromaticAberration _chromaticAb;
 
   private void Start() {
     _pauseHandler = GameObject.FindGameObjectWithTag("Handler").GetComponent<PauseHandler>();
+    _profile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
+    _profile.TryGet(out _lensDist);
+    _profile.TryGet(out _chromaticAb);
   }
   
   private void Update() {
-    if (Input.GetKey(KeyCode.E)) TriggerSpeedUp();
+    if (Input.GetKey(KeyCode.E) && _rechargeAmt > 0) TriggerSpeedUp();
     else StopSpeedUp();
-    if (Time.timeScale > 0) _rechargeAmt += Time.unscaledDeltaTime;
+    if (Time.timeScale > 0) _rechargeAmt += Time.unscaledDeltaTime * 0.5f;
     if (_rechargeAmt > _timeToCharge) _rechargeAmt = _timeToCharge;
   }
 
   private void TriggerSpeedUp() {
-    if (_rechargeAmt <= 0) return;
     if (_pauseHandler._pauseState != PauseHandler.PauseState.Unpaused) return;
-    print("speed");
-    print(_rechargeAmt);
-    _rechargeAmt -= Time.unscaledDeltaTime * 2;
-    Time.timeScale = Mathf.Lerp(Time.timeScale, 2.5f, 0.8f);
+    _rechargeAmt -= Time.unscaledDeltaTime * 1.5f;
+    Time.timeScale = Mathf.Lerp(Time.timeScale, 2.5f, 0.1f);
+    _lensDist.intensity.value = Mathf.Lerp(_lensDist.intensity.value, -0.6f, 0.05f);
+    _chromaticAb.intensity.value = Mathf.Lerp(_chromaticAb.intensity.value, 8f, 0.05f);
   }
 
   private void StopSpeedUp() {
     if (Time.timeScale == 1f) return;
     if (_pauseHandler._pauseState != PauseHandler.PauseState.Unpaused) return;
-    Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, 0.8f);
+    Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, 0.1f);
+    _lensDist.intensity.value = Mathf.Lerp(_lensDist.intensity.value, 0f, 0.05f);
+    _chromaticAb.intensity.value = Mathf.Lerp(_chromaticAb.intensity.value, 0f, 0.05f);
   }
 
   /*
