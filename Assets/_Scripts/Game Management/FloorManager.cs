@@ -32,6 +32,7 @@ public class FloorManager : MonoBehaviour
 
   private int _chosenFloorType;
   private float _diffScaleOverall = 1f; 
+  private int _currHueShift = 0;
 
   [HideInInspector] public List<GameObject> _robotsSeen = new List<GameObject>();
   [HideInInspector] public List<string[]> _robotData = new List<string[]>();
@@ -118,6 +119,10 @@ public class FloorManager : MonoBehaviour
     return weaponsToReturn;
   }
 
+  public int GetHueShift() {
+    return _currHueShift;
+  }
+
   public void LoseState() {
     GameObject.FindWithTag("Handler").GetComponent<PauseHandler>()._pauseState = PauseHandler.PauseState.Dead;
     StartCoroutine(SubmitHighScore());
@@ -193,6 +198,7 @@ public class FloorManager : MonoBehaviour
     VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
     ColorAdjustments colorAdjustments;
     volumeProfile.TryGet(out colorAdjustments);
-    colorAdjustments.hueShift.Override(Random.Range(-360, 361));
+    _currHueShift = Random.Range(-360, 361);
+    colorAdjustments.hueShift.Override(_currHueShift);
   }
 }
