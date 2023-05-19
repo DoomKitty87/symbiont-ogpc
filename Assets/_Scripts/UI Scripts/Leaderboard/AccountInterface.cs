@@ -72,7 +72,10 @@ public class AccountInterface : MonoBehaviour
     _logOutButton.onClick.AddListener(OnClickLogout);
     _registerButton.onClick.AddListener(OnClickRegister);
     _deleteButton.onClick.AddListener(OnClickDelete);
-    if (_loginManager.IsLoggedIn()) _onLoginSuccess?.Invoke();
+    if (_loginManager.IsLoggedIn()) {
+      _activeAccountDisplayText.text = _loginManager.GetActiveAccountName();
+      _onLoginSuccess?.Invoke();
+    }
   }
 
   // For all account functions: OnClick will check for basics like password confirmation and empty fields.
