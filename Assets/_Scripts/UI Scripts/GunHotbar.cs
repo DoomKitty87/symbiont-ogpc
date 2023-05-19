@@ -19,7 +19,7 @@ public class GunHotbar : MonoBehaviour
     }
     else {
       _gunSlot1.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = weapons[0].nickName.ToUpper();
-      _gunSlot2.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "NO WEAPON";
+      _gunSlot2.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "SLOT 2 EMPTY";
       _gunSlot1.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = weapons[0].sprite;
       _gunSlot2.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = null;
       _gunSlot2.transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(0, 0, 0, 0);
