@@ -97,15 +97,12 @@ public class PauseHandler : MonoBehaviour
 		if (_pauseState == PauseState.Dead) {
 			GameObject disableEnemy = GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject;
 			try {
-        print("trying to disable enemy");
 				disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.gameObject.GetComponent<EnemyInfo>().SwitchedAway();
 				disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.gameObject.GetComponent<EnemyInfo>().enabled = false;
 			} catch {
-        print("could not disable enemy, trying to disable camera overlay");
 				disableEnemy.GetComponent<SwitchableObject>()._raycastOrigin.parent.GetChild(1).GetComponent<CameraOverlay>().enabled = false;
 			}
 			if (disableEnemy.transform.GetChild(1).GetComponent<PlayerAim>()) {
-        print("disable player aim");
         disableEnemy.transform.GetChild(1).GetComponent<PlayerAim>().enabled = false;
       }
       Time.timeScale = 0.0f;

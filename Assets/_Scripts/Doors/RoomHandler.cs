@@ -97,9 +97,9 @@ public class RoomHandler : MonoBehaviour
 	}
 
 	private IEnumerator LeaveCountdown() {
-		yield return new WaitForSeconds(5f);
+		yield return new WaitForSeconds(10f);
 		float timeElapsed = 0;
-		float timeLimit = 15;
+		float timeLimit = 20;
 		VolumeProfile profile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
 		PaniniProjection proj;
 		DepthOfField dof;

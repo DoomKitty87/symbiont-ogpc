@@ -24,6 +24,7 @@ public class LeaderboardConnect : MonoBehaviour
   */
   public bool PostScores(int score, int length) {
     if (!GetComponent<LoginConnect>().IsLoggedIn()) return false;
+    print("was logged in");
     string authPassword = GetComponent<LoginConnect>().GetActiveAuthPass();
     string name = GetComponent<LoginConnect>().GetActiveAccountName();
     StartCoroutine(DoPostScores(name, authPassword, score, length));

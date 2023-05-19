@@ -161,21 +161,8 @@ public class FloorManager : MonoBehaviour
       yield break;
     }
     LeaderboardConnect leaderboardConnect = connectionManager.GetComponent<LeaderboardConnect>();
-    List<Score> scores = leaderboardConnect.RetrieveScores();
-    while (scores.Count == 0) {
-      yield return new WaitForSeconds(0.05f);
-    }
-    bool submitted = false;
-    foreach (Score s in scores) {
-      if (s.name == connectionManager.GetComponent<LoginConnect>().GetActiveAccountName()) {
-        if (runStats[0] > s.score) {
-          submitted = true;
-          connectionManager.GetComponent<LeaderboardConnect>().PostScores(runStats[0], runStats[1]);
-        }
-        else submitted = true;
-      }
-    }
-    if (!submitted) connectionManager.GetComponent<LeaderboardConnect>().PostScores(runStats[0], runStats[1]);
+    print("posting scores");
+    leaderboardConnect.PostScores(runStats[0] * 50, runStats[1]);
   }
 
   private IEnumerator MoveFloors() {
