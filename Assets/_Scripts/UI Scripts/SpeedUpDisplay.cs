@@ -16,15 +16,18 @@ public class SpeedUpDisplay : MonoBehaviour
   }
   
   private void Update() {
-    if (Input.GetKeyDown(KeyCode.E)) TriggerSpeedUp();
+    if (Input.GetKey(KeyCode.E)) TriggerSpeedUp();
     else StopSpeedUp();
     if (Time.timeScale > 0) _rechargeAmt += Time.unscaledDeltaTime;
+    if (_rechargeAmt > _timeToCharge) _rechargeAmt = _timeToCharge;
   }
 
   private void TriggerSpeedUp() {
     if (_rechargeAmt <= 0) return;
     if (_pauseHandler._pauseState != PauseHandler.PauseState.Unpaused) return;
-    _rechargeAmt -= Time.deltaTime / Time.timeScale;
+    print("speed");
+    print(_rechargeAmt);
+    _rechargeAmt -= Time.unscaledDeltaTime * 2;
     Time.timeScale = Mathf.Lerp(Time.timeScale, 2.5f, 0.8f);
   }
 
