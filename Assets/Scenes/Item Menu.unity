@@ -1039,7 +1039,7 @@ GameObject:
   - component: {fileID: 328632031}
   - component: {fileID: 328632030}
   m_Layer: 5
-  m_Name: Inventory Management
+  m_Name: Item Management
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1061,6 +1061,7 @@ RectTransform:
   - {fileID: 1908562493}
   - {fileID: 926711802}
   - {fileID: 1414918392}
+  - {fileID: 996147186}
   m_Father: {fileID: 1652625451}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1135,7 +1136,7 @@ GameObject:
   - component: {fileID: 343747494}
   - component: {fileID: 343747493}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Item 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2995,7 +2996,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -666.98}
+  m_AnchoredPosition: {x: 400, y: -667.6}
   m_SizeDelta: {x: 500, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &926711803
@@ -3202,12 +3203,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1414918392}
-  m_RootOrder: 2
+  m_Father: {fileID: 328632029}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -452.01}
+  m_AnchoredPosition: {x: 1250, y: -667.49}
   m_SizeDelta: {x: 800, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &996147187
@@ -4595,7 +4596,6 @@ RectTransform:
   m_Children:
   - {fileID: 368281653}
   - {fileID: 740455305}
-  - {fileID: 996147186}
   m_Father: {fileID: 328632029}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
