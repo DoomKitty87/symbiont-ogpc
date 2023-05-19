@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class MusicTrack {
@@ -169,7 +170,7 @@ public class MusicManager : MonoBehaviour
   private IEnumerator PlayTrackCoroutine(MusicTrack track) {
     _audioSource.clip = track._trackAudioClip;
     _audioSource.Play();
-    GetComponent<MusicPopupManager>().UpdateSongInfo();
+    if (SceneManager.GetActiveScene().name == "Main Menu") GetComponent<MusicPopupManager>().UpdateSongInfo();
     yield return new WaitForSeconds(track._trackAudioClip.length);
   }
 }
