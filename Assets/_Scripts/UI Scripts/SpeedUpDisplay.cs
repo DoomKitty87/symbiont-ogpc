@@ -13,9 +13,9 @@ public class SpeedUpDisplay : MonoBehaviour
   private bool _speedingUp;
   
   private void Update() {
-    if (Input.GetKeyDown(KeyCode.E)) TriggerSpeedUp();
+    if (Input.GetKeyDown(KeyCode.E) && GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting != gameObject) TriggerSpeedUp();
     _rechargeAmt += Time.unscaledDeltaTime;
-    if (Time.timeScale == 1f) _rechargeBar.GetComponent<Image>().fillAmount = _rechargeAmt / _timeToCharge;
+    _rechargeBar.GetComponent<Image>().fillAmount = _rechargeAmt / _timeToCharge;
   }
 
   private void TriggerSpeedUp() {
@@ -26,6 +26,7 @@ public class SpeedUpDisplay : MonoBehaviour
 
   private IEnumerator SpeedUpGame() {
     _rechargeAmt = 0;
+    Time.timeScale = 0.99f;
     _rechargeBar.GetComponent<Image>().fillAmount = 0;
     _speedingUp = true;
     float timeElapsed = 0;
@@ -36,7 +37,7 @@ public class SpeedUpDisplay : MonoBehaviour
       yield return null;
     }
     Time.timeScale = 2.5f;
-    yield return new WaitForSeconds(2f);
+    yield return new WaitForSeconds(5f);
     timeElapsed = 0;
     while (timeElapsed < duration) {
       Time.timeScale = Mathf.SmoothStep(2.5f, 1, timeElapsed / duration);
