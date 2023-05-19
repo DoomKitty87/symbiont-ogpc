@@ -134,7 +134,7 @@ public class EnemyAI : MonoBehaviour
         t.rotation = Quaternion.Slerp(t.rotation, Quaternion.AngleAxis(radValY * Mathf.Rad2Deg, Vector3.up), _timeElapsed * _lookSpeed / 2);
       }
     }
-    if (Physics.Raycast(transform.position, _raycastOrigin.forward, out RaycastHit hit, _rangeDirect)) {
+    if (Physics.Raycast(_raycastOrigin.position, _raycastOrigin.forward, out RaycastHit hit, _rangeDirect)) {
       if (hit.collider.gameObject == player) Shoot();
     }
     _timeElapsed += Time.deltaTime;
