@@ -11,7 +11,7 @@ public class DisplaySelectedItem : MonoBehaviour
 {
   [Header("References")]
   [SerializeField] private PlayerItemInteractions _playerItemInteractions;
-
+  [SerializeField] private ItemSelection3 _itemSelection3;
   [Header("UI")]
   [SerializeField] private Image _image1;
   [SerializeField] private TextMeshProUGUI _cost1;
@@ -38,8 +38,7 @@ public class DisplaySelectedItem : MonoBehaviour
     if (_playerItemInteractions == null) {
       _playerItemInteractions = GetComponent<PlayerItemInteractions>();
     }
-    _playerItemInteractions.ShopScreenTrigger();
-     = _playerItemInteractions.RollOfferedItems();
+    _selectedItem = _itemSelection3._selectedItem;
     SetSlot1(_selectedItem);
     SetTextInfo(_selectedItem);
   }
