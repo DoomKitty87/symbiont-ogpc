@@ -20,7 +20,7 @@ public class DoorCameraFollow : MonoBehaviour {
 		// Finds and sets the current active player object
 		playerCameraTransform = GetCurrentActivePlayer();
 
-    playerCam = playerCameraTransform.GetComponent<Camera>();
+    playerCam = Camera.main;
 
     if (otherDoor) {
       Vector3 distanceBetweenObject = otherDoor.position - playerCameraTransform.position;

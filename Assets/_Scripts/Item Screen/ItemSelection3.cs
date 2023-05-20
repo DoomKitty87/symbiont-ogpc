@@ -42,19 +42,15 @@ public class ItemSelection3 : MonoBehaviour
   [SerializeField] private List<string> _rarityStrings;
   [SerializeField] private List<Color> _rarityColors;
 
-  private void Start() {
+  public void Initalize() {
     if (_playerItemInteractions == null) {
       _playerItemInteractions = GetComponent<PlayerItemInteractions>();
     }
     _playerItemInteractions.ShopScreenTrigger();
     _items = _playerItemInteractions.RollOfferedItems();
     SetItems(_items[0], _items[1], _items[2]);
-    _button1.onClick.AddListener(() => SelectItem1());
-    _button2.onClick.AddListener(() => SelectItem2());
-    _button3.onClick.AddListener(() => SelectItem3());
   }
 
-  // Helper Functions
   public void SetItems(PlayerItem item1, PlayerItem item2, PlayerItem item3) {
     _items[0] = item1;
     SetSlot1(item1);
@@ -65,15 +61,15 @@ public class ItemSelection3 : MonoBehaviour
     SetSlot3(item3);
   }
 
-  private void SelectItem1() {
+  public void SelectItem1() {
     _selectedItem = _items[1];
     SetTextInfo(_items[1]);
   }
-  private void SelectItem2() {
+  public void SelectItem2() {
     _selectedItem = _items[2];
     SetTextInfo(_items[2]);
   }
-  private void SelectItem3() {
+  public void SelectItem3() {
     _selectedItem = _items[3];
     SetTextInfo(_items[3]);
   }

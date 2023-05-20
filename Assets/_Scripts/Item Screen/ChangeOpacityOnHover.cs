@@ -12,7 +12,6 @@ public class ChangeOpacityOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
   [SerializeField] private CanvasGroup _canvasGroup;
   [SerializeField] private Image _mouseOverImage;
   [Header("Settings")]
-  [SerializeField] private bool _maxOpacityOnClick;
   [SerializeField] private float _minOpacity;
   [SerializeField] private float _maxOpacity;
   [SerializeField] private AnimationCurve _easingCurve;
@@ -33,6 +32,10 @@ public class ChangeOpacityOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
   }
 
   public void OnPointerClick(PointerEventData eventData) {
+    if (!RectTransformUtility.RectangleContainsScreenPoint(_mouseOverImage.rectTransform, Input.mousePosition)) {
+      OpacityOut(false);
+      return;
+    }
     OpacityIn(false);
     _locked = true;
   }

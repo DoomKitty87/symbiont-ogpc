@@ -16,6 +16,8 @@ public class PauseHandler : MonoBehaviour
 	}
 	public PauseState _pauseState;
 
+  public bool _ignoreTimescale;
+
 	private void Awake() {
 		_pauseState = PauseState.Unpaused;
 	}
@@ -38,9 +40,11 @@ public class PauseHandler : MonoBehaviour
 				case PauseState.Unpaused:
 					_pauseState = PauseState.FirstPause;
 
-					Time.timeScale = 0.0f;
-					Cursor.visible = true;
-					Cursor.lockState = CursorLockMode.None;
+          if (!_ignoreTimescale) {
+            Time.timeScale = 0.0f;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+          }
 
 					_menuLayers.Add(_menuScreens[0]);
 					_menuLayers[0].SetActive(true);
@@ -58,10 +62,11 @@ public class PauseHandler : MonoBehaviour
 
 				case PauseState.FirstPause:
 					_pauseState = PauseState.Unpaused;
-
-					Time.timeScale = 1.0f;
-					Cursor.visible = false;
-					Cursor.lockState = CursorLockMode.Locked;
+          if (!_ignoreTimescale) {
+            Time.timeScale = 1.0f;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+          }
 
 					_menuScreens[0].transform.GetChild(1).GetComponent<CanvasGroup>().alpha = 1.0f;
 					_menuScreens[0].transform.GetChild(1).GetComponent<CanvasGroup>().interactable = true;

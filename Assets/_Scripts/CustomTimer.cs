@@ -27,7 +27,7 @@ public class CustomTimer : MonoBehaviour
   [Header("Events")]
   public UnityEvent _OnTimerEnd;
 
-  private void Start() {
+  public void StartTimer() {
     if (_timerType == TimerType.Timer) {
       if (_timerSlider != null) _timerSlider.maxValue = _timerDuration; _timerSlider.value = _timerDuration; 
       if (_timerImage != null) _timerImage.fillAmount = 1;

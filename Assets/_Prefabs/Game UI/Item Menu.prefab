@@ -4129,7 +4129,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 5216618106183026275}
   _mouseOverImage: {fileID: 5216618106183026302}
-  _maxOpacityOnClick: 1
   _minOpacity: 0.2
   _maxOpacity: 1
   _easingCurve:
@@ -4926,7 +4925,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 5216618106449829302}
   _mouseOverImage: {fileID: 5216618106449829297}
-  _maxOpacityOnClick: 1
   _minOpacity: 0.2
   _maxOpacity: 1
   _easingCurve:
@@ -6478,9 +6476,12 @@ GameObject:
   - component: {fileID: 5992833830399598009}
   - component: {fileID: 5992833830399598010}
   - component: {fileID: 5992833830399598011}
+  - component: {fileID: 5779429872156940615}
+  - component: {fileID: 2211852207783281562}
+  - component: {fileID: 6853882761919227481}
   m_Layer: 5
   m_Name: Item Menu
-  m_TagString: Untagged
+  m_TagString: ItemMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6516,7 +6517,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5992833830399598004}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -6570,6 +6571,75 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5779429872156940615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992833830399598004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c630693889953846a59d5edf5c62a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemMenuFade: {fileID: 6853882761919227481}
+  _itemSelection: {fileID: 5216618105954289118}
+  _itemSelectionTimer: {fileID: 5992833830522997880}
+--- !u!225 &2211852207783281562
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992833830399598004}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &6853882761919227481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992833830399598004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3686469398f90a47880a64c9d0b9573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 2211852207783281562}
+  _easingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _inDuration: 0.2
+  _outDuration: 0.2
+  _OnFadeComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5992833830467292061
 GameObject:
   m_ObjectHideFlags: 0
@@ -8345,7 +8415,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 5216618106524394872}
   _mouseOverImage: {fileID: 5992833831210797185}
-  _maxOpacityOnClick: 1
   _minOpacity: 0.2
   _maxOpacity: 1
   _easingCurve:
@@ -8677,7 +8746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9daeac5266f48718352e6b0ced9258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerItemInteractions: {fileID: 0}
+  _playerItemInteractions: {fileID: 5459835712292269348}
   _image1: {fileID: 5992833831210797185}
   _cost1: {fileID: 5992833830340327022}
   _button1: {fileID: 5992833832232981744}
