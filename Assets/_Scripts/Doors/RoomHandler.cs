@@ -85,15 +85,15 @@ public class RoomHandler : MonoBehaviour
 		VolumeProfile profile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
 		PaniniProjection proj;
 		DepthOfField dof;
-		ChromaticAberration chrom;
+		FilmGrain film;
 		Vignette vignette;
 		profile.TryGet(out proj);
 		profile.TryGet(out dof);
-		profile.TryGet(out chrom);
+		profile.TryGet(out film);
 		profile.TryGet(out vignette);
 		proj.active = false;
 		dof.active = false;
-		chrom.intensity.Override(0f);
+		film.intensity.Override(0f);
 		vignette.intensity.Override(0f);
 	}
 
@@ -104,11 +104,11 @@ public class RoomHandler : MonoBehaviour
 		VolumeProfile profile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
 		PaniniProjection proj;
 		DepthOfField dof;
-		ChromaticAberration chrom;
+		FilmGrain film;
 		Vignette vignette;
 		profile.TryGet(out proj);
 		profile.TryGet(out dof);
-		profile.TryGet(out chrom);
+		profile.TryGet(out film);
 		profile.TryGet(out vignette);
 
 		proj.active = true;
@@ -117,7 +117,7 @@ public class RoomHandler : MonoBehaviour
 			proj.distance.Override(Mathf.SmoothStep(0, 10, timeElapsed / timeLimit));
 			dof.gaussianEnd.Override(Mathf.SmoothStep(30, 0, timeElapsed / timeLimit));
 			dof.gaussianMaxRadius.Override(Mathf.SmoothStep(0, 3, timeElapsed / timeLimit));
-			chrom.intensity.Override(Mathf.SmoothStep(0, 5, timeElapsed / timeLimit));
+			film.intensity.Override(Mathf.SmoothStep(0, 5, timeElapsed / timeLimit));
 			vignette.intensity.Override(Mathf.SmoothStep(0, 0.4f, timeElapsed / timeLimit));
 			timeElapsed += Time.deltaTime;
 			yield return null;
