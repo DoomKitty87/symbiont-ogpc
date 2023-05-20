@@ -12,7 +12,7 @@ public class InventorySlot
   public Image image;
   public ChangeOpacityElement opacityElement;
   public Button button;
-  public bool selected;
+  public bool hovered;
 }
 
 [RequireComponent(typeof(PlayerItemInteractions))]
@@ -35,6 +35,8 @@ public class ItemInventoryLogic : MonoBehaviour
   public List<InventorySlot> _inventorySlots;
   [SerializeField] private Sprite _emptySlotSprite;
 
+  private bool _displayedItemAdded;
+
   public void Initalize() {
     if (_playerItemInteractions == null) {
       _playerItemInteractions = GetComponent<PlayerItemInteractions>();
@@ -42,13 +44,20 @@ public class ItemInventoryLogic : MonoBehaviour
 
     List<PlayerItem> currentInventory = _playerItemInteractions.GetInventory().ToList();
     for (int i = 0; i < _inventorySlots.Count; i++) {
-      _inventorySlots[i].item = currentInventory[i];
-      _inventorySlots[i].image.sprite = _emptySlotSprite;
+      try {
+        _inventorySlots[i].item = currentInventory[i];
+        _inventorySlots[i].image.sprite = currentInventory[i].item.icon;
+      }
+      catch (System.ArgumentOutOfRangeException) {
+        _inventorySlots[i].item = null;
+        _inventorySlots[i].image.sprite = _emptySlotSprite;
+      }
     }
 
-    for (int i = 0; i < _inventorySlots.Count; i++) {
-      _inventorySlots[i].button.onClick.AddListener(() => SelectItem(i));
-    }
+    // for (int i = 0; i < _inventorySlots.Count; i++) {
+    //   _inventorySlots[i].button.onClick.AddListener(() => SelectItem(i));
+    // }
+    _displayedItemAdded = false;
     UpdateInventory();
   }
 
@@ -60,16 +69,37 @@ public class ItemInventoryLogic : MonoBehaviour
     }
   }
 
-  public void SelectItem(int slot) {
-    _inventorySlots[slot].opacityElement.OpacityIn(false);
-    _inventorySlots[slot].selected = true;
-    for (int i = 0; i < _inventorySlots.Count; i++) {
-      if (i != slot) {
-        _inventorySlots[i].opacityElement.OpacityOut(false);
-        _inventorySlots[i].selected = false;
+  public void ClickedOnSlot(int slot) {
+    // If item has already been added, remove it from inventory and add it to the slot
+    if (_displayedItemAdded) {
+      _playerItemInteractions.RemoveItemByType(_displaySelectedItem._selectedItem);
+      return;
+    }
+    // If slot is empty, add display selected item to slot
+    if (_inventorySlots[slot].item == null) {
+      _playerItemInteractions.AddItemAtIndex(_displaySelectedItem._selectedItem, slot);
+      _displayedItemAdded = true;
+      UpdateInventory();
+    }
+    else {
+      // If slot is not empty, replace item in slot with display selected item
+      if (_inventorySlots[slot].item.debuff.name == "Core") {
+        return;
       }
+      _playerItemInteractions.ReplaceItem(_inventorySlots[slot].item, _displaySelectedItem._selectedItem);
+      _displayedItemAdded = true;
+      UpdateInventory();
     }
   }
+
+  // private void ChangeSlotOpacity() {
+  //   _inventorySlots[slot].opacityElement.OpacityIn(false);
+  //   for (int i = 0; i < _inventorySlots.Count; i++) {
+  //     if (i != slot) {
+  //       _inventorySlots[i].opacityElement.OpacityOut(false);
+  //     }
+  //   }
+  // }
 
   private void SetTextInfo(PlayerItem playerItem) {
     if (playerItem.debuff == null) {

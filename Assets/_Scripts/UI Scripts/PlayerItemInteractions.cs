@@ -34,17 +34,27 @@ public class PlayerItemInteractions : MonoBehaviour
     playerTracker.SpendPoints(playerItems.CalculateUpgradePrice(itm));
   }
 
-  private void ReplaceItem(PlayerItem toReplace, PlayerItem newItem) {
+  public void ReplaceItem(PlayerItem toReplace, PlayerItem newItem) {
     playerItems.ReplaceItem(toReplace, newItem);
-    playerTracker.SpendPoints(playerItems.CalculatePrice(newItem));
   }
 
-  private void AddItem(PlayerItem itm) {
+  public void AddItem(PlayerItem itm) {
     playerItems.ChooseNewItem(itm);
-    playerTracker.SpendPoints(playerItems.CalculatePrice(itm));
   }
 
   public PlayerItem[] GetInventory() {
     return playerItems.GetPlayerItems();
+  }
+
+  public void RemoveItemByType(PlayerItem itm) {
+    playerItems._invItems.Remove(itm);
+  }
+
+  public void RemoveItemAtIndex(int index) {
+    playerItems._invItems.RemoveAt(index);
+  }
+
+  public void AddItemAtIndex(PlayerItem itm, int index) {
+    playerItems._invItems.Insert(index, itm);
   }
 }

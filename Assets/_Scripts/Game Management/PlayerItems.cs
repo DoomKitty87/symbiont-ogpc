@@ -70,6 +70,10 @@ public class PlayerItems : MonoBehaviour
   public void ReplaceItem(PlayerItem itm, PlayerItem newItem) {
     _invItems.Remove(itm);
     _invItems.Add(newItem);
+    if (_invItems.Count > 5) {
+      return;
+    }
+    _invItems.Add(itm);
   }
 
   public void UpgradeItem(PlayerItem itm) {
