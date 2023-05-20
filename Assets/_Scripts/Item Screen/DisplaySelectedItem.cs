@@ -14,9 +14,6 @@ public class DisplaySelectedItem : MonoBehaviour
   [SerializeField] private ItemSelection3 _itemSelection3;
   [Header("UI")]
   [SerializeField] private Image _image1;
-  [SerializeField] private TextMeshProUGUI _cost1;
-  [SerializeField] private Button _button1;
-
   
   [Header("Text References")]
   [SerializeField] private TextMeshProUGUI _nameWithModifierText;
@@ -45,7 +42,7 @@ public class DisplaySelectedItem : MonoBehaviour
 
   private void SetSlot1(PlayerItem playerItem) {
     _image1.sprite = playerItem.item.icon;
-    _cost1.text = playerItem.item.cost.ToString();
+    // _cost1.text = playerItem.item.cost.ToString();
   }
 
   private void SetTextInfo(PlayerItem playerItem) {

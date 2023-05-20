@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerItemInteractions : MonoBehaviour
 {
-
   //Needs to be integrated with UI to be fully functional
   private PlayerItems playerItems;
   private PlayerTracker playerTracker;
@@ -43,5 +42,9 @@ public class PlayerItemInteractions : MonoBehaviour
   private void AddItem(PlayerItem itm) {
     playerItems.ChooseNewItem(itm);
     playerTracker.SpendPoints(playerItems.CalculatePrice(itm));
+  }
+
+  public PlayerItem[] GetInventory() {
+    return playerItems.GetPlayerItems();
   }
 }

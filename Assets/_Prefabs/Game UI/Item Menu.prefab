@@ -4128,7 +4128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 1941581606}
-  _minOpacity: 0.5
+  _minOpacity: 0.1
   _maxOpacity: 1
   _easingCurve:
     serializedVersion: 2
@@ -4923,7 +4923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 1211179356}
-  _minOpacity: 0.5
+  _minOpacity: 0.1
   _maxOpacity: 1
   _easingCurve:
     serializedVersion: 2
@@ -6887,6 +6887,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5216618104940710072}
+        m_TargetAssemblyTypeName: CustomTimer, Assembly-CSharp
+        m_MethodName: StartTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2094208608}
+        m_TargetAssemblyTypeName: DisplaySelectedItem, Assembly-CSharp
+        m_MethodName: Initalize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5992833830591299275
 GameObject:
   m_ObjectHideFlags: 0
@@ -6972,7 +6996,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.2}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -7019,6 +7043,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5992833830647109550}
   - component: {fileID: 5992833830647109549}
+  - component: {fileID: 2094208609}
+  - component: {fileID: 2094208608}
   m_Layer: 5
   m_Name: Selected Item
   m_TagString: Untagged
@@ -7078,6 +7104,50 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2094208609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992833830647109551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 572852e681735484d9520fbd40a7ed09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2094208608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992833830647109551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4c20cb545ab5641b34afb54eb7ea92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerItemInteractions: {fileID: 2094208609}
+  _itemSelection3: {fileID: 5216618105954289118}
+  _image1: {fileID: 5216618105594956865}
+  _nameWithModifierText: {fileID: 5216618106642950966}
+  _flavorText: {fileID: 5216618105598286812}
+  _rarityText: {fileID: 5216618105240971200}
+  _itemDescription: {fileID: 5216618106564733692}
+  _debuffHeader: {fileID: 5216618105192610072}
+  _debuffDescription: {fileID: 5216618105619941773}
+  _debuffFontName: Raleway-Light SDF
+  _rarityStrings:
+  - Common
+  - Uncommon
+  - Rare
+  - Legendary
+  _rarityColors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.25, a: 1}
+  - {r: 0, g: 0.43455505, b: 1, a: 1}
+  - {r: 1, g: 0.51666665, b: 0, a: 1}
 --- !u!1 &5992833830670108248
 GameObject:
   m_ObjectHideFlags: 0
@@ -7381,7 +7451,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.2}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -8436,7 +8506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 1857762224}
-  _minOpacity: 0.5
+  _minOpacity: 0.1
   _maxOpacity: 1
   _easingCurve:
     serializedVersion: 2
@@ -8476,6 +8546,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5992833831227211115}
+  - component: {fileID: 1215621528}
+  - component: {fileID: 1215621527}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -8505,6 +8577,33 @@ RectTransform:
   m_AnchoredPosition: {x: -550, y: -50}
   m_SizeDelta: {x: 800, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1215621528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992833831227211108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8de197c0ccefcc47b01d8a8f1ca40b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerItemInteractions: {fileID: 1215621527}
+  _displaySelectedItem: {fileID: 2094208608}
+  _emptySlotSprite: {fileID: 21300000, guid: 67b6ac978b9274f969bed262fcdb2108, type: 3}
+--- !u!114 &1215621527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992833831227211108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 572852e681735484d9520fbd40a7ed09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5992833831325853902
 GameObject:
   m_ObjectHideFlags: 0
@@ -9571,7 +9670,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.2}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
