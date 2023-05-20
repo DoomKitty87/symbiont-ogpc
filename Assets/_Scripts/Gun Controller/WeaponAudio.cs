@@ -41,8 +41,8 @@ public class WeaponAudio : MonoBehaviour
   }
 
   private void Update() {
-    if (PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS") != _lastAudioVol) {
-      _lastAudioVol = PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS");
+    if (PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS") / 100 != _lastAudioVol) {
+      _lastAudioVol = PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS") / 100;
       _audioSource.volume = _initVol * _lastAudioVol;
     }
   }
