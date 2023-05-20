@@ -17,14 +17,10 @@ public class PlayerItemInteractions : MonoBehaviour
 
   public void ShopScreenTrigger() {
     actionsLeft = 3;
-    DisplayOfferedItems();
   }
 
-  public void DisplayOfferedItems() {
-    PlayerItem[] items = playerItems.GetChoiceItems(3);
-    for (int i = 0; i < items.Length; i++) {
-      //Display items
-    }
+  public PlayerItem[] RollOfferedItems() {
+    return playerItems.GetChoiceItems(3);
   }
 
   public void TryChooseItem(PlayerItem itm) {

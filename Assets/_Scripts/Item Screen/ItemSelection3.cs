@@ -6,8 +6,12 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
+[RequireComponent(typeof(PlayerItemInteractions))]
 public class ItemSelection3 : MonoBehaviour
 {
+  [Header("References")]
+  [SerializeField] private PlayerItemInteractions _playerItemInteractions;
+
   [Header("Slot 1")]
   [SerializeField] private Image _image1;
   [SerializeField] private TextMeshProUGUI _cost1;
@@ -39,6 +43,12 @@ public class ItemSelection3 : MonoBehaviour
   [SerializeField] private List<Color> _rarityColors;
 
   private void Start() {
+    if (_playerItemInteractions == null) {
+      _playerItemInteractions = GetComponent<PlayerItemInteractions>();
+    }
+    _playerItemInteractions.ShopScreenTrigger();
+    _items = _playerItemInteractions.RollOfferedItems();
+    SetItems(_items[0], _items[1], _items[2]);
     _button1.onClick.AddListener(() => SelectItem1());
     _button2.onClick.AddListener(() => SelectItem2());
     _button3.onClick.AddListener(() => SelectItem3());
@@ -47,8 +57,12 @@ public class ItemSelection3 : MonoBehaviour
   // Helper Functions
   public void SetItems(PlayerItem item1, PlayerItem item2, PlayerItem item3) {
     _items[0] = item1;
+    SetSlot1(item1);
+    SetTextInfo(item1);
     _items[1] = item2;
+    SetSlot2(item2);
     _items[2] = item3;
+    SetSlot3(item3);
   }
 
   private void SelectItem1() {
@@ -62,6 +76,19 @@ public class ItemSelection3 : MonoBehaviour
   private void SelectItem3() {
     _selectedItem = _items[3];
     SetTextInfo(_items[3]);
+  }
+
+  private void SetSlot1(PlayerItem playerItem) {
+    _image1.sprite = playerItem.item.icon;
+    _cost1.text = playerItem.item.cost.ToString();
+  }
+  private void SetSlot2(PlayerItem playerItem) {
+    _image2.sprite = playerItem.item.icon;
+    _cost2.text = playerItem.item.cost.ToString();
+  }
+  private void SetSlot3(PlayerItem playerItem) {
+    _image3.sprite = playerItem.item.icon;
+    _cost3.text = playerItem.item.cost.ToString();
   }
 
   private void SetTextInfo(PlayerItem playerItem) {
