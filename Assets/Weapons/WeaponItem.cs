@@ -70,4 +70,5 @@ public class WeaponItem : ScriptableObject
   [Header("Other Effects")]
   public GameObject muzzleFlashEffectPrefab;
   public GameObject hitEffectPrefab;
+  public Sprite sprite;
 }

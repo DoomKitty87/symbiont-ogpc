@@ -20,7 +20,7 @@ public class PathRenderer : MonoBehaviour
   }
 
   public void StartOverlay() {
-    InvokeRepeating("ReloadPaths", 0, 0.5f);
+    InvokeRepeating("ReloadPaths", 0, 0.1f);
     active = true;
     // print("overlya started");
   }
@@ -33,13 +33,21 @@ public class PathRenderer : MonoBehaviour
     Collider[] cols = Physics.OverlapSphere(transform.position, 50f, enemyLayer);
     foreach (Collider col in cols) {
       GameObject lineRend = Instantiate(linePrefab, col.gameObject.transform.parent.position, Quaternion.identity, transform);
-      if (col.gameObject.transform.parent.gameObject.GetComponent<TargetMovement>()._loop) {
+      if (col.gameObject.transform.parent.gameObject.GetComponent<EnemyMovement>()._loop) {
         lineRend.GetComponent<LineRenderer>().positionCount = col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points.Length + 1;
         lineRend.GetComponent<LineRenderer>().SetPositions(col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points.Concat(new Vector3[] {col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points[0]}).ToArray());
       }
       else {
         lineRend.GetComponent<LineRenderer>().positionCount = col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points.Length;
         lineRend.GetComponent<LineRenderer>().SetPositions(col.gameObject.transform.parent.gameObject.GetComponent<Waypoints>().points);
+      }
+      if (col.gameObject == GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) {
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_EmissionColor", Color.red * 2f);
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_Albedo", Color.white);
+      }
+      else {
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_EmissionColor", Color.cyan * 3f);
+        lineRend.GetComponent<LineRenderer>().material.SetColor("_Albedo", Color.white);
       }
     }
   }

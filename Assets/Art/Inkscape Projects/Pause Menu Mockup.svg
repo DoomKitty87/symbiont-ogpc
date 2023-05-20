@@ -38,6 +38,60 @@
          stdDeviation="4.9"
          id="feGaussianBlur1582" />
     </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3213"
+       id="linearGradient2889"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.57497882,0,0,0.44156479,592.67383,633.49879)"
+       x1="1291.5082"
+       y1="370.84415"
+       x2="1703.1499"
+       y2="370.84415" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3213">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0.44932431"
+         id="stop3209" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0.35416663;"
+         offset="0.44932431"
+         id="stop3211" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1289"
+       id="linearGradient1291"
+       x1="1291.5082"
+       y1="370.84415"
+       x2="1703.1499"
+       y2="370.84415"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.57096007,0,0,0.43847852,597.8003,385.14275)" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1289">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0.36486486"
+         id="stop1285" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0.35416663;"
+         offset="0.36486486"
+         id="stop1287" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3213"
+       id="linearGradient2172"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.57497882,0,0,0.44156479,592.67381,947.57355)"
+       x1="1291.5082"
+       y1="370.84415"
+       x2="1703.1499"
+       y2="370.84415" />
   </defs>
   <sodipodi:namedview
      id="namedview1051"
@@ -49,15 +103,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      showgrid="false"
-     inkscape:zoom="0.50105145"
-     inkscape:cx="1241.3895"
-     inkscape:cy="654.62339"
+     inkscape:zoom="0.50105144"
+     inkscape:cx="1218.4378"
+     inkscape:cy="804.30864"
      inkscape:window-width="1920"
      inkscape:window-height="1057"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer8" />
   <g
      inkscape:groupmode="layer"
      inkscape:label="Image"
@@ -90,7 +144,8 @@
      inkscape:groupmode="layer"
      id="layer1"
      inkscape:label="Menu"
-     transform="translate(-690.07075,-40.789434)">
+     transform="translate(-1.0545921e-4,-40.789434)"
+     style="display:none">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:96px;font-family:Raleway;-inkscape-font-specification:'Raleway Light';letter-spacing:20px;fill:#ffffff;fill-opacity:1;stroke-width:2.059;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:49.416, 2.059"
@@ -165,9 +220,532 @@
   </g>
   <g
      inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Options"
+     transform="translate(-19.983646,-78.526824)"
+     style="display:inline">
+    <g
+       inkscape:groupmode="layer"
+       id="layer6"
+       inkscape:label="Options Content">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.2622px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';letter-spacing:4.32084px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.12682;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="929.09399"
+         y="711.54163"
+         id="text2879"
+         inkscape:label="Controls Section Header"><tspan
+           sodipodi:role="line"
+           id="tspan2877"
+           x="929.09399"
+           y="711.54163"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.2622px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';stroke:none;stroke-width:1.12682">GENERAL</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:29.1491px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.01809;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1024.027"
+         y="804.64716"
+         id="text2883"
+         inkscape:label="sensetivity"><tspan
+           sodipodi:role="line"
+           id="tspan2881"
+           x="1024.027"
+           y="804.64716"
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';stroke:none;stroke-width:1.01809">Master Volume</tspan></text>
+      <rect
+         style="display:inline;fill:url(#linearGradient2889);fill-opacity:1;stroke:#ffffff;stroke-width:1.00776;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2885"
+         width="235.53531"
+         height="15.702031"
+         x="1335.8386"
+         y="789.39954"
+         rx="0.24456288"
+         ry="0.18781625"
+         inkscape:label="bar" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:29.1491px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.01809;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1024.027"
+         y="623.2207"
+         id="text2883-1"
+         inkscape:label="sensetivity"><tspan
+           sodipodi:role="line"
+           id="tspan2881-8"
+           x="1024.027"
+           y="623.2207"
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';stroke:none;stroke-width:1.01809">Acceleration</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:29.1491px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';letter-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.01809;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1024.027"
+         y="954.77417"
+         id="text2883-1-2"
+         inkscape:label="sensetivity"><tspan
+           sodipodi:role="line"
+           id="tspan2881-8-3"
+           x="1024.027"
+           y="954.77417"
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';stroke:none;stroke-width:1.01809">Colorblind Mode</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.2622px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';letter-spacing:4.32084px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.12682;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="929.09399"
+         y="475.58301"
+         id="text940"
+         inkscape:label="Controls Section Header"><tspan
+           sodipodi:role="line"
+           id="tspan938"
+           x="929.09399"
+           y="475.58301"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.2622px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';stroke:none;stroke-width:1.12682">CONTROLS</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:28.9455px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.01098;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1026.1387"
+         y="555.09485"
+         id="text994"
+         inkscape:label="sensetivity"><tspan
+           sodipodi:role="line"
+           id="tspan992"
+           x="1026.1387"
+           y="555.09485"
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';stroke:none;stroke-width:1.01098">Mouse Sensitivity</tspan></text>
+      <rect
+         style="display:inline;fill:url(#linearGradient1291);fill-opacity:1;stroke:#ffffff;stroke-width:1.00071;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1052"
+         width="233.88907"
+         height="15.592283"
+         x="1335.7709"
+         y="539.9538"
+         rx="0.24456288"
+         ry="0.18781625"
+         inkscape:label="bar" />
+      <path
+         style="display:inline;fill:none;stroke:#191919;stroke-width:5.185;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.34902"
+         d="M 1707.8123,471.90679 1707.6598,983.19"
+         id="path9854-91" />
+      <path
+         style="display:inline;fill:none;stroke:#ffffff;stroke-width:5.185;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 1707.6598,520.1129 V 786.44182"
+         id="path2607-7-0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.4727px;font-family:Raleway;-inkscape-font-specification:Raleway;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:1.35089;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:32.4213, 1.35089;stroke-opacity:0.786364"
+         x="1586.2052"
+         y="551.151"
+         id="text368"><tspan
+           sodipodi:role="line"
+           id="tspan366"
+           x="1586.2052"
+           y="551.151"
+           style="stroke-width:1.35089">0.214</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.5746px;font-family:Raleway;-inkscape-font-specification:Raleway;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:1.36041;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:32.6495, 1.36041;stroke-opacity:0.786364"
+         x="1585.0488"
+         y="801.41162"
+         id="text368-4"><tspan
+           sodipodi:role="line"
+           id="tspan366-1"
+           x="1585.0488"
+           y="801.41162"
+           style="stroke-width:1.36041">51%</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:28.9455px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.01098;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1026.8376"
+         y="875.69751"
+         id="text2883-5"
+         inkscape:label="sensetivity"><tspan
+           sodipodi:role="line"
+           id="tspan2881-5"
+           x="1026.8376"
+           y="875.69751"
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';stroke:none;stroke-width:1.01098">Overall Quality</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:29.1491px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.01809;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1024.027"
+         y="1118.7219"
+         id="text2883-2"
+         inkscape:label="sensetivity"><tspan
+           sodipodi:role="line"
+           id="tspan2881-2"
+           x="1024.027"
+           y="1118.7219"
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';stroke:none;stroke-width:1.01809">Covered Option</tspan></text>
+      <rect
+         style="display:inline;fill:url(#linearGradient2172);fill-opacity:1;stroke:#ffffff;stroke-width:1.00776;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2885-0"
+         width="235.53531"
+         height="15.702031"
+         x="1335.8386"
+         y="1103.4744"
+         rx="0.24456288"
+         ry="0.18781625"
+         inkscape:label="bar" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.5746px;font-family:Raleway;-inkscape-font-specification:Raleway;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:1.36041;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:32.6495, 1.36041;stroke-opacity:0.786364"
+         x="1585.0488"
+         y="1115.4865"
+         id="text368-4-9"><tspan
+           sodipodi:role="line"
+           id="tspan366-1-1"
+           x="1585.0488"
+           y="1115.4865"
+           style="stroke-width:1.36041">51%</tspan></text>
+      <path
+         style="display:inline;fill:#2e2e2e;fill-opacity:0.457249;stroke-width:1.35089;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:32.4213, 1.35089;stroke-opacity:0.786364"
+         d="m 1622.7488,555.96797 h -39.5542 z"
+         id="path2336" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:29.1491px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';letter-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.01809;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1024.027"
+         y="1034.4575"
+         id="text2883-1-2-5"
+         inkscape:label="sensetivity"><tspan
+           sodipodi:role="line"
+           id="tspan2881-8-3-6"
+           x="1024.027"
+           y="1034.4575"
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Light';stroke:none;stroke-width:1.01809">Anisotropic Filtering</tspan></text>
+      <rect
+         style="display:inline;fill:#000000;fill-opacity:0.35;stroke:#ffffff;stroke-width:0.660751;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect15733-1"
+         width="272.29156"
+         height="32.633564"
+         x="1336.4459"
+         y="1007.647"
+         rx="1.0666995"
+         ry="1.0666995" />
+      <rect
+         style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.660751;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect15733-1-5"
+         width="272.29156"
+         height="32.633564"
+         x="1336.5217"
+         y="1040.7953"
+         rx="1.0666995"
+         ry="1.0666995" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:16.8286px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';letter-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.587773;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1463.0836"
+         y="1028.8524"
+         id="text2883-1-2-8-8"
+         inkscape:label="Current Dropdown Text"><tspan
+           sodipodi:role="line"
+           id="tspan2881-8-3-1-8"
+           x="1463.0836"
+           y="1028.8524"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';stroke:none;stroke-width:0.587773">2x</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:16.8286px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';letter-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.587773;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1463.2518"
+         y="1059.7621"
+         id="text2883-1-2-8-8-6"
+         inkscape:label="Current Dropdown Text"><tspan
+           sodipodi:role="line"
+           id="tspan2881-8-3-1-8-5"
+           x="1463.2518"
+           y="1059.7621"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.587773">4x</tspan></text>
+      <rect
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.660751;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect15733-1-5-8"
+         width="272.2916"
+         height="63.996593"
+         x="1336.4459"
+         y="1073.8433"
+         rx="1.0666995"
+         ry="1.0666995" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:16.8286px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';letter-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.587773;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1462.6965"
+         y="1094.2333"
+         id="text2883-1-2-8-8-6-6"
+         inkscape:label="Current Dropdown Text"><tspan
+           sodipodi:role="line"
+           id="tspan2881-8-3-1-8-5-7"
+           x="1462.6965"
+           y="1094.2333"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';stroke:none;stroke-width:0.587773">8x</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:16.8286px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';letter-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.587773;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1458.5145"
+         y="1126.7188"
+         id="text2883-1-2-8-8-6-6-5"
+         inkscape:label="Current Dropdown Text"><tspan
+           sodipodi:role="line"
+           id="tspan2881-8-3-1-8-5-7-3"
+           x="1458.5145"
+           y="1126.7188"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';stroke:none;stroke-width:0.587773">16x</tspan></text>
+      <path
+         style="display:inline;fill:none;stroke:#191919;stroke-width:3.90391;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.34902"
+         d="m 1625.1412,1009.5076 -0.4404,126.4715"
+         id="path9854-9" />
+      <path
+         style="display:inline;fill:none;stroke:#ffffff;stroke-width:3.90391;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 1624.921,1033.6813 v 34.3076"
+         id="path2607-7-4" />
+      <rect
+         style="display:inline;fill:#000000;fill-opacity:0.35;stroke:#ffffff;stroke-width:0.660751;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect15733-15"
+         width="272.29156"
+         height="32.633564"
+         x="1336.4459"
+         y="852.18158"
+         rx="1.0666995"
+         ry="1.0666995" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:16.8286px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';letter-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.587773;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1452.1958"
+         y="874.47253"
+         id="text2883-1-2-8-0"
+         inkscape:label="Current Dropdown Text"><tspan
+           sodipodi:role="line"
+           id="tspan2881-8-3-1-5"
+           x="1452.1958"
+           y="874.47253"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';stroke:none;stroke-width:0.587773">LOW</tspan></text>
+      <path
+         style="display:inline;fill:none;stroke:#ffffff;stroke-width:1.56157;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 1321.3128,860.59897 -7.4923,8.0149 7.4923,7.49233"
+         id="path2094-4" />
+      <path
+         style="display:inline;fill:none;stroke:#ffffff;stroke-width:1.56157;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 1623.8705,860.59897 7.4924,8.0149 -7.4924,7.49233"
+         id="path2094-4-3" />
+      <path
+         style="display:inline;fill:none;stroke:#ffffff;stroke-width:3.90391;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 1426.2036,892.39502 H 1391.896"
+         id="path2607-7-4-3" />
+      <path
+         style="display:inline;fill:none;stroke:#1a1a1a;stroke-width:3.90391;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 1468.6775,892.39502 h -34.3076"
+         id="path2607-7-4-3-9" />
+      <path
+         style="display:inline;fill:none;stroke:#1a1a1a;stroke-width:3.90391;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 1511.1513,892.39502 h -34.3076"
+         id="path2607-7-4-3-9-0" />
+      <path
+         style="display:inline;fill:none;stroke:#1a1a1a;stroke-width:3.90391;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 1553.6251,892.39502 h -34.3076"
+         id="path2607-7-4-3-9-0-4" />
+      <rect
+         style="display:inline;fill:#000000;fill-opacity:0.35;stroke:#ffffff;stroke-width:0.660751;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect15733"
+         width="272.29156"
+         height="32.633564"
+         x="1336.4459"
+         y="927.96362"
+         rx="1.0666995"
+         ry="1.0666995" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:16.8286px;font-family:Raleway;-inkscape-font-specification:'Raleway Medium';letter-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.587773;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4"
+         x="1422.906"
+         y="950.40033"
+         id="text2883-1-2-8"
+         inkscape:label="Current Dropdown Text"><tspan
+           sodipodi:role="line"
+           id="tspan2881-8-3-1"
+           x="1422.906"
+           y="950.40033"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';stroke:none;stroke-width:0.587773">TRITANOPIA</tspan></text>
+      <path
+         style="display:inline;fill:none;stroke:#ffffff;stroke-width:1.56157;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 1464.8333,970.71518 8.0149,7.49232 7.4923,-7.49232"
+         id="path2094" />
+      <rect
+         style="display:inline;fill:#000000;fill-opacity:0.35;stroke:#ffffff;stroke-width:0.392037;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2885-5"
+         width="24.034704"
+         height="23.287287"
+         x="1460.5743"
+         y="601.08337"
+         rx="4.2905431"
+         ry="4.2905431"
+         inkscape:label="bar" />
+      <rect
+         style="display:inline;fill:#ffffff;fill-opacity:0.996283;stroke:none;stroke-width:0.502085;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect1362"
+         width="11.250353"
+         height="11.329581"
+         x="1466.9666"
+         y="607.06219"
+         rx="2.1146953"
+         ry="2.1146953" />
+      <rect
+         style="display:inline;fill:#000000;fill-opacity:0.802974;stroke:#ffffff;stroke-width:0.392037;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2885-5-7"
+         width="24.034704"
+         height="23.287287"
+         x="1379.6238"
+         y="-628.64954"
+         rx="1.2778736"
+         ry="1.2778736"
+         inkscape:label="bar"
+         transform="rotate(45)" />
+      <rect
+         style="display:inline;fill:#ffffff;fill-opacity:0.996283;stroke:none;stroke-width:0.502085;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect1362-5"
+         width="11.250353"
+         height="11.329581"
+         x="1386.016"
+         y="-622.67072"
+         rx="0.99894845"
+         ry="0.99894845"
+         transform="rotate(45)" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer8"
+       inkscape:label="Options Scrollbar" />
+    <g
+       inkscape:groupmode="layer"
+       id="layer7"
+       inkscape:label="Options Selector"
+       transform="translate(-165.861,-7.0792617)">
+      <g
+         inkscape:groupmode="layer"
+         id="g1886"
+         inkscape:label="Sound"
+         transform="translate(-427.98937,-25.544826)">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.702px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:Raleway;letter-spacing:3.3702px;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.84255"
+           x="2003.1602"
+           y="364.2558"
+           id="text1884"
+           inkscape:label="Text"><tspan
+             sodipodi:role="line"
+             id="tspan1882"
+             x="2003.1602"
+             y="364.2558"
+             style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Semi-Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.84255">VIDEO</tspan></text>
+      </g>
+      <g
+         inkscape:groupmode="layer"
+         id="g1862"
+         inkscape:label="Video"
+         transform="translate(-95.503723,-25.544829)">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.702px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:Raleway;letter-spacing:3.3702px;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.84255"
+           x="1957.9025"
+           y="364.2558"
+           id="text1860"
+           inkscape:label="Text"><tspan
+             sodipodi:role="line"
+             id="tspan1858"
+             x="1957.9025"
+             y="364.2558"
+             style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Semi-Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.84255">AUDIO</tspan></text>
+      </g>
+      <g
+         inkscape:groupmode="layer"
+         id="layer9"
+         inkscape:label="Controls"
+         transform="translate(-94.935344,-25.544826)">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.702px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:Raleway;letter-spacing:3.3702px;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.84255"
+           x="1291.4189"
+           y="364.2558"
+           id="text37438-6"
+           inkscape:label="Text"><tspan
+             sodipodi:role="line"
+             id="tspan37436-4"
+             x="1291.4189"
+             y="364.2558"
+             style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Semi-Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.84255">CONTROLS</tspan></text>
+      </g>
+      <g
+         inkscape:groupmode="layer"
+         id="g1870"
+         inkscape:label="General"
+         transform="translate(-427.421,-25.544826)">
+        <rect
+           style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.23443;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-opacity:0.786364"
+           id="rect1864"
+           width="214.2599"
+           height="59.432838"
+           x="1287.4072"
+           y="322.59207"
+           rx="5.3309031"
+           ry="9.2915659"
+           inkscape:label="BG" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.702px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:Raleway;letter-spacing:3.3702px;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.84255"
+           x="1341.17"
+           y="364.27271"
+           id="text1868"
+           inkscape:label="Text"><tspan
+             sodipodi:role="line"
+             id="tspan1866"
+             x="1341.17"
+             y="364.27271"
+             style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Semi-Bold';fill:#000000;fill-opacity:1;stroke-width:0.84255">GAME</tspan></text>
+      </g>
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer10"
+       inkscape:label="Apply Container"
+       transform="translate(-672.95804,-53.072901)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.702px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:Raleway;letter-spacing:3.3702px;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.84255"
+         x="1786.1162"
+         y="1335.8195"
+         id="text37438-6-0"
+         inkscape:label="Text"><tspan
+           sodipodi:role="line"
+           id="tspan37436-4-4"
+           x="1786.1162"
+           y="1335.8195"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Semi-Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.84255">RESET TO DEFAULT</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.702px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:Raleway;letter-spacing:3.3702px;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.84255"
+         x="2298.053"
+         y="1335.8195"
+         id="text1884-5"
+         inkscape:label="Text"><tspan
+           sodipodi:role="line"
+           id="tspan1882-6"
+           x="2298.053"
+           y="1335.8195"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Semi-Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.84255">APPLY</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.702px;line-height:1.25;font-family:Raleway;-inkscape-font-specification:Raleway;letter-spacing:3.3702px;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.84255"
+         x="1537.5771"
+         y="1335.8195"
+         id="text1884-5-0"
+         inkscape:label="Text"><tspan
+           sodipodi:role="line"
+           id="tspan1882-6-8"
+           x="1537.5771"
+           y="1335.8195"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Raleway;-inkscape-font-specification:'Raleway Semi-Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.84255">BACK</tspan></text>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
      id="layer3"
-     inkscape:label="Content"
-     transform="matrix(1.2671628,0,0,1.2671628,-283.76967,-252.60194)">
+     inkscape:label="Objectives (Old)"
+     transform="matrix(1.2671628,0,0,1.2671628,-283.76967,-252.60194)"
+     style="display:none">
     <rect
        style="fill:#000000;fill-opacity:0.410112;stroke:none;stroke-width:2.059;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:49.416, 2.059"
        id="rect15724"
@@ -296,7 +874,9 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Top Detail"
-     transform="translate(-163.5052,-1.2252695)">
+     transform="translate(-163.5052,-1.2252695)"
+     style="display:inline"
+     sodipodi:insensitive="true">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:14.2684px;font-family:Raleway;-inkscape-font-specification:'Raleway Light';text-align:center;letter-spacing:9.00008px;baseline-shift:sub;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.76649;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:90.3959, 3.76649"
@@ -338,7 +918,8 @@
      inkscape:groupmode="layer"
      id="g1939"
      inkscape:label="Bottom Detail"
-     transform="matrix(2.0667171,0,0,2.0667171,-96.16153,1350.1243)">
+     transform="matrix(2.0667171,0,0,2.0667171,-96.16153,1350.1243)"
+     sodipodi:insensitive="true">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:6.9039px;font-family:Raleway;-inkscape-font-specification:'Raleway Light';text-align:center;letter-spacing:4.35477px;baseline-shift:sub;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.82245;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:25.4;stroke-dasharray:43.7389, 1.82245"

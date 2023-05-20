@@ -39,6 +39,11 @@ public class WeaponInventory : MonoBehaviour
   public OnInventoryInitalize _onInventoryInitialize;
 
   private void Start() {
+    _equippedWeapons.Clear();
+    WeaponItem[] chosenWeapons = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandWeapons();
+    foreach (WeaponItem wpn in chosenWeapons) {
+      _equippedWeapons.Add(new EquippedWeapon(wpn, wpn.magSize));
+    }
     if (_equippedWeapons.Count >= 1) {
       _currentWeapon = _equippedWeapons[0];
     }
@@ -84,7 +89,7 @@ public class WeaponInventory : MonoBehaviour
       _currentWeapon = _equippedWeapons[index];
       _onNewCurrentWeapon.Invoke(_currentWeapon._weaponItem, _currentWeapon._ammoLeft);
       return;
-    } catch (System.IndexOutOfRangeException) {
+    } catch (System.ArgumentOutOfRangeException) {
       Debug.Log($"WeaponInventory: No weapon equipped at index: {index}");
       return;
     }

@@ -26,6 +26,10 @@ TagManager:
   - PlayerHolder
   - DoorGraphic
   - Persistent
+  - DoorCamera
+  - PlayerPrefs
+  - LoseScreen
+  - ItemMenu
   layers:
   - Default
   - TransparentFX
@@ -35,11 +39,11 @@ TagManager:
   - UI
   - Spawned
   - Ground
-  - WeaponCameraView
+  - HiddenFromFirstPerson
   - Enemies
   - RenderPath
-  - 
-  - 
+  - Camera
+  - RoomCameras
   - 
   - 
   - 

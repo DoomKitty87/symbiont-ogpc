@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEditor;
 
 // I really didn't want to, but the ==='s just make it so much easier to separate the sections of the script
 // out mentally for me, and for later reference for whoever decides to edit or change this. 
@@ -90,8 +91,14 @@ public class FireGunLogic : MonoBehaviour
   public UnityEvent _OnChargeStart;
   public UnityEvent _OnChargeEnd;
 
+  //public float _bulletImpactSize;
+  //public GameObject _decalProjector;
+
   private float _secondsSinceLastFire = 0;
   private bool _isReloading = false;
+
+  private GameObject _lastEnemyShot = null;
+  private float _dpsTimer;
 
   // ==================================================================================================
 
@@ -154,6 +161,15 @@ public class FireGunLogic : MonoBehaviour
     _secondsSinceLastFire += Time.deltaTime;
     _currentShotSpread = Mathf.Clamp(_currentShotSpread -= _shotSpreadRecovery * Time.deltaTime, _minShotSpread, _maxShotSpread);
     _OnBroadcastShotSpread.Invoke(_currentShotSpread);
+    CheckForDPS();
+  }
+
+  private void CheckForDPS() {
+    if (_dpsTimer >= 1f) {
+      _dpsTimer = 0;
+      if (_lastEnemyShot != null && GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting == gameObject) _lastEnemyShot.GetComponent<HealthManager>().Damage(GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>().GetDPS());
+    }
+    _dpsTimer += Time.deltaTime;
   }
 
   // ======================== Firing Functions ========================
@@ -170,7 +186,11 @@ public class FireGunLogic : MonoBehaviour
 
   public void FireSemiAuto() {
     if (_weaponFireType != WeaponItem.FireType.SemiAuto) return;
-    if (!(HasAmmo() && CanFire())) return;
+    if (!HasAmmo()) {
+      Reload();
+      return;
+    }
+    if (!CanFire()) return;
     _secondsSinceLastFire = 0;
     _currentShotDamage = _maxShotDamage;
     Fire();
@@ -180,7 +200,11 @@ public class FireGunLogic : MonoBehaviour
 
   public void FireBurst() {
     if (_weaponFireType != WeaponItem.FireType.Burst) return;
-    if (!(HasAmmo() && CanFire())) return;
+    if (!HasAmmo()) {
+      Reload();
+      return;
+    }
+    if (!CanFire()) return;
     _secondsSinceLastFire = 0;
     StartCoroutine(FireBurstCoroutine());
   }
@@ -199,7 +223,11 @@ public class FireGunLogic : MonoBehaviour
 
   public void FireFullAuto() {
     if (_weaponFireType != WeaponItem.FireType.FullAuto) return;
-    if (!(HasAmmo() && CanFire())) return;
+    if (!HasAmmo()) {
+      Reload();
+      return;
+    }
+    if (!CanFire()) return;
     _secondsSinceLastFire = 0;
     _currentShotDamage = _maxShotDamage;
     Fire();
@@ -209,7 +237,11 @@ public class FireGunLogic : MonoBehaviour
 
   public void ChargeWeapon() {
     if (_weaponFireType != WeaponItem.FireType.Charge) return;
-    if (!(HasAmmo() && CanFire())) return;
+    if (!HasAmmo()) {
+      Reload();
+      return;
+    }
+    if (!CanFire()) return;
     if (_isCharging) {
       // Just in case; should never happen
       Debug.LogError("FireGunLogic: ChargeWeapon() invoked before ReleaseCharge() set _isCharging to false! This usually means the coroutine is still running, or that inputs were set up wrong.");
@@ -244,7 +276,36 @@ public class FireGunLogic : MonoBehaviour
     _currentCharge = 0;
   }
 
+  private void AutoFireCharge() {
+    StartCoroutine(AutoFireChargeCoroutine());
+  }
+
+  private IEnumerator AutoFireChargeCoroutine() {
+    ChargeWeapon();
+    while (_isCharging) {
+      if (Random.value < 0.02f || _currentShotDamage == _maxShotDamage) ReleaseCharge();
+      yield return null;
+    }
+  }
+
   // ---------------------------------
+
+  public void FireCurrent() {
+    switch (_weaponFireType) {
+      case WeaponItem.FireType.SemiAuto:
+        FireSemiAuto();
+        break;
+      case WeaponItem.FireType.FullAuto:
+        FireFullAuto();
+        break;
+      case WeaponItem.FireType.Burst:
+        FireBurst();
+        break;
+      case WeaponItem.FireType.Charge:
+        AutoFireCharge();
+        break;
+    }
+  }
 
   public void Fire() {
     DrawFireLine(Color.green, 1f);
@@ -265,11 +326,36 @@ public class FireGunLogic : MonoBehaviour
       //else {
       //Above manages shooting through doors, disabled due to problems and unnecessary
       _OnFireHitPosition?.Invoke(hit.point);
+      /*
+      Mesh mesh = hit.collider.gameObject.GetComponent<MeshFilter>().mesh;
+      var so = new SerializedObject(mesh);
+      so.Update();
+      var sp = so.FindProperty("m_IsReadable");
+      sp.boolValue = true;
+      so.ApplyModifiedProperties();
+      Vector3[] vertices = mesh.vertices;
+      for (int i = 0; i < vertices.Length; i++) {
+        if (Vector3.Distance(hit.collider.gameObject.transform.localToWorldMatrix.MultiplyPoint3x4(vertices[i]), hit.point) < _bulletImpactSize) {
+          vertices[i] -= (vertices[i] - transform.position).normalized * 0.2f;
+        }
+      }
+      mesh.vertices = vertices;
+      mesh.RecalculateNormals();
+      mesh.RecalculateTangents();
+      */
+      // ^ Code for impact deform on wall, not really working great. Code below manages decal version.
+      //GameObject decal = Instantiate(_decalProjector, hit.point, Quaternion.identity);
+      //decal.transform.forward = -hit.normal;
+
       GameObject hitGameObject = hit.collider.gameObject;
       HealthManager healthManager = hitGameObject.GetComponent<HealthManager>();
       if (healthManager != null) {
         //Disabled on purpose, causing bug with room generation
-        healthManager.Damage(_currentShotDamage);
+        if (GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting == transform.parent.gameObject) {
+          healthManager.Damage(_currentShotDamage * GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>().GetDamageMult());
+        }
+        else healthManager.Damage(_currentShotDamage * 0.7f);
+        _lastEnemyShot = hitGameObject;
         DrawFireLine(Color.yellow, 1f);
       }
       //}
@@ -299,7 +385,7 @@ public class FireGunLogic : MonoBehaviour
       return true;
     }
   }
-  private bool CanFire() {
+  public bool CanFire() {
     if (_secondsSinceLastFire < _fireDelay) return false;
     if (_isReloading) return false;
     if (_isFiringBurst) return false;
@@ -312,7 +398,7 @@ public class FireGunLogic : MonoBehaviour
 
   // This needs to be called by an input script
   public void Reload() {
-    if (_isReloading) {
+    if (_isReloading || _currentAmmo == _magSize) {
       return;
     }
     else {

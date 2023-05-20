@@ -18,7 +18,7 @@ public class WeaponEffects : MonoBehaviour
   private GameObject _weaponInstanceMuzzleObject;
   [SerializeField] private Vector3 _weaponInstanceMuzzlePosition;
   [Header("Shot Effect")]
-  [SerializeField] private GameObject _laserBeamPrefab;
+  [SerializeField] private GameObject _laserBeamPrefab, _laserShotPrefab;
   [SerializeField] private Vector3 _effectPositionOffset;
   [SerializeField][ColorUsage(true, true)] private Color _laserScaleUpColor; 
   [SerializeField][ColorUsage(true, true)] private Color _laserScaleDownColor; 
@@ -69,6 +69,8 @@ public class WeaponEffects : MonoBehaviour
     else { Debug.LogError($"WeaponEffects: MuzzlePosition object not found in weaponItemPrefab for '{weaponItem.name}'"); }
     if (weaponItem.muzzleFlashEffectPrefab != null) { _muzzleFlashPrefab = weaponItem.muzzleFlashEffectPrefab; }
     else { Debug.LogWarning($"WeaponEffects: WeaponItem: '{weaponItem.name}' doesn't contain MuzzleFlashPrefab!"); }
+    if (weaponItem.hitEffectPrefab != null) { _hitEffectPrefab = weaponItem.hitEffectPrefab; }
+    else { Debug.LogWarning($"WeaponEffects: WeaponItem: '{weaponItem.name}' doesn't contain HitEffectPrefab!"); }
   }
 
   public void StartEffect(Vector3 hitPosition) {
@@ -76,27 +78,31 @@ public class WeaponEffects : MonoBehaviour
     // if (activeGun == heavyRifle) StartCoroutine(ReactorGlow());
     // if (activeGun == assaultRifle) StartCoroutine(ChamberCharge());
     StartCoroutine(LaserFX(hitPosition));
+    //ShootLaser(hitPosition);
     if (_muzzleFlashPrefab != null) {
-      StartCoroutine(MuzzleFlashFX(_weaponInstanceMuzzlePosition));
+      MuzzleFlashFX(_weaponInstanceMuzzlePosition);
     };
     if (_hitEffectPrefab != null) {
-      StartCoroutine(HitEffectFX(hitPosition));
+      HitEffectFX(hitPosition);
     };
   }
-  private IEnumerator MuzzleFlashFX(Vector3 muzzlePosition) {
+
+  //private void ShootLaser(Vector3 hitPosition) {
+  //  GameObject laser = Instantiate(_laserShotPrefab, _weaponInstanceMuzzleObject.transform.position, Quaternion.LookRotation(hitPosition - _weaponInstanceMuzzleObject.transform.position), transform);
+  //  laser.GetComponent<Rigidbody>().AddForce(laser.transform.forward * 20, ForceMode.Impulse);
+  //}
+
+  private void MuzzleFlashFX(Vector3 muzzlePosition) {
     GameObject muzzleFlashInstance = Instantiate(_muzzleFlashPrefab, _weaponInstanceMuzzleObject.transform, false);
     ParticleSystem muzzleFlashParticleSystem = muzzleFlashInstance.GetComponent<ParticleSystem>();
     muzzleFlashInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_EmissionColor", _laserEmissionColor);
     muzzleFlashParticleSystem.Play();
-    yield return new WaitForSeconds(muzzleFlashParticleSystem.main.duration);
-    Destroy(muzzleFlashInstance);
   }
-  private IEnumerator HitEffectFX(Vector3 hitPosition) {
+  private void HitEffectFX(Vector3 hitPosition) {
     GameObject hitEffectInstance = Instantiate(_hitEffectPrefab, hitPosition, Quaternion.identity);
     ParticleSystem hitEffectParticleSystem = hitEffectInstance.GetComponent<ParticleSystem>();
+    hitEffectInstance.GetComponent<ParticleSystemRenderer>().material.SetColor("_EmissionColor", _laserEmissionColor);
     hitEffectParticleSystem.Play();
-    yield return new WaitForSeconds(hitEffectParticleSystem.main.duration);
-    Destroy(hitEffectInstance);
   }
   // Changed to code to spawn the laser inside of the muzzle position gameobject
   private IEnumerator LaserFX(Vector3 endPoint) {

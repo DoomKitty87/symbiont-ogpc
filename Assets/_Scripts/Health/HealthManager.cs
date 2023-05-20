@@ -17,12 +17,36 @@ public class HealthManager : MonoBehaviour
 
   // Start is called before the first frame update
   void Start() {
+    _maxHealth = GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().GetRandEnemyHealth();
     _currentHealth = _maxHealth;
     _onHealthInitialize?.Invoke(_maxHealth);
   }
+
+  public void Heal(float healPoints) {
+    float initialHealth = _currentHealth;
+    if (_currentHealth + healPoints >= _maxHealth) _currentHealth = _maxHealth;
+    else _currentHealth += healPoints;
+    _onHealthChanged?.Invoke(initialHealth, _currentHealth, _maxHealth);
+  }
+
+  public void UpdateHealth(float initHealth, float newHealth, float maxHealth) {
+    _onHealthChanged?.Invoke(initHealth, newHealth, maxHealth);
+  }
+
   public void Damage(float damagePoints) {
+    if (gameObject != GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) {
+      GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Damage((int)damagePoints);
+    }
     if (_currentHealth - damagePoints <= 0) {
-      _onHealthZero?.Invoke();
+      // The event system is used so we don't have to make direct references like this please change thank you
+      // Keep all needed references on the singleton, not the other scripts
+      if (gameObject == GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting.gameObject) {
+        GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().LoseState();
+      }
+      else {
+        GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Kills();
+        _onHealthZero?.Invoke();
+      }
       this.enabled = false;
     }
     else {

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51dfbe5df0024eb41b8dea943b82e833, type: 3}
+  m_Name: Burst Rifle
+  m_EditorClassIdentifier: 
+  name: Burst Rifle
+  id: 3
+  gunPrefab: {fileID: 4967066953837077705, guid: 5828eb3adede2f24a98381a177d90b1c,
+    type: 3}
+  gunOffset: {x: 0.000242, y: 0.001774, z: 0.001084}
+  gunRotationOffset: {x: 0, y: 90, z: 90}
+  manufacturer: ElectroArms
+  modelName: BRX18
+  nickName: Triple Threat
+  fireType: 1
+  maxShotDamage: 12
+  fireDelaySeconds: 0.5
+  magSize: 24
+  reloadTimeSeconds: 2.5
+  verticalRecoil: 11
+  horizontalRecoilDeviation: 0.25
+  recoilSnapiness: 4
+  recoilRecoverySpeed: 8
+  zCameraShake: 4
+  minShotSpreadDegrees: 0.005
+  maxShotSpreadDegrees: 0.1
+  shotSpreadFireInaccuracyDegrees: 0.05
+  shotSpreadRecovery: 0.05
+  shotsPerBurst: 3
+  secondsBetweenBurstShots: 0.08
+  minShotDamage: 0
+  chargeTimeSeconds: 0
+  animatorOverride: {fileID: 22100000, guid: 0a5f3a44ce1eb3f478eb2515647af5b0, type: 2}
+  shotSound: {fileID: 8300000, guid: 2386af6cb9672444397987137152f20d, type: 3}
+  shotSoundNearEmpty: {fileID: 8300000, guid: 430e6d742d69dad4a9f5a47e998dcf4a, type: 3}
+  emptyFireSound: {fileID: 8300000, guid: 0a715cac6469bea4cbe8795fd3eeca6d, type: 3}
+  reloadStartSound: {fileID: 0}
+  reloadEndSound: {fileID: 0}
+  equipSound: {fileID: 0}
+  effectPositionOffset: {x: 0, y: 0, z: 0}
+  laserScaleUpColor: {r: 0, g: 1, b: 0, a: 1}
+  laserScaleDownColor: {r: 1, g: 1, b: 1, a: 0}
+  durationLaserScaleUp: 0.04
+  durationLaserScaleDown: 0.06
+  laserEmissionColor: {r: 0, g: 4, b: 0, a: 0}
+  muzzleFlashEffectPrefab: {fileID: 1681060557054156774, guid: f922669cfb7651546a43e0fa800f4ddd,
+    type: 3}
+  hitEffectPrefab: {fileID: 106950813350076525, guid: 633a229bcc3714abf93584e055cf34b0,
+    type: 3}
+  sprite: {fileID: 21300000, guid: f39b7d9d488dd8d41ace45b911cd72a0, type: 3}

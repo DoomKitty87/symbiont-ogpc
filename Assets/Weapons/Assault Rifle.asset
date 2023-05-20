@@ -26,11 +26,11 @@ MonoBehaviour:
   fireDelaySeconds: 0.1
   magSize: 30
   reloadTimeSeconds: 2
-  verticalRecoil: 14
-  horizontalRecoilDeviation: 1
-  recoilSnapiness: 5
-  recoilRecoverySpeed: 4
-  zCameraShake: 1
+  verticalRecoil: 8
+  horizontalRecoilDeviation: 2
+  recoilSnapiness: 8
+  recoilRecoverySpeed: 6
+  zCameraShake: 4
   minShotSpreadDegrees: 0.02
   maxShotSpreadDegrees: 0.3
   shotSpreadFireInaccuracyDegrees: 0.08
@@ -40,9 +40,9 @@ MonoBehaviour:
   minShotDamage: 0
   chargeTimeSeconds: 0
   animatorOverride: {fileID: 22100000, guid: f95b3c6b60185b94e8fc8014a6414352, type: 2}
-  shotSound: {fileID: 0}
-  shotSoundNearEmpty: {fileID: 0}
-  emptyFireSound: {fileID: 0}
+  shotSound: {fileID: 8300000, guid: c3d1535fe09a73f409b17da7fc6abf58, type: 3}
+  shotSoundNearEmpty: {fileID: 8300000, guid: 430e6d742d69dad4a9f5a47e998dcf4a, type: 3}
+  emptyFireSound: {fileID: 8300000, guid: 0a715cac6469bea4cbe8795fd3eeca6d, type: 3}
   reloadStartSound: {fileID: 0}
   reloadEndSound: {fileID: 0}
   equipSound: {fileID: 0}
@@ -54,4 +54,6 @@ MonoBehaviour:
   laserEmissionColor: {r: 5.063991, g: 0.46834603, b: 5.5908804, a: 0}
   muzzleFlashEffectPrefab: {fileID: 1681060557054156774, guid: f922669cfb7651546a43e0fa800f4ddd,
     type: 3}
-  hitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 106950813350076525, guid: 633a229bcc3714abf93584e055cf34b0,
+    type: 3}
+  sprite: {fileID: 21300000, guid: 0c3d9a18f1f51e64f98ccf2ccb7c8d2e, type: 3}

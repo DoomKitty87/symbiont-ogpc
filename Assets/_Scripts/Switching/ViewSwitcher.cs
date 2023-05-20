@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 [System.Serializable]
 public class SwitchableObjectRegister 
@@ -52,7 +54,10 @@ public class ViewSwitcher : MonoBehaviour
   [SerializeField] private float _effectDuration;
   [SerializeField] private bool _playingEffect;
 
+  private PlayerItems _playerItems;
+
   private void Start() {
+    _playerItems = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>();
     if (!IsInputAxisValid(_switchAxis)) {
       Debug.LogError("ViewSwitcher: SwitchAxis is invalid! Please set it to a valid input axis in the Input Manager.");
     }
@@ -137,36 +142,101 @@ public class ViewSwitcher : MonoBehaviour
     }
   }
   private IEnumerator PlayFovEffectAndSwitchCoroutine() {
+    float duration = _effectDuration * _playerItems.GetTeleportSpeed();
     _playingEffect = true;
     float timeElapsed = 0f;
     float startFov = _currentObjectInhabiting._objectCameras[0].fieldOfView;
+    VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
+    Bloom bloom;
+    LensDistortion lensDistortion;
+    ColorAdjustments colorAdjustments;
+    ChromaticAberration chromaticAberration;
+
+    volumeProfile.TryGet(out bloom);
+    volumeProfile.TryGet(out lensDistortion);
+    volumeProfile.TryGet(out colorAdjustments);
+    volumeProfile.TryGet(out chromaticAberration);
+
+    float lensInit = (float)lensDistortion.intensity;
+    float bloomInit = (float)bloom.intensity;
+    float exposureInit = (float)colorAdjustments.postExposure;
+    float aberrationInit = (float)chromaticAberration.intensity;
+
     // Kept in memory in case the player looks away from object during effect
     SwitchableObject selectedObject = _selectedSwitchableObject;
-    while (timeElapsed < _effectDuration / 2) {
-      _currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectInCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
+    while (timeElapsed < duration / 2) {
+      //_currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectInCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
+      bloom.intensity.Override(Mathf.Lerp(bloomInit, bloomInit * 5, _effectInCurve.Evaluate(timeElapsed / (duration / 2))));
+      lensDistortion.intensity.Override(Mathf.Lerp(lensInit, -0.6f, _effectInCurve.Evaluate(timeElapsed / (duration / 2))));
+      colorAdjustments.postExposure.Override(Mathf.Lerp(exposureInit, 0.7f, _effectInCurve.Evaluate(timeElapsed / (duration / 2))));
+      chromaticAberration.intensity.Override(Mathf.Lerp(aberrationInit, 1, _effectInCurve.Evaluate(timeElapsed / (duration / 2))));
       yield return null;
       timeElapsed += Time.deltaTime;
     }
-    _currentObjectInhabiting._objectCameras[0].fieldOfView = _endFov;
+    //_currentObjectInhabiting._objectCameras[0].fieldOfView = _endFov;
     SwitchToSelected(selectedObject);
     timeElapsed = 0f;
-    while (timeElapsed < _effectDuration / 2) {
-      _currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectOutCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
+    while (timeElapsed < duration / 2) {
+      //_currentObjectInhabiting._objectCameras[0].fieldOfView = Mathf.Lerp(startFov, _endFov, _effectOutCurve.Evaluate(timeElapsed / (_effectDuration / 2)));
+      bloom.intensity.Override(Mathf.Lerp(bloomInit, bloomInit * 5, _effectOutCurve.Evaluate(timeElapsed / (duration / 2))));
+      lensDistortion.intensity.Override(Mathf.Lerp(lensInit, -0.6f, _effectOutCurve.Evaluate(timeElapsed / (duration / 2))));
+      colorAdjustments.postExposure.Override(Mathf.Lerp(exposureInit, 0.7f, _effectOutCurve.Evaluate(timeElapsed / (duration / 2))));
+      chromaticAberration.intensity.Override(Mathf.Lerp(aberrationInit, 1, _effectOutCurve.Evaluate(timeElapsed / (duration / 2))));
       yield return null;
       timeElapsed += Time.deltaTime;
     }
     _currentObjectInhabiting._objectCameras[0].fieldOfView = startFov;
     _playingEffect = false;
+
+    bloom.intensity.Override(bloomInit);
+    lensDistortion.intensity.Override(lensInit);
+    colorAdjustments.postExposure.Override(exposureInit);
+    chromaticAberration.intensity.Override(aberrationInit);
   }
   private void SwitchToSelected(SwitchableObject selectedObject) {
+    Quaternion initRot = _currentObjectInhabiting._rotationBase.rotation;
+    
     _secondsSinceLastSwitch = 0f;
     selectedObject.SwitchTo();
     _currentObjectInhabiting.SwitchAway();
+    GameObject nowInRoom = _currentObjectInhabiting.gameObject;
+    GameObject switchToRoom = selectedObject.gameObject;
+    while (!nowInRoom.CompareTag("Room")) {
+      nowInRoom = nowInRoom.transform.parent.gameObject;
+    }
+    while (!switchToRoom.CompareTag("Room")) {
+      switchToRoom = switchToRoom.transform.parent.gameObject;
+    }
+
+
+    // This is dumb because not all objects have health
+    if (_currentObjectInhabiting.gameObject.GetComponent<HealthManager>() != null) {
+      _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth -= _playerItems.GetMaxHealthIncrease();
+      _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth -= _playerItems.GetMaxHealthIncrease();
+    }
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
+
+    if (nowInRoom != switchToRoom) {
+      _currentObjectInhabiting._rotationBase.rotation = initRot * switchToRoom.transform.rotation;
+      StartCoroutine(nowInRoom.GetComponent<RoomHandler>().InNewRoom());
+      // switchToRoom.GetComponent<RoomHandler>().CloseDoors(); // idk what this code does so im commenting it out
+    }
+    else {
+      _currentObjectInhabiting._rotationBase.rotation = initRot;
+    }
+
+    try { _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().Heal(_playerItems.GetHealOnTeleport());
+    float initHealth = _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth;
+    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth += _playerItems.GetMaxHealthIncrease();
+    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth += _playerItems.GetMaxHealthIncrease();
+    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().UpdateHealth(initHealth, _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth, _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth);
+    } catch { }
+	
+    GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Switched();
   }
   private bool CanSwitch() {
-    if (_secondsSinceLastSwitch <= _effectDuration + _switchCooldown || _playingEffect) {
+    if (_secondsSinceLastSwitch <= (_effectDuration * _playerItems.GetTeleportSpeed()) + (_switchCooldown * _playerItems.GetTeleportSpeed()) || _playingEffect) {
       return false;
     }
     else {

@@ -57,6 +57,7 @@ public class FireInput : MonoBehaviour
   }
 
   private void CheckFireInput() {
+    if (Time.timeScale == 0.0f) return;
     if (!_hadFireInputLastFrame) {
       if (Input.GetAxisRaw(_fireInputAxis) == 1) {
         _hadFireInputLastFrame = true;

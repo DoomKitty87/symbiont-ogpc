@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51dfbe5df0024eb41b8dea943b82e833, type: 3}
+  m_Name: Pistol2
+  m_EditorClassIdentifier: 
+  name: Pistol2
+  id: 5
+  gunPrefab: {fileID: 202100960212050149, guid: 5d0b25bf861484a37abfa6b9c334f5e7,
+    type: 3}
+  gunOffset: {x: 0.0002, y: 0.001567, z: 0.00064}
+  gunRotationOffset: {x: -90, y: 90, z: 90}
+  manufacturer: Krieslauf AG
+  modelName: ZAP34
+  nickName: Diversion
+  fireType: 0
+  maxShotDamage: 12
+  fireDelaySeconds: 0.17
+  magSize: 15
+  reloadTimeSeconds: 1.3
+  verticalRecoil: 7
+  horizontalRecoilDeviation: 1.5
+  recoilSnapiness: 12
+  recoilRecoverySpeed: 10
+  zCameraShake: 2
+  minShotSpreadDegrees: 0.01
+  maxShotSpreadDegrees: 0.4
+  shotSpreadFireInaccuracyDegrees: 0.1
+  shotSpreadRecovery: 0.6
+  shotsPerBurst: 0
+  secondsBetweenBurstShots: 0
+  minShotDamage: 0
+  chargeTimeSeconds: 0
+  animatorOverride: {fileID: 22100000, guid: eec956f7f87535f4e94c644f59816ff9, type: 2}
+  shotSound: {fileID: 8300000, guid: 8bfb982f559b04349889f188328a484e, type: 3}
+  shotSoundNearEmpty: {fileID: 8300000, guid: 430e6d742d69dad4a9f5a47e998dcf4a, type: 3}
+  emptyFireSound: {fileID: 8300000, guid: 0a715cac6469bea4cbe8795fd3eeca6d, type: 3}
+  reloadStartSound: {fileID: 0}
+  reloadEndSound: {fileID: 0}
+  equipSound: {fileID: 0}
+  effectPositionOffset: {x: 0, y: 0, z: 0}
+  laserScaleUpColor: {r: 0.03529412, g: 0.7490196, b: 0, a: 1}
+  laserScaleDownColor: {r: 1, g: 1, b: 1, a: 0}
+  durationLaserScaleUp: 0.08
+  durationLaserScaleDown: 0.1
+  laserEmissionColor: {r: 0.17254902, g: 4, b: 0, a: 0}
+  muzzleFlashEffectPrefab: {fileID: 1681060557054156774, guid: f922669cfb7651546a43e0fa800f4ddd,
+    type: 3}
+  hitEffectPrefab: {fileID: 106950813350076525, guid: 633a229bcc3714abf93584e055cf34b0,
+    type: 3}
+  sprite: {fileID: 21300000, guid: 685962a1f2bbf4e2596daca10d5cf834, type: 3}
