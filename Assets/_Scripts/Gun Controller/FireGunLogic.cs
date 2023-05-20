@@ -354,7 +354,7 @@ public class FireGunLogic : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting == gameObject) {
           healthManager.Damage(_currentShotDamage * GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>().GetDamageMult());
         }
-        else healthManager.Damage(_currentShotDamage * 0.7f);
+        else healthManager.Damage(_currentShotDamage * 0.6f);
         _lastEnemyShot = hitGameObject;
         DrawFireLine(Color.yellow, 1f);
       }
