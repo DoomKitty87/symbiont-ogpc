@@ -31,7 +31,7 @@ public class DoorCameraFollow : MonoBehaviour {
 
       SetNearClipPlane();
     } else {
-      Debug.Log("Variable otherDoor isn't assigned to gameObject " + gameObject.name);
+      // Debug.Log("Variable otherDoor isn't assigned to gameObject " + gameObject.name);
       Destroy(gameObject);
     }
 

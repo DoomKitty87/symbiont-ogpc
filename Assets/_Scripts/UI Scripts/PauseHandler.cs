@@ -33,7 +33,7 @@ public class PauseHandler : MonoBehaviour
 
 	private void HandlePausing() {
 
-		if (Input.GetKeyDown(KeyCode.Escape)) {
+		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton9)) {
 
 			switch(_pauseState) {
 

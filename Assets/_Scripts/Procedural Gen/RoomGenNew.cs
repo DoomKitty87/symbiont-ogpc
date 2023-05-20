@@ -60,7 +60,6 @@ public class RoomGenNew : MonoBehaviour
 	}
 
 	public void CreateNewRoom() {
-        Debug.Log("NewThing");
         if (_isTutorial) {
             TutorialScript();
             return;
