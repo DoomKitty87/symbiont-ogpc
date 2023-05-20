@@ -36,8 +36,8 @@ public class CamAim : MonoBehaviour
   void Update() {
     float oldY = _rotY;
     float oldX = _rotX;
-    _rotY += Input.GetAxis("Horizontal") * _horizontalSens;
-    _rotX += Input.GetAxis("Vertical") * _verticalSens;
+    _rotY += Input.GetAxis("Mouse X") * _horizontalSens; // * ReturnCorrectValue("CONTROLS_INVERT_X");
+    _rotX += Input.GetAxis("Mouse Y") * _verticalSens; // * ReturnCorrectValue("Controls_Invert_Y");
     
     if (_constrainX) {
       _rotX = Mathf.Clamp(_rotX, _minX, _maxX);
@@ -52,5 +52,10 @@ public class CamAim : MonoBehaviour
     // Negative bc up is negative for some reason
     _rot = Vector3.Slerp(_rot, new Vector3(_rotX, _rotY, transform.localRotation.z), _smoothSpeed * Time.deltaTime);
     transform.localRotation = Quaternion.Euler(_rot);
+  }
+
+  private int ReturnCorrectValue(string playerPref) {
+    if (PlayerPrefs.GetInt(playerPref) == 1) return 1;
+    else return -1;
   }
 }
