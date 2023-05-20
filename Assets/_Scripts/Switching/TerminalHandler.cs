@@ -21,6 +21,9 @@ public class TerminalHandler : MonoBehaviour
   // }
 
   public void TriggerFloorSwitch() {
-    GameObject.FindGameObjectWithTag("ItemMenu").GetComponent<ItemMenuOnFloorEnd>().ClearedFloor(); 
+    // If using terminal normally
+    GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().ClearedFloor();
+    // If using item menu
+    // GameObject.FindGameObjectWithTag("ItemMenu").GetComponent<ItemMenuOnFloorEnd>().ClearedFloor(); 
   }
 }
