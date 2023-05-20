@@ -36,8 +36,8 @@ public class CamAim : MonoBehaviour
   void Update() {
     float oldY = _rotY;
     float oldX = _rotX;
-    _rotY += Input.GetAxis("Mouse X") * _horizontalSens; // * ReturnCorrectValue("CONTROLS_INVERT_X");
-    _rotX += Input.GetAxis("Mouse Y") * _verticalSens; // * ReturnCorrectValue("Controls_Invert_Y");
+    _rotY += Input.GetAxis("Mouse X") * _horizontalSens * ReturnCorrectValue("CONTROLS_INVERT_X");
+    _rotX += Input.GetAxis("Mouse Y") * _verticalSens * ReturnCorrectValue("CONTROLS_INVERT_Y");
     
     if (_constrainX) {
       _rotX = Mathf.Clamp(_rotX, _minX, _maxX);
@@ -55,7 +55,7 @@ public class CamAim : MonoBehaviour
   }
 
   private int ReturnCorrectValue(string playerPref) {
-    if (PlayerPrefs.GetInt(playerPref) == 1) return 1;
-    else return -1;
+    if (PlayerPrefs.GetInt(playerPref) == 1) return -1;
+    else return 1;
   }
 }
