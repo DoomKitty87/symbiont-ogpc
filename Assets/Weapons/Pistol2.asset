@@ -40,14 +40,14 @@ MonoBehaviour:
   minShotDamage: 0
   chargeTimeSeconds: 0
   animatorOverride: {fileID: 22100000, guid: eec956f7f87535f4e94c644f59816ff9, type: 2}
-  shotSound: {fileID: 0}
-  shotSoundNearEmpty: {fileID: 0}
-  emptyFireSound: {fileID: 0}
+  shotSound: {fileID: 8300000, guid: 8bfb982f559b04349889f188328a484e, type: 3}
+  shotSoundNearEmpty: {fileID: 8300000, guid: 430e6d742d69dad4a9f5a47e998dcf4a, type: 3}
+  emptyFireSound: {fileID: 8300000, guid: 0a715cac6469bea4cbe8795fd3eeca6d, type: 3}
   reloadStartSound: {fileID: 0}
   reloadEndSound: {fileID: 0}
   equipSound: {fileID: 0}
   effectPositionOffset: {x: 0, y: 0, z: 0}
-  laserScaleUpColor: {r: 0.17254902, g: 4, b: 0, a: 1}
+  laserScaleUpColor: {r: 0.03529412, g: 0.7490196, b: 0, a: 1}
   laserScaleDownColor: {r: 1, g: 1, b: 1, a: 0}
   durationLaserScaleUp: 0.08
   durationLaserScaleDown: 0.1

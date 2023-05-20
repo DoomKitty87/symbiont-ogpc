@@ -79,8 +79,9 @@ public class RoomHandler : MonoBehaviour
 		StartCoroutine(LeaveCountdown());
 	}
 
-	public void InNewRoom() {
+	public IEnumerator InNewRoom() {
 		StopAllCoroutines();
+		yield return null;
 		VolumeProfile profile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
 		PaniniProjection proj;
 		DepthOfField dof;
