@@ -9,7 +9,7 @@ public class OverlayControls : MonoBehaviour
 
   void Update()
   {
-    if (Input.GetKeyDown(KeyCode.P)) {
+    if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.JoystickButton3)) {
       TogglePathOverlay();
     }
   }

@@ -286,7 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4027940877787942161}
   - component: {fileID: 4027940877787942163}
-  - component: {fileID: 4027940877787942162}
+  - component: {fileID: 7572530333283093176}
   m_Layer: 0
   m_Name: Switchable
   m_TagString: Untagged
@@ -480,8 +480,8 @@ MonoBehaviour:
   _OnUnselected:
     m_PersistentCalls:
       m_Calls: []
---- !u!64 &4027940877787942162
-MeshCollider:
+--- !u!135 &7572530333283093176
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -490,10 +490,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -8970269089867782616, guid: d2aa52c48d9d8354daa2cf662fe5eef4, type: 3}
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4027940878326191311
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +589,6 @@ GameObject:
   - component: {fileID: 4027940878404052176}
   - component: {fileID: 4027940878404052178}
   - component: {fileID: 4027940878404052177}
-  - component: {fileID: 3501133258624988026}
   m_Layer: 0
   m_Name: Main Body Mount
   m_TagString: Untagged
@@ -663,20 +661,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3501133258624988026
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4027940878404052143}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7474429014651771724, guid: d2aa52c48d9d8354daa2cf662fe5eef4, type: 3}
 --- !u!1 &4027940878499980224
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +829,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4027940878614771080}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &4027940878614771082
 MonoBehaviour:
   m_ObjectHideFlags: 0

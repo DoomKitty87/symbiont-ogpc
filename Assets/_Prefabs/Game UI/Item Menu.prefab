@@ -4036,8 +4036,8 @@ GameObject:
   - component: {fileID: 5216618106183026303}
   - component: {fileID: 5216618106183026301}
   - component: {fileID: 5216618106183026302}
-  - component: {fileID: 5216618106183026275}
-  - component: {fileID: 5216618106183026300}
+  - component: {fileID: 1941581606}
+  - component: {fileID: 1941581605}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -4103,7 +4103,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &5216618106183026275
+--- !u!225 &1941581606
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4115,7 +4115,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5216618106183026300
+--- !u!114 &1941581605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4124,12 +4124,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5216618106183026296}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c03c6f6a5625419b8f1dbea7ce66a81, type: 3}
+  m_Script: {fileID: 11500000, guid: 02663b83997803d4db49a5bb8ec00ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 5216618106183026275}
-  _mouseOverImage: {fileID: 5216618106183026302}
-  _minOpacity: 0.2
+  _canvasGroup: {fileID: 1941581606}
+  _minOpacity: 0.5
   _maxOpacity: 1
   _easingCurve:
     serializedVersion: 2
@@ -4137,8 +4136,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -4146,8 +4145,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -4832,8 +4831,8 @@ GameObject:
   - component: {fileID: 5216618106449829298}
   - component: {fileID: 5216618106449829296}
   - component: {fileID: 5216618106449829297}
-  - component: {fileID: 5216618106449829302}
-  - component: {fileID: 5216618106449829303}
+  - component: {fileID: 1211179356}
+  - component: {fileID: 1211179355}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -4899,7 +4898,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &5216618106449829302
+--- !u!225 &1211179356
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4911,7 +4910,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5216618106449829303
+--- !u!114 &1211179355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4920,12 +4919,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5216618106449829299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c03c6f6a5625419b8f1dbea7ce66a81, type: 3}
+  m_Script: {fileID: 11500000, guid: 02663b83997803d4db49a5bb8ec00ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 5216618106449829302}
-  _mouseOverImage: {fileID: 5216618106449829297}
-  _minOpacity: 0.2
+  _canvasGroup: {fileID: 1211179356}
+  _minOpacity: 0.5
   _maxOpacity: 1
   _easingCurve:
     serializedVersion: 2
@@ -4933,8 +4931,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -4942,8 +4940,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -6974,14 +6972,14 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.2}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
+    m_ColorMultiplier: 5
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -6995,10 +6993,22 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5216618106449829297}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5216618105954289118}
+        m_TargetAssemblyTypeName: ItemSelection3, Assembly-CSharp
+        m_MethodName: SelectItem2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5992833830647109551
 GameObject:
   m_ObjectHideFlags: 0
@@ -7371,14 +7381,14 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.2}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
+    m_ColorMultiplier: 5
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -7392,10 +7402,22 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5216618106183026302}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5216618105954289118}
+        m_TargetAssemblyTypeName: ItemSelection3, Assembly-CSharp
+        m_MethodName: SelectItem3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5992833830759359234
 GameObject:
   m_ObjectHideFlags: 0
@@ -8322,8 +8344,8 @@ GameObject:
   - component: {fileID: 5992833831210797186}
   - component: {fileID: 5992833831210797184}
   - component: {fileID: 5992833831210797185}
-  - component: {fileID: 5216618106524394872}
-  - component: {fileID: 5216618106524394873}
+  - component: {fileID: 1857762224}
+  - component: {fileID: 1857762223}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -8389,7 +8411,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &5216618106524394872
+--- !u!225 &1857762224
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8401,7 +8423,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5216618106524394873
+--- !u!114 &1857762223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8410,12 +8432,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5992833831210797187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c03c6f6a5625419b8f1dbea7ce66a81, type: 3}
+  m_Script: {fileID: 11500000, guid: 02663b83997803d4db49a5bb8ec00ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 5216618106524394872}
-  _mouseOverImage: {fileID: 5992833831210797185}
-  _minOpacity: 0.2
+  _canvasGroup: {fileID: 1857762224}
+  _minOpacity: 0.5
   _maxOpacity: 1
   _easingCurve:
     serializedVersion: 2
@@ -8423,8 +8444,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -8432,8 +8453,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -8747,12 +8768,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerItemInteractions: {fileID: 5459835712292269348}
+  _fade1: {fileID: 1857762223}
   _image1: {fileID: 5992833831210797185}
   _cost1: {fileID: 5992833830340327022}
   _button1: {fileID: 5992833832232981744}
+  _fade2: {fileID: 1211179355}
   _image2: {fileID: 5216618106449829297}
   _cost2: {fileID: 5216618104724419246}
   _button2: {fileID: 5992833830591299272}
+  _fade3: {fileID: 1941581605}
   _image3: {fileID: 5216618106183026302}
   _cost3: {fileID: 5216618106501043250}
   _button3: {fileID: 5992833830728107198}
@@ -8760,6 +8784,7 @@ MonoBehaviour:
   _flavorText: {fileID: 5992833830370800410}
   _rarityText: {fileID: 5992833830759359232}
   _itemDescription: {fileID: 5992833832115629628}
+  _debuffHeader: {fileID: 5992833830811663832}
   _debuffDescription: {fileID: 5992833831185517901}
   _debuffFontName: Raleway-Light SDF
   _rarityStrings:
@@ -9546,14 +9571,14 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.2}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
+    m_ColorMultiplier: 5
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -9567,10 +9592,22 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5992833831210797185}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5216618105954289118}
+        m_TargetAssemblyTypeName: ItemSelection3, Assembly-CSharp
+        m_MethodName: SelectItem1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5992833832234191671
 GameObject:
   m_ObjectHideFlags: 0

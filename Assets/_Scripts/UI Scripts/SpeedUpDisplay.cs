@@ -24,7 +24,7 @@ public class SpeedUpDisplay : MonoBehaviour
   }
   
   private void Update() {
-    if (Input.GetKey(KeyCode.E) && _rechargeAmt > 0) TriggerSpeedUp();
+    if ((Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.JoystickButton1))  && _rechargeAmt > 0) TriggerSpeedUp();
     else StopSpeedUp();
     if (Time.timeScale > 0) _rechargeAmt += Time.unscaledDeltaTime * 0.5f;
     if (_rechargeAmt > _timeToCharge) _rechargeAmt = _timeToCharge;

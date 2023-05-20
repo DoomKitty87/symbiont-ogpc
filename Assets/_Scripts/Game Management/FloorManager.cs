@@ -134,9 +134,10 @@ public class FloorManager : MonoBehaviour
   private IEnumerator DeathEffects() {
     float elapsedTime = 0;
     float duration = 1f;
-    GetComponent<MusicManager>().Pause();
-    GetComponent<AudioSource>().clip = _loseAudio;
-    GetComponent<AudioSource>().Play();
+    MusicManager musicManager = GameObject.FindWithTag("Handler").GetComponent<MusicManager>();
+    musicManager.Pause();
+    musicManager.gameObject.GetComponent<AudioSource>().clip = _loseAudio;
+    musicManager.gameObject.GetComponent<AudioSource>().Play();
     VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
     FilmGrain filmGrain;
     volumeProfile.TryGet(out filmGrain);
