@@ -25,12 +25,7 @@ public class PlayerItemInteractions : MonoBehaviour
 
   public void TryChooseItem(PlayerItem itm) {
     if (playerTracker.GetPoints() < playerItems.CalculatePrice(itm)) return;
-    if (playerItems.GetPlayerItems().Length == 5) {
-      //Prompt for replacement
-      PlayerItem toReplace = null;
-      ReplaceItem(toReplace, itm);
-    }
-    else AddItem(itm);
+    AddItem(itm);
     actionsLeft--;
   }
 
