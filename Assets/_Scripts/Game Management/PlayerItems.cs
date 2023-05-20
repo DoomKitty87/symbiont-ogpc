@@ -35,6 +35,7 @@ public class Item
   public string category;
   public Sprite icon;
   public string equation;
+  public int cost;
 }
 
 public class PlayerItems : MonoBehaviour
