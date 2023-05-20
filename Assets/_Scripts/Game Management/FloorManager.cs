@@ -165,7 +165,7 @@ public class FloorManager : MonoBehaviour
       yield break;
     }
     LeaderboardConnect leaderboardConnect = connectionManager.GetComponent<LeaderboardConnect>();
-    leaderboardConnect.PostScores(runStats[0] * 50, runStats[1]);
+    leaderboardConnect.PostScores(runStats[0], runStats[1]);
   }
 
   private IEnumerator MoveFloors() {
