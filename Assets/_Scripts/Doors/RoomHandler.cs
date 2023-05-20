@@ -92,8 +92,8 @@ public class RoomHandler : MonoBehaviour
 		profile.TryGet(out vignette);
 		proj.active = false;
 		dof.active = false;
-		chrom.intensity.Override(0);
-		vignette.intensity.Override(0);
+		chrom.intensity.Override(0f);
+		vignette.intensity.Override(0f);
 	}
 
 	private IEnumerator LeaveCountdown() {
