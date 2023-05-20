@@ -26,6 +26,7 @@ public class FloorManager : MonoBehaviour
   [SerializeField] private float _healthCap, _speedCap, _visionRangeCap, _visionArcCap, _awarenessCap, _lookSpeedCap;
   [SerializeField] private float _diffScaleSpeed;
   [SerializeField] private GameObject _loseScreenPrefab;
+  [SerializeField] private AudioClip _loseAudio;
   [SerializeField] private string[] _flavorTexts;
 
   private float _healthScale, _speedScale, _visionRangeScale, _visionArcScale, _awarenessScale, _lookSpeedScale;
@@ -133,6 +134,9 @@ public class FloorManager : MonoBehaviour
   private IEnumerator DeathEffects() {
     float elapsedTime = 0;
     float duration = 1f;
+    GetComponent<MusicManager>().Pause();
+    GetComponent<AudioSource>().clip = _loseAudio;
+    GetComponent<AudioSource>().Play();
     VolumeProfile volumeProfile = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<Volume>().profile;
     FilmGrain filmGrain;
     volumeProfile.TryGet(out filmGrain);
@@ -161,7 +165,6 @@ public class FloorManager : MonoBehaviour
       yield break;
     }
     LeaderboardConnect leaderboardConnect = connectionManager.GetComponent<LeaderboardConnect>();
-    print("posting scores");
     leaderboardConnect.PostScores(runStats[0] * 50, runStats[1]);
   }
 
