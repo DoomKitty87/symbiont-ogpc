@@ -37,12 +37,12 @@ public class WeaponAudio : MonoBehaviour
   // Start is called before the first frame update
   private void Start() {
     _audioSource = gameObject.GetComponent<AudioSource>();
-    _initVol = _audioSource.volume;
+    _initVol = _audioSource.volume / 100;
   }
 
   private void Update() {
-    if (PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS") != _lastAudioVol) {
-      _lastAudioVol = PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS");
+    if (PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS") / 100 != _lastAudioVol) {
+      _lastAudioVol = PlayerPrefs.GetFloat("SOUND_VOLUME_EFFECTS") / 100;
       _audioSource.volume = _initVol * _lastAudioVol;
     }
   }
