@@ -25,7 +25,7 @@ public class ItemMenuOnFloorEnd : MonoBehaviour
 
   [Header("Main References")]
   [SerializeField] private FadeElementInOut _itemMenuFade;
-  [Header("Item Selection References")]
+  [Header("Item Selection Menu References")]
   [SerializeField] private ItemSelection3 _itemSelection;
   [SerializeField] private CustomTimer _itemSelectionTimer;
   // [Header("Inventory References")]
@@ -34,11 +34,17 @@ public class ItemMenuOnFloorEnd : MonoBehaviour
 
   private void Start() {
     _pauseHandler = GameObject.FindGameObjectWithTag("Handler").GetComponent<PauseHandler>();
+    if (_pauseHandler == null) {
+      Debug.LogError("ItemMenuOnFloorEnd: Cannot find the PauseHandler in the Handler Object!");
+    }
     gameObject.GetComponent<Canvas>().enabled = false;
     _onItemScreen = false;
   }
 
   private void Update() {
+    if (Input.GetKeyDown(KeyCode.Home) && _onItemScreen == false) {
+      ClearedFloor();
+    }
     if (_onItemScreen) {
       _pauseHandler._ignoreTimescale = true;
     }
@@ -49,7 +55,7 @@ public class ItemMenuOnFloorEnd : MonoBehaviour
 
   public void ClearedFloor() {
     _onItemScreen = true;
-    Pause();
+    _pauseHandler.Pause();
     gameObject.GetComponent<Canvas>().enabled = true;
     _itemMenuFade.FadeIn(true);
     _itemSelection.Initalize();
@@ -60,12 +66,6 @@ public class ItemMenuOnFloorEnd : MonoBehaviour
     gameObject.GetComponent<Canvas>().enabled = false;
     _onItemScreen = false;
     GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().ClearedFloor();
-  }
-
-  private void Pause() {
-    Time.timeScale = 0.0f;
-		Cursor.visible = true;
-	  Cursor.lockState = CursorLockMode.None;
   }
 
   private void Unpause() {

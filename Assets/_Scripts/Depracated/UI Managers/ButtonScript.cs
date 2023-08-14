@@ -36,14 +36,14 @@ public class ButtonScript : MonoBehaviour
 	}
 
 	public void ButtonAddPause(string s) {
-		_pauseHandler.AddPause(s);
+		// _pauseHandler.AddPause(s);
 	}
 
 	public void ButtonRemovePause() {
-		_pauseHandler.RemovePause();
+		// _pauseHandler.RemovePause();
 	}
 
 	public void ButtomSwitchScreen(string s) {
-		_pauseHandler.ChangeScene(s);
+		// _pauseHandler.ChangeScene(s);
 	}
 }
