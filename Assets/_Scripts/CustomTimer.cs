@@ -19,6 +19,7 @@ public class CustomTimer : MonoBehaviour
   
   [Header("Settings")]
   [SerializeField] private TimerType _timerType;
+  [SerializeField] private bool _ignoreTimescale;
 
   [Header("Timer Specific Settings")]
   [SerializeField] private float _timerDuration;
@@ -47,7 +48,7 @@ public class CustomTimer : MonoBehaviour
   private IEnumerator CountdownTimer() {
     float timeLeft = _timerDuration;
     while (timeLeft > 0) {
-      timeLeft -= Time.deltaTime;
+      timeLeft -= _ignoreTimescale ? Time.unscaledDeltaTime : Time.deltaTime;
       if (_timerText != null) {
         _timerText.text = string.Format("{0}.{1}", Mathf.Clamp(Mathf.FloorToInt(timeLeft % 60), 0, 61), Mathf.Clamp(Mathf.FloorToInt((timeLeft * 100) % 100), 0, 101).ToString("00"));
       }
@@ -68,7 +69,7 @@ public class CustomTimer : MonoBehaviour
   private IEnumerator CountUpTimer() {
     float timePassed = 0;
     while (timePassed < _timerDuration) {
-      timePassed += Time.deltaTime;
+      timePassed += _ignoreTimescale ? Time.unscaledDeltaTime : Time.deltaTime;
       if (_timerText != null) {
         _timerText.text = string.Format("{0}.{1}", Mathf.Clamp(Mathf.FloorToInt(timePassed % 60), 0, 61), Mathf.Clamp(Mathf.FloorToInt((timePassed * 100) % 100), 0, 101).ToString("00"));
       }

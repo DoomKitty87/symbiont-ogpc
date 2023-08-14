@@ -127,7 +127,7 @@ public class FloorManager : MonoBehaviour
   public void LoseState() {
     PauseHandler pauseHandler = GameObject.FindWithTag("Handler").GetComponent<PauseHandler>();
     pauseHandler._disablePauseKeycodes = true;
-    pauseHandler.Pause();
+    pauseHandler.Pause(false, false);
     StartCoroutine(SubmitHighScore());
     StartCoroutine(DeathEffects());
     BringUpOverviewScreen();

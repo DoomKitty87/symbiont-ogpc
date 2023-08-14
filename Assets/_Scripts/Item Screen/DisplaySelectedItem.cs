@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PlayerItemInteractions))]
 public class DisplaySelectedItem : MonoBehaviour
 {
   [Header("References")]
   [SerializeField] private PlayerItemInteractions _playerItemInteractions;
-  [SerializeField] private ItemSelection3 _itemSelection3;
+  [FormerlySerializedAs("_itemSelection3")] [SerializeField] private ItemSelectionInit _itemSelectionInit;
   [Header("UI")]
   [SerializeField] private Image _image1;
   
@@ -35,7 +36,7 @@ public class DisplaySelectedItem : MonoBehaviour
     if (_playerItemInteractions == null) {
       _playerItemInteractions = GetComponent<PlayerItemInteractions>();
     }
-    _selectedItem = _itemSelection3._selectedItem;
+    _selectedItem = _itemSelectionInit._selectedItem;
     SetSlot1(_selectedItem);
     SetTextInfo(_selectedItem);
   }

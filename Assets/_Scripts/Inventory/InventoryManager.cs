@@ -5,7 +5,7 @@ using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
-
+  // DEPRECATED ====================================
   private Transform inventory;
   private Transform gunHolder;
   private Transform attachmentHolder;

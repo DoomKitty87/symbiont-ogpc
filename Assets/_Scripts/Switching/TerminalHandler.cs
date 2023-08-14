@@ -24,6 +24,6 @@ public class TerminalHandler : MonoBehaviour
     // // If using terminal normally
     // GameObject.FindGameObjectWithTag("Persistent").GetComponent<FloorManager>().ClearedFloor();
     // If using item menu
-    GameObject.FindGameObjectWithTag("ItemMenu").GetComponent<ItemMenuOnFloorEnd>().ClearedFloor(); 
+    GameObject.FindGameObjectWithTag("ItemMenu").GetComponent<ItemMenuShowHideHandler>().ClearedFloor(); 
   }
 }

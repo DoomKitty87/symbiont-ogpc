@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemDrops : MonoBehaviour
 {
-
+  // DEPRECATED ================================================================
   private string[] possibleDrops = new string[] {"Li-Ion Battery", "Accelerator"};
   private PersistentData dataContainer;
 
