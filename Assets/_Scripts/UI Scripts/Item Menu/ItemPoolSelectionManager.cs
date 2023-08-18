@@ -1,34 +1,21 @@
-using System.Runtime.Serialization;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-[RequireComponent(typeof(PlayerItemInteractions))]
-public class ItemSelectionInit : MonoBehaviour
+public class ItemPoolSelectionManager : MonoBehaviour
 {
-  [Header("References")]
+  // This absolutely needs to be broken down and fixed before we can continue working.
+  
+  [Header("Handler References")]
   [SerializeField] private PlayerItemInteractions _playerItemInteractions;
 
-  [Header("Slot 1")]
-  [SerializeField] private ChangeOpacityElement _fade1;
-  [SerializeField] private Image _image1;
-  [SerializeField] private TextMeshProUGUI _cost1;
-  [SerializeField] private Button _button1;
-  [Header("Slot 2")]
-  [SerializeField] private ChangeOpacityElement _fade2;
-  [SerializeField] private Image _image2;
-  [SerializeField] private TextMeshProUGUI _cost2;
-  [SerializeField] private Button _button2;
-  [Header("Slot 3")]
-  [SerializeField] private ChangeOpacityElement _fade3;
-  [SerializeField] private Image _image3;
-  [SerializeField] private TextMeshProUGUI _cost3;
-  [SerializeField] private Button _button3;
-
+  [Header("References")]
+  [SerializeField] private ItemPoolSelectionSlotManager _itemSlotManager;
   
+  // Separate this into an "item selection info"
   [Header("Text References")]
   [SerializeField] private TextMeshProUGUI _nameWithModifierText;
   [SerializeField] private TextMeshProUGUI _flavorText;
@@ -37,75 +24,61 @@ public class ItemSelectionInit : MonoBehaviour
   [SerializeField] private TextMeshProUGUI _debuffHeader;
   [SerializeField] private TextMeshProUGUI _debuffDescription;
 
+  // This is fine to keep here, since this is "item pool selection manager" then it should handle item generation + reference
   [Header("Items")]
-  [SerializeField] private PlayerItem[] _items = new PlayerItem[3];
+  public List<PlayerItem> _items = new();
   public PlayerItem _selectedItem;
 
   [Header("Settings")]
+  // Used because TMPro needs the full font name in an HTML-like tag
+  // to display different fonts in the same text object,
   [SerializeField] private string _debuffFontName;
+  
+  // This should be removed
   [SerializeField] private List<string> _rarityStrings;
   [SerializeField] private List<Color> _rarityColors;
 
-  public void Initalize() {
+  private void OnValidate() {
     if (_playerItemInteractions == null) {
-      _playerItemInteractions = GetComponent<PlayerItemInteractions>();
+      _playerItemInteractions = GameObject.FindWithTag("Handler").GetComponent<PlayerItemInteractions>();
     }
-    _playerItemInteractions.ShopScreenTrigger();
-    _items = _playerItemInteractions.RollOfferedItems();
+  }
+
+  public void Initalize() {
+    _items = _playerItemInteractions.GenerateOfferedItems().ToList();
     SetItems(_items[0], _items[1], _items[2]);
-    _fade1.OpacityIn(true);
-    _fade2.OpacityOut(true);
-    _fade3.OpacityOut(true);
+    _itemSlotManager.Initalize();
   }
 
   public void SetItems(PlayerItem item1, PlayerItem item2, PlayerItem item3) {
     _items[0] = item1;
-    SetSlot1(item1);
+    _itemSlotManager.SetSlot1(item1);
     SetTextInfo(item1);
     _items[1] = item2;
-    SetSlot2(item2);
+    _itemSlotManager.SetSlot2(item2);
     _items[2] = item3;
-    SetSlot3(item3);
+    _itemSlotManager.SetSlot3(item3);
   }
 
   public void SelectItem1() {
     print("Selecting item 1");
     _selectedItem = _items[0];
-    _fade1.OpacityIn(false);
-    _fade2.OpacityOut(false);
-    _fade3.OpacityOut(false);
     SetTextInfo(_items[0]);
+    _itemSlotManager.SelectItem1();
   }
   public void SelectItem2() {
     print("Selecting item 2");
     _selectedItem = _items[1];
-    _fade1.OpacityOut(false);
-    _fade2.OpacityIn(false);
-    _fade3.OpacityOut(false);
     SetTextInfo(_items[1]);
+    _itemSlotManager.SelectItem2();
   }
   public void SelectItem3() {
     print("Selecting item 3");
     _selectedItem = _items[2];
-    _fade1.OpacityOut(false);
-    _fade2.OpacityOut(false);
-    _fade3.OpacityIn(false);
     SetTextInfo(_items[2]);
+    _itemSlotManager.SelectItem3();
   }
-
-  private void SetSlot1(PlayerItem playerItem) {
-    _image1.sprite = playerItem.item.icon;
-    _cost1.text = playerItem.item.cost.ToString();
-  }
-  private void SetSlot2(PlayerItem playerItem) {
-    _image2.sprite = playerItem.item.icon;
-    _cost2.text = playerItem.item.cost.ToString();
-  }
-  private void SetSlot3(PlayerItem playerItem) {
-    _image3.sprite = playerItem.item.icon;
-    _cost3.text = playerItem.item.cost.ToString();
-  }
-
+  
   private void SetTextInfo(PlayerItem playerItem) {
     if (playerItem.debuff == null) {
       _nameWithModifierText.text = playerItem.item.name.ToUpper();

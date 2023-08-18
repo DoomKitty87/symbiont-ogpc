@@ -12,7 +12,7 @@ public class DisplaySelectedItem : MonoBehaviour
 {
   [Header("References")]
   [SerializeField] private PlayerItemInteractions _playerItemInteractions;
-  [FormerlySerializedAs("_itemSelection3")] [SerializeField] private ItemSelectionInit _itemSelectionInit;
+  [FormerlySerializedAs("_itemSelectionInit")] [FormerlySerializedAs("_itemSelection3")] [SerializeField] private ItemPoolSelectionManager _itemPoolSelectionManager;
   [Header("UI")]
   [SerializeField] private Image _image1;
   
@@ -36,7 +36,7 @@ public class DisplaySelectedItem : MonoBehaviour
     if (_playerItemInteractions == null) {
       _playerItemInteractions = GetComponent<PlayerItemInteractions>();
     }
-    _selectedItem = _itemSelectionInit._selectedItem;
+    _selectedItem = _itemPoolSelectionManager._selectedItem;
     SetSlot1(_selectedItem);
     SetTextInfo(_selectedItem);
   }

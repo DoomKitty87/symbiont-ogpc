@@ -26,8 +26,9 @@ public class ItemMenuShowHideHandler : MonoBehaviour
 
   [Header("UI References")]
   [SerializeField] private FadeElementInOut _itemMenuFade;
+  [FormerlySerializedAs("_itemSelectionInit")]
   [Header("Item Selection Menu References")]
-  [SerializeField] private ItemSelectionInit _itemSelectionInit;
+  [SerializeField] private ItemPoolSelectionManager _itemPoolSelectionManager;
   [SerializeField] private CustomTimer _itemSelectionInitTimer;
   // [Header("Inventory References")]
 
@@ -55,7 +56,7 @@ public class ItemMenuShowHideHandler : MonoBehaviour
     _pauseHandler.Pause(false, false);
     gameObject.GetComponent<Canvas>().enabled = true;
     _itemMenuFade.FadeIn(true);
-    _itemSelectionInit.Initalize();
+    _itemPoolSelectionManager.Initalize();
     _itemSelectionInitTimer.StartTimer();
   }
 

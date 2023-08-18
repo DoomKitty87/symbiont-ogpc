@@ -7,25 +7,19 @@ public class PlayerItemInteractions : MonoBehaviour
   //Needs to be integrated with UI to be fully functional
   private PlayerItems playerItems;
   private PlayerTracker playerTracker;
-  private int actionsLeft;
 
   private void Start() {
     playerItems = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>();
     playerTracker = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>();
   }
 
-  public void ShopScreenTrigger() {
-    actionsLeft = 3;
-  }
-
-  public PlayerItem[] RollOfferedItems() {
+  public PlayerItem[] GenerateOfferedItems() {
     return playerItems.GetChoiceItems(3);
   }
 
   public void TryChooseItem(PlayerItem itm) {
     if (playerTracker.GetPoints() < playerItems.CalculatePrice(itm)) return;
     AddItem(itm);
-    actionsLeft--;
   }
 
   public void UpgradeItem(PlayerItem itm) {
