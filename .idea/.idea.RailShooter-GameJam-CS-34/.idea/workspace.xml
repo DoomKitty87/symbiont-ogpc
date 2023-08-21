@@ -5,33 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee57a2ec-33b6-458d-bd41-e09c58e3baf7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/UI Resources/Game/Item Menu/selectionOutline.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/UI Resources/Game/Item Menu/selectionOutline.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemDescHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemDescHandler.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemInventoryDisplay.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemInventoryHoverInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemInventoryHoverInfo.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RailShooter-GameJam-CS-34.sln.DotSettings" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RailShooter-GameJam-CS-34/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RailShooter-GameJam-CS-34/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Production/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Production/Game.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Game UI/Item Menu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Game UI/Item Menu.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Inventory.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Inventory/InventoryManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Inventory/InventoryManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Inventory/ItemDrops.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Inventory/ItemDrops.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ChangeOpacityElement.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ChangeOpacityElement.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ChangeOpacityOnHover.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ChangeOpacityOnHover.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/DisplaySelectedItem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/DisplaySelectedItem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ItemInventoryLogic.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ItemInventoryLogic.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ItemMenuShowHideHandler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ItemMenuShowHideHandler.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ItemSelectionInit.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/ItemSelectionInit.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/UpdateItemInfo.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Item Screen/UpdateItemInfo.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/CanvasFollowMouse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/RectTransformFollowMouse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/CanvasFollowMouse.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/RectTransformFollowMouse.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Game Management/PlayerItems.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Game Management/PlayerItemsHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Game Management/PlayerItems.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Game Management/PlayerItemsHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Gun Controller/FireGunLogic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Gun Controller/FireGunLogic.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Switching/ViewSwitcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Switching/ViewSwitcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/CurrentItemStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/CurrentItemStats.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/DisplaySelectedItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/DisplaySelectedItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemInventoryLogic.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemInventoryLogic.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemInventoryDisplay.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemMenuShowHideHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemMenuShowHideHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemPoolSelectionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemPoolSelectionManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemPoolSelectionSlotManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemPoolSlotDisplay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemPoolSelectionSlotManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/ItemPoolSlotDisplay.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/UpdateItemInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/Item Menu/UpdateItemInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/PlayerItemInteractions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI Scripts/PlayerItemInteractions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,30 +55,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "experimental",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "CodeLensConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;experimental&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\matth\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
-      "C:\\Users\\matth\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
-      "C:\\Users\\matth\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\matth\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\matth\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\matth\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="F:\Unity Installs\2021.3.9f1\Editor\Unity.exe" />
@@ -131,6 +126,8 @@
       <option name="presentableId" value="Default" />
       <updated>1691942002408</updated>
       <workItem from="1691942006088" duration="15412000" />
+      <workItem from="1692396771855" duration="8093000" />
+      <workItem from="1692545772063" duration="11190000" />
     </task>
     <servers />
   </component>

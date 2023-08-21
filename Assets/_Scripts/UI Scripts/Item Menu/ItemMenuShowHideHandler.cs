@@ -14,8 +14,8 @@ public class ItemMenuShowHideHandler : MonoBehaviour
   // When this class is called, it should:
   // 1. Disable the player - DONE (ext)
   // 2. Pause the game - DONE (ext)
-  // 3. Fade in the item menu 
-  // 4. Call the needed scripts to set up the selection menu
+  // 3. Fade in the item menu - DONE
+  // 4. Call the needed scripts to set up the selection menu - DONE
   // 5. Once the selection menu has timed out, fade out the item menu
   // 6. Fade in the inventory menu
   // 7. Call the needed scripts to set up the inventory menu

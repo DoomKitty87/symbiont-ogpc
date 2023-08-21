@@ -54,10 +54,10 @@ public class ViewSwitcher : MonoBehaviour
   [SerializeField] private float _effectDuration;
   [SerializeField] private bool _playingEffect;
 
-  private PlayerItems _playerItems;
+  private PlayerItemsHandler _playerItemsHandler;
 
   private void Start() {
-    _playerItems = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>();
+    _playerItemsHandler = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItemsHandler>();
     if (!IsInputAxisValid(_switchAxis)) {
       Debug.LogError("ViewSwitcher: SwitchAxis is invalid! Please set it to a valid input axis in the Input Manager.");
     }
@@ -142,7 +142,7 @@ public class ViewSwitcher : MonoBehaviour
     }
   }
   private IEnumerator PlayFovEffectAndSwitchCoroutine() {
-    float duration = _effectDuration * _playerItems.GetTeleportSpeed();
+    float duration = _effectDuration * _playerItemsHandler.GetTeleportSpeed();
     _playingEffect = true;
     float timeElapsed = 0f;
     float startFov = _currentObjectInhabiting._objectCameras[0].fieldOfView;
@@ -211,8 +211,8 @@ public class ViewSwitcher : MonoBehaviour
 
     // This is dumb because not all objects have health
     if (_currentObjectInhabiting.gameObject.GetComponent<HealthManager>() != null) {
-      _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth -= _playerItems.GetMaxHealthIncrease();
-      _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth -= _playerItems.GetMaxHealthIncrease();
+      _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth -= _playerItemsHandler.GetMaxHealthIncrease();
+      _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth -= _playerItemsHandler.GetMaxHealthIncrease();
     }
     _currentObjectInhabiting = selectedObject;
     _selectedSwitchableObject = null;
@@ -226,17 +226,17 @@ public class ViewSwitcher : MonoBehaviour
       _currentObjectInhabiting._rotationBase.rotation = initRot;
     }
 
-    try { _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().Heal(_playerItems.GetHealOnTeleport());
+    try { _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().Heal(_playerItemsHandler.GetHealOnTeleport());
     float initHealth = _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth;
-    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth += _playerItems.GetMaxHealthIncrease();
-    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth += _playerItems.GetMaxHealthIncrease();
+    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth += _playerItemsHandler.GetMaxHealthIncrease();
+    _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth += _playerItemsHandler.GetMaxHealthIncrease();
     _currentObjectInhabiting.gameObject.GetComponent<HealthManager>().UpdateHealth(initHealth, _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._currentHealth, _currentObjectInhabiting.gameObject.GetComponent<HealthManager>()._maxHealth);
     } catch { }
 	
     GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>().Switched();
   }
   private bool CanSwitch() {
-    if (_secondsSinceLastSwitch <= (_effectDuration * _playerItems.GetTeleportSpeed()) + (_switchCooldown * _playerItems.GetTeleportSpeed()) || _playingEffect) {
+    if (_secondsSinceLastSwitch <= (_effectDuration * _playerItemsHandler.GetTeleportSpeed()) + (_switchCooldown * _playerItemsHandler.GetTeleportSpeed()) || _playingEffect) {
       return false;
     }
     else {

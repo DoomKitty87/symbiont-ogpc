@@ -5,50 +5,46 @@ using UnityEngine;
 public class PlayerItemInteractions : MonoBehaviour
 {
   //Needs to be integrated with UI to be fully functional
-  private PlayerItems playerItems;
-  private PlayerTracker playerTracker;
+  private PlayerItemsHandler _itemHandler = PlayerItemsHandler.instance;
+  private PlayerTracker _playerTracker;
 
   private void Start() {
-    playerItems = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>();
-    playerTracker = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>();
+    _itemHandler = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItemsHandler>();
+    _playerTracker = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerTracker>();
   }
 
-  public PlayerItem[] GenerateOfferedItems() {
-    return playerItems.GetChoiceItems(3);
+  public PlayerItem[] GenerateOfferedItems(int amount) {
+    return _itemHandler.GenerateItems(amount);
   }
 
-  public void TryChooseItem(PlayerItem itm) {
-    if (playerTracker.GetPoints() < playerItems.CalculatePrice(itm)) return;
-    AddItem(itm);
+  public bool CanAddItem(PlayerItem itm) {
+    if (_playerTracker.GetPoints() < itm._initCost) return false;
+    return true;
   }
 
   public void UpgradeItem(PlayerItem itm) {
-    if (playerTracker.GetPoints() < playerItems.CalculateUpgradePrice(itm)) return;
-    playerItems.UpgradeItem(itm);
-    playerTracker.SpendPoints(playerItems.CalculateUpgradePrice(itm));
+    if (_playerTracker.GetPoints() < itm._upgradeCost) return;
+    _itemHandler.UpgradeItem(itm);
+    _playerTracker.SpendPoints(itm._upgradeCost);
   }
 
-  public void ReplaceItem(PlayerItem toReplace, PlayerItem newItem) {
-    playerItems.ReplaceItem(toReplace, newItem);
-  }
-
-  public void AddItem(PlayerItem itm) {
-    playerItems.ChooseNewItem(itm);
+  public void ReplaceItemAtIndex(int index, PlayerItem newItem) {
+    _itemHandler.ReplaceItemAtIndex(index, newItem);
   }
 
   public PlayerItem[] GetInventory() {
-    return playerItems.GetPlayerItems();
+    return _itemHandler.GetPlayerItems();
   }
 
   public void RemoveItemByType(PlayerItem itm) {
-    playerItems._invItems.Remove(itm);
+    _itemHandler._itemInventory.Remove(itm);
+  }
+  public void AddItemAtIndex(PlayerItem itm, int index) {
+    _itemHandler._itemInventory.Insert(index, itm);
   }
 
   public void RemoveItemAtIndex(int index) {
-    playerItems._invItems.RemoveAt(index);
+    _itemHandler._itemInventory.RemoveAt(index);
   }
 
-  public void AddItemAtIndex(PlayerItem itm, int index) {
-    playerItems._invItems.Insert(index, itm);
-  }
 }

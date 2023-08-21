@@ -15,7 +15,7 @@ public class CurrentItemStats : MonoBehaviour
   }
 
   private IEnumerator LerpItemValues() {
-    PlayerItems playerInv = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>();
+    PlayerItemsHandler playerInv = GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItemsHandler>();
     float dmgm = playerInv.GetDamageMult() / 3;
     float dmgl = playerInv.GetLeaveDamage() / 50f;
     float mxhlt = playerInv.GetMaxHealthIncrease() / 100f;

@@ -989,6 +989,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 200
+--- !u!1 &94001914 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5992833830848207195, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1458155209}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &94001917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94001914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedf69c24d044ae09a2bfb5f63cc829a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameWithModifierText: {fileID: 581319704}
+  _flavorText: {fileID: 1759271124}
+  _rarityText: {fileID: 1203321432}
+  _itemDescription: {fileID: 1848819261}
+  _debuffHeader: {fileID: 1624726506}
+  _debuffDescription: {fileID: 1429755478}
+  _debuffFontName: Raleway-Light SDF
 --- !u!1 &101099229
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,93 +2671,88 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debuffs:
-  - name: Last-gen
-    type: 0
-    description: This item's effectiveness is * levels less than normal
-    scaleRarities:
+  - _name: Last-gen
+    _type: 0
+    _description: This item's effectiveness is {} levels less than normal
+    _scaleRarities:
     - 1
     - 1
     - 2
     - 3
-  - name: RGB-less
-    type: 1
-    description: This item's level is capped at *
-    scaleRarities:
+  - _name: RGB-less
+    _type: 1
+    _description: This item's level is capped at {}
+    _scaleRarities:
     - 1
     - 2
     - 2
     - 3
-  - name: Budget
-    type: 2
-    description: This item costs half the usual price, but costs *x as much to upgrade
-    scaleRarities:
+  - _name: Budget
+    _type: 2
+    _description: This item costs half the usual price, but costs {}x as much to
+      upgrade
+    _scaleRarities:
     - 1.5
     - 2
     - 2.5
     - 3
-  - name: Core
-    type: 3
-    description: This item cannot be removed once it is equipped
-    scaleRarities: []
-  - name: Recycled
-    type: 4
-    description: This item is free, but cannot be upgraded
-    scaleRarities: []
+  - _name: Core
+    _type: 3
+    _description: This item cannot be removed once it is equipped
+    _scaleRarities: []
+  - _name: Recycled
+    _type: 4
+    _description: This item is free, but cannot be upgraded
+    _scaleRarities: []
   _items:
-  - name: Data Recovery
-    type: 0
-    rarity: 0
-    flavorText: '"Oh, so that''s where my 7 hour gameplay recording went!"'
-    description: Heal * to target when teleporting
-    category: Healing
-    icon: {fileID: 21300000, guid: 1e16c8734298757429209e3c63ca9ad0, type: 3}
-    equation: 10 + (n*2)
-    cost: 0
-  - name: More RAM!
-    type: 1
-    rarity: 0
-    flavorText: Visit downloadmoreram.com to get your first 16 GB free!
-    description: Increase max health by *
-    category: Healing
-    icon: {fileID: 21300000, guid: 186a7ac52d85d3e4cb44f368cbba5b5c, type: 3}
-    equation: 20 + (n*5)
-    cost: 0
-  - name: Parting Gift
-    type: 2
-    rarity: 0
-    flavorText: Remove the flash drive WITHOUT ejecting
-    description: Deal x damage when you leave an enemy
-    category: Damage
-    icon: {fileID: 21300000, guid: 5f7f8b62c14b74652890540d32c1538b, type: 3}
-    equation: 10 + (n*3)
-    cost: 0
-  - name: System Cleaner
-    type: 3
-    rarity: 0
-    flavorText: Increasing performance starts with removing bloatware
-    description: Do *x as much damage when shooting
-    category: Damage
-    icon: {fileID: 21300000, guid: feca749642b0d41ce89b7290529932aa, type: 3}
-    equation: 1.1 + (n*.05)
-    cost: 0
-  - name: Cryptojacking
-    type: 4
-    rarity: 0
-    flavorText: '"I hope they''ve got a lot of thermal paste, for their sake..."'
-    description: Deal * damage every second
-    category: Damage
-    icon: {fileID: 21300000, guid: 3cbedbd5696c1904abe260a0ab858935, type: 3}
-    equation: 1 + (n)
-    cost: 0
-  - name: High-speed Cable
-    type: 5
-    rarity: 0
-    flavorText: Gold-plated and RGB for maximum bits!
-    description: Switch between robots * times faster
-    category: Teleporting
-    icon: {fileID: 21300000, guid: ab3e53df5bcecbb4d8626813d8942931, type: 3}
-    equation: 1.1 + (n*.05)
-    cost: 0
+  - _name: Data Recovery
+    id: 0
+    _rarity: 0
+    _flavorText: '"Oh, so that''s where my 7 hour gameplay recording went!"'
+    _description: Heal * to target when teleporting
+    _category: Healing
+    _icon: {fileID: 21300000, guid: 1e16c8734298757429209e3c63ca9ad0, type: 3}
+    _equation: 10 + (n*2)
+  - _name: More RAM!
+    id: 1
+    _rarity: 0
+    _flavorText: Visit downloadmoreram.com to get your first 16 GB free!
+    _description: Increase max health by *
+    _category: Healing
+    _icon: {fileID: 21300000, guid: 186a7ac52d85d3e4cb44f368cbba5b5c, type: 3}
+    _equation: 20 + (n*5)
+  - _name: Parting Gift
+    id: 2
+    _rarity: 0
+    _flavorText: Remove the flash drive WITHOUT ejecting
+    _description: Deal x damage when you leave an enemy
+    _category: Damage
+    _icon: {fileID: 21300000, guid: 5f7f8b62c14b74652890540d32c1538b, type: 3}
+    _equation: 10 + (n*3)
+  - _name: System Cleaner
+    id: 3
+    _rarity: 0
+    _flavorText: Increasing performance starts with removing bloatware
+    _description: Do *x as much damage when shooting
+    _category: Damage
+    _icon: {fileID: 21300000, guid: feca749642b0d41ce89b7290529932aa, type: 3}
+    _equation: 1.1 + (n*.05)
+  - _name: Cryptojacking
+    id: 4
+    _rarity: 0
+    _flavorText: '"I hope they''ve got a lot of thermal paste, for their sake..."'
+    _description: Deal * damage every second
+    _category: Damage
+    _icon: {fileID: 21300000, guid: 3cbedbd5696c1904abe260a0ab858935, type: 3}
+    _equation: 1 + (n)
+  - _name: High-speed Cable
+    id: 5
+    _rarity: 0
+    _flavorText: Gold-plated and RGB for maximum bits!
+    _description: Switch between robots * times faster
+    _category: Teleporting
+    _icon: {fileID: 21300000, guid: ab3e53df5bcecbb4d8626813d8942931, type: 3}
+    _equation: 1.1 + (n*.05)
   _rarityPrices: e8030000c40900008813000010270000
   _rarityUpgradePrices: 
 --- !u!114 &270392633
@@ -6812,6 +6832,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569664827}
   m_CullTransparentMesh: 1
+--- !u!114 &581319704 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5216618105904826645, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1458155209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &582351255
 GameObject:
   m_ObjectHideFlags: 0
@@ -12636,6 +12668,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1203321432 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5992833830759359232, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1458155209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1223871407
 GameObject:
   m_ObjectHideFlags: 0
@@ -13852,6 +13896,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1429755478 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5992833831185517901, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1458155209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1458155209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13878,10 +13934,6 @@ PrefabInstance:
     - target: {fileID: 1281732182, guid: 41dbdaf73722d47e08a7db8612dadc9b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2094208608, guid: 41dbdaf73722d47e08a7db8612dadc9b, type: 3}
-      propertyPath: _itemPoolSelectionManager
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2193925681617617955, guid: 41dbdaf73722d47e08a7db8612dadc9b,
         type: 3}
@@ -15273,11 +15325,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5992833830591299272, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5992833830591299274, guid: 41dbdaf73722d47e08a7db8612dadc9b,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -15367,11 +15414,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833830728107198, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5992833830759359233, guid: 41dbdaf73722d47e08a7db8612dadc9b,
         type: 3}
@@ -15743,56 +15785,56 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5992833832232981744, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992833832234191670, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992833832234191670, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992833832234191670, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992833832234191670, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992833832296827763, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+        type: 3}
+      propertyPath: _playerItemsHandler
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833832232981746, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833832234191670, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833832234191670, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833832234191670, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5992833832234191670, guid: 41dbdaf73722d47e08a7db8612dadc9b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 270392632}
     - target: {fileID: 5992833832298309175, guid: 41dbdaf73722d47e08a7db8612dadc9b,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -15893,7 +15935,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7421161698305159666, guid: 41dbdaf73722d47e08a7db8612dadc9b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 41dbdaf73722d47e08a7db8612dadc9b, type: 3}
 --- !u!1 &1458980948
 GameObject:
@@ -17591,6 +17634,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609588571}
   m_CullTransparentMesh: 1
+--- !u!114 &1624726506 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5992833830811663832, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1458155209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1642539999
 GameObject:
   m_ObjectHideFlags: 0
@@ -18552,6 +18607,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1758241211}
   m_CullTransparentMesh: 1
+--- !u!114 &1759271124 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5992833830370800410, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1458155209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1780640539
 GameObject:
   m_ObjectHideFlags: 0
@@ -19809,6 +19876,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847678212}
   m_CullTransparentMesh: 1
+--- !u!114 &1848819261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5992833832115629628, guid: 41dbdaf73722d47e08a7db8612dadc9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1458155209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1850829342
 GameObject:
   m_ObjectHideFlags: 0

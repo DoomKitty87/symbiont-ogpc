@@ -42,36 +42,36 @@ public class DisplaySelectedItem : MonoBehaviour
   }
 
   private void SetSlot1(PlayerItem playerItem) {
-    _image1.sprite = playerItem.item.icon;
+    _image1.sprite = playerItem._item._icon;
     // _cost1.text = playerItem.item.cost.ToString();
   }
 
   private void SetTextInfo(PlayerItem playerItem) {
-    if (playerItem.debuff == null) {
-      _nameWithModifierText.text = playerItem.item.name.ToUpper();
-      _flavorText.text = playerItem.item.flavorText;
+    if (playerItem._debuff == null) {
+      _nameWithModifierText.text = playerItem._item._name.ToUpper();
+      _flavorText.text = playerItem._item._flavorText;
 
-      _rarityText.text = _rarityStrings[playerItem.item.rarity].ToUpper();
-      _rarityText.color = _rarityColors[playerItem.item.rarity];
+      _rarityText.text = _rarityStrings[playerItem._item._rarity].ToUpper();
+      _rarityText.color = _rarityColors[playerItem._item._rarity];
 
-      _itemDescription.text = playerItem.item.description;
+      _itemDescription.text = playerItem._item._description;
       _debuffDescription.text = "";
       _debuffHeader.text = "";
       return;
     }
     else {
-      string debuffName = playerItem.debuff.name.ToUpper();
-      string itemName = playerItem.item.name.ToUpper();
+      string debuffName = playerItem._debuff._name.ToUpper();
+      string itemName = playerItem._item._name.ToUpper();
 
       _nameWithModifierText.text = $"<font={_debuffFontName}>{debuffName}</font> {itemName}";
-      _flavorText.text = playerItem.item.flavorText;
+      _flavorText.text = playerItem._item._flavorText;
 
-      _rarityText.text = _rarityStrings[playerItem.item.rarity].ToUpper();
-      _rarityText.color = _rarityColors[playerItem.item.rarity];
+      _rarityText.text = _rarityStrings[playerItem._item._rarity].ToUpper();
+      _rarityText.color = _rarityColors[playerItem._item._rarity];
 
-      _itemDescription.text = playerItem.item.description;
+      _itemDescription.text = playerItem._item._description;
       _debuffHeader.text = "BUT";
-      _debuffDescription.text = playerItem.debuff.description;
+      _debuffDescription.text = playerItem._debuff._description;
     }
   }
 }

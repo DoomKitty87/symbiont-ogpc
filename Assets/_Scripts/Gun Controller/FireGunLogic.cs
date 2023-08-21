@@ -167,7 +167,7 @@ public class FireGunLogic : MonoBehaviour
   private void CheckForDPS() {
     if (_dpsTimer >= 1f) {
       _dpsTimer = 0;
-      if (_lastEnemyShot != null && GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting == gameObject) _lastEnemyShot.GetComponent<HealthManager>().Damage(GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>().GetDPS());
+      if (_lastEnemyShot != null && GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting == gameObject) _lastEnemyShot.GetComponent<HealthManager>().Damage(GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItemsHandler>().GetDPS());
     }
     _dpsTimer += Time.deltaTime;
   }
@@ -352,7 +352,7 @@ public class FireGunLogic : MonoBehaviour
       if (healthManager != null) {
         //Disabled on purpose, causing bug with room generation
         if (GameObject.FindGameObjectWithTag("PlayerHolder").GetComponent<ViewSwitcher>()._currentObjectInhabiting == transform.parent.gameObject) {
-          healthManager.Damage(_currentShotDamage * GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItems>().GetDamageMult());
+          healthManager.Damage(_currentShotDamage * GameObject.FindGameObjectWithTag("Persistent").GetComponent<PlayerItemsHandler>().GetDamageMult());
         }
         else healthManager.Damage(_currentShotDamage * 0.7f);
         _lastEnemyShot = hitGameObject;
